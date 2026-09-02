@@ -451,8 +451,8 @@ button {
 
 .game-window {
     width: min(900px, 96vw);
-    height: min(650px, 90vh);
-    max-height: 90vh;
+    height: min(650px, calc(100vh - 24px));
+    max-height: calc(100vh - 24px);
     overflow: hidden;
     background: linear-gradient(145deg, #241a39, #100c1e);
     border: 3px solid var(--pink);
@@ -491,8 +491,9 @@ button {
 .game-content {
     flex: 1;
     min-height: 0;
-    overflow: auto;
-    padding: 18px;
+    overflow: hidden;
+    padding: 14px;
+    position: relative;
 }
 
 /* =========================================================
@@ -533,16 +534,18 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .claw-stage {
     position: relative;
     width: min(600px, 90%);
-    height: min(370px, 55vh);
+    height: min(330px, 48vh);
     border: 3px solid var(--purple);
     border-radius: 20px;
     background: linear-gradient(#161126, #0d0a18);
     overflow: hidden;
+    flex-shrink: 1;
 }
 
 .claw-rail {
@@ -634,7 +637,7 @@ button {
 
 @keyframes clawDrop {
     0% { transform: translateX(-50%) translateY(0); }
-    100% { transform: translateX(-50%) translateY(185px); }
+    100% { transform: translateX(-50%) translateY(165px); }
 }
 
 /* =========================================================
@@ -642,14 +645,19 @@ button {
 ========================================================= */
 
 .memory-reveal {
+    height: 100%;
     text-align: center;
     max-width: 700px;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .memory-reveal img {
-    max-width: min(500px, 90%);
-    max-height: 42vh;
+    max-width: min(500px, 88%);
+    max-height: 48vh;
     object-fit: contain;
     border-radius: 15px;
     border: 3px solid var(--pink2);
@@ -657,10 +665,11 @@ button {
 }
 
 .memory-text {
-    margin-top: 15px;
-    font-size: clamp(14px, 1.8vw, 19px);
-    line-height: 1.5;
+    margin-top: 12px;
+    font-size: clamp(13px, 1.7vw, 18px);
+    line-height: 1.4;
     color: #fff6fc;
+    max-width: 680px;
 }
 
 /* =========================================================
@@ -668,7 +677,12 @@ button {
 ========================================================= */
 
 .photo-booth {
+    height: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .photo-frame {
@@ -684,7 +698,7 @@ button {
 .photo-frame .camera-photo {
     display: block;
     width: 100%;
-    height: 100px;
+    height: 82px;
     object-fit: cover;
     margin-bottom: 7px;
 }
@@ -699,14 +713,14 @@ button {
 
 .camera-strip-button {
     width: 100%;
-    height: 100px;
+    height: 82px;
     margin-bottom: 7px;
     background: linear-gradient(135deg, #fff, #ffe9f3);
     border: 3px dashed #ff6fae;
     color: #30213d;
     font-weight: bold;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 11px;
+    line-height: 1.25;
     cursor: pointer;
 }
 
@@ -716,14 +730,19 @@ button {
 }
 
 .camera-box {
+    height: 100%;
     max-width: 600px;
-    margin: 20px auto;
+    margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .camera-video {
-    width: 100%;
-    max-height: 55vh;
+    width: min(100%, 560px);
+    max-height: 45vh;
     border-radius: 18px;
     border: 3px solid var(--pink2);
     background: #05040a;
@@ -732,13 +751,14 @@ button {
 }
 
 .camera-message {
-    margin: 15px;
-    font-size: 18px;
+    margin: 10px;
+    font-size: 17px;
     color: var(--pink2);
 }
 
 .booth-stage {
-    min-height: 270px;
+    min-height: 200px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -792,7 +812,7 @@ button {
 }
 
 .jukebox-screen {
-    height: 130px;
+    height: 120px;
     background: #080711;
     border: 3px solid var(--blue);
     border-radius: 20px;
@@ -800,7 +820,7 @@ button {
     justify-content: center;
     align-items: center;
     font-size: 60px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     animation: jukeboxGlow 1.5s infinite alternate;
 }
 
@@ -816,7 +836,7 @@ button {
 .road {
     position: relative;
     height: 100%;
-    min-height: 450px;
+    min-height: 0;
     border-radius: 25px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -828,6 +848,11 @@ button {
             #32313a 100px,
             #32313a 200px
         );
+    scrollbar-width: none;
+}
+
+.road::-webkit-scrollbar {
+    display: none;
 }
 
 .road-line {
@@ -915,29 +940,34 @@ button {
 
 .question-card {
     max-width: 700px;
-    margin: 10px auto;
+    height: 100%;
+    margin: auto;
     background: rgba(255,255,255,.07);
     border: 2px solid var(--purple);
-    padding: 20px;
+    padding: 15px;
     border-radius: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .question {
-    font-size: clamp(17px, 2.5vw, 25px);
-    line-height: 1.35;
-    margin-bottom: 10px;
+    font-size: clamp(16px, 2.5vw, 25px);
+    line-height: 1.3;
+    margin-bottom: 8px;
 }
 
 .scoreboard {
     display: inline-flex;
     gap: 25px;
     align-items: center;
+    justify-content: center;
     background: #090711;
     border: 2px solid var(--yellow);
-    padding: 9px 20px;
+    padding: 7px 18px;
     border-radius: 14px;
-    margin-bottom: 10px;
+    margin: 0 auto 8px;
     color: var(--yellow);
     font-weight: bold;
     box-shadow: 0 0 15px rgba(255,228,122,.2);
@@ -945,9 +975,10 @@ button {
 
 .basketball-court {
     position: relative;
-    height: 190px;
+    height: 155px;
     max-width: 600px;
-    margin: 5px auto 12px;
+    width: 100%;
+    margin: 5px auto 10px;
     overflow: hidden;
     border-radius: 18px;
     background:
@@ -959,9 +990,9 @@ button {
 .hoop-backboard {
     position: absolute;
     right: 45px;
-    top: 25px;
-    width: 95px;
-    height: 70px;
+    top: 20px;
+    width: 85px;
+    height: 60px;
     border: 5px solid white;
     background: rgba(114,217,255,.12);
     border-radius: 4px;
@@ -971,9 +1002,9 @@ button {
 .hoop-rim {
     position: absolute;
     right: 48px;
-    top: 91px;
-    width: 90px;
-    height: 18px;
+    top: 76px;
+    width: 80px;
+    height: 16px;
     border: 6px solid #ff6f38;
     border-radius: 50%;
     z-index: 3;
@@ -983,9 +1014,9 @@ button {
 .hoop-net {
     position: absolute;
     right: 58px;
-    top: 102px;
-    width: 70px;
-    height: 55px;
+    top: 87px;
+    width: 60px;
+    height: 45px;
     border-left: 3px dashed white;
     border-right: 3px dashed white;
     border-bottom: 3px dashed white;
@@ -997,9 +1028,9 @@ button {
 .ball {
     position: absolute;
     left: 80px;
-    bottom: 25px;
-    width: 58px;
-    height: 58px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background:
         radial-gradient(circle at 35% 30%, #ffb45b 0 7%, transparent 8%),
@@ -1013,10 +1044,10 @@ button {
 .ball:before {
     content: "";
     position: absolute;
-    left: 24px;
+    left: 20px;
     top: -4px;
     width: 4px;
-    height: 58px;
+    height: 50px;
     background: #2d160b;
     border-radius: 50%;
     transform: rotate(35deg);
@@ -1026,8 +1057,8 @@ button {
     content: "";
     position: absolute;
     left: -4px;
-    top: 25px;
-    width: 58px;
+    top: 21px;
+    width: 50px;
     height: 4px;
     background: #2d160b;
     border-radius: 50%;
@@ -1045,17 +1076,17 @@ button {
 @keyframes basketballIn {
     0% {
         left: 80px;
-        bottom: 25px;
+        bottom: 20px;
         transform: scale(1);
     }
     60% {
-        left: calc(100% - 130px);
-        bottom: 80px;
+        left: calc(100% - 120px);
+        bottom: 65px;
         transform: scale(.8) rotate(400deg);
     }
     100% {
-        left: calc(100% - 90px);
-        bottom: 65px;
+        left: calc(100% - 80px);
+        bottom: 55px;
         transform: scale(.45) rotate(720deg);
     }
 }
@@ -1063,12 +1094,12 @@ button {
 @keyframes basketballMiss {
     0% {
         left: 80px;
-        bottom: 25px;
+        bottom: 20px;
         transform: scale(1);
     }
     55% {
         left: 52%;
-        bottom: 125px;
+        bottom: 100px;
         transform: scale(.8) rotate(300deg);
     }
     100% {
@@ -1081,16 +1112,17 @@ button {
 .answers {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
 }
 
 .answer-btn {
-    padding: 13px;
+    padding: 10px;
     border-radius: 14px;
     background: #35264b;
     color: white;
     border: 2px solid #6d558d;
     transition: .2s;
+    font-size: 13px;
 }
 
 .answer-btn:hover {
@@ -1103,18 +1135,22 @@ button {
 ========================================================= */
 
 .mole-game {
+    height: 100%;
     max-width: 650px;
     margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .mole-grid {
-    margin-top: 15px;
+    margin-top: 12px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, minmax(100px, 1fr));
-    gap: 12px;
-    max-height: 420px;
+    grid-template-rows: repeat(2, minmax(70px, 1fr));
+    gap: 10px;
+    height: min(360px, 55vh);
 }
 
 .hole {
@@ -1127,7 +1163,7 @@ button {
     align-items: center;
     overflow: hidden;
     position: relative;
-    min-height: 95px;
+    min-height: 70px;
 }
 
 .mole {
@@ -1162,9 +1198,13 @@ button {
 }
 
 .mole-game-over {
+    height: 100%;
     max-width: 600px;
     margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .mole-game-over .big-bubble {
@@ -1184,16 +1224,21 @@ button {
 ========================================================= */
 
 .striker {
+    height: 100%;
     max-width: 500px;
     margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .striker-machine {
-    width: 110px;
-    height: 310px;
+    width: 90px;
+    height: min(280px, 43vh);
     border: 4px solid var(--purple);
-    margin: 15px auto;
+    margin: 10px auto;
     border-radius: 20px;
     position: relative;
     background: #100c19;
@@ -1202,9 +1247,9 @@ button {
 .striker-meter {
     position: absolute;
     bottom: 15px;
-    left: 20px;
-    right: 20px;
-    top: 20px;
+    left: 16px;
+    right: 16px;
+    top: 15px;
     border: 3px solid white;
     border-radius: 12px;
     display: flex;
@@ -1221,8 +1266,8 @@ button {
 }
 
 .hammer {
-    font-size: 55px;
-    margin: 5px;
+    font-size: 50px;
+    margin: 3px;
     transition: .15s;
 }
 
@@ -1235,15 +1280,19 @@ button {
 ========================================================= */
 
 .shooting {
+    height: 100%;
     max-width: 700px;
     margin: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .target-field {
     position: relative;
-    height: min(350px, 50vh);
-    margin-top: 15px;
+    height: min(330px, 50vh);
+    margin-top: 12px;
     background: #0b0814;
     border: 3px solid var(--purple);
     border-radius: 20px;
@@ -1252,15 +1301,15 @@ button {
 
 .target {
     position: absolute;
-    width: 75px;
-    height: 75px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     background: radial-gradient(circle, white 0 15%, var(--pink) 16% 35%, white 36% 50%, var(--purple) 51%);
     border: 3px solid white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 9px;
+    font-size: 8px;
     color: #24162f;
     font-weight: bold;
     text-align: center;
@@ -1277,15 +1326,17 @@ button {
 ========================================================= */
 
 .wheel-wrap {
+    height: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    justify-content: center;
+    gap: 12px;
 }
 
 .wheel {
-    width: min(330px, 65vw);
+    width: min(300px, 55vh, 65vw);
     aspect-ratio: 1;
     border-radius: 50%;
     border: 8px solid white;
@@ -1316,7 +1367,7 @@ button {
 }
 
 .pointer {
-    font-size: 35px;
+    font-size: 30px;
     transform: rotate(180deg);
 }
 
@@ -1325,26 +1376,28 @@ button {
 ========================================================= */
 
 .letter {
+    height: 100%;
     max-width: 700px;
     margin: auto;
     background: #fff8ee;
     color: #38243b;
-    padding: clamp(20px, 4vw, 40px);
+    padding: clamp(15px, 3vw, 30px);
     border-radius: 15px;
-    line-height: 1.7;
-    max-height: 65vh;
-    overflow-y: auto;
+    line-height: 1.45;
+    overflow: hidden;
     box-shadow: 0 15px 40px rgba(0,0,0,.4);
+    font-size: clamp(10px, 1.25vw, 14px);
 }
 
 .letter h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     color: #c53d72;
+    font-size: clamp(18px, 2.5vw, 26px);
 }
 
 .letter p {
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 /* =========================================================
@@ -1352,14 +1405,19 @@ button {
 ========================================================= */
 
 .counter {
+    height: 100%;
     text-align: center;
     max-width: 650px;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .counter-avatar {
-    height: 180px;
-    margin: 10px auto;
+    height: 150px;
+    margin: 5px auto;
 }
 
 .counter-avatar img {
@@ -1530,15 +1588,21 @@ button {
 
     .answers {
         grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .answer-btn {
+        padding: 8px;
+        font-size: 12px;
     }
 
     .mole-grid {
         gap: 8px;
-        max-height: 350px;
+        height: 320px;
     }
 
     .hole {
-        min-height: 80px;
+        min-height: 70px;
     }
 
     .speech-bubble {
@@ -1549,6 +1613,31 @@ button {
 
     .car {
         font-size: 55px;
+    }
+
+    .game-window {
+        width: 96vw;
+        height: calc(100vh - 18px);
+        border-radius: 20px;
+    }
+
+    .game-content {
+        padding: 10px;
+    }
+
+    .memory-lane-info {
+        font-size: 11px;
+        max-width: 270px;
+    }
+
+    .letter {
+        font-size: 9px;
+        line-height: 1.35;
+        padding: 13px;
+    }
+
+    .letter p {
+        margin-bottom: 6px;
     }
 }
 
@@ -1589,11 +1678,52 @@ button {
     .start-button {
         margin-top: 15px;
     }
+
+    .game-header {
+        padding: 8px 12px;
+    }
+
+    .game-content {
+        padding: 8px;
+    }
+
+    .letter {
+        font-size: 8px;
+        line-height: 1.25;
+    }
+
+    .letter p {
+        margin-bottom: 4px;
+    }
+
+    .basketball-court {
+        height: 125px;
+    }
+
+    .mole-grid {
+        height: 260px;
+    }
+
+    .target-field {
+        height: 250px;
+    }
 }
 </style>
 </head>
 
 <body>
+
+<!-- =======================================================
+     BACKGROUND MUSIC
+======================================================= -->
+
+<audio
+    id="bgMusic"
+    src="bgmusic.mp3"
+    loop
+    preload="auto">
+</audio>
+
 
 <!-- =======================================================
      ENTRANCE
@@ -1616,7 +1746,7 @@ button {
                 Welcome to our little arcade.
                 Every game has a little piece of us hidden inside.
                 <br><br>
-                Come... let's play. 
+                Come... let's play.
             </div>
 
         </div>
@@ -1841,6 +1971,8 @@ const backButton = document.getElementById("backButton");
 const ticketCountElement = document.getElementById("ticketCount");
 const ticketMachine = document.getElementById("ticketMachine");
 
+const bgMusic = document.getElementById("bgMusic");
+
 let tickets = 0;
 let currentGame = null;
 let soundOn = true;
@@ -1887,7 +2019,8 @@ function audio() {
     if (!soundOn) return;
 
     if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioContext =
+            new (window.AudioContext || window.webkitAudioContext)();
     }
 
     return audioContext;
@@ -1901,6 +2034,10 @@ function beep(freq = 500, duration = .1, type = "sine") {
 
     if (!ctx) return;
 
+    if (ctx.state === "suspended") {
+        ctx.resume();
+    }
+
     const oscillator = ctx.createOscillator();
     const gain = ctx.createGain();
 
@@ -1908,7 +2045,10 @@ function beep(freq = 500, duration = .1, type = "sine") {
     oscillator.frequency.value = freq;
 
     gain.gain.setValueAtTime(.06, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + duration);
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        ctx.currentTime + duration
+    );
 
     oscillator.connect(gain);
     gain.connect(ctx.destination);
@@ -1917,14 +2057,72 @@ function beep(freq = 500, duration = .1, type = "sine") {
     oscillator.stop(ctx.currentTime + duration);
 }
 
+
+/* =========================================================
+   BACKGROUND MUSIC
+========================================================= */
+
+function startBackgroundMusic() {
+
+    if (!soundOn) return;
+
+    bgMusic.volume = 0.35;
+
+    const playPromise = bgMusic.play();
+
+    if (playPromise !== undefined) {
+
+        playPromise.catch(() => {
+            /*
+                Browsers may still block playback.
+                The user's ENTER click normally satisfies
+                the autoplay requirement.
+            */
+        });
+
+    }
+
+}
+
+function stopBackgroundMusic() {
+
+    bgMusic.pause();
+
+}
+
+function updateMusicState() {
+
+    if (soundOn) {
+        startBackgroundMusic();
+    } else {
+        stopBackgroundMusic();
+    }
+
+}
+
+
+/* =========================================================
+   SUCCESS / FAIL
+========================================================= */
+
 function successSound() {
+
     beep(600,.08);
-    setTimeout(() => beep(850,.1),80);
-    setTimeout(() => beep(1100,.15),170);
+
+    setTimeout(() => {
+        beep(850,.1);
+    },80);
+
+    setTimeout(() => {
+        beep(1100,.15);
+    },170);
+
 }
 
 function failSound() {
+
     beep(180,.15,"square");
+
 }
 
 
@@ -1939,10 +2137,15 @@ function addTickets(amount) {
     ticketCountElement.textContent = tickets;
 
     beep(800,.07);
-    setTimeout(() => beep(1100,.1),80);
+
+    setTimeout(() => {
+        beep(1100,.1);
+    },80);
 
     createTicketParticles();
+
 }
+
 
 function createTicketParticles() {
 
@@ -1961,8 +2164,11 @@ function createTicketParticles() {
 
         document.body.appendChild(t);
 
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 80 + Math.random()*100;
+        const angle =
+            Math.random() * Math.PI * 2;
+
+        const distance =
+            80 + Math.random()*100;
 
         t.animate([
             {
@@ -1978,7 +2184,9 @@ function createTicketParticles() {
             duration:700,
             easing:"ease-out"
         }).onfinish = () => t.remove();
+
     }
+
 }
 
 
@@ -1993,7 +2201,9 @@ function markGameVisited(game) {
     visitedGames.add(game);
 
     checkAllGamesVisited();
+
 }
+
 
 function checkAllGamesVisited() {
 
@@ -2042,6 +2252,12 @@ function checkAllGamesVisited() {
 startButton.addEventListener("click", () => {
 
     beep(600,.1);
+
+    /*
+       Start the background music from the user's
+       first deliberate interaction.
+    */
+    startBackgroundMusic();
 
     entrance.classList.add("hidden");
     arcade.classList.remove("hidden");
@@ -2096,6 +2312,7 @@ window.addEventListener("keydown", e => {
 
 });
 
+
 window.addEventListener("keyup", e => {
 
     if (e.key in keys) {
@@ -2107,8 +2324,10 @@ window.addEventListener("keyup", e => {
 
 function movementLoop() {
 
-    if (gameOverlay.classList.contains("hidden") &&
-        !arcade.classList.contains("hidden")) {
+    if (
+        gameOverlay.classList.contains("hidden") &&
+        !arcade.classList.contains("hidden")
+    ) {
 
         if (keys.ArrowUp) playerY -= speed;
         if (keys.ArrowDown) playerY += speed;
@@ -2120,19 +2339,27 @@ function movementLoop() {
 
         playerX = Math.max(
             playerWidth / 2,
-            Math.min(window.innerWidth - playerWidth / 2, playerX)
+            Math.min(
+                window.innerWidth - playerWidth / 2,
+                playerX
+            )
         );
 
         playerY = Math.max(
             80,
-            Math.min(window.innerHeight - 60, playerY)
+            Math.min(
+                window.innerHeight - 60,
+                playerY
+            )
         );
 
         updatePlayer();
         checkNearbyMachine();
+
     }
 
     requestAnimationFrame(movementLoop);
+
 }
 
 movementLoop();
@@ -2159,15 +2386,22 @@ function checkNearbyMachine() {
 
         const rect = machine.getBoundingClientRect();
 
-        const mx = rect.left + rect.width/2;
-        const my = rect.top + rect.height/2;
+        const mx =
+            rect.left + rect.width/2;
 
-        const distance = Math.hypot(
-            playerX - mx,
-            playerY - my
-        );
+        const my =
+            rect.top + rect.height/2;
 
-        if (distance < 170 && distance < closestDistance) {
+        const distance =
+            Math.hypot(
+                playerX - mx,
+                playerY - my
+            );
+
+        if (
+            distance < 170 &&
+            distance < closestDistance
+        ) {
 
             closest = machine;
             closestDistance = distance;
@@ -2261,6 +2495,10 @@ backButton.onclick = () => {
 };
 
 
+/* =========================================================
+   CLEANUP
+========================================================= */
+
 function cleanupGame() {
 
     if(window.clawKeyHandler) {
@@ -2287,7 +2525,9 @@ function cleanupGame() {
 
     if(window.shootingAnimation) {
 
-        cancelAnimationFrame(window.shootingAnimation);
+        cancelAnimationFrame(
+            window.shootingAnimation
+        );
 
         window.shootingAnimation = null;
 
@@ -2407,6 +2647,7 @@ const clawMemories = [
 let clawWon = new Set();
 let clawBusy = false;
 
+
 function renderClaw() {
 
     gameTitle.textContent = "🧸 THE MEMORY CLAW";
@@ -2445,7 +2686,7 @@ function renderClaw() {
 
             </div>
 
-            <div style="margin-top:15px">
+            <div style="margin-top:12px">
                 <button class="big-btn" id="dropClaw">
                     DROP CLAW
                 </button>
@@ -2460,19 +2701,28 @@ function renderClaw() {
 
     let clawPosition = 50;
 
-    const claw = document.getElementById("claw");
+    const claw =
+        document.getElementById("claw");
 
     window.clawKeyHandler = e => {
 
-        if (!gameOverlay.classList.contains("hidden") &&
-            currentGame === "claw") {
+        if (
+            !gameOverlay.classList.contains("hidden") &&
+            currentGame === "claw"
+        ) {
 
             if(e.key === "ArrowLeft") {
 
                 e.preventDefault();
 
-                clawPosition = Math.max(8,clawPosition-5);
-                claw.style.left = clawPosition + "%";
+                clawPosition =
+                    Math.max(
+                        8,
+                        clawPosition-5
+                    );
+
+                claw.style.left =
+                    clawPosition + "%";
 
             }
 
@@ -2480,8 +2730,14 @@ function renderClaw() {
 
                 e.preventDefault();
 
-                clawPosition = Math.min(92,clawPosition+5);
-                claw.style.left = clawPosition + "%";
+                clawPosition =
+                    Math.min(
+                        92,
+                        clawPosition+5
+                    );
+
+                claw.style.left =
+                    clawPosition + "%";
 
             }
 
@@ -2489,15 +2745,20 @@ function renderClaw() {
 
     };
 
-    window.addEventListener("keydown", window.clawKeyHandler);
+    window.addEventListener(
+        "keydown",
+        window.clawKeyHandler
+    );
+
 
     document.getElementById("dropClaw").onclick = () => {
 
         if(clawBusy) return;
 
-        const available = clawMemories
-            .map((_,i)=>i)
-            .filter(i=>!clawWon.has(i));
+        const available =
+            clawMemories
+                .map((_,i)=>i)
+                .filter(i=>!clawWon.has(i));
 
         if(!available.length) {
 
@@ -2505,6 +2766,7 @@ function renderClaw() {
                 "You found all seven memories. ❤️";
 
             return;
+
         }
 
         clawBusy = true;
@@ -2516,7 +2778,11 @@ function renderClaw() {
         setTimeout(() => {
 
             const index =
-                available[Math.floor(Math.random()*available.length)];
+                available[
+                    Math.floor(
+                        Math.random()*available.length
+                    )
+                ];
 
             clawWon.add(index);
 
@@ -2540,6 +2806,7 @@ function renderClaw() {
 
 }
 
+
 function showMemory(memory,title,reward) {
 
     gameTitle.textContent = title;
@@ -2548,7 +2815,12 @@ function showMemory(memory,title,reward) {
 
         <div class="memory-reveal">
 
-            <img src="${memory.image}" alt="Our memory">
+            <img
+                src="${memory.image}"
+                alt="Our memory"
+                loading="eager"
+                decoding="async"
+            >
 
             <div class="memory-text">
                 ${memory.text}
@@ -2575,6 +2847,9 @@ function showMemory(memory,title,reward) {
 /* =========================================================
    PHOTO BOOTH
 ========================================================= */
+
+let capturedPhoto = null;
+
 
 function renderPhotoBooth() {
 
@@ -2607,53 +2882,67 @@ function renderPhotoBooth() {
 
 function startPhotoCountdown() {
 
-    const stage = document.getElementById("boothStage");
+    const stage =
+        document.getElementById("boothStage");
 
     let number = 3;
 
     stage.innerHTML =
         `<div class="countdown">${number}</div>`;
 
-    const interval = setInterval(() => {
+    const interval =
+        setInterval(() => {
 
-        number--;
+            number--;
 
-        if(number > 0) {
+            if(number > 0) {
 
-            stage.innerHTML =
-                `<div class="countdown">${number}</div>`;
+                stage.innerHTML =
+                    `<div class="countdown">${number}</div>`;
 
-            beep(600,.1);
+                beep(600,.1);
 
-        } else {
+            } else {
 
-            clearInterval(interval);
+                clearInterval(interval);
 
-            beep(1200,.25);
+                beep(1200,.25);
 
-            const flash = document.createElement("div");
+                const flash =
+                    document.createElement("div");
 
-            flash.className = "flash";
+                flash.className = "flash";
 
-            document.body.appendChild(flash);
+                document.body.appendChild(flash);
 
-            setTimeout(() => flash.remove(),400);
+                setTimeout(() =>
+                    flash.remove(),
+                    400
+                );
 
-            setTimeout(showPhotoStrip,450);
+                setTimeout(
+                    showPhotoStrip,
+                    450
+                );
 
-        }
+            }
 
-    },900);
+        },900);
 
 }
 
+
+/* =========================================================
+   PHOTO STRIP
+========================================================= */
 
 function showPhotoStrip() {
 
     addTickets(20);
     successSound();
 
-    gameTitle.textContent = "📸 OUR PHOTO STRIP";
+    gameTitle.textContent =
+        "📸 OUR PHOTO STRIP";
 
     gameContent.innerHTML = `
 
@@ -2661,24 +2950,48 @@ function showPhotoStrip() {
 
             <div class="photo-frame">
 
-                <img src="photo_booth1.jpeg" alt="Photo 1">
+                <img
+                    src="photo_booth1.jpeg"
+                    alt="Photo 1"
+                    loading="eager"
+                >
 
-                <img src="photo_booth2.jpg" alt="Photo 2">
+                <img
+                    src="photo_booth2.jpg"
+                    alt="Photo 2"
+                    loading="eager"
+                >
 
-                <img src="photo_booth.jpg" alt="Photo 3">
+                <img
+                    src="photo_booth3.jpg"
+                    alt="Photo 3"
+                    loading="eager"
+                >
 
-                <img src="photo_booth1.jpeg" alt="Photo 4">
+                ${
+                    capturedPhoto
+                    ?
+                    `
+                    <img
+                        class="camera-photo"
+                        src="${capturedPhoto}"
+                        alt="Today's photo"
+                    >
+                    `
+                    :
+                    `
+                    <button
+                        class="camera-strip-button"
+                        id="cameraStripButton">
 
-                <button
-                    class="camera-strip-button"
-                    id="cameraStripButton">
+                        AND ONE TO COMMEMORATE TODAY<br>
+                        <br>
+                        SAY CHEESE<br>
+                        CLICK ME
 
-                    AND ONE TO COMMEMORATE TODAY<br>
-                    <br>
-                    SAY CHEESE<br>
-                    CLICK ME
-
-                </button>
+                    </button>
+                    `
+                }
 
                 <div class="strip-text">
                     THE US ❤️
@@ -2692,34 +3005,75 @@ function showPhotoStrip() {
 
             <br>
 
-            <button class="big-btn"
-                onclick="renderPhotoBooth()">
+            ${
+                capturedPhoto
+                ?
+                `
+                <button
+                    class="big-btn"
+                    id="retakeCamera">
 
-                TAKE ANOTHER
+                    TAKE ANOTHER TODAY ❤️
 
-            </button>
+                </button>
+                `
+                :
+                ""
+            }
+
+            ${
+                capturedPhoto
+                ?
+                `
+                <br>
+                <button
+                    class="big-btn"
+                    onclick="renderPhotoBooth()">
+
+                    BACK
+
+                </button>
+                `
+                :
+                ""
+            }
 
         </div>
     `;
 
-    document.getElementById("cameraStripButton")
-        .onclick = turnOnCamera;
+
+    if(!capturedPhoto) {
+
+        document.getElementById("cameraStripButton")
+            .onclick = turnOnCamera;
+
+    } else {
+
+        document.getElementById("retakeCamera")
+            .onclick = turnOnCamera;
+
+    }
 
     celebrationBurst();
 
 }
 
 
+/* =========================================================
+   CAMERA
+========================================================= */
+
 async function turnOnCamera() {
 
-    gameTitle.textContent = "📸 SAY CHEESE";
+    gameTitle.textContent =
+        "📸 SAY CHEESE";
 
     gameContent.innerHTML = `
 
         <div class="camera-box">
 
             <p class="camera-message">
-                One more picture to commemorate today.
+                One more picture to commemorate today. ❤️
             </p>
 
             <video
@@ -2729,10 +3083,14 @@ async function turnOnCamera() {
                 playsinline>
             </video>
 
-            <br><br>
+            <br>
 
-            <button class="big-btn" id="captureCamera">
-                SAY CHEESE
+            <button
+                class="big-btn"
+                id="captureCamera">
+
+                SAY CHEESE 📸
+
             </button>
 
             <div
@@ -2748,9 +3106,22 @@ async function turnOnCamera() {
 
     try {
 
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
+
+            throw new Error(
+                "Camera API unavailable"
+            );
+
+        }
+
         const stream =
             await navigator.mediaDevices.getUserMedia({
-                video:true,
+                video:{
+                    facingMode:"user"
+                },
                 audio:false
             });
 
@@ -2764,16 +3135,38 @@ async function turnOnCamera() {
     } catch(error) {
 
         document.getElementById("cameraResult").innerHTML = `
+
             <p>
-                Camera access was blocked.
-                Please allow camera access in your browser and try again.
+                Camera access was blocked or unavailable.
             </p>
+
+            <p style="margin-top:8px;font-size:13px;">
+                Please allow camera access and try again.
+                If you're opening this HTML directly as a file,
+                Chrome may require the page to run on localhost
+                or HTTPS for camera access.
+            </p>
+
+            <br>
+
+            <button
+                class="big-btn"
+                onclick="showPhotoStrip()">
+
+                BACK TO PHOTO STRIP
+
+            </button>
+
         `;
 
     }
 
 }
 
+
+/* =========================================================
+   CAPTURE PHOTO
+========================================================= */
 
 function captureCameraPhoto() {
 
@@ -2782,15 +3175,43 @@ function captureCameraPhoto() {
 
     if(!video) return;
 
+    beep(1200,.15);
+
+    const flash =
+        document.createElement("div");
+
+    flash.className = "flash";
+
+    document.body.appendChild(flash);
+
+    setTimeout(() =>
+        flash.remove(),
+        400
+    );
+
+
     const canvas =
         document.createElement("canvas");
 
-    canvas.width = video.videoWidth || 640;
-    canvas.height = video.videoHeight || 480;
+    canvas.width =
+        video.videoWidth || 640;
 
-    const ctx = canvas.getContext("2d");
+    canvas.height =
+        video.videoHeight || 480;
 
-    ctx.translate(canvas.width,0);
+    const ctx =
+        canvas.getContext("2d");
+
+    /*
+       Mirror the saved photo so it matches
+       what the user sees in the selfie camera.
+    */
+
+    ctx.translate(
+        canvas.width,
+        0
+    );
+
     ctx.scale(-1,1);
 
     ctx.drawImage(
@@ -2801,18 +3222,31 @@ function captureCameraPhoto() {
         canvas.height
     );
 
-    const image =
-        canvas.toDataURL("image/png");
+    capturedPhoto =
+        canvas.toDataURL(
+            "image/jpeg",
+            .92
+        );
+
 
     if(window.cameraStream) {
 
         window.cameraStream
             .getTracks()
-            .forEach(track => track.stop());
+            .forEach(track =>
+                track.stop()
+            );
 
         window.cameraStream = null;
 
     }
+
+
+    /*
+       Show the captured image first.
+       The BACK TO PHOTO STRIP button then
+       places it into the actual strip.
+    */
 
     gameContent.innerHTML = `
 
@@ -2823,21 +3257,22 @@ function captureCameraPhoto() {
             </p>
 
             <img
-                src="${image}"
+                src="${capturedPhoto}"
                 style="
-                    width:100%;
-                    max-height:55vh;
+                    width:min(100%,560px);
+                    max-height:45vh;
                     object-fit:contain;
                     border-radius:18px;
                     border:3px solid var(--pink2);
                     box-shadow:0 0 25px rgba(255,111,174,.35);
                 "
+                alt="Today's captured photo"
             >
 
-            <br><br>
+            <br>
 
             <div class="reward">
-                THIS ONE IS JUST FOR TODAY.
+                THIS ONE IS JUST FOR TODAY. ❤️
             </div>
 
             <br>
@@ -2846,7 +3281,7 @@ function captureCameraPhoto() {
                 class="big-btn"
                 onclick="showPhotoStrip()">
 
-                BACK TO PHOTO STRIP
+                ADD TO OUR PHOTO STRIP ❤️
 
             </button>
 
@@ -2956,18 +3391,111 @@ let memoryRoadWidth = 1900;
 let memoryMilestonePositions = [];
 let memoryReached = new Set();
 
+
+/* =========================================================
+   MEMORY LANE LAZY IMAGE LOADING
+========================================================= */
+
+function lazyLoadMemoryImages() {
+
+    const road =
+        document.getElementById("road");
+
+    if(!road) return;
+
+    const images =
+        [...road.querySelectorAll(".memory-lazy-image")];
+
+    /*
+       Only load images close to the visible part
+       of the horizontal road.
+    */
+
+    if("IntersectionObserver" in window) {
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if(entry.isIntersecting) {
+
+                            const img =
+                                entry.target;
+
+                            if(img.dataset.src) {
+
+                                img.src =
+                                    img.dataset.src;
+
+                                img.removeAttribute(
+                                    "data-src"
+                                );
+
+                                img.classList.add(
+                                    "memory-image-loaded"
+                                );
+
+                            }
+
+                            observer.unobserve(img);
+
+                        }
+
+                    });
+
+                },
+                {
+                    root:road,
+                    rootMargin:"600px 600px"
+                }
+            );
+
+        images.forEach(img =>
+            observer.observe(img)
+        );
+
+    } else {
+
+        /*
+           Fallback for browsers without
+           IntersectionObserver.
+        */
+
+        images.forEach(img => {
+
+            img.src =
+                img.dataset.src;
+
+            img.removeAttribute(
+                "data-src"
+            );
+
+        });
+
+    }
+
+}
+
+
 function renderMemoryLane() {
 
-    gameTitle.textContent = "🚗 MEMORY LANE";
+    gameTitle.textContent =
+        "🚗 MEMORY LANE";
 
     gameContent.innerHTML = `
 
         <div style="height:100%;">
 
             <div class="memory-lane-info">
+
                 <b>Drive through our memories ❤️</b><br>
+
                 Use the LEFT and RIGHT arrows to drive.<br>
+
                 Reach a milestone to discover it.
+
             </div>
 
             <div class="road" id="road">
@@ -3012,11 +3540,15 @@ function renderMemoryLane() {
     memoryCarPosition = 20;
 
     memoryMilestonePositions =
-        roadMemories.map((_,i) => 70 + i*58);
+        roadMemories.map(
+            (_,i) => 70 + i*58
+        );
+
 
     function driveMemory(direction) {
 
-        memoryCarPosition += direction * 18;
+        memoryCarPosition +=
+            direction * 18;
 
         memoryCarPosition =
             Math.max(
@@ -3030,10 +3562,12 @@ function renderMemoryLane() {
         car.style.left =
             memoryCarPosition + "px";
 
-        const visibleWidth = road.clientWidth;
+        const visibleWidth =
+            road.clientWidth;
 
         const targetScroll =
-            memoryCarPosition - visibleWidth / 2;
+            memoryCarPosition -
+            visibleWidth / 2;
 
         road.scrollLeft =
             Math.max(
@@ -3047,6 +3581,7 @@ function renderMemoryLane() {
         checkMemoryMilestone();
 
     }
+
 
     window.memoryKeyHandler = e => {
 
@@ -3073,47 +3608,72 @@ function renderMemoryLane() {
 
     };
 
+
     window.addEventListener(
         "keydown",
         window.memoryKeyHandler
     );
 
-    road.addEventListener("wheel", e => {
 
-        if(Math.abs(e.deltaY) > 0) {
+    road.addEventListener(
+        "wheel",
+        e => {
 
-            e.preventDefault();
+            if(Math.abs(e.deltaY) > 0) {
 
-            road.scrollLeft += e.deltaY;
+                e.preventDefault();
 
-        }
+                road.scrollLeft +=
+                    e.deltaY;
 
-    },{passive:false});
+                /*
+                   Make nearby images load after
+                   the user moves around the road.
+                */
+
+            }
+
+        },
+        {passive:false}
+    );
 
 }
 
+
+/* =========================================================
+   MEMORY MILESTONE
+========================================================= */
 
 function checkMemoryMilestone() {
 
     let closestIndex = -1;
     let closestDistance = Infinity;
 
-    memoryMilestonePositions.forEach((position,index) => {
+    memoryMilestonePositions.forEach(
+        (position,index) => {
 
-        const distance =
-            Math.abs(memoryCarPosition - position);
+            const distance =
+                Math.abs(
+                    memoryCarPosition -
+                    position
+                );
 
-        if(
-            distance < 35 &&
-            distance < closestDistance
-        ) {
+            if(
+                distance < 35 &&
+                distance < closestDistance
+            ) {
 
-            closestDistance = distance;
-            closestIndex = index;
+                closestDistance =
+                    distance;
+
+                closestIndex =
+                    index;
+
+            }
 
         }
+    );
 
-    });
 
     if(closestIndex !== -1) {
 
@@ -3124,35 +3684,59 @@ function checkMemoryMilestone() {
 
         if(milestone) {
 
-            milestone.classList.remove("reached");
+            milestone.classList.remove(
+                "reached"
+            );
 
             void milestone.offsetWidth;
 
-            milestone.classList.add("reached");
+            milestone.classList.add(
+                "reached"
+            );
 
         }
 
+
         const car =
-            document.getElementById("memoryCar");
+            document.getElementById(
+                "memoryCar"
+            );
 
         if(car) {
 
-            car.classList.remove("jump");
+            car.classList.remove(
+                "jump"
+            );
 
             void car.offsetWidth;
 
-            car.classList.add("jump");
+            car.classList.add(
+                "jump"
+            );
 
         }
 
-        if(!memoryReached.has(closestIndex)) {
 
-            memoryReached.add(closestIndex);
+        if(
+            !memoryReached.has(
+                closestIndex
+            )
+        ) {
+
+            memoryReached.add(
+                closestIndex
+            );
 
             setTimeout(() => {
 
-                if(currentGame === "memory") {
-                    openRoadMemory(closestIndex);
+                if(
+                    currentGame === "memory"
+                ) {
+
+                    openRoadMemory(
+                        closestIndex
+                    );
+
                 }
 
             },250);
@@ -3164,18 +3748,28 @@ function checkMemoryMilestone() {
 }
 
 
+/* =========================================================
+   OPEN MEMORY
+========================================================= */
+
 function openRoadMemory(index) {
 
     const [text,image] =
         roadMemories[index];
 
-    gameTitle.textContent = "❤️ A MEMORY";
+    gameTitle.textContent =
+        "❤️ A MEMORY";
 
     gameContent.innerHTML = `
 
         <div class="memory-reveal">
 
-            <img src="${image}" alt="Memory">
+            <img
+                src="${image}"
+                alt="Memory"
+                loading="eager"
+                decoding="async"
+            >
 
             <div class="memory-text">
                 ${text.replace(/\n/g,"<br>")}
@@ -3213,7 +3807,12 @@ const basketballQuestions = [
 
     {
         q:"Where did we go on our first date?",
-        answers:["Uru Brew Park","Cubbon Park","Hakuna","Glens"],
+        answers:[
+            "Uru Brew Park",
+            "Cubbon Park",
+            "Hakuna",
+            "Glens"
+        ],
         correct:"Uru Brew Park"
     },
 
@@ -3230,13 +3829,23 @@ const basketballQuestions = [
 
     {
         q:"Where did we have our first kiss?",
-        answers:["Hakuna","Uru Brew Park","Glens","Cubbon Park"],
+        answers:[
+            "Hakuna",
+            "Uru Brew Park",
+            "Glens",
+            "Cubbon Park"
+        ],
         correct:"Hakuna"
     },
 
     {
         q:"Where did we go after our first date?",
-        answers:["Glens","Hakuna","Gourmet","Cubbon Park"],
+        answers:[
+            "Glens",
+            "Hakuna",
+            "Gourmet",
+            "Cubbon Park"
+        ],
         correct:"Glens"
     },
 
@@ -3253,7 +3862,12 @@ const basketballQuestions = [
 
     {
         q:"For what occasion did we first go out as a couple?",
-        answers:["Ganesh Chaturthi","Valentine's Day","Christmas","Our anniversary"],
+        answers:[
+            "Ganesh Chaturthi",
+            "Valentine's Day",
+            "Christmas",
+            "Our anniversary"
+        ],
         correct:"Ganesh Chaturthi"
     },
 
@@ -3329,9 +3943,11 @@ let basketballIndex = 0;
 let basketballScore = 0;
 let basketballAnswered = false;
 
+
 function renderBasketball() {
 
-    gameTitle.textContent = "🏀 HOW WELL DO YOU KNOW US?";
+    gameTitle.textContent =
+        "🏀 HOW WELL DO YOU KNOW US?";
 
     basketballIndex = 0;
     basketballScore = 0;
@@ -3344,13 +3960,23 @@ function renderBasketball() {
 
 function renderBasketballQuestion() {
 
-    if(basketballIndex >= basketballQuestions.length) {
+    if(
+        basketballIndex >=
+        basketballQuestions.length
+    ) {
 
         gameContent.innerHTML = `
 
-            <div class="center">
+            <div class="center"
+                 style="
+                    height:100%;
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                 ">
 
-                <div style="font-size:80px">
+                <div style="font-size:70px">
                     🏀❤️
                 </div>
 
@@ -3358,12 +3984,15 @@ function renderBasketballQuestion() {
                     YOU MADE IT!
                 </h2>
 
-                <p style="margin:15px">
+                <p style="margin:12px">
                     You survived the ultimate us quiz.
                 </p>
 
                 <div class="scoreboard">
-                    SCORE: ${basketballScore} / ${basketballQuestions.length}
+                    SCORE:
+                    ${basketballScore}
+                    /
+                    ${basketballQuestions.length}
                 </div>
 
                 <div class="reward">
@@ -3390,10 +4019,13 @@ function renderBasketballQuestion() {
 
     }
 
+
     basketballAnswered = false;
 
     const q =
-        basketballQuestions[basketballIndex];
+        basketballQuestions[
+            basketballIndex
+        ];
 
     gameContent.innerHTML = `
 
@@ -3444,19 +4076,22 @@ function renderBasketballQuestion() {
 
             </div>
 
-            <div id="basketResult"
-                 style="margin-top:15px">
+            <div
+                id="basketResult"
+                style="margin-top:10px">
             </div>
 
         </div>
     `;
+
 
     document.querySelectorAll(".answer-btn")
         .forEach((btn,index) => {
 
             btn.onclick = () => {
 
-                if(basketballAnswered) return;
+                if(basketballAnswered)
+                    return;
 
                 basketballAnswered = true;
 
@@ -3464,13 +4099,21 @@ function renderBasketballQuestion() {
                     q.answers[index];
 
                 const result =
-                    document.getElementById("basketResult");
+                    document.getElementById(
+                        "basketResult"
+                    );
 
                 const ball =
-                    document.getElementById("basketballBall");
+                    document.getElementById(
+                        "basketballBall"
+                    );
 
-                document.querySelectorAll(".answer-btn")
-                    .forEach(b => b.disabled = true);
+                document.querySelectorAll(
+                    ".answer-btn"
+                ).forEach(
+                    b => b.disabled = true
+                );
+
 
                 if(answer === q.correct) {
 
@@ -3481,7 +4124,9 @@ function renderBasketballQuestion() {
                             SWISH! 🏀❤️
                          </b>`;
 
-                    ball.classList.add("shoot-in");
+                    ball.classList.add(
+                        "shoot-in"
+                    );
 
                     successSound();
                     addTickets(10);
@@ -3493,11 +4138,14 @@ function renderBasketballQuestion() {
                             MISSED! The ball didn't make it in. 🏀
                          </b>`;
 
-                    ball.classList.add("shoot-miss");
+                    ball.classList.add(
+                        "shoot-miss"
+                    );
 
                     failSound();
 
                 }
+
 
                 setTimeout(() => {
 
@@ -3533,9 +4181,11 @@ const moleProblems = [
 let moleIndex = 0;
 let moleGameOver = false;
 
+
 function renderMole() {
 
-    gameTitle.textContent = "🐹 WHACK-A-MOLE";
+    gameTitle.textContent =
+        "🐹 WHACK-A-MOLE";
 
     moleIndex = 0;
     moleGameOver = false;
@@ -3549,16 +4199,20 @@ function renderMole() {
                 WHACK THEM. 🔨
             </p>
 
-            <div id="moleProgress"
-                 style="margin-top:8px">
+            <div
+                id="moleProgress"
+                style="margin-top:8px">
             </div>
 
-            <div class="mole-grid" id="moleGrid">
+            <div
+                class="mole-grid"
+                id="moleGrid">
 
                 ${Array(6).fill(0).map((_,i)=>`
 
-                    <div class="hole"
-                         data-hole="${i}">
+                    <div
+                        class="hole"
+                        data-hole="${i}">
                     </div>
 
                 `).join("")}
@@ -3575,15 +4229,28 @@ function renderMole() {
 
 function spawnMole() {
 
-    if(moleGameOver) return;
+    if(moleGameOver)
+        return;
 
-    if(moleIndex >= moleProblems.length) {
+
+    if(
+        moleIndex >=
+        moleProblems.length
+    ) {
 
         gameContent.innerHTML = `
 
-            <div class="center">
+            <div
+                class="center"
+                style="
+                    height:100%;
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                ">
 
-                <div style="font-size:80px">
+                <div style="font-size:70px">
                     🐹🔨❤️
                 </div>
 
@@ -3591,7 +4258,7 @@ function spawnMole() {
                     ALL PROBLEMS WHACKED!
                 </h2>
 
-                <p style="margin:15px">
+                <p style="margin:12px">
                     Look at us solving things instead of running away.
                 </p>
 
@@ -3601,9 +4268,12 @@ function spawnMole() {
 
                 <br>
 
-                <button class="big-btn"
-                        onclick="renderMole()">
+                <button
+                    class="big-btn"
+                    onclick="renderMole()">
+
                     PLAY AGAIN
+
                 </button>
 
             </div>
@@ -3616,8 +4286,11 @@ function spawnMole() {
 
     }
 
+
     const progress =
-        document.getElementById("moleProgress");
+        document.getElementById(
+            "moleProgress"
+        );
 
     if(progress) {
 
@@ -3626,13 +4299,22 @@ function spawnMole() {
 
     }
 
+
     const holes =
         [...document.querySelectorAll(".hole")];
 
-    holes.forEach(h => h.innerHTML = "");
+    holes.forEach(
+        h => h.innerHTML = ""
+    );
+
 
     const randomHole =
-        holes[Math.floor(Math.random()*holes.length)];
+        holes[
+            Math.floor(
+                Math.random()*holes.length
+            )
+        ];
+
 
     const mole =
         document.createElement("div");
@@ -3642,13 +4324,16 @@ function spawnMole() {
     mole.textContent =
         moleProblems[moleIndex];
 
+
     mole.onclick = () => {
 
-        if(moleGameOver) return;
+        if(moleGameOver)
+            return;
 
         beep(220,.1,"square");
 
-        mole.style.transform = "scale(.7)";
+        mole.style.transform =
+            "scale(.7)";
 
         setTimeout(() => {
 
@@ -3662,21 +4347,21 @@ function spawnMole() {
 
     };
 
+
     randomHole.appendChild(mole);
 
-    /*
-       Every few rounds, Bitmoji appears instead.
-       Hitting Bitmoji immediately ends the game.
-    */
 
     const shouldSpawnUs =
         moleIndex > 0 &&
         moleIndex % 2 === 0;
 
+
     if(shouldSpawnUs) {
 
         const remainingHoles =
-            holes.filter(h => h !== randomHole);
+            holes.filter(
+                h => h !== randomHole
+            );
 
         const usHole =
             remainingHoles[
@@ -3686,12 +4371,14 @@ function spawnMole() {
                 )
             ];
 
+
         const us =
             document.createElement("img");
 
         us.className = "moleUs";
         us.src = "bitmoji.png";
         us.alt = "US";
+
 
         us.onclick = () => {
 
@@ -3703,7 +4390,7 @@ function spawnMole() {
 
                 <div class="mole-game-over">
 
-                    <div style="font-size:80px">
+                    <div style="font-size:70px">
                         😭
                     </div>
 
@@ -3711,7 +4398,7 @@ function spawnMole() {
                         HOW DARE YOU SMASH US?
                     </div>
 
-                    <p style="margin:15px">
+                    <p style="margin:12px">
                         You were supposed to smash the problems,
                         NOT US.
                     </p>
@@ -3745,7 +4432,8 @@ function spawnMole() {
 
 function renderStriker() {
 
-    gameTitle.textContent = "🔨 HIGH STRIKER";
+    gameTitle.textContent =
+        "🔨 HIGH STRIKER";
 
     gameContent.innerHTML = `
 
@@ -3784,33 +4472,58 @@ function renderStriker() {
 
             </button>
 
-            <div id="strikerResult"
-                 class="reward">
+            <div
+                id="strikerResult"
+                class="reward">
             </div>
 
         </div>
     `;
 
+
     let strength = 0;
 
-    document.getElementById("smashButton").onclick = () => {
+
+    document.getElementById(
+        "smashButton"
+    ).onclick = () => {
 
         const hammer =
-            document.getElementById("hammer");
+            document.getElementById(
+                "hammer"
+            );
 
         hammer.classList.add("hit");
 
         setTimeout(() =>
-            hammer.classList.remove("hit"),150);
+            hammer.classList.remove("hit"),
+            150
+        );
 
-        strength += 12 + Math.random()*18;
 
-        strength = Math.min(100,strength);
+        strength +=
+            12 +
+            Math.random()*18;
 
-        document.getElementById("strikerFill")
-            .style.height = strength + "%";
+        strength =
+            Math.min(
+                100,
+                strength
+            );
 
-        beep(200 + strength*4,.08,"square");
+
+        document.getElementById(
+            "strikerFill"
+        ).style.height =
+            strength + "%";
+
+
+        beep(
+            200 + strength*4,
+            .08,
+            "square"
+        );
+
 
         if(strength >= 100) {
 
@@ -3821,12 +4534,20 @@ function renderStriker() {
                 "😈"
             ];
 
+
             const prize =
-                prizes[Math.floor(Math.random()*prizes.length)];
+                prizes[
+                    Math.floor(
+                        Math.random()*prizes.length
+                    )
+                ];
 
-            document.getElementById("strikerResult").innerHTML = `
 
-                <div style="font-size:70px">
+            document.getElementById(
+                "strikerResult"
+            ).innerHTML = `
+
+                <div style="font-size:65px">
                     ${prize}
                 </div>
 
@@ -3840,13 +4561,16 @@ function renderStriker() {
 
             `;
 
+
             addTickets(20);
             successSound();
 
             strength = 0;
 
-            document.getElementById("strikerFill")
-                .style.height = "0%";
+            document.getElementById(
+                "strikerFill"
+            ).style.height =
+                "0%";
 
         }
 
@@ -3860,17 +4584,21 @@ function renderStriker() {
 ========================================================= */
 
 const shootingPrizes = [
+
     "💋 1 Kiss",
     "💋 5 Kisses",
     "🫂 10 Minutes of Cuddles",
     "💋 20 Kisses",
     "💋 Kiss Attack",
     "🫂 Cuddle Attack"
+
 ];
+
 
 function renderShooting() {
 
-    gameTitle.textContent = "🎯 SHOOTING GALLERY";
+    gameTitle.textContent =
+        "🎯 SHOOTING GALLERY";
 
     gameContent.innerHTML = `
 
@@ -3880,104 +4608,154 @@ function renderShooting() {
                 Aim carefully. You only need to hit ONE.
             </p>
 
-            <div class="target-field"
-                 id="targetField">
+            <div
+                class="target-field"
+                id="targetField">
 
             </div>
 
-            <div id="shootResult"
-                 class="reward">
+            <div
+                id="shootResult"
+                class="reward">
+
                 Hit a target to win its prize.
+
             </div>
 
         </div>
     `;
 
+
     const field =
-        document.getElementById("targetField");
+        document.getElementById(
+            "targetField"
+        );
 
-    shootingPrizes.forEach((prize,i) => {
 
-        const target =
-            document.createElement("button");
+    shootingPrizes.forEach(
+        (prize,i) => {
 
-        target.className = "target";
-
-        target.textContent = prize;
-
-        const row =
-            Math.floor(i / 3);
-
-        const col =
-            i % 3;
-
-        target.style.top =
-            (15 + row * 35) + "%";
-
-        target.dataset.baseY =
-            (15 + row * 35);
-
-        target.dataset.direction =
-            i % 2 === 0 ? "1" : "-1";
-
-        target.dataset.speed =
-            (0.035 + Math.random()*0.025);
-
-        target.style.left =
-            (5 + col * 30) + "%";
-
-        target.dataset.x =
-            parseFloat(
-                target.style.left
-            );
-
-        target.onclick = () => {
-
-            const result =
-                document.getElementById("shootResult");
-
-            result.innerHTML = `
-                <div style="font-size:45px">
-                    🎯
-                </div>
-
-                YOU HIT IT!
-
-                <div style="font-size:24px;margin-top:10px">
-                    ${prize}
-                </div>
-            `;
-
-            beep(900,.08);
-            setTimeout(()=>beep(1200,.12),100);
-
-            addTickets(15);
-
-            [...field.children].forEach(t => {
-                t.disabled = true;
-                t.style.opacity = ".3";
-            });
-
-            target.style.opacity = "1";
-            target.style.transform = "scale(1.25)";
-
-            if(window.shootingAnimation) {
-
-                cancelAnimationFrame(
-                    window.shootingAnimation
+            const target =
+                document.createElement(
+                    "button"
                 );
 
-                window.shootingAnimation = null;
+            target.className =
+                "target";
 
-            }
+            target.textContent =
+                prize;
 
-            celebrationBurst();
 
-        };
+            const row =
+                Math.floor(i / 3);
 
-        field.appendChild(target);
+            const col =
+                i % 3;
 
-    });
+
+            target.style.top =
+                (15 + row * 35) + "%";
+
+            target.dataset.baseY =
+                (15 + row * 35);
+
+            target.dataset.direction =
+                i % 2 === 0
+                ? "1"
+                : "-1";
+
+            target.dataset.speed =
+                (
+                    .035 +
+                    Math.random()*.025
+                );
+
+
+            target.style.left =
+                (5 + col * 30) + "%";
+
+            target.dataset.x =
+                parseFloat(
+                    target.style.left
+                );
+
+
+            target.onclick = () => {
+
+                const result =
+                    document.getElementById(
+                        "shootResult"
+                    );
+
+                result.innerHTML = `
+
+                    <div style="font-size:45px">
+                        🎯
+                    </div>
+
+                    YOU HIT IT!
+
+                    <div
+                        style="
+                            font-size:24px;
+                            margin-top:10px
+                        ">
+
+                        ${prize}
+
+                    </div>
+                `;
+
+
+                beep(900,.08);
+
+                setTimeout(
+                    ()=>beep(1200,.12),
+                    100
+                );
+
+
+                addTickets(15);
+
+
+                [...field.children].forEach(
+                    t => {
+
+                        t.disabled = true;
+                        t.style.opacity = ".3";
+
+                    }
+                );
+
+
+                target.style.opacity = "1";
+                target.style.transform =
+                    "scale(1.25)";
+
+
+                if(window.shootingAnimation) {
+
+                    cancelAnimationFrame(
+                        window.shootingAnimation
+                    );
+
+                    window.shootingAnimation =
+                        null;
+
+                }
+
+
+                celebrationBurst();
+
+            };
+
+
+            field.appendChild(target);
+
+        }
+    );
+
 
     animateShootingTargets();
 
@@ -3986,28 +4764,49 @@ function renderShooting() {
 
 function animateShootingTargets() {
 
-    if(currentGame !== "shooting") return;
+    if(currentGame !== "shooting")
+        return;
+
 
     const field =
-        document.getElementById("targetField");
+        document.getElementById(
+            "targetField"
+        );
 
-    if(!field) return;
+    if(!field)
+        return;
+
 
     const targets =
-        [...field.querySelectorAll(".target")];
+        [
+            ...field.querySelectorAll(
+                ".target"
+            )
+        ];
+
 
     targets.forEach(target => {
 
         let x =
-            parseFloat(target.dataset.x);
+            parseFloat(
+                target.dataset.x
+            );
 
         let direction =
-            parseFloat(target.dataset.direction);
+            parseFloat(
+                target.dataset.direction
+            );
 
         const speed =
-            parseFloat(target.dataset.speed);
+            parseFloat(
+                target.dataset.speed
+            );
 
-        x += direction * speed;
+
+        x +=
+            direction *
+            speed;
+
 
         if(x >= 88) {
 
@@ -4016,6 +4815,7 @@ function animateShootingTargets() {
 
         }
 
+
         if(x <= 3) {
 
             x = 3;
@@ -4023,12 +4823,17 @@ function animateShootingTargets() {
 
         }
 
-        target.dataset.x = x;
-        target.dataset.direction = direction;
 
-        target.style.left = x + "%";
+        target.dataset.x = x;
+
+        target.dataset.direction =
+            direction;
+
+        target.style.left =
+            x + "%";
 
     });
+
 
     window.shootingAnimation =
         requestAnimationFrame(
@@ -4044,11 +4849,14 @@ function animateShootingTargets() {
 
 let wheelSpun = false;
 
+
 function renderWheel() {
 
-    gameTitle.textContent = "🎡 SPIN THE WHEEL";
+    gameTitle.textContent =
+        "🎡 SPIN THE WHEEL";
 
     wheelSpun = false;
+
 
     gameContent.innerHTML = `
 
@@ -4071,36 +4879,55 @@ function renderWheel() {
 
             </button>
 
-            <div id="wheelResult"
-                 class="reward">
+            <div
+                id="wheelResult"
+                class="reward">
             </div>
 
         </div>
     `;
 
-    document.getElementById("spinButton").onclick = () => {
 
-        if(wheelSpun) return;
+    document.getElementById(
+        "spinButton"
+    ).onclick = () => {
+
+        if(wheelSpun)
+            return;
 
         wheelSpun = true;
 
+
         const wheel =
-            document.getElementById("wheel");
+            document.getElementById(
+                "wheel"
+            );
+
 
         const rotations =
-            5 + Math.floor(Math.random()*3);
+            5 +
+            Math.floor(
+                Math.random()*3
+            );
+
 
         wheel.style.transform =
             `rotate(${rotations*360 + 40}deg)`;
 
+
         beep(300,.1);
+
 
         setTimeout(() => {
 
             beep(1000,.25);
+
             addTickets(30);
 
-            document.getElementById("wheelResult").innerHTML = `
+
+            document.getElementById(
+                "wheelResult"
+            ).innerHTML = `
 
                 <div style="font-size:50px">
                     💌
@@ -4126,6 +4953,7 @@ function renderWheel() {
 
             `;
 
+
             celebrationBurst();
 
         },3200);
@@ -4141,7 +4969,9 @@ function renderWheel() {
 
 function showLetter() {
 
-    gameTitle.textContent = "💌 THE LETTER";
+    gameTitle.textContent =
+        "💌 THE LETTER";
+
 
     gameContent.innerHTML = `
 
@@ -4320,7 +5150,9 @@ function showLetter() {
 
 function renderCounter() {
 
-    gameTitle.textContent = "🎟️ TICKET COUNTER";
+    gameTitle.textContent =
+        "🎟️ TICKET COUNTER";
+
 
     gameContent.innerHTML = `
 
@@ -4367,7 +5199,10 @@ function renderCounter() {
         </div>
     `;
 
-    document.getElementById("finalButton").onclick =
+
+    document.getElementById(
+        "finalButton"
+    ).onclick =
         finalCelebration;
 
 }
@@ -4382,7 +5217,9 @@ function finalCelebration() {
     gameOverlay.classList.add("hidden");
 
     const final =
-        document.getElementById("finalCelebration");
+        document.getElementById(
+            "finalCelebration"
+        );
 
     final.classList.remove("hidden");
 
@@ -4395,6 +5232,10 @@ function finalCelebration() {
 }
 
 
+/* =========================================================
+   CONFETTI
+========================================================= */
+
 function createConfetti() {
 
     for(let i=0;i<150;i++) {
@@ -4402,7 +5243,8 @@ function createConfetti() {
         const c =
             document.createElement("div");
 
-        c.className = "confetti";
+        c.className =
+            "confetti";
 
         c.style.left =
             Math.random()*100 + "%";
@@ -4423,15 +5265,24 @@ function createConfetti() {
                 "#72d9ff",
                 "#a98cff",
                 "#ffffff"
-            ][Math.floor(Math.random()*5)];
+            ][
+                Math.floor(
+                    Math.random()*5
+                )
+            ];
 
-        document.getElementById("finalCelebration")
-            .appendChild(c);
+        document.getElementById(
+            "finalCelebration"
+        ).appendChild(c);
 
     }
 
 }
 
+
+/* =========================================================
+   HEARTS
+========================================================= */
 
 function createHearts() {
 
@@ -4440,10 +5291,13 @@ function createHearts() {
         const h =
             document.createElement("div");
 
-        h.className = "heart";
+        h.className =
+            "heart";
 
         h.textContent =
-            Math.random() > .5 ? "❤️" : "💗";
+            Math.random() > .5
+            ? "❤️"
+            : "💗";
 
         h.style.left =
             Math.random()*100 + "%";
@@ -4454,13 +5308,18 @@ function createHearts() {
         h.style.animationDelay =
             Math.random()*3 + "s";
 
-        document.getElementById("finalCelebration")
-            .appendChild(h);
+        document.getElementById(
+            "finalCelebration"
+        ).appendChild(h);
 
     }
 
 }
 
+
+/* =========================================================
+   CELEBRATION BURST
+========================================================= */
 
 function celebrationBurst() {
 
@@ -4470,7 +5329,9 @@ function celebrationBurst() {
             document.createElement("div");
 
         h.textContent =
-            Math.random() > .5 ? "❤️" : "✨";
+            Math.random() > .5
+            ? "❤️"
+            : "✨";
 
         h.style.position = "fixed";
         h.style.left = "50%";
@@ -4479,7 +5340,9 @@ function celebrationBurst() {
         h.style.pointerEvents = "none";
         h.style.fontSize = "20px";
 
+
         document.body.appendChild(h);
+
 
         const angle =
             Math.random()*Math.PI*2;
@@ -4487,9 +5350,11 @@ function celebrationBurst() {
         const distance =
             50 + Math.random()*150;
 
+
         h.animate([
             {
-                transform:"translate(-50%,-50%) scale(.2)",
+                transform:
+                    "translate(-50%,-50%) scale(.2)",
                 opacity:1
             },
             {
@@ -4500,7 +5365,8 @@ function celebrationBurst() {
         ],{
             duration:800,
             easing:"ease-out"
-        }).onfinish = () => h.remove();
+        }).onfinish = () =>
+            h.remove();
 
     }
 
@@ -4511,40 +5377,70 @@ function celebrationBurst() {
    SOUND TOGGLE
 ========================================================= */
 
-document.getElementById("soundButton")
-    .addEventListener("click", () => {
+document.getElementById(
+    "soundButton"
+).addEventListener(
+    "click",
+    () => {
 
-        soundOn = !soundOn;
+        soundOn =
+            !soundOn;
 
-        document.getElementById("soundButton")
-            .textContent = soundOn ? "🔊" : "🔇";
+        document.getElementById(
+            "soundButton"
+        ).textContent =
+            soundOn
+            ? "🔊"
+            : "🔇";
 
-        if(soundOn) beep(700,.1);
 
-    });
+        if(soundOn) {
+
+            if(audioContext &&
+               audioContext.state === "suspended") {
+
+                audioContext.resume();
+
+            }
+
+            beep(700,.1);
+
+            startBackgroundMusic();
+
+        } else {
+
+            stopBackgroundMusic();
+
+        }
+
+    }
+);
 
 
 /* =========================================================
    RESIZE
 ========================================================= */
 
-window.addEventListener("resize", () => {
+window.addEventListener(
+    "resize",
+    () => {
 
-    playerX =
-        Math.min(
-            playerX,
-            window.innerWidth - 50
-        );
+        playerX =
+            Math.min(
+                playerX,
+                window.innerWidth - 50
+            );
 
-    playerY =
-        Math.min(
-            playerY,
-            window.innerHeight - 70
-        );
+        playerY =
+            Math.min(
+                playerY,
+                window.innerHeight - 70
+            );
 
-    updatePlayer();
+        updatePlayer();
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -4554,55 +5450,85 @@ window.addEventListener("resize", () => {
 let touchStartX = 0;
 let touchStartY = 0;
 
-window.addEventListener("touchstart", e => {
 
-    if(e.touches.length !== 1) return;
+window.addEventListener(
+    "touchstart",
+    e => {
 
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
+        if(e.touches.length !== 1)
+            return;
 
-});
+        touchStartX =
+            e.touches[0].clientX;
 
-window.addEventListener("touchmove", e => {
+        touchStartY =
+            e.touches[0].clientY;
 
-    if(e.touches.length !== 1) return;
+    }
+);
 
-    if(!gameOverlay.classList.contains("hidden")) return;
 
-    const x = e.touches[0].clientX;
-    const y = e.touches[0].clientY;
+window.addEventListener(
+    "touchmove",
+    e => {
 
-    const dx = x - touchStartX;
-    const dy = y - touchStartY;
+        if(e.touches.length !== 1)
+            return;
 
-    playerX += dx;
-    playerY += dy;
-
-    playerX =
-        Math.max(
-            40,
-            Math.min(
-                window.innerWidth-40,
-                playerX
+        if(
+            !gameOverlay.classList.contains(
+                "hidden"
             )
-        );
+        ) return;
 
-    playerY =
-        Math.max(
-            80,
-            Math.min(
-                window.innerHeight-60,
-                playerY
-            )
-        );
 
-    updatePlayer();
-    checkNearbyMachine();
+        const x =
+            e.touches[0].clientX;
 
-    touchStartX = x;
-    touchStartY = y;
+        const y =
+            e.touches[0].clientY;
 
-});
+
+        const dx =
+            x - touchStartX;
+
+        const dy =
+            y - touchStartY;
+
+
+        playerX += dx;
+        playerY += dy;
+
+
+        playerX =
+            Math.max(
+                40,
+                Math.min(
+                    window.innerWidth-40,
+                    playerX
+                )
+            );
+
+
+        playerY =
+            Math.max(
+                80,
+                Math.min(
+                    window.innerHeight-60,
+                    playerY
+                )
+            );
+
+
+        updatePlayer();
+        checkNearbyMachine();
+
+
+        touchStartX = x;
+        touchStartY = y;
+
+    }
+);
 
 
 /* =========================================================
