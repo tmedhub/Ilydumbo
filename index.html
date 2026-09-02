@@ -3,1387 +3,1519 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>The Us Arcade</title>
+
 <style>
 * {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+
 :root {
---pink: #ff6fae;
---pink2: #ffb7d5;
---purple: #a98cff;
---blue: #72d9ff;
---yellow: #ffe47a;
---cream: #fff8ee;
---dark: #171325;
---dark2: #241b38;
---panel: rgba(27, 21, 48, .94);
+    --pink: #ff6fae;
+    --pink2: #ffb7d5;
+    --purple: #a98cff;
+    --blue: #72d9ff;
+    --yellow: #ffe47a;
+    --cream: #fff8ee;
+    --dark: #171325;
+    --dark2: #241b38;
+    --panel: rgba(27, 21, 48, .94);
 }
+
 html,
 body {
-width: 100%;
-height: 100%;
-overflow: hidden;
-background: #090711;
-font-family: "Trebuchet MS", Arial, sans-serif;
-color: white;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #090711;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: white;
 }
+
 button {
-font-family: inherit;
-cursor: pointer;
-border: none;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
 }
+
 .hidden {
-display: none !important;
+    display: none !important;
 }
+
 /* =========================================================
-LOADING / ENTRANCE
+   LOADING / ENTRANCE
 ========================================================= */
+
 #entrance {
-position: fixed;
-inset: 0;
-z-index: 9999;
-background:
-radial-gradient(circle at 50% 35%, rgba(255,111,174,.2), transparent 35%),
-linear-gradient(135deg, #120d22, #090711 70%);
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 20px;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background:
+        radial-gradient(circle at 50% 35%, rgba(255,111,174,.2), transparent 35%),
+        linear-gradient(135deg, #120d22, #090711 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
+
 .entrance-card {
-width: min(1100px, 96vw);
-height: min(760px, 94vh);
-border: 3px solid var(--pink);
-border-radius: 30px;
-background:
-linear-gradient(rgba(20,15,35,.88), rgba(20,15,35,.94)),
-url("bg.png") center/cover;
-box-shadow:
-0 0 20px rgba(255,111,174,.6),
-0 0 80px rgba(169,140,255,.2),
-inset 0 0 60px rgba(255,111,174,.08);
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-position: relative;
-overflow: hidden;
+    width: min(1100px, 96vw);
+    height: min(760px, 94vh);
+    border: 3px solid var(--pink);
+    border-radius: 30px;
+    background:
+        linear-gradient(rgba(20,15,35,.88), rgba(20,15,35,.94)),
+        url("bg.png") center/cover;
+    box-shadow:
+        0 0 20px rgba(255,111,174,.6),
+        0 0 80px rgba(169,140,255,.2),
+        inset 0 0 60px rgba(255,111,174,.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
+
 .entrance-title {
-font-size: clamp(38px, 7vw, 82px);
-color: white;
-text-align: center;
-letter-spacing: 5px;
-text-shadow:
-0 0 5px white,
-0 0 15px var(--pink),
-0 0 30px var(--pink);
-margin-bottom: 40px;
+    font-size: clamp(38px, 7vw, 82px);
+    color: white;
+    text-align: center;
+    letter-spacing: 5px;
+    text-shadow:
+        0 0 5px white,
+        0 0 15px var(--pink),
+        0 0 30px var(--pink);
+    margin-bottom: 40px;
 }
+
 .entrance-player {
-position: relative;
-width: 230px;
-height: 290px;
-display: flex;
-justify-content: center;
-align-items: flex-end;
+    position: relative;
+    width: 230px;
+    height: 290px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
+
 .entrance-player img {
-width: 205px;
-max-height: 275px;
-object-fit: contain;
-animation: floatPlayer 2s ease-in-out infinite;
+    width: 205px;
+    max-height: 275px;
+    object-fit: contain;
+    animation: floatPlayer 2s ease-in-out infinite;
 }
+
 @keyframes floatPlayer {
-0%,100% { transform: translateY(0); }
-50% { transform: translateY(-7px); }
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
 }
+
 /* Speech bubble */
+
 .speech-bubble {
-position: absolute;
-left: calc(50% + 90px);
-top: 5px;
-width: min(430px, 48vw);
-min-width: 250px;
-padding: 20px 24px;
-background: white;
-color: #34233e;
-border-radius: 22px;
-font-size: clamp(14px, 1.7vw, 20px);
-line-height: 1.45;
-box-shadow: 0 8px 25px rgba(0,0,0,.3);
-animation: bubbleIn .8s ease forwards;
+    position: absolute;
+    left: calc(50% + 90px);
+    top: 5px;
+    width: min(430px, 48vw);
+    min-width: 250px;
+    padding: 20px 24px;
+    background: white;
+    color: #34233e;
+    border-radius: 22px;
+    font-size: clamp(14px, 1.7vw, 20px);
+    line-height: 1.45;
+    box-shadow: 0 8px 25px rgba(0,0,0,.3);
+    animation: bubbleIn .8s ease forwards;
 }
+
 .speech-bubble:before {
-content: "";
-position: absolute;
-left: -18px;
-top: 38px;
-border-width: 10px 20px 10px 0;
-border-style: solid;
-border-color: transparent white transparent transparent;
+    content: "";
+    position: absolute;
+    left: -18px;
+    top: 38px;
+    border-width: 10px 20px 10px 0;
+    border-style: solid;
+    border-color: transparent white transparent transparent;
 }
+
 @keyframes bubbleIn {
-from {
-opacity: 0;
-transform: scale(.8) translateX(-15px);
+    from {
+        opacity: 0;
+        transform: scale(.8) translateX(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
 }
-to {
-opacity: 1;
-transform: scale(1) translateX(0);
-}
-}
+
 .start-button {
-margin-top: 40px;
-padding: 17px 45px;
-border-radius: 999px;
-background: linear-gradient(135deg, var(--pink), #ff438f);
-color: white;
-font-weight: bold;
-font-size: 19px;
-box-shadow: 0 0 20px rgba(255,111,174,.6);
-transition: .2s;
+    margin-top: 40px;
+    padding: 17px 45px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--pink), #ff438f);
+    color: white;
+    font-weight: bold;
+    font-size: 19px;
+    box-shadow: 0 0 20px rgba(255,111,174,.6);
+    transition: .2s;
 }
+
 .start-button:hover {
-transform: translateY(-3px) scale(1.04);
+    transform: translateY(-3px) scale(1.04);
 }
+
 /* =========================================================
-ARCADE
+   ARCADE
 ========================================================= */
+
 #arcade {
-position: fixed;
-inset: 0;
-overflow: hidden;
-background: #090711;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #090711;
 }
+
 #arcadeWorld {
-position: absolute;
-inset: 0;
-overflow: hidden;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
 }
+
 #background {
-position: absolute;
-inset: -8px;
-background-image:
-linear-gradient(rgba(10,7,20,.12), rgba(10,7,20,.12)),
-url("bg.png");
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-filter: blur(2.2px);
-transform: scale(1.02);
+    position: absolute;
+    inset: -8px;
+    background-image:
+        linear-gradient(rgba(10,7,20,.12), rgba(10,7,20,.12)),
+        url("bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2.2px);
+    transform: scale(1.02);
 }
+
 /* slight arcade overlay */
+
 #background:after {
-content: "";
-position: absolute;
-inset: 0;
-pointer-events: none;
-background:
-radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.38)),
-linear-gradient(transparent 96%, rgba(255,255,255,.025) 100%);
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.38)),
+        linear-gradient(transparent 96%, rgba(255,255,255,.025) 100%);
 }
+
 /* =========================================================
-HUD
+   HUD
 ========================================================= */
+
 #hud {
-position: absolute;
-top: 12px;
-left: 12px;
-right: 12px;
-z-index: 200;
-display: flex;
-justify-content: space-between;
-align-items: center;
-pointer-events: none;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
 }
+
 .logo {
-pointer-events: auto;
-background: rgba(20,15,35,.86);
-border: 2px solid var(--pink);
-padding: 8px 15px;
-border-radius: 14px;
-font-size: clamp(13px, 1.5vw, 18px);
-font-weight: bold;
-box-shadow: 0 0 15px rgba(255,111,174,.35);
+    pointer-events: auto;
+    background: rgba(20,15,35,.86);
+    border: 2px solid var(--pink);
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: clamp(13px, 1.5vw, 18px);
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255,111,174,.35);
 }
+
 .hud-right {
-display: flex;
-gap: 8px;
-align-items: center;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
+
 .tickets {
-pointer-events: auto;
-background: rgba(20,15,35,.9);
-border: 2px solid var(--yellow);
-border-radius: 14px;
-padding: 8px 15px;
-color: var(--yellow);
-font-weight: bold;
-box-shadow: 0 0 15px rgba(255,228,122,.25);
+    pointer-events: auto;
+    background: rgba(20,15,35,.9);
+    border: 2px solid var(--yellow);
+    border-radius: 14px;
+    padding: 8px 15px;
+    color: var(--yellow);
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255,228,122,.25);
 }
+
 .sound-btn {
-pointer-events: auto;
-background: rgba(20,15,35,.9);
-border: 2px solid var(--blue);
-color: white;
-border-radius: 14px;
-padding: 8px 12px;
+    pointer-events: auto;
+    background: rgba(20,15,35,.9);
+    border: 2px solid var(--blue);
+    color: white;
+    border-radius: 14px;
+    padding: 8px 12px;
 }
+
 /* =========================================================
-ARCADE MACHINES
+   ARCADE MACHINES
 ========================================================= */
+
 .machine {
-position: absolute;
-width: clamp(135px, 15vw, 220px);
-min-height: 165px;
-z-index: 20;
-transform: translate(-50%, -50%);
-cursor: pointer;
-transition: transform .2s, filter .2s;
+    position: absolute;
+    width: clamp(135px, 15vw, 220px);
+    min-height: 165px;
+    z-index: 20;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: transform .2s, filter .2s;
 }
+
 .machine:hover {
-transform: translate(-50%, -50%) scale(1.05);
-filter: brightness(1.15);
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: brightness(1.15);
 }
+
 .machine-body {
-width: 100%;
-height: 100%;
-min-height: 165px;
-border-radius: 18px 18px 10px 10px;
-background: linear-gradient(145deg, #342653, #171127);
-border: 3px solid var(--purple);
-box-shadow:
-0 0 12px rgba(169,140,255,.55),
-inset 0 0 20px rgba(255,255,255,.04);
-padding: 11px;
-text-align: center;
-position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 165px;
+    border-radius: 18px 18px 10px 10px;
+    background: linear-gradient(145deg, #342653, #171127);
+    border: 3px solid var(--purple);
+    box-shadow:
+        0 0 12px rgba(169,140,255,.55),
+        inset 0 0 20px rgba(255,255,255,.04);
+    padding: 11px;
+    text-align: center;
+    position: relative;
 }
+
 .machine-screen {
-height: 75px;
-border-radius: 9px;
-background: #0b0814;
-border: 2px solid var(--blue);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: clamp(28px, 3.5vw, 44px);
-margin-bottom: 9px;
-box-shadow: inset 0 0 15px rgba(114,217,255,.18);
+    height: 75px;
+    border-radius: 9px;
+    background: #0b0814;
+    border: 2px solid var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(28px, 3.5vw, 44px);
+    margin-bottom: 9px;
+    box-shadow: inset 0 0 15px rgba(114,217,255,.18);
 }
+
 .machine-name {
-font-size: clamp(11px, 1.2vw, 15px);
-font-weight: bold;
-color: white;
-text-transform: uppercase;
-line-height: 1.15;
+    font-size: clamp(11px, 1.2vw, 15px);
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    line-height: 1.15;
 }
+
 .machine-sub {
-margin-top: 5px;
-color: var(--pink2);
-font-size: 11px;
+    margin-top: 5px;
+    color: var(--pink2);
+    font-size: 11px;
 }
+
 .machine.near {
-transform: translate(-50%, -50%) scale(1.08);
-filter: brightness(1.3);
+    transform: translate(-50%, -50%) scale(1.08);
+    filter: brightness(1.3);
 }
+
 .machine.near .machine-body {
-border-color: var(--yellow);
-box-shadow:
-0 0 12px var(--yellow),
-0 0 35px rgba(255,228,122,.35);
+    border-color: var(--yellow);
+    box-shadow:
+        0 0 12px var(--yellow),
+        0 0 35px rgba(255,228,122,.35);
 }
+
 /* scattered layout */
+
 #m-claw       { left: 14%; top: 29%; }
 #m-photo      { left: 35%; top: 24%; }
 #m-jukebox    { left: 65%; top: 24%; }
 #m-memory     { left: 87%; top: 31%; }
+
 #m-basketball { left: 19%; top: 67%; }
 #m-mole       { left: 43%; top: 72%; }
 #m-striker    { left: 65%; top: 69%; }
 #m-shooting   { left: 87%; top: 65%; }
 #m-wheel      { left: 78%; top: 47%; }
+
 #ticketMachine {
-left: 50%;
-top: 50%;
+    left: 50%;
+    top: 50%;
 }
+
 /* =========================================================
-PLAYER
+   PLAYER
 ========================================================= */
+
 #player {
-position: absolute;
-width: clamp(85px, 10vw, 135px);
-height: clamp(115px, 14vw, 175px);
-z-index: 100;
-transform: translate(-50%, -50%);
-pointer-events: none;
-transition: left .08s linear, top .08s linear;
+    position: absolute;
+    width: clamp(85px, 10vw, 135px);
+    height: clamp(115px, 14vw, 175px);
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: left .08s linear, top .08s linear;
 }
+
 #player img {
-width: 100%;
-height: 100%;
-object-fit: contain;
-filter: drop-shadow(0 5px 5px rgba(0,0,0,.35));
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,.35));
 }
+
 #playerBubble {
-position: absolute;
-width: 210px;
-right: calc(100% + 12px);
-top: -30px;
-background: white;
-color: #30213d;
-border-radius: 17px;
-padding: 10px 13px;
-font-size: 12px;
-line-height: 1.35;
-box-shadow: 0 5px 20px rgba(0,0,0,.25);
-opacity: 0;
-transition: .3s;
+    position: absolute;
+    width: 210px;
+    right: calc(100% + 12px);
+    top: -30px;
+    background: white;
+    color: #30213d;
+    border-radius: 17px;
+    padding: 10px 13px;
+    font-size: 12px;
+    line-height: 1.35;
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
+    opacity: 0;
+    transition: .3s;
 }
+
 #playerBubble.show {
-opacity: 1;
+    opacity: 1;
 }
+
 #playerBubble:after {
-content: "";
-position: absolute;
-right: -12px;
-bottom: 18px;
-border-width: 8px 0 8px 13px;
-border-style: solid;
-border-color: transparent transparent transparent white;
+    content: "";
+    position: absolute;
+    right: -12px;
+    bottom: 18px;
+    border-width: 8px 0 8px 13px;
+    border-style: solid;
+    border-color: transparent transparent transparent white;
 }
+
 /* =========================================================
-ENTER PROMPT
+   ENTER PROMPT
 ========================================================= */
+
 #enterPrompt {
-position: absolute;
-left: 50%;
-bottom: 18px;
-transform: translateX(-50%);
-z-index: 300;
-padding: 9px 20px;
-border-radius: 999px;
-background: rgba(15,11,27,.9);
-border: 2px solid var(--pink);
-color: white;
-font-size: clamp(11px, 1.4vw, 15px);
-box-shadow: 0 0 15px rgba(255,111,174,.4);
-transition: .2s;
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    z-index: 300;
+    padding: 9px 20px;
+    border-radius: 999px;
+    background: rgba(15,11,27,.9);
+    border: 2px solid var(--pink);
+    color: white;
+    font-size: clamp(11px, 1.4vw, 15px);
+    box-shadow: 0 0 15px rgba(255,111,174,.4);
+    transition: .2s;
 }
+
 #enterPrompt.active {
-border-color: var(--yellow);
-color: var(--yellow);
-box-shadow: 0 0 20px rgba(255,228,122,.6);
+    border-color: var(--yellow);
+    color: var(--yellow);
+    box-shadow: 0 0 20px rgba(255,228,122,.6);
 }
+
 /* =========================================================
-GAME MODAL
+   GAME MODAL
 ========================================================= */
+
 #gameOverlay {
-position: fixed;
-inset: 0;
-z-index: 1000;
-background: rgba(6,4,12,.78);
-backdrop-filter: blur(5px);
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 12px;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(6,4,12,.78);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
 }
+
 .game-window {
-width: min(900px, 96vw);
-height: min(650px, calc(100vh - 24px));
-max-height: calc(100vh - 24px);
-overflow: hidden;
-background: linear-gradient(145deg, #241a39, #100c1e);
-border: 3px solid var(--pink);
-border-radius: 25px;
-box-shadow:
-0 0 30px rgba(255,111,174,.4),
-0 0 100px rgba(169,140,255,.15);
-position: relative;
-display: flex;
-flex-direction: column;
+    width: min(900px, 96vw);
+    height: min(650px, calc(100vh - 24px));
+    max-height: calc(100vh - 24px);
+    overflow: hidden;
+    background: linear-gradient(145deg, #241a39, #100c1e);
+    border: 3px solid var(--pink);
+    border-radius: 25px;
+    box-shadow:
+        0 0 30px rgba(255,111,174,.4),
+        0 0 100px rgba(169,140,255,.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
+
 .game-header {
-flex: 0 0 auto;
-padding: 12px 18px;
-border-bottom: 1px solid rgba(255,255,255,.12);
-display: flex;
-justify-content: space-between;
-align-items: center;
+    flex: 0 0 auto;
+    padding: 12px 18px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .game-title {
-font-size: clamp(17px, 2.5vw, 28px);
-color: white;
+    font-size: clamp(17px, 2.5vw, 28px);
+    color: white;
 }
+
 .back-btn {
-background: #39284f;
-color: white;
-border: 2px solid var(--pink2);
-padding: 7px 14px;
-border-radius: 12px;
-font-weight: bold;
+    background: #39284f;
+    color: white;
+    border: 2px solid var(--pink2);
+    padding: 7px 14px;
+    border-radius: 12px;
+    font-weight: bold;
 }
+
 .game-content {
-flex: 1;
-min-height: 0;
-overflow: hidden;
-padding: 14px;
-position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    padding: 14px;
+    position: relative;
 }
+
 /* =========================================================
-GENERAL GAME UI
+   GENERAL GAME UI
 ========================================================= */
+
 .big-btn {
-background: linear-gradient(135deg, var(--pink), #ff408d);
-color: white;
-padding: 12px 25px;
-border-radius: 999px;
-font-size: 15px;
-font-weight: bold;
-box-shadow: 0 0 18px rgba(255,111,174,.4);
-transition: .2s;
+    background: linear-gradient(135deg, var(--pink), #ff408d);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 0 18px rgba(255,111,174,.4);
+    transition: .2s;
 }
+
 .big-btn:hover {
-transform: scale(1.04);
+    transform: scale(1.04);
 }
+
 .center {
-text-align: center;
+    text-align: center;
 }
+
 .reward {
-margin-top: 12px;
-color: var(--yellow);
-font-weight: bold;
+    margin-top: 12px;
+    color: var(--yellow);
+    font-weight: bold;
 }
+
 /* =========================================================
-CLAW MACHINE
+   CLAW MACHINE
 ========================================================= */
+
 .claw-game {
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 .claw-stage {
-position: relative;
-width: min(600px, 90%);
-height: min(330px, 48vh);
-border: 3px solid var(--purple);
-border-radius: 20px;
-background: linear-gradient(#161126, #0d0a18);
-overflow: hidden;
-flex-shrink: 1;
+    position: relative;
+    width: min(600px, 90%);
+    height: min(330px, 48vh);
+    border: 3px solid var(--purple);
+    border-radius: 20px;
+    background: linear-gradient(#161126, #0d0a18);
+    overflow: hidden;
+    flex-shrink: 1;
 }
+
 .claw-rail {
-position: absolute;
-top: 25px;
-left: 30px;
-right: 30px;
-height: 9px;
-background: #8e76ba;
-border-radius: 10px;
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    right: 30px;
+    height: 9px;
+    background: #8e76ba;
+    border-radius: 10px;
 }
+
 .claw {
-position: absolute;
-top: 27px;
-left: 50%;
-width: 45px;
-height: 115px;
-transform: translateX(-50%);
-transition: left .2s ease;
-z-index: 5;
+    position: absolute;
+    top: 27px;
+    left: 50%;
+    width: 45px;
+    height: 115px;
+    transform: translateX(-50%);
+    transition: left .2s ease;
+    z-index: 5;
 }
+
 .claw-cable {
-width: 5px;
-height: 70px;
-margin: auto;
-background: #bbb;
+    width: 5px;
+    height: 70px;
+    margin: auto;
+    background: #bbb;
 }
+
 .claw-hand {
-position: relative;
-width: 42px;
-height: 35px;
-border: 5px solid #ddd;
-border-top: 0;
-border-radius: 0 0 20px 20px;
+    position: relative;
+    width: 42px;
+    height: 35px;
+    border: 5px solid #ddd;
+    border-top: 0;
+    border-radius: 0 0 20px 20px;
 }
+
 .claw-hand:before,
 .claw-hand:after {
-content: "";
-position: absolute;
-bottom: -18px;
-width: 8px;
-height: 24px;
-background: #ddd;
-border-radius: 10px;
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    width: 8px;
+    height: 24px;
+    background: #ddd;
+    border-radius: 10px;
 }
+
 .claw-hand:before {
-left: 2px;
-transform: rotate(25deg);
+    left: 2px;
+    transform: rotate(25deg);
 }
+
 .claw-hand:after {
-right: 2px;
-transform: rotate(-25deg);
+    right: 2px;
+    transform: rotate(-25deg);
 }
+
 .claw-capsules {
-position: absolute;
-bottom: 20px;
-left: 8%;
-right: 8%;
-display: flex;
-justify-content: space-around;
-flex-wrap: wrap;
-gap: 8px;
+    position: absolute;
+    bottom: 20px;
+    left: 8%;
+    right: 8%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 8px;
 }
+
 .capsule {
-width: 48px;
-height: 48px;
-border-radius: 50%;
-background: linear-gradient(135deg, var(--pink), var(--purple));
-border: 3px solid white;
-box-shadow: 0 0 12px rgba(255,111,174,.5);
-transition: .2s;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    border: 3px solid white;
+    box-shadow: 0 0 12px rgba(255,111,174,.5);
+    transition: .2s;
 }
+
 .capsule:hover {
-transform: translateY(-5px);
+    transform: translateY(-5px);
 }
+
 .claw-dropping {
-animation: clawDrop .8s ease forwards;
+    animation: clawDrop .8s ease forwards;
 }
+
 @keyframes clawDrop {
-0% { transform: translateX(-50%) translateY(0); }
-100% { transform: translateX(-50%) translateY(165px); }
+    0% { transform: translateX(-50%) translateY(0); }
+    100% { transform: translateX(-50%) translateY(165px); }
 }
+
 /* =========================================================
-MEMORY REVEAL
+   MEMORY REVEAL
 ========================================================= */
+
 .memory-reveal {
-height: 100%;
-text-align: center;
-max-width: 700px;
-margin: auto;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+    height: 100%;
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 .memory-reveal img {
-max-width: min(500px, 88%);
-max-height: 48vh;
-object-fit: contain;
-border-radius: 15px;
-border: 3px solid var(--pink2);
-box-shadow: 0 0 25px rgba(255,111,174,.3);
+    max-width: min(500px, 88%);
+    max-height: 48vh;
+    object-fit: contain;
+    border-radius: 15px;
+    border: 3px solid var(--pink2);
+    box-shadow: 0 0 25px rgba(255,111,174,.3);
 }
+
 .memory-text {
-margin-top: 12px;
-font-size: clamp(13px, 1.7vw, 18px);
-line-height: 1.4;
-color: #fff6fc;
-max-width: 680px;
+    margin-top: 12px;
+    font-size: clamp(13px, 1.7vw, 18px);
+    line-height: 1.4;
+    color: #fff6fc;
+    max-width: 680px;
 }
+
 /* =========================================================
-PHOTO BOOTH
+   PHOTO BOOTH
 ========================================================= */
+
 .photo-booth {
-height: 100%;
-text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 .photo-frame {
-width: min(330px, 80%);
-margin: auto;
-background: white;
-padding: 12px 12px 18px;
-border-radius: 5px;
-box-shadow: 0 10px 30px rgba(0,0,0,.4);
+    width: min(330px, 80%);
+    margin: auto;
+    background: white;
+    padding: 12px 12px 18px;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
 }
+
 .photo-frame img,
 .photo-frame .camera-photo {
-display: block;
-width: 100%;
-height: 82px;
-object-fit: cover;
-margin-bottom: 7px;
+    display: block;
+    width: 100%;
+    height: 82px;
+    object-fit: cover;
+    margin-bottom: 7px;
 }
+
 .photo-frame .strip-text {
-color: #30213d;
-font-weight: bold;
-font-size: 12px;
-letter-spacing: 2px;
-line-height: 1.5;
+    color: #30213d;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 1.5;
 }
+
 .camera-strip-button {
-width: 100%;
-height: 82px;
-margin-bottom: 7px;
-background: linear-gradient(135deg, #fff, #ffe9f3);
-border: 3px dashed #ff6fae;
-color: #30213d;
-font-weight: bold;
-font-size: 11px;
-line-height: 1.25;
-cursor: pointer;
+    width: 100%;
+    height: 82px;
+    margin-bottom: 7px;
+    background: linear-gradient(135deg, #fff, #ffe9f3);
+    border: 3px dashed #ff6fae;
+    color: #30213d;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 1.25;
+    cursor: pointer;
 }
+
 .camera-strip-button:hover {
-background: #fff0f7;
-transform: scale(1.02);
+    background: #fff0f7;
+    transform: scale(1.02);
 }
+
 .camera-box {
-height: 100%;
-max-width: 600px;
-margin: auto;
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    height: 100%;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .camera-video {
-width: min(100%, 560px);
-max-height: 45vh;
-border-radius: 18px;
-border: 3px solid var(--pink2);
-background: #05040a;
-object-fit: cover;
-transform: scaleX(-1);
+    width: min(100%, 560px);
+    max-height: 45vh;
+    border-radius: 18px;
+    border: 3px solid var(--pink2);
+    background: #05040a;
+    object-fit: cover;
+    transform: scaleX(-1);
 }
+
 .camera-message {
-margin: 10px;
-font-size: 17px;
-color: var(--pink2);
+    margin: 10px;
+    font-size: 17px;
+    color: var(--pink2);
 }
+
 .booth-stage {
-min-height: 200px;
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
+    min-height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .countdown {
-font-size: clamp(60px, 12vw, 120px);
-font-weight: bold;
-text-shadow: 0 0 30px var(--pink);
-animation: countPulse .8s infinite;
+    font-size: clamp(60px, 12vw, 120px);
+    font-weight: bold;
+    text-shadow: 0 0 30px var(--pink);
+    animation: countPulse .8s infinite;
 }
+
 @keyframes countPulse {
-50% { transform: scale(1.12); }
+    50% { transform: scale(1.12); }
 }
+
 .flash {
-position: fixed;
-inset: 0;
-z-index: 99999;
-background: white;
-animation: flash .4s ease forwards;
-pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: white;
+    animation: flash .4s ease forwards;
+    pointer-events: none;
 }
+
 @keyframes flash {
-0% { opacity: 0; }
-20% { opacity: 1; }
-100% { opacity: 0; }
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
 }
+
 /* =========================================================
-JUKEBOX
+   JUKEBOX
 ========================================================= */
+
 .jukebox {
-height: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
+
 .jukebox-body {
-width: min(360px, 80%);
-padding: 25px;
-border-radius: 40px 40px 20px 20px;
-background: linear-gradient(145deg, #472b65, #171026);
-border: 4px solid var(--purple);
-box-shadow: 0 0 30px rgba(169,140,255,.4);
+    width: min(360px, 80%);
+    padding: 25px;
+    border-radius: 40px 40px 20px 20px;
+    background: linear-gradient(145deg, #472b65, #171026);
+    border: 4px solid var(--purple);
+    box-shadow: 0 0 30px rgba(169,140,255,.4);
 }
+
 .jukebox-screen {
-height: 120px;
-background: #080711;
-border: 3px solid var(--blue);
-border-radius: 20px;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 60px;
-margin-bottom: 15px;
-animation: jukeboxGlow 1.5s infinite alternate;
+    height: 120px;
+    background: #080711;
+    border: 3px solid var(--blue);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    margin-bottom: 15px;
+    animation: jukeboxGlow 1.5s infinite alternate;
 }
+
 @keyframes jukeboxGlow {
-from { box-shadow: 0 0 10px var(--blue); }
-to { box-shadow: 0 0 30px var(--pink); }
+    from { box-shadow: 0 0 10px var(--blue); }
+    to { box-shadow: 0 0 30px var(--pink); }
 }
+
 /* =========================================================
-MEMORY LANE
+   MEMORY LANE
 ========================================================= */
+
 .road {
-position: relative;
-height: 100%;
-min-height: 0;
-border-radius: 25px;
-overflow-x: auto;
-overflow-y: hidden;
-background:
-repeating-linear-gradient(
-90deg,
-#2b2a32 0px,
-#2b2a32 100px,
-#32313a 100px,
-#32313a 200px
-);
-scrollbar-width: none;
+    position: relative;
+    height: 100%;
+    min-height: 0;
+    border-radius: 25px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #2b2a32 0px,
+            #2b2a32 100px,
+            #32313a 100px,
+            #32313a 200px
+        );
+    scrollbar-width: none;
 }
+
 .road::-webkit-scrollbar {
-display: none;
+    display: none;
 }
+
 .road-line {
-position: absolute;
-top: 50%;
-left: 0;
-width: 1900px;
-height: 8px;
-transform: translateY(-50%);
-background: repeating-linear-gradient(
-90deg,
-#fff 0 60px,
-transparent 60px 120px
-);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 1900px;
+    height: 8px;
+    transform: translateY(-50%);
+    background: repeating-linear-gradient(
+        90deg,
+        #fff 0 60px,
+        transparent 60px 120px
+    );
 }
+
 .milestones {
-position: absolute;
-top: 0;
-left: 0;
-height: 100%;
-width: 1900px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1900px;
 }
+
 .milestone {
-position: absolute;
-top: 50%;
-transform: translate(-50%, -50%);
-width: 90px;
-height: 90px;
-border-radius: 50%;
-border: 4px solid var(--yellow);
-background: var(--pink);
-color: white;
-font-size: 12px;
-font-weight: bold;
-box-shadow: 0 0 20px rgba(255,228,122,.6);
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 4px solid var(--yellow);
+    background: var(--pink);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(255,228,122,.6);
 }
+
 .milestone.reached {
-animation: milestonePulse .5s ease;
+    animation: milestonePulse .5s ease;
 }
+
 @keyframes milestonePulse {
-0% { transform: translate(-50%, -50%) scale(1); }
-50% { transform: translate(-50%, -50%) scale(1.2); }
-100% { transform: translate(-50%, -50%) scale(1); }
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(1); }
 }
+
 .car {
-position: absolute;
-top: calc(50% + 60px);
-left: 20px;
-font-size: 70px;
-transition: left .15s ease, transform .15s ease;
-z-index: 5;
-user-select: none;
-transform: scaleX(1);
+    position: absolute;
+    top: calc(50% + 60px);
+    left: 20px;
+    font-size: 70px;
+    transition: left .15s ease, transform .15s ease;
+    z-index: 5;
+    user-select: none;
 }
+
 .car.jump {
-animation: carJump .45s ease;
+    animation: carJump .45s ease;
 }
+
 @keyframes carJump {
-0% { transform: translateY(0) rotate(0); }
-35% { transform: translateY(-35px) rotate(-4deg); }
-65% { transform: translateY(-20px) rotate(4deg); }
-100% { transform: translateY(0) rotate(0); }
+    0% { transform: translateY(0) rotate(0); }
+    35% { transform: translateY(-35px) rotate(-4deg); }
+    65% { transform: translateY(-20px) rotate(4deg); }
+    100% { transform: translateY(0) rotate(0); }
 }
+
 .memory-lane-info {
-position: absolute;
-left: 15px;
-top: 15px;
-z-index: 20;
-background: rgba(15,10,25,.88);
-padding: 12px;
-border-radius: 15px;
-max-width: 380px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    z-index: 20;
+    background: rgba(15,10,25,.88);
+    padding: 12px;
+    border-radius: 15px;
+    max-width: 380px;
 }
+
 /* =========================================================
-BASKETBALL
+   BASKETBALL
 ========================================================= */
+
 .question-card {
-max-width: 700px;
-height: 100%;
-margin: auto;
-background: rgba(255,255,255,.07);
-border: 2px solid var(--purple);
-padding: 15px;
-border-radius: 20px;
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
+    max-width: 700px;
+    height: 100%;
+    margin: auto;
+    background: rgba(255,255,255,.07);
+    border: 2px solid var(--purple);
+    padding: 15px;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 .question {
-font-size: clamp(16px, 2.5vw, 25px);
-line-height: 1.3;
-margin-bottom: 8px;
+    font-size: clamp(16px, 2.5vw, 25px);
+    line-height: 1.3;
+    margin-bottom: 8px;
 }
+
 .scoreboard {
-display: inline-flex;
-gap: 25px;
-align-items: center;
-justify-content: center;
-background: #090711;
-border: 2px solid var(--yellow);
-padding: 7px 18px;
-border-radius: 14px;
-margin: 0 auto 8px;
-color: var(--yellow);
-font-weight: bold;
-box-shadow: 0 0 15px rgba(255,228,122,.2);
+    display: inline-flex;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+    background: #090711;
+    border: 2px solid var(--yellow);
+    padding: 7px 18px;
+    border-radius: 14px;
+    margin: 0 auto 8px;
+    color: var(--yellow);
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255,228,122,.2);
 }
+
 .basketball-court {
-position: relative;
-height: 155px;
-max-width: 600px;
-width: 100%;
-margin: 5px auto 10px;
-overflow: hidden;
-border-radius: 18px;
-background:
-linear-gradient(rgba(20,15,35,.2), rgba(20,15,35,.2)),
-#171127;
-border: 3px solid var(--purple);
+    position: relative;
+    height: 155px;
+    max-width: 600px;
+    width: 100%;
+    margin: 5px auto 10px;
+    overflow: hidden;
+    border-radius: 18px;
+    background:
+        linear-gradient(rgba(20,15,35,.2), rgba(20,15,35,.2)),
+        #171127;
+    border: 3px solid var(--purple);
 }
+
 .hoop-backboard {
-position: absolute;
-right: 45px;
-top: 20px;
-width: 85px;
-height: 60px;
-border: 5px solid white;
-background: rgba(114,217,255,.12);
-border-radius: 4px;
-box-shadow: 0 0 15px rgba(114,217,255,.3);
+    position: absolute;
+    right: 45px;
+    top: 20px;
+    width: 85px;
+    height: 60px;
+    border: 5px solid white;
+    background: rgba(114,217,255,.12);
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(114,217,255,.3);
 }
+
 .hoop-rim {
-position: absolute;
-right: 48px;
-top: 76px;
-width: 80px;
-height: 16px;
-border: 6px solid #ff6f38;
-border-radius: 50%;
-z-index: 3;
-box-shadow: 0 0 10px rgba(255,111,56,.6);
+    position: absolute;
+    right: 48px;
+    top: 76px;
+    width: 80px;
+    height: 16px;
+    border: 6px solid #ff6f38;
+    border-radius: 50%;
+    z-index: 3;
+    box-shadow: 0 0 10px rgba(255,111,56,.6);
 }
+
 .hoop-net {
-position: absolute;
-right: 58px;
-top: 87px;
-width: 60px;
-height: 45px;
-border-left: 3px dashed white;
-border-right: 3px dashed white;
-border-bottom: 3px dashed white;
-border-radius: 0 0 40px 40px;
-z-index: 2;
-opacity: .8;
+    position: absolute;
+    right: 58px;
+    top: 87px;
+    width: 60px;
+    height: 45px;
+    border-left: 3px dashed white;
+    border-right: 3px dashed white;
+    border-bottom: 3px dashed white;
+    border-radius: 0 0 40px 40px;
+    z-index: 2;
+    opacity: .8;
 }
+
 .ball {
-position: absolute;
-left: 80px;
-bottom: 20px;
-width: 50px;
-height: 50px;
-border-radius: 50%;
-background:
-radial-gradient(circle at 35% 30%, #ffb45b 0 7%, transparent 8%),
-linear-gradient(135deg, #ff9a3d, #d85b19);
-border: 4px solid #2d160b;
-box-shadow: 0 4px 10px rgba(0,0,0,.4);
-z-index: 5;
-transition: none;
+    position: absolute;
+    left: 80px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, #ffb45b 0 7%, transparent 8%),
+        linear-gradient(135deg, #ff9a3d, #d85b19);
+    border: 4px solid #2d160b;
+    box-shadow: 0 4px 10px rgba(0,0,0,.4);
+    z-index: 5;
+    transition: none;
 }
+
 .ball:before {
-content: "";
-position: absolute;
-left: 20px;
-top: -4px;
-width: 4px;
-height: 50px;
-background: #2d160b;
-border-radius: 50%;
-transform: rotate(35deg);
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -4px;
+    width: 4px;
+    height: 50px;
+    background: #2d160b;
+    border-radius: 50%;
+    transform: rotate(35deg);
 }
+
 .ball:after {
-content: "";
-position: absolute;
-left: -4px;
-top: 21px;
-width: 50px;
-height: 4px;
-background: #2d160b;
-border-radius: 50%;
-transform: rotate(-25deg);
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 21px;
+    width: 50px;
+    height: 4px;
+    background: #2d160b;
+    border-radius: 50%;
+    transform: rotate(-25deg);
 }
+
 .ball.shoot-in {
-animation: basketballIn .8s ease forwards;
+    animation: basketballIn .8s ease forwards;
 }
+
 .ball.shoot-miss {
-animation: basketballMiss .8s ease forwards;
+    animation: basketballMiss .8s ease forwards;
 }
+
 @keyframes basketballIn {
-0% {
-left: 80px;
-bottom: 20px;
-transform: scale(1);
+    0% {
+        left: 80px;
+        bottom: 20px;
+        transform: scale(1);
+    }
+    60% {
+        left: calc(100% - 120px);
+        bottom: 65px;
+        transform: scale(.8) rotate(400deg);
+    }
+    100% {
+        left: calc(100% - 80px);
+        bottom: 55px;
+        transform: scale(.45) rotate(720deg);
+    }
 }
-60% {
-left: calc(100% - 120px);
-bottom: 65px;
-transform: scale(.8) rotate(400deg);
-}
-100% {
-left: calc(100% - 80px);
-bottom: 55px;
-transform: scale(.45) rotate(720deg);
-}
-}
+
 @keyframes basketballMiss {
-0% {
-left: 80px;
-bottom: 20px;
-transform: scale(1);
+    0% {
+        left: 80px;
+        bottom: 20px;
+        transform: scale(1);
+    }
+    55% {
+        left: 52%;
+        bottom: 100px;
+        transform: scale(.8) rotate(300deg);
+    }
+    100% {
+        left: 65%;
+        bottom: -40px;
+        transform: scale(.6) rotate(650deg);
+    }
 }
-55% {
-left: 52%;
-bottom: 100px;
-transform: scale(.8) rotate(300deg);
-}
-100% {
-left: 65%;
-bottom: -40px;
-transform: scale(.6) rotate(650deg);
-}
-}
+
 .answers {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
 }
+
 .answer-btn {
-padding: 10px;
-border-radius: 14px;
-background: #35264b;
-color: white;
-border: 2px solid #6d558d;
-transition: .2s;
-font-size: 13px;
+    padding: 10px;
+    border-radius: 14px;
+    background: #35264b;
+    color: white;
+    border: 2px solid #6d558d;
+    transition: .2s;
+    font-size: 13px;
 }
+
 .answer-btn:hover {
-border-color: var(--pink);
-transform: translateY(-2px);
+    border-color: var(--pink);
+    transform: translateY(-2px);
 }
+
 /* =========================================================
-WHACK A MOLE
+   WHACK A MOLE
 ========================================================= */
+
 .mole-game {
-height: 100%;
-max-width: 650px;
-margin: auto;
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
+    height: 100%;
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 .mole-grid {
-margin-top: 12px;
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-grid-template-rows: repeat(2, minmax(70px, 1fr));
-gap: 10px;
-height: min(360px, 55vh);
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, minmax(70px, 1fr));
+    gap: 10px;
+    height: min(360px, 55vh);
 }
+
 .hole {
-aspect-ratio: 1.15;
-border-radius: 50%;
-background: #0b0813;
-border: 4px solid #49385d;
-display: flex;
-justify-content: center;
-align-items: center;
-overflow: hidden;
-position: relative;
-min-height: 70px;
+    aspect-ratio: 1.15;
+    border-radius: 50%;
+    background: #0b0813;
+    border: 4px solid #49385d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    min-height: 70px;
 }
+
 .mole {
-width: 85%;
-height: 85%;
-border-radius: 50%;
-background: linear-gradient(#9b674f, #593628);
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 8px;
-color: white;
-font-weight: bold;
-font-size: clamp(8px, 1.2vw, 13px);
-cursor: pointer;
-animation: molePop .18s ease;
-text-align: center;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    background: linear-gradient(#9b674f, #593628);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: clamp(8px, 1.2vw, 13px);
+    cursor: pointer;
+    animation: molePop .18s ease;
+    text-align: center;
 }
+
 .moleUs {
-width: 85%;
-height: 85%;
-object-fit: contain;
-cursor: pointer;
-animation: molePop .18s ease;
-filter: drop-shadow(0 4px 5px rgba(0,0,0,.35));
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    cursor: pointer;
+    animation: molePop .18s ease;
+    filter: drop-shadow(0 4px 5px rgba(0,0,0,.35));
 }
+
 @keyframes molePop {
-from { transform: translateY(100%); }
-to { transform: translateY(0); }
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
 }
+
 .mole-game-over {
-height: 100%;
-max-width: 600px;
-margin: auto;
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
+    height: 100%;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 .mole-game-over .big-bubble {
-margin: 20px auto;
-max-width: 500px;
-padding: 22px;
-background: white;
-color: #34233e;
-border-radius: 22px;
-font-size: clamp(18px, 3vw, 28px);
-font-weight: bold;
-box-shadow: 0 0 30px rgba(255,111,174,.35);
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 22px;
+    background: white;
+    color: #34233e;
+    border-radius: 22px;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: bold;
+    box-shadow: 0 0 30px rgba(255,111,174,.35);
 }
+
 /* =========================================================
-HIGH STRIKER
+   HIGH STRIKER
 ========================================================= */
+
 .striker {
-height: 100%;
-max-width: 500px;
-margin: auto;
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    height: 100%;
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .striker-machine {
-width: 90px;
-height: min(280px, 43vh);
-border: 4px solid var(--purple);
-margin: 10px auto;
-border-radius: 20px;
-position: relative;
-background: #100c19;
+    width: 90px;
+    height: min(280px, 43vh);
+    border: 4px solid var(--purple);
+    margin: 10px auto;
+    border-radius: 20px;
+    position: relative;
+    background: #100c19;
 }
+
 .striker-meter {
-position: absolute;
-bottom: 15px;
-left: 16px;
-right: 16px;
-top: 15px;
-border: 3px solid white;
-border-radius: 12px;
-display: flex;
-align-items: flex-end;
-padding: 5px;
+    position: absolute;
+    bottom: 15px;
+    left: 16px;
+    right: 16px;
+    top: 15px;
+    border: 3px solid white;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-end;
+    padding: 5px;
 }
+
 .striker-fill {
-width: 100%;
-height: 5%;
-background: linear-gradient(var(--pink), var(--yellow));
-border-radius: 8px;
-transition: height .15s;
+    width: 100%;
+    height: 5%;
+    background: linear-gradient(var(--pink), var(--yellow));
+    border-radius: 8px;
+    transition: height .15s;
 }
+
 .hammer {
-font-size: 50px;
-margin: 3px;
-transition: .15s;
+    font-size: 50px;
+    margin: 3px;
+    transition: .15s;
 }
+
 .hammer.hit {
-transform: rotate(-30deg) scale(1.2);
+    transform: rotate(-30deg) scale(1.2);
 }
+
 /* =========================================================
-SHOOTING GALLERY
+   SHOOTING GALLERY
 ========================================================= */
+
 .shooting {
-height: 100%;
-max-width: 700px;
-margin: auto;
-text-align: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
+    height: 100%;
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
 .target-field {
-position: relative;
-height: min(330px, 50vh);
-margin-top: 12px;
-background: #0b0814;
-border: 3px solid var(--purple);
-border-radius: 20px;
-overflow: hidden;
+    position: relative;
+    height: min(330px, 50vh);
+    margin-top: 12px;
+    background: #0b0814;
+    border: 3px solid var(--purple);
+    border-radius: 20px;
+    overflow: hidden;
 }
+
 .target {
-position: absolute;
-width: 68px;
-height: 68px;
-border-radius: 50%;
-background: radial-gradient(circle, white 0 15%, var(--pink) 16% 35%, white 36% 50%, var(--purple) 51%);
-border: 3px solid white;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 8px;
-color: #24162f;
-font-weight: bold;
-text-align: center;
-cursor: crosshair;
-transition: transform .15s;
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle, white 0 15%, var(--pink) 16% 35%, white 36% 50%, var(--purple) 51%);
+    border: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8px;
+    color: #24162f;
+    font-weight: bold;
+    text-align: center;
+    cursor: crosshair;
+    transition: transform .15s;
 }
+
 .target:hover {
-transform: scale(1.1);
+    transform: scale(1.1);
 }
+
 /* =========================================================
-WHEEL
+   WHEEL
 ========================================================= */
+
 .wheel-wrap {
-height: 100%;
-text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 12px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
+
 .wheel {
-width: min(300px, 55vh, 65vw);
-aspect-ratio: 1;
-border-radius: 50%;
-border: 8px solid white;
-background:
-conic-gradient(
-var(--pink) 0deg 45deg,
-var(--purple) 45deg 90deg,
-var(--blue) 90deg 135deg,
-var(--yellow) 135deg 180deg,
-var(--pink) 180deg 225deg,
-var(--purple) 225deg 270deg,
-var(--blue) 270deg 315deg,
-var(--yellow) 315deg 360deg
-);
-box-shadow: 0 0 30px rgba(255,111,174,.5);
-transition: transform 3s cubic-bezier(.15,.8,.2,1);
-position: relative;
+    width: min(300px, 55vh, 65vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid white;
+    background:
+        conic-gradient(
+            var(--pink) 0deg 45deg,
+            var(--purple) 45deg 90deg,
+            var(--blue) 90deg 135deg,
+            var(--yellow) 135deg 180deg,
+            var(--pink) 180deg 225deg,
+            var(--purple) 225deg 270deg,
+            var(--blue) 270deg 315deg,
+            var(--yellow) 315deg 360deg
+        );
+    box-shadow: 0 0 30px rgba(255,111,174,.5);
+    transition: transform 3s cubic-bezier(.15,.8,.2,1);
+    position: relative;
 }
+
 .wheel:after {
-content: "💌";
-position: absolute;
-inset: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 50px;
+    content: "💌";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
 }
+
 .pointer {
-font-size: 30px;
-transform: rotate(180deg);
+    font-size: 30px;
+    transform: rotate(180deg);
 }
+
 /* =========================================================
-LETTER
+   LETTER
 ========================================================= */
+
 .letter {
-height: 100%;
-max-width: 700px;
-margin: auto;
-background: #fff8ee;
-color: #38243b;
-padding: clamp(15px, 3vw, 30px);
-border-radius: 15px;
-line-height: 1.45;
-overflow: hidden;
-box-shadow: 0 15px 40px rgba(0,0,0,.4);
-font-size: clamp(10px, 1.25vw, 14px);
+    height: 100%;
+    max-width: 700px;
+    margin: auto;
+    background: #fff8ee;
+    color: #38243b;
+    padding: clamp(15px, 3vw, 30px);
+    border-radius: 15px;
+    line-height: 1.45;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,.4);
+    font-size: clamp(10px, 1.25vw, 14px);
 }
+
 .letter h2 {
-text-align: center;
-margin-bottom: 12px;
-color: #c53d72;
-font-size: clamp(18px, 2.5vw, 26px);
+    text-align: center;
+    margin-bottom: 12px;
+    color: #c53d72;
+    font-size: clamp(18px, 2.5vw, 26px);
 }
+
 .letter p {
-margin-bottom: 8px;
+    margin-bottom: 8px;
 }
+
 /* =========================================================
-TICKET COUNTER
+   TICKET COUNTER
 ========================================================= */
+
 .counter {
-height: 100%;
-text-align: center;
-max-width: 650px;
-margin: auto;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    height: 100%;
+    text-align: center;
+    max-width: 650px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .counter-avatar {
-height: 150px;
-margin: 5px auto;
+    height: 150px;
+    margin: 5px auto;
 }
+
 .counter-avatar img {
-height: 100%;
-max-width: 180px;
-object-fit: contain;
+    height: 100%;
+    max-width: 180px;
+    object-fit: contain;
 }
+
 /* =========================================================
-FINAL
+   FINAL
 ========================================================= */
+
 #finalCelebration {
-position: fixed;
-inset: 0;
-z-index: 99999;
-background:
-radial-gradient(circle at center, rgba(255,111,174,.3), transparent 40%),
-rgba(8,5,16,.96);
-display: flex;
-justify-content: center;
-align-items: center;
-overflow: hidden;
-text-align: center;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background:
+        radial-gradient(circle at center, rgba(255,111,174,.3), transparent 40%),
+        rgba(8,5,16,.96);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
 }
+
 .final-content {
-position: relative;
-z-index: 5;
-padding: 20px;
-animation: finalIn 1s ease;
+    position: relative;
+    z-index: 5;
+    padding: 20px;
+    animation: finalIn 1s ease;
 }
+
 @keyframes finalIn {
-from {
-opacity: 0;
-transform: scale(.5);
+    from {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
-to {
-opacity: 1;
-transform: scale(1);
-}
-}
+
 .final-title {
-font-size: clamp(32px, 7vw, 78px);
-line-height: 1.05;
-color: white;
-text-shadow:
-0 0 10px var(--pink),
-0 0 30px var(--pink),
-0 0 60px var(--purple);
+    font-size: clamp(32px, 7vw, 78px);
+    line-height: 1.05;
+    color: white;
+    text-shadow:
+        0 0 10px var(--pink),
+        0 0 30px var(--pink),
+        0 0 60px var(--purple);
 }
+
 .final-sub {
-margin-top: 25px;
-font-size: clamp(17px, 3vw, 28px);
-color: var(--pink2);
+    margin-top: 25px;
+    font-size: clamp(17px, 3vw, 28px);
+    color: var(--pink2);
 }
+
 .confetti {
-position: absolute;
-width: 10px;
-height: 16px;
-top: -30px;
-animation: confettiFall linear forwards;
+    position: absolute;
+    width: 10px;
+    height: 16px;
+    top: -30px;
+    animation: confettiFall linear forwards;
 }
+
 @keyframes confettiFall {
-to {
-transform: translateY(110vh) rotate(900deg);
+    to {
+        transform: translateY(110vh) rotate(900deg);
+    }
 }
-}
+
 .heart {
-position: absolute;
-font-size: 25px;
-animation: heartFloat 4s linear forwards;
+    position: absolute;
+    font-size: 25px;
+    animation: heartFloat 4s linear forwards;
 }
+
 @keyframes heartFloat {
-from {
-transform: translateY(110vh) scale(.5);
-opacity: 0;
+    from {
+        transform: translateY(110vh) scale(.5);
+        opacity: 0;
+    }
+    20% { opacity: 1; }
+    to {
+        transform: translateY(-20vh) scale(1.3) rotate(20deg);
+        opacity: 0;
+    }
 }
-20% { opacity: 1; }
-to {
-transform: translateY(-20vh) scale(1.3) rotate(20deg);
-opacity: 0;
-}
-}
-/* MEMORY FLIP CARD */
-.memory-flip-card {
-width: min(500px, 88%);
-height: min(330px, 48vh);
-perspective: 1200px;
-cursor: pointer;
-margin: 0 auto 12px;
-}
-.memory-flip-inner {
-position: relative;
-width: 100%;
-height: 100%;
-transition: transform .7s ease;
-transform-style: preserve-3d;
-}
-.memory-flip-card.flipped .memory-flip-inner {
-transform: rotateY(180deg);
-}
-.memory-flip-front,
-.memory-flip-back {
-position: absolute;
-inset: 0;
-backface-visibility: hidden;
-border-radius: 15px;
-overflow: hidden;
-}
-.memory-flip-front {
-background: linear-gradient(145deg, #ffb7d5, #a98cff);
-color: #38243b;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 24px;
-text-align: center;
-font-weight: bold;
-line-height: 1.45;
-box-shadow: 0 0 25px rgba(255,111,174,.3);
-}
-.memory-flip-back {
-transform: rotateY(180deg);
-background: #171325;
-border: 3px solid var(--pink2);
-}
-.memory-flip-back img {
-width: 100%;
-height: 100%;
-object-fit: contain;
-}
+
 /* =========================================================
-RESPONSIVE
+   RESPONSIVE
 ========================================================= */
+
 @media (max-width: 700px) {
+
     .entrance-card {
         height: 94vh;
     }
@@ -1433,23 +1565,23 @@ RESPONSIVE
         font-size: 8px;
     }
 
-    \#m-claw       { left: 12%; top: 27%; }
-    \#m-photo      { left: 34%; top: 23%; }
-    \#m-jukebox    { left: 67%; top: 24%; }
-    \#m-memory     { left: 88%; top: 30%; }
+    #m-claw       { left: 12%; top: 27%; }
+    #m-photo      { left: 34%; top: 23%; }
+    #m-jukebox    { left: 67%; top: 24%; }
+    #m-memory     { left: 88%; top: 30%; }
 
-    \#m-basketball { left: 17%; top: 65%; }
-    \#m-mole       { left: 42%; top: 71%; }
-    \#m-striker    { left: 65%; top: 67%; }
-    \#m-shooting   { left: 88%; top: 62%; }
-    \#m-wheel      { left: 78%; top: 45%; }
+    #m-basketball { left: 17%; top: 65%; }
+    #m-mole       { left: 42%; top: 71%; }
+    #m-striker    { left: 65%; top: 67%; }
+    #m-shooting   { left: 88%; top: 62%; }
+    #m-wheel      { left: 78%; top: 45%; }
 
-    \#ticketMachine {
+    #ticketMachine {
         left: 50%;
         top: 50%;
     }
 
-    \#player {
+    #player {
         width: 75px;
         height: 105px;
     }
@@ -1508,7 +1640,9 @@ RESPONSIVE
         margin-bottom: 6px;
     }
 }
+
 @media (max-height: 600px) {
+
     .machine {
         min-height: 100px;
     }
@@ -1521,11 +1655,11 @@ RESPONSIVE
         height: 40px;
     }
 
-    \#enterPrompt {
+    #enterPrompt {
         bottom: 7px;
     }
 
-    \#hud {
+    #hud {
         top: 5px;
     }
 
@@ -1576,291 +1710,324 @@ RESPONSIVE
 }
 </style>
 </head>
+
 <body>
+
 <!-- =======================================================
-BACKGROUND MUSIC
+     BACKGROUND MUSIC
 ======================================================= -->
+
 <audio
-id="bgMusic"
-src="bgmusic.mp3"
-loop
-preload="auto">
+    id="bgMusic"
+    src="bgmusic.mp3"
+    loop
+    preload="auto">
 </audio>
 
+
 <!-- =======================================================
-ENTRANCE
+     ENTRANCE
 ======================================================= -->
+
 <section id="entrance">
-    \<div class="entrance-card">
 
-        \<div class="entrance-title">
+    <div class="entrance-card">
+
+        <div class="entrance-title">
             THE US ARCADE
-        \</div>
+        </div>
 
-        \<div class="entrance-player">
+        <div class="entrance-player">
 
-            \<img src="bitmoji.png" alt="Player">
+            <img src="bitmoji.png" alt="Player">
 
-            \<div class="speech-bubble">
-                Hey Dumbo... ❤️\<br>\<br>
+            <div class="speech-bubble">
+                Hey Dumbo... ❤️<br><br>
                 Welcome to our little arcade.
                 Every game has a little piece of us hidden inside.
-                \<br>\<br>
+                <br><br>
                 Come... let's play.
-            \</div>
+            </div>
 
-        \</div>
+        </div>
 
-        \<button class="start-button" id="startButton">
+        <button class="start-button" id="startButton">
             ENTER THE ARCADE
-        \</button>
+        </button>
 
-    \</div>
+    </div>
 
 </section>
 
+
 <!-- =======================================================
-ARCADE
+     ARCADE
 ======================================================= -->
+
 <section id="arcade" class="hidden">
-    \<div id="arcadeWorld">
 
-        \<div id="background">\</div>
+    <div id="arcadeWorld">
 
-        \<!-- HUD -->
+        <div id="background"></div>
 
-        \<div id="hud">
+        <!-- HUD -->
 
-            \<div class="logo">
+        <div id="hud">
+
+            <div class="logo">
                 THE US ❤️
-            \</div>
+            </div>
 
-            \<div class="hud-right">
+            <div class="hud-right">
 
-                \<div class="tickets">
-                    🎟️ \<span id="ticketCount">0\</span>
-                \</div>
+                <div class="tickets">
+                    🎟️ <span id="ticketCount">0</span>
+                </div>
 
-                \<button class="sound-btn" id="soundButton">
+                <button class="sound-btn" id="soundButton">
                     🔊
-                \</button>
+                </button>
 
-            \</div>
+            </div>
 
-        \</div>
-
-
-
-        \<!-- MACHINES -->
-
-        \<div class="machine" id="m-claw" data-game="claw">
-            \<div class="machine-body">
-                \<div class="machine-screen">🧸\</div>
-                \<div class="machine-name">Claw Machine\</div>
-                \<div class="machine-sub">Memories\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-photo" data-game="photo">
-            \<div class="machine-body">
-                \<div class="machine-screen">📸\</div>
-                \<div class="machine-name">Photo Booth\</div>
-                \<div class="machine-sub">Say cheese!\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-jukebox" data-game="jukebox">
-            \<div class="machine-body">
-                \<div class="machine-screen">🎵\</div>
-                \<div class="machine-name">Jukebox\</div>
-                \<div class="machine-sub">Our songs\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-memory" data-game="memory">
-            \<div class="machine-body">
-                \<div class="machine-screen">🚗\</div>
-                \<div class="machine-name">Memory Lane\</div>
-                \<div class="machine-sub">Our journey\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-basketball" data-game="basketball">
-            \<div class="machine-body">
-                \<div class="machine-screen">🏀\</div>
-                \<div class="machine-name">Basketball\</div>
-                \<div class="machine-sub">How well do you know us?\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-mole" data-game="mole">
-            \<div class="machine-body">
-                \<div class="machine-screen">🐹\</div>
-                \<div class="machine-name">Whack-A-Mole\</div>
-                \<div class="machine-sub">Our little fights\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-striker" data-game="striker">
-            \<div class="machine-body">
-                \<div class="machine-screen">🔨\</div>
-                \<div class="machine-name">High Striker\</div>
-                \<div class="machine-sub">Test your strength\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-shooting" data-game="shooting">
-            \<div class="machine-body">
-                \<div class="machine-screen">🎯\</div>
-                \<div class="machine-name">Shooting Gallery\</div>
-                \<div class="machine-sub">Aim carefully\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine" id="m-wheel" data-game="wheel">
-            \<div class="machine-body">
-                \<div class="machine-screen">🎡\</div>
-                \<div class="machine-name">Spin The Wheel\</div>
-                \<div class="machine-sub">One surprise\</div>
-            \</div>
-        \</div>
-
-        \<div class="machine hidden" id="ticketMachine" data-game="counter">
-            \<div class="machine-body">
-                \<div class="machine-screen">🎟️\</div>
-                \<div class="machine-name">Ticket Counter\</div>
-                \<div class="machine-sub">Come back here ❤️\</div>
-            \</div>
-        \</div>
+        </div>
 
 
+        <!-- MACHINES -->
 
-        \<!-- PLAYER -->
+        <div class="machine" id="m-claw" data-game="claw">
+            <div class="machine-body">
+                <div class="machine-screen">🧸</div>
+                <div class="machine-name">Claw Machine</div>
+                <div class="machine-sub">Memories</div>
+            </div>
+        </div>
 
-        \<div id="player">
+        <div class="machine" id="m-photo" data-game="photo">
+            <div class="machine-body">
+                <div class="machine-screen">📸</div>
+                <div class="machine-name">Photo Booth</div>
+                <div class="machine-sub">Say cheese!</div>
+            </div>
+        </div>
 
-            \<img src="bitmoji.png" alt="Player">
+        <div class="machine" id="m-jukebox" data-game="jukebox">
+            <div class="machine-body">
+                <div class="machine-screen">🎵</div>
+                <div class="machine-name">Jukebox</div>
+                <div class="machine-sub">Our songs</div>
+            </div>
+        </div>
 
-            \<div id="playerBubble">
+        <div class="machine" id="m-memory" data-game="memory">
+            <div class="machine-body">
+                <div class="machine-screen">🚗</div>
+                <div class="machine-name">Memory Lane</div>
+                <div class="machine-sub">Our journey</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-basketball" data-game="basketball">
+            <div class="machine-body">
+                <div class="machine-screen">🏀</div>
+                <div class="machine-name">Basketball</div>
+                <div class="machine-sub">How well do you know us?</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-mole" data-game="mole">
+            <div class="machine-body">
+                <div class="machine-screen">🐹</div>
+                <div class="machine-name">Whack-A-Mole</div>
+                <div class="machine-sub">Our little fights</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-striker" data-game="striker">
+            <div class="machine-body">
+                <div class="machine-screen">🔨</div>
+                <div class="machine-name">High Striker</div>
+                <div class="machine-sub">Test your strength</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-shooting" data-game="shooting">
+            <div class="machine-body">
+                <div class="machine-screen">🎯</div>
+                <div class="machine-name">Shooting Gallery</div>
+                <div class="machine-sub">Aim carefully</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-wheel" data-game="wheel">
+            <div class="machine-body">
+                <div class="machine-screen">🎡</div>
+                <div class="machine-name">Spin The Wheel</div>
+                <div class="machine-sub">One surprise</div>
+            </div>
+        </div>
+
+        <div class="machine hidden" id="ticketMachine" data-game="counter">
+            <div class="machine-body">
+                <div class="machine-screen">🎟️</div>
+                <div class="machine-name">Ticket Counter</div>
+                <div class="machine-sub">Come back here ❤️</div>
+            </div>
+        </div>
+
+
+        <!-- PLAYER -->
+
+        <div id="player">
+
+            <img src="bitmoji.png" alt="Player">
+
+            <div id="playerBubble">
                 Use the arrow keys to move me around!
-            \</div>
+            </div>
 
-        \</div>
+        </div>
 
 
+        <!-- ONLY ONE ENTER PROMPT -->
 
-        \<!-- ONLY ONE ENTER PROMPT -->
+        <div id="enterPrompt">
+            Walk to a machine and press <b>ENTER</b>
+        </div>
 
-        \<div id="enterPrompt">
-            Walk to a machine and press \<b>ENTER\</b>
-        \</div>
-
-    \</div>
+    </div>
 
 </section>
 
+
 <!-- =======================================================
-GAME OVERLAY
+     GAME OVERLAY
 ======================================================= -->
+
 <div id="gameOverlay" class="hidden">
-    \<div class="game-window">
 
-        \<div class="game-header">
+    <div class="game-window">
 
-            \<div class="game-title" id="gameTitle">
+        <div class="game-header">
+
+            <div class="game-title" id="gameTitle">
                 Game
-            \</div>
+            </div>
 
-            \<button class="back-btn" id="backButton">
+            <button class="back-btn" id="backButton">
                 ← BACK
-            \</button>
+            </button>
 
-        \</div>
+        </div>
 
-        \<div class="game-content" id="gameContent">\</div>
+        <div class="game-content" id="gameContent"></div>
 
-    \</div>
+    </div>
 
 </div>
+
 
 <!-- =======================================================
-FINAL
+     FINAL
 ======================================================= -->
+
 <div id="finalCelebration" class="hidden">
-    \<div class="final-content">
 
-        \<div class="final-title">
-            HAPPY TWO-YEAR\<br>
+    <div class="final-content">
+
+        <div class="final-title">
+            HAPPY TWO-YEAR<br>
             ANNIVERSARY TO US! ❤️
-        \</div>
+        </div>
 
-        \<div class="final-sub">
+        <div class="final-sub">
             Two years down, so many more to go. ❤️
-        \</div>
+        </div>
 
-    \</div>
+    </div>
 
 </div>
+
 
 <script>
+
 /* =========================================================
-GLOBAL STATE
+   GLOBAL STATE
 ========================================================= */
+
 const entrance = document.getElementById("entrance");
 const arcade = document.getElementById("arcade");
 const startButton = document.getElementById("startButton");
+
 const player = document.getElementById("player");
 const playerBubble = document.getElementById("playerBubble");
 const enterPrompt = document.getElementById("enterPrompt");
+
 const gameOverlay = document.getElementById("gameOverlay");
 const gameTitle = document.getElementById("gameTitle");
 const gameContent = document.getElementById("gameContent");
 const backButton = document.getElementById("backButton");
+
 const ticketCountElement = document.getElementById("ticketCount");
 const ticketMachine = document.getElementById("ticketMachine");
+
 const bgMusic = document.getElementById("bgMusic");
+
 let tickets = 0;
 let currentGame = null;
 let soundOn = true;
+
 let playerX = window.innerWidth / 2;
 let playerY = window.innerHeight * .52;
+
 const speed = 4;
+
 const keys = {
-ArrowUp: false,
-ArrowDown: false,
-ArrowLeft: false,
-ArrowRight: false
+    ArrowUp: false,
+    ArrowDown: false,
+    ArrowLeft: false,
+    ArrowRight: false
 };
+
 let nearMachine = null;
+
 const machines = [...document.querySelectorAll(".machine:not(#ticketMachine)")];
+
 const visitedGames = new Set();
+
 const TOTAL_GAMES = [
-"claw",
-"photo",
-"jukebox",
-"memory",
-"basketball",
-"mole",
-"striker",
-"shooting",
-"wheel"
+    "claw",
+    "photo",
+    "jukebox",
+    "memory",
+    "basketball",
+    "mole",
+    "striker",
+    "shooting",
+    "wheel"
 ];
 
+
 /* =========================================================
-AUDIO
+   AUDIO
 ========================================================= */
+
 let audioContext = null;
+
 function audio() {
+
     if (!soundOn) return;
 
     if (!audioContext) {
         audioContext =
-            new (window\.AudioContext || window\.webkitAudioContext)();
+            new (window.AudioContext || window.webkitAudioContext)();
     }
 
     return audioContext;
 }
+
 function beep(freq = 500, duration = .1, type = "sine") {
+
     if (!soundOn) return;
 
     const ctx = audio();
@@ -1890,10 +2057,13 @@ function beep(freq = 500, duration = .1, type = "sine") {
     oscillator.stop(ctx.currentTime + duration);
 }
 
+
 /* =========================================================
-BACKGROUND MUSIC
+   BACKGROUND MUSIC
 ========================================================= */
+
 function startBackgroundMusic() {
+
     if (!soundOn) return;
 
     bgMusic.volume = 0.35;
@@ -1903,21 +2073,25 @@ function startBackgroundMusic() {
     if (playPromise !== undefined) {
 
         playPromise.catch(() => {
-            /\*
+            /*
                 Browsers may still block playback.
                 The user's ENTER click normally satisfies
                 the autoplay requirement.
-            \*/
+            */
         });
 
     }
 
 }
+
 function stopBackgroundMusic() {
+
     bgMusic.pause();
 
 }
+
 function updateMusicState() {
+
     if (soundOn) {
         startBackgroundMusic();
     } else {
@@ -1926,10 +2100,13 @@ function updateMusicState() {
 
 }
 
+
 /* =========================================================
-SUCCESS / FAIL
+   SUCCESS / FAIL
 ========================================================= */
+
 function successSound() {
+
     beep(600,.08);
 
     setTimeout(() => {
@@ -1941,15 +2118,20 @@ function successSound() {
     },170);
 
 }
+
 function failSound() {
+
     beep(180,.15,"square");
 
 }
 
+
 /* =========================================================
-TICKETS
+   TICKETS
 ========================================================= */
+
 function addTickets(amount) {
+
     tickets += amount;
 
     ticketCountElement.textContent = tickets;
@@ -1964,7 +2146,9 @@ function addTickets(amount) {
 
 }
 
+
 function createTicketParticles() {
+
     for(let i=0;i<6;i++) {
 
         const t = document.createElement("div");
@@ -1981,10 +2165,10 @@ function createTicketParticles() {
         document.body.appendChild(t);
 
         const angle =
-            Math.random() \* Math.PI \* 2;
+            Math.random() * Math.PI * 2;
 
         const distance =
-            80 + Math.random()\*100;
+            80 + Math.random()*100;
 
         t.animate([
             {
@@ -1993,7 +2177,7 @@ function createTicketParticles() {
             },
             {
                 transform:
-                    \`translate(calc(-50% + ${Math.cos(angle)\*distance}px), calc(-50% + ${Math.sin(angle)\*distance}px)) scale(1.2)\`,
+                    `translate(calc(-50% + ${Math.cos(angle)*distance}px), calc(-50% + ${Math.sin(angle)*distance}px)) scale(1.2)`,
                 opacity:0
             }
         ],{
@@ -2005,10 +2189,13 @@ function createTicketParticles() {
 
 }
 
+
 /* =========================================================
-GAME COMPLETION / TICKET COUNTER
+   GAME COMPLETION / TICKET COUNTER
 ========================================================= */
+
 function markGameVisited(game) {
+
     if (game === "counter") return;
 
     visitedGames.add(game);
@@ -2017,9 +2204,11 @@ function markGameVisited(game) {
 
 }
 
+
 function checkAllGamesVisited() {
+
     const allDone =
-        TOTAL\_GAMES.every(game => visitedGames.has(game));
+        TOTAL_GAMES.every(game => visitedGames.has(game));
 
     if(allDone) {
 
@@ -2029,7 +2218,7 @@ function checkAllGamesVisited() {
         ticketMachine.style.top = "50%";
 
         enterPrompt.innerHTML =
-            \`The Ticket Counter is unlocked!\`;
+            `The Ticket Counter is unlocked!`;
 
         ticketMachine.animate([
             {
@@ -2055,23 +2244,26 @@ function checkAllGamesVisited() {
 
 }
 
+
 /* =========================================================
-START
+   START
 ========================================================= */
+
 startButton.addEventListener("click", () => {
+
     beep(600,.1);
 
-    /\*
+    /*
        Start the background music from the user's
        first deliberate interaction.
-    \*/
+    */
     startBackgroundMusic();
 
     entrance.classList.add("hidden");
     arcade.classList.remove("hidden");
 
-    playerX = window\.innerWidth / 2;
-    playerY = window\.innerHeight \* .52;
+    playerX = window.innerWidth / 2;
+    playerY = window.innerHeight * .52;
 
     updatePlayer();
 
@@ -2087,10 +2279,13 @@ startButton.addEventListener("click", () => {
 
 });
 
+
 /* =========================================================
-PLAYER MOVEMENT
+   PLAYER MOVEMENT
 ========================================================= */
+
 window.addEventListener("keydown", e => {
+
     if (e.key in keys) {
 
         e.preventDefault();
@@ -2117,14 +2312,18 @@ window.addEventListener("keydown", e => {
 
 });
 
+
 window.addEventListener("keyup", e => {
+
     if (e.key in keys) {
         keys[e.key] = false;
     }
 
 });
 
+
 function movementLoop() {
+
     if (
         gameOverlay.classList.contains("hidden") &&
         !arcade.classList.contains("hidden")
@@ -2141,7 +2340,7 @@ function movementLoop() {
         playerX = Math.max(
             playerWidth / 2,
             Math.min(
-                window\.innerWidth - playerWidth / 2,
+                window.innerWidth - playerWidth / 2,
                 playerX
             )
         );
@@ -2149,7 +2348,7 @@ function movementLoop() {
         playerY = Math.max(
             80,
             Math.min(
-                window\.innerHeight - 60,
+                window.innerHeight - 60,
                 playerY
             )
         );
@@ -2162,22 +2361,28 @@ function movementLoop() {
     requestAnimationFrame(movementLoop);
 
 }
+
 movementLoop();
 
+
 function updatePlayer() {
+
     player.style.left = playerX + "px";
     player.style.top = playerY + "px";
 
 }
 
+
 /* =========================================================
-MACHINE DETECTION
+   MACHINE DETECTION
 ========================================================= */
+
 function checkNearbyMachine() {
+
     let closest = null;
     let closestDistance = Infinity;
 
-    [...document.querySelectorAll(".machine\:not(.hidden)")].forEach(machine => {
+    [...document.querySelectorAll(".machine:not(.hidden)")].forEach(machine => {
 
         const rect = machine.getBoundingClientRect();
 
@@ -2218,14 +2423,14 @@ function checkNearbyMachine() {
             closest.querySelector(".machine-name").textContent;
 
         enterPrompt.innerHTML =
-            \`Press \<b>ENTER\</b> to play ${name}\`;
+            `Press <b>ENTER</b> to play ${name}`;
 
         enterPrompt.classList.add("active");
 
     } else {
 
         enterPrompt.innerHTML =
-            \`Walk to a machine and press \<b>ENTER\</b>\`;
+            `Walk to a machine and press <b>ENTER</b>`;
 
         enterPrompt.classList.remove("active");
 
@@ -2233,10 +2438,13 @@ function checkNearbyMachine() {
 
 }
 
+
 /* =========================================================
-MACHINE CLICK ALSO WORKS
+   MACHINE CLICK ALSO WORKS
 ========================================================= */
+
 document.querySelectorAll(".machine").forEach(machine => {
+
     machine.addEventListener("click", () => {
 
         markGameVisited(machine.dataset.game);
@@ -2247,10 +2455,13 @@ document.querySelectorAll(".machine").forEach(machine => {
 
 });
 
+
 /* =========================================================
-OPEN GAME
+   OPEN GAME
 ========================================================= */
+
 function openGame(game) {
+
     currentGame = game;
 
     gameOverlay.classList.remove("hidden");
@@ -2261,10 +2472,13 @@ function openGame(game) {
 
 }
 
+
 /* =========================================================
-BACK
+   BACK
 ========================================================= */
+
 backButton.onclick = () => {
+
     cleanupGame();
 
     gameOverlay.classList.add("hidden");
@@ -2280,58 +2494,64 @@ backButton.onclick = () => {
 
 };
 
+
 /* =========================================================
-CLEANUP
+   CLEANUP
 ========================================================= */
+
 function cleanupGame() {
-    if(window\.clawKeyHandler) {
 
-        window\.removeEventListener(
+    if(window.clawKeyHandler) {
+
+        window.removeEventListener(
             "keydown",
-            window\.clawKeyHandler
+            window.clawKeyHandler
         );
 
-        window\.clawKeyHandler = null;
+        window.clawKeyHandler = null;
 
     }
 
-    if(window\.memoryKeyHandler) {
+    if(window.memoryKeyHandler) {
 
-        window\.removeEventListener(
+        window.removeEventListener(
             "keydown",
-            window\.memoryKeyHandler
+            window.memoryKeyHandler
         );
 
-        window\.memoryKeyHandler = null;
+        window.memoryKeyHandler = null;
 
     }
 
-    if(window\.shootingAnimation) {
+    if(window.shootingAnimation) {
 
         cancelAnimationFrame(
-            window\.shootingAnimation
+            window.shootingAnimation
         );
 
-        window\.shootingAnimation = null;
+        window.shootingAnimation = null;
 
     }
 
-    if(window\.cameraStream) {
+    if(window.cameraStream) {
 
-        window\.cameraStream
+        window.cameraStream
             .getTracks()
             .forEach(track => track.stop());
 
-        window\.cameraStream = null;
+        window.cameraStream = null;
 
     }
 
 }
 
+
 /* =========================================================
-GAME RENDERER
+   GAME RENDERER
 ========================================================= */
+
 function renderGame(game) {
+
     cleanupGame();
 
     switch(game) {
@@ -2380,10 +2600,13 @@ function renderGame(game) {
 
 }
 
+
 /* =========================================================
-CLAW MACHINE
+   CLAW MACHINE
 ========================================================= */
+
 const clawMemories = [
+
     {
         image:"claw1.jpg",
         text:"My first time watching Spider-Man movie in a theatre and ofc with you."
@@ -2420,65 +2643,68 @@ const clawMemories = [
     }
 
 ];
+
 let clawWon = new Set();
 let clawBusy = false;
 
+
 function renderClaw() {
+
     gameTitle.textContent = "🧸 THE MEMORY CLAW";
 
-    gameContent.innerHTML = \`
+    gameContent.innerHTML = `
 
-        \<div class="claw-game">
+        <div class="claw-game">
 
-            \<p class="center">
+            <p class="center">
                 Move the claw and grab a capsule.
-            \</p>
+            </p>
 
-            \<div class="claw-stage">
+            <div class="claw-stage">
 
-                \<div class="claw-rail">\</div>
+                <div class="claw-rail"></div>
 
-                \<div class="claw" id="claw">
+                <div class="claw" id="claw">
 
-                    \<div class="claw-cable">\</div>
+                    <div class="claw-cable"></div>
 
-                    \<div class="claw-hand">\</div>
+                    <div class="claw-hand"></div>
 
-                \</div>
+                </div>
 
-                \<div class="claw-capsules">
+                <div class="claw-capsules">
 
-                    ${clawMemories.map((m,i) => \`
-                        \<button
+                    ${clawMemories.map((m,i) => `
+                        <button
                             class="capsule ${clawWon.has(i) ? "hidden" : ""}"
                             data-index="${i}">
                             ${i+1}
-                        \</button>
-                    \`).join("")}
+                        </button>
+                    `).join("")}
 
-                \</div>
+                </div>
 
-            \</div>
+            </div>
 
-            \<div style="margin-top:12px">
-                \<button class="big-btn" id="dropClaw">
+            <div style="margin-top:12px">
+                <button class="big-btn" id="dropClaw">
                     DROP CLAW
-                \</button>
-            \</div>
+                </button>
+            </div>
 
-            \<div id="clawStatus" class="reward">
+            <div id="clawStatus" class="reward">
                 Choose a capsule.
-            \</div>
+            </div>
 
-        \</div>
-    \`;
+        </div>
+    `;
 
     let clawPosition = 50;
 
     const claw =
         document.getElementById("claw");
 
-    window\.clawKeyHandler = e => {
+    window.clawKeyHandler = e => {
 
         if (
             !gameOverlay.classList.contains("hidden") &&
@@ -2495,7 +2721,7 @@ function renderClaw() {
                         clawPosition-5
                     );
 
-                claw\.style.left =
+                claw.style.left =
                     clawPosition + "%";
 
             }
@@ -2510,7 +2736,7 @@ function renderClaw() {
                         clawPosition+5
                     );
 
-                claw\.style.left =
+                claw.style.left =
                     clawPosition + "%";
 
             }
@@ -2519,11 +2745,10 @@ function renderClaw() {
 
     };
 
-    window\.addEventListener(
+    window.addEventListener(
         "keydown",
-        window\.clawKeyHandler
+        window.clawKeyHandler
     );
-
 
 
     document.getElementById("dropClaw").onclick = () => {
@@ -2532,7 +2757,7 @@ function renderClaw() {
 
         const available =
             clawMemories
-                .map((\_,i)=>i)
+                .map((_,i)=>i)
                 .filter(i=>!clawWon.has(i));
 
         if(!available.length) {
@@ -2548,20 +2773,20 @@ function renderClaw() {
 
         beep(350,.15);
 
-        claw\.classList.add("claw-dropping");
+        claw.classList.add("claw-dropping");
 
         setTimeout(() => {
 
             const index =
                 available[
                     Math.floor(
-                        Math.random()\*available.length
+                        Math.random()*available.length
                     )
                 ];
 
             clawWon.add(index);
 
-            claw\.classList.remove("claw-dropping");
+            claw.classList.remove("claw-dropping");
 
             successSound();
 
@@ -2581,81 +2806,89 @@ function renderClaw() {
 
 }
 
+
 function showMemory(memory,title,reward) {
+
     gameTitle.textContent = title;
 
-    gameContent.innerHTML = \`
+    gameContent.innerHTML = `
 
-        \<div class="memory-reveal">
+        <div class="memory-reveal">
 
-            \<img
+            <img
                 src="${memory.image}"
                 alt="Our memory"
                 loading="eager"
                 decoding="async"
-            \>
+            >
 
-            \<div class="memory-text">
+            <div class="memory-text">
                 ${memory.text}
-            \</div>
+            </div>
 
-            \<div class="reward">
+            <div class="reward">
                 +${reward} TICKETS 🎟️
-            \</div>
+            </div>
 
-            \<br>
+            <br>
 
-            \<button class="big-btn" onclick="renderClaw()">
+            <button class="big-btn" onclick="renderClaw()">
                 BACK TO CLAW
-            \</button>
+            </button>
 
-        \</div>
-    \`;
+        </div>
+    `;
 
     celebrationBurst();
 
 }
 
+
 /* =========================================================
-PHOTO BOOTH
+   PHOTO BOOTH
 ========================================================= */
+
 let capturedPhoto = null;
 
+
 function renderPhotoBooth() {
+
     gameTitle.textContent = "📸 OUR PHOTO BOOTH";
 
-    gameContent.innerHTML = \`
+    gameContent.innerHTML = `
 
-        \<div class="photo-booth">
+        <div class="photo-booth">
 
-            \<p>
+            <p>
                 Get ready for our little arcade photo strip.
-            \</p>
+            </p>
 
-            \<div class="booth-stage" id="boothStage">
+            <div class="booth-stage" id="boothStage">
 
-                \<button class="big-btn" id="takePhotos">
+                <button class="big-btn" id="takePhotos">
                     TAKE OUR PHOTO
-                \</button>
+                </button>
 
-            \</div>
+            </div>
 
-        \</div>
-    \`;
+        </div>
+    `;
 
     document.getElementById("takePhotos").onclick =
         startPhotoCountdown;
 
 }
 
+
 function startPhotoCountdown() {
+
     const stage =
         document.getElementById("boothStage");
 
     let number = 3;
 
     stage.innerHTML =
-        \`\<div class="countdown">${number}\</div>\`;
+        `<div class="countdown">${number}</div>`;
 
     const interval =
         setInterval(() => {
@@ -2665,7 +2898,7 @@ function startPhotoCountdown() {
             if(number > 0) {
 
                 stage.innerHTML =
-                    \`\<div class="countdown">${number}\</div>\`;
+                    `<div class="countdown">${number}</div>`;
 
                 beep(600,.1);
 
@@ -2698,89 +2931,92 @@ function startPhotoCountdown() {
 
 }
 
+
 /* =========================================================
-PHOTO STRIP
+   PHOTO STRIP
 ========================================================= */
+
 function showPhotoStrip() {
+
     addTickets(20);
     successSound();
 
     gameTitle.textContent =
         "📸 OUR PHOTO STRIP";
 
-    gameContent.innerHTML = \`
+    gameContent.innerHTML = `
 
-        \<div class="photo-booth">
+        <div class="photo-booth">
 
-            \<div class="photo-frame">
+            <div class="photo-frame">
 
-                \<img
-                    src="photo\_booth1.jpeg"
+                <img
+                    src="photo_booth1.jpeg"
                     alt="Photo 1"
                     loading="eager"
-                \>
+                >
 
-                \<img
-                    src="photo\_booth2.jpg"
+                <img
+                    src="photo_booth2.jpg"
                     alt="Photo 2"
                     loading="eager"
-                \>
+                >
 
-                \<img
-                    src="photo\_booth3.jpg"
+                <img
+                    src="photo_booth3.jpg"
                     alt="Photo 3"
                     loading="eager"
-                \>
+                >
 
                 ${
                     capturedPhoto
                     ?
-                    \`
-                    \<img
+                    `
+                    <img
                         class="camera-photo"
                         src="${capturedPhoto}"
                         alt="Today's photo"
-                    \>
-                    \`
+                    >
+                    `
                     :
-                    \`
-                    \<button
+                    `
+                    <button
                         class="camera-strip-button"
                         id="cameraStripButton">
 
-                        AND ONE TO COMMEMORATE TODAY\<br>
-                        \<br>
-                        SAY CHEESE\<br>
+                        AND ONE TO COMMEMORATE TODAY<br>
+                        <br>
+                        SAY CHEESE<br>
                         CLICK ME
 
-                    \</button>
-                    \`
+                    </button>
+                    `
                 }
 
-                \<div class="strip-text">
+                <div class="strip-text">
                     THE US ❤️
-                \</div>
+                </div>
 
-            \</div>
+            </div>
 
-            \<div class="reward">
+            <div class="reward">
                 +20 TICKETS 🎟️
-            \</div>
+            </div>
 
-            \<br>
+            <br>
 
             ${
                 capturedPhoto
                 ?
-                \`
-                \<button
+                `
+                <button
                     class="big-btn"
                     id="retakeCamera">
 
                     TAKE ANOTHER TODAY ❤️
 
-                \</button>
-                \`
+                </button>
+                `
                 :
                 ""
             }
@@ -2788,23 +3024,22 @@ function showPhotoStrip() {
             ${
                 capturedPhoto
                 ?
-                \`
-                \<br>
-                \<button
+                `
+                <br>
+                <button
                     class="big-btn"
                     onclick="renderPhotoBooth()">
 
                     BACK
 
-                \</button>
-                \`
+                </button>
+                `
                 :
                 ""
             }
 
-        \</div>
-    \`;
-
+        </div>
+    `;
 
 
     if(!capturedPhoto) {
@@ -2823,45 +3058,48 @@ function showPhotoStrip() {
 
 }
 
+
 /* =========================================================
-CAMERA
+   CAMERA
 ========================================================= */
+
 async function turnOnCamera() {
+
     gameTitle.textContent =
         "📸 SAY CHEESE";
 
-    gameContent.innerHTML = \`
+    gameContent.innerHTML = `
 
-        \<div class="camera-box">
+        <div class="camera-box">
 
-            \<p class="camera-message">
+            <p class="camera-message">
                 One more picture to commemorate today. ❤️
-            \</p>
+            </p>
 
-            \<video
+            <video
                 id="cameraVideo"
                 class="camera-video"
                 autoplay
                 playsinline>
-            \</video>
+            </video>
 
-            \<br>
+            <br>
 
-            \<button
+            <button
                 class="big-btn"
                 id="captureCamera">
 
                 SAY CHEESE 📸
 
-            \</button>
+            </button>
 
-            \<div
+            <div
                 id="cameraResult"
                 class="reward">
-            \</div>
+            </div>
 
-        \</div>
-    \`;
+        </div>
+    `;
 
     const video =
         document.getElementById("cameraVideo");
@@ -2884,10 +3122,10 @@ async function turnOnCamera() {
                 video:{
                     facingMode:"user"
                 },
-                audio\:false
+                audio:false
             });
 
-        window\.cameraStream = stream;
+        window.cameraStream = stream;
 
         video.srcObject = stream;
 
@@ -2896,39 +3134,42 @@ async function turnOnCamera() {
 
     } catch(error) {
 
-        document.getElementById("cameraResult").innerHTML = \`
+        document.getElementById("cameraResult").innerHTML = `
 
-            \<p>
+            <p>
                 Camera access was blocked or unavailable.
-            \</p>
+            </p>
 
-            \<p style="margin-top:8px;font-size:13px;">
+            <p style="margin-top:8px;font-size:13px;">
                 Please allow camera access and try again.
                 If you're opening this HTML directly as a file,
                 Chrome may require the page to run on localhost
                 or HTTPS for camera access.
-            \</p>
+            </p>
 
-            \<br>
+            <br>
 
-            \<button
+            <button
                 class="big-btn"
                 onclick="showPhotoStrip()">
 
                 BACK TO PHOTO STRIP
 
-            \</button>
+            </button>
 
-        \`;
+        `;
 
     }
 
 }
 
+
 /* =========================================================
-CAPTURE PHOTO
+   CAPTURE PHOTO
 ========================================================= */
+
 function captureCameraPhoto() {
+
     const video =
         document.getElementById("cameraVideo");
 
@@ -2949,7 +3190,6 @@ function captureCameraPhoto() {
     );
 
 
-
     const canvas =
         document.createElement("canvas");
 
@@ -2962,10 +3202,10 @@ function captureCameraPhoto() {
     const ctx =
         canvas.getContext("2d");
 
-    /\*
+    /*
        Mirror the saved photo so it matches
        what the user sees in the selfie camera.
-    \*/
+    */
 
     ctx.translate(
         canvas.width,
@@ -2989,2331 +3229,2315 @@ function captureCameraPhoto() {
         );
 
 
+    if(window.cameraStream) {
 
-    if(window\.cameraStream) {
-
-        window\.cameraStream
+        window.cameraStream
             .getTracks()
             .forEach(track =>
                 track.stop()
             );
 
-        window\.cameraStream = null;
+        window.cameraStream = null;
 
     }
 
 
-
-    /\*
+    /*
        Show the captured image first.
        The BACK TO PHOTO STRIP button then
        places it into the actual strip.
-    \*/
+    */
 
-    gameContent.innerHTML = \`
+    gameContent.innerHTML = `
 
-        \<div class="camera-box">
+        <div class="camera-box">
 
-            \<p class="camera-message">
+            <p class="camera-message">
                 AND ONE TO COMMEMORATE TODAY ❤️
-            \</p>
+            </p>
 
-            \<img
+            <img
                 src="${capturedPhoto}"
                 style="
-                    width\:min(100%,560px);
+                    width:min(100%,560px);
                     max-height:45vh;
-                    object-fit\:contain;
+                    object-fit:contain;
                     border-radius:18px;
                     border:3px solid var(--pink2);
                     box-shadow:0 0 25px rgba(255,111,174,.35);
                 "
                 alt="Today's captured photo"
-            \>
+            >
 
-            \<br>
+            <br>
 
-            \<div class="reward">
+            <div class="reward">
                 THIS ONE IS JUST FOR TODAY. ❤️
-            \</div>
+            </div>
 
-            \<br>
+            <br>
 
-            \<button
+            <button
                 class="big-btn"
                 onclick="showPhotoStrip()">
 
                 ADD TO OUR PHOTO STRIP ❤️
 
-            \</button>
+            </button>
 
-        \</div>
-    \`;
+        </div>
+    `;
 
     successSound();
     celebrationBurst();
 
 }
 
+
 /* =========================================================
-JUKEBOX
+   JUKEBOX
 ========================================================= */
+
 function renderJukebox() {
+
     gameTitle.textContent = "🎵 OUR JUKEBOX";
 
-    gameContent.innerHTML = \`
+    gameContent.innerHTML = `
 
-        \<div class="jukebox">
+        <div class="jukebox">
 
-            \<div class="jukebox-body">
+            <div class="jukebox-body">
 
-                \<div class="jukebox-screen">
+                <div class="jukebox-screen">
                     🎵
-                \</div>
+                </div>
 
-                \<h2>
+                <h2>
                     OUR SOUNDTRACK
-                \</h2>
+                </h2>
 
-                \<p style="margin:15px 0">
+                <p style="margin:15px 0">
                     Every relationship needs a soundtrack.
-                \</p>
+                </p>
 
-                \<button class="big-btn" id="spotifyBtn">
+                <button class="big-btn" id="spotifyBtn">
                     OPEN OUR SPOTIFY
-                \</button>
+                </button>
 
-                \<div class="reward">
+                <div class="reward">
                     +15 TICKETS 🎟️
-                \</div>
+                </div>
 
-            \</div>
+            </div>
 
-        \</div>
-    \`;
+        </div>
+    `;
 
     document.getElementById("spotifyBtn").onclick = () => {
 
-        window\.open(
-            "[https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G\_I1Jn9\_nSA&utm\_source=copy-link&pi=9turWhBqSwWN9](https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA\&utm_source=copy-link\&pi=9turWhBqSwWN9)", 
-            "\_blank" 
-        ); 
+        window.open(
+            "https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9",
+            "_blank"
+        );
 
-        addTickets(15); 
-        successSound(); 
+        addTickets(15);
+        successSound();
 
-    }; 
+    };
 
 }
 
+
 /* =========================================================
-MEMORY LANE
+   MEMORY LANE
 ========================================================= */
+
 const roadMemories = [
-    ["Met in Csa and i found you cutee 🥰","csa.jpeg"], 
-    ["Cubbon park where we hung out so much and that day i liked you a little more🥹","cubbon.png"], 
-    ["Bhaang day\nI drunk called you and cried cause u went without saying bye","bhang.jpeg"], 
-    ["You got me lunaaaaa","luna.jpg"], 
-    ["The house party that changed everything","houseparty.jpeg"], 
-    ["Our first photo after officially becoming a couple","off.jpeg"], 
-    ["Our first ethnic day together","ethnic.jpg"], 
-    ["First Ganesh Chaturthi and first time we went out as a coupleeee","ganesh.png"], 
-    ["First date and the first time you got me flowers","date.jpeg"], 
-    ["Cute family photo and how Gourmet used to be our second home.","fam.jpeg"], 
-    ["When you came to surprise me on my birthday in my night, it was fun.","bday.jpeg"], 
-    ["Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match.","dinner.jpeg"], 
-    ["First photo booth experience","phbooth.jpg"], 
-    ["First 👀","first.jpg"], 
-    ["Our first concert together","concert.jpg"], 
-    ["First Valentine's Day together and we went to Caliburrito.","vd.jpg"], 
-    ["Six month anniversary yayyyy","6.jpg"], 
-    ["That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun.","summer.jpg"], 
-    ["The big fat family dinner where you met all the boyfriends and we hung out with my friend group.","fatfam.jpg"], 
-    ["Got Bappa home and we were matching outfits. Hehe.","bappa.jpg"], 
-    ["Last ethnic day together and yeah, one of my favorite picture.","lastethnic.jpg"], 
-    ["My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday.","20.jpg"], 
-    ["Miss our little cookie.","cookie.jpg"], 
-    ["Our last Christmas lights together as college students.","christmas.jpg"], 
-    ["Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day.","saree.jpg"], 
-    ["Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together.","farewell.jpg"], 
-    ["New house and you came with a big bouquet of flowers as housewarming.","newh.jpg"], 
-    ["Yayyy grad day","grad.jpeg"], 
-    ["Happy two years to us ❤️","2.jpg"] 
+
+    ["Met in Csa and i found you cutee 🥰","csa.jpeg"],
+    ["Cubbon park where we hung out so much and that day i liked you a little more🥹","cubbon.png"],
+    ["Bhaang day\nI drunk called you and cried cause u went without saying bye","bhang.jpeg"],
+    ["You got me lunaaaaa","luna.jpg"],
+    ["The house party that changed everything","houseparty.jpeg"],
+    ["Our first photo after officially becoming a couple","off.jpeg"],
+    ["Our first ethnic day together","ethnic.jpg"],
+    ["First Ganesh Chaturthi and first time we went out as a coupleeee","ganesh.png"],
+    ["First date and the first time you got me flowers","date.jpg"],
+    ["Cute family photo and how Gourmet used to be our second home.","fam.jpg"],
+    ["When you came to surprise me on my birthday in my night, it was fun.","bday.jpg"],
+    ["Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match.","dinner.jpeg"],
+    ["First photo booth experience","phbooth.jpg"],
+    ["First 👀","first.jpg"],
+    ["Our first concert together","concert.jpg"],
+    ["First Valentine's Day together and we went to Caliburrito.","vd.jpg"],
+    ["Six month anniversary yayyyy","6.jpg"],
+    ["That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun.","summer.jpg"],
+    ["The big fat family dinner where you met all the boyfriends and we hung out with my friend group.","fatfam.jpg"],
+    ["Got Bappa home and we were matching outfits. Hehe.","bappa.jpg"],
+    ["Last ethnic day together and yeah, one of my favorite picture.","lastethnic.jpg"],
+    ["My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday.","20.jpg"],
+    ["Miss our little cookie.","cookie.jpg"],
+    ["Our last Christmas lights together as college students.","christmas.jpg"],
+    ["Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day.","saree.jpg"],
+    ["Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together.","farewell.jpg"],
+    ["New house and you came with a big bouquet of flowers as housewarming.","newh.jpg"],
+    ["Yayyy grad day","grad.jpeg"],
+    ["Happy two years to us ❤️","2.jpg"]
 
 ];
+
 let memoryCarPosition = 20;
 let memoryRoadWidth = 1900;
 let memoryMilestonePositions = [];
 let memoryReached = new Set();
 
+
 /* =========================================================
-MEMORY LANE LAZY IMAGE LOADING
+   MEMORY LANE LAZY IMAGE LOADING
 ========================================================= */
+
 function lazyLoadMemoryImages() {
-    const road = 
-        document.getElementById("road"); 
 
-    if(!road) return; 
+    const road =
+        document.getElementById("road");
 
-    const images = 
-        [...road.querySelectorAll(".memory-lazy-image")]; 
+    if(!road) return;
 
-    /\* 
-       Only load images close to the visible part 
-       of the horizontal road. 
-    \*/ 
+    const images =
+        [...road.querySelectorAll(".memory-lazy-image")];
 
-    if("IntersectionObserver" in window) { 
+    /*
+       Only load images close to the visible part
+       of the horizontal road.
+    */
 
-        const observer = 
-            new IntersectionObserver( 
-                entries => { 
+    if("IntersectionObserver" in window) {
 
-                    entries.forEach(entry => { 
+        const observer =
+            new IntersectionObserver(
+                entries => {
 
-                        if(entry.isIntersecting) { 
+                    entries.forEach(entry => {
 
-                            const img = 
-                                entry.target; 
+                        if(entry.isIntersecting) {
 
-                            if(img.dataset.src) { 
+                            const img =
+                                entry.target;
 
-                                img.src = 
-                                    img.dataset.src; 
+                            if(img.dataset.src) {
 
-                                img.removeAttribute( 
-                                    "data-src" 
-                                ); 
+                                img.src =
+                                    img.dataset.src;
 
-                                img.classList.add( 
-                                    "memory-image-loaded" 
-                                ); 
+                                img.removeAttribute(
+                                    "data-src"
+                                );
 
-                            } 
+                                img.classList.add(
+                                    "memory-image-loaded"
+                                );
 
-                            observer.unobserve(img); 
+                            }
 
-                        } 
+                            observer.unobserve(img);
 
-                    }); 
+                        }
 
-                }, 
-                { 
-                    root\:road, 
-                    rootMargin:"600px 600px" 
-                } 
-            ); 
+                    });
 
-        images.forEach(img => 
-            observer.observe(img) 
-        ); 
+                },
+                {
+                    root:road,
+                    rootMargin:"600px 600px"
+                }
+            );
 
-    } else { 
+        images.forEach(img =>
+            observer.observe(img)
+        );
 
-        /\* 
-           Fallback for browsers without 
-           IntersectionObserver. 
-        \*/ 
+    } else {
 
-        images.forEach(img => { 
+        /*
+           Fallback for browsers without
+           IntersectionObserver.
+        */
 
-            img.src = 
-                img.dataset.src; 
+        images.forEach(img => {
 
-            img.removeAttribute( 
-                "data-src" 
-            ); 
+            img.src =
+                img.dataset.src;
 
-        }); 
+            img.removeAttribute(
+                "data-src"
+            );
 
-    } 
+        });
 
-}
-
-function renderMemoryLane() {
-    gameTitle.textContent = 
-        "🚗 MEMORY LANE"; 
-
-    gameContent.innerHTML = \` 
-
-        \<div style="height:100%;"> 
-
-            \<div class="memory-lane-info"> 
-
-                \<b>Drive through our memories ❤️\</b>\<br> 
-
-                Use the LEFT and RIGHT arrows to drive.\<br> 
-
-                Reach a milestone to discover it. 
-
-            \</div> 
-
-            \<div class="road" id="road"> 
-
-                \<div class="road-line">\</div> 
-
-                \<div class="milestones"> 
-
-                    ${roadMemories.map((m,i)=>\` 
-
-                        \<button 
-                            class="milestone" 
-                            id="milestone-${i}" 
-                            style=" 
-                                left:${70 + i\*58}px; 
-                            " 
-                            onclick="openRoadMemory(${i})"> 
-
-                            ❤️ 
-
-                        \</button> 
-
-                    \`).join("")} 
-
-                \</div> 
-
-                \<div class="car" id="memoryCar"> 
-                    🚗 
-                \</div> 
-
-            \</div> 
-
-        \</div> 
-    \`; 
-
-    const road = 
-        document.getElementById("road"); 
-
-    const car = 
-        document.getElementById("memoryCar"); 
-
-    car.style.left = memoryCarPosition + "px"; 
-
-    const initialVisibleWidth = road.clientWidth; 
-    road.scrollLeft = Math.max(0, Math.min(memoryRoadWidth - initialVisibleWidth, memoryCarPosition - initialVisibleWidth / 2)); 
-
-    memoryMilestonePositions = 
-        roadMemories.map( 
-            (\_,i) => 70 + i\*58 
-        ); 
-
-
-
-    function driveMemory(direction) { 
-
-        memoryCarPosition += 
-            direction \* 18; 
-
-        memoryCarPosition = 
-            Math.max( 
-                20, 
-                Math.min( 
-                    memoryRoadWidth - 80, 
-                    memoryCarPosition 
-                ) 
-            ); 
-
-        car.style.left = 
-            memoryCarPosition + "px"; 
-
-        const visibleWidth = 
-            road.clientWidth; 
-
-        const targetScroll = 
-            memoryCarPosition - 
-            visibleWidth / 2; 
-
-        road.scrollLeft = 
-            Math.max( 
-                0, 
-                Math.min( 
-                    memoryRoadWidth - visibleWidth, 
-                    targetScroll 
-                ) 
-            ); 
-
-        checkMemoryMilestone(); 
-
-    } 
-
-
-
-    window\.memoryKeyHandler = e => { 
-
-        if( 
-            gameOverlay.classList.contains("hidden") || 
-            currentGame !== "memory" 
-        ) return; 
-
-        if(e.key === "ArrowRight") { 
-
-            e.preventDefault(); 
-
-            driveMemory(1); 
-
-        } 
-
-        if(e.key === "ArrowLeft") { 
-
-            e.preventDefault(); 
-
-            driveMemory(-1); 
-
-        } 
-
-    }; 
-
-
-
-    window\.addEventListener( 
-        "keydown", 
-        window\.memoryKeyHandler 
-    ); 
-
-
-
-    road.addEventListener( 
-        "wheel", 
-        e => { 
-
-            if(Math.abs(e.deltaY) > 0) { 
-
-                e.preventDefault(); 
-
-                road.scrollLeft += 
-                    e.deltaY; 
-
-                /\* 
-                   Make nearby images load after 
-                   the user moves around the road. 
-                \*/ 
-
-            } 
-
-        }, 
-        {passive\:false} 
-    ); 
-
-}
-
-/* =========================================================
-MEMORY MILESTONE
-========================================================= */
-function checkMemoryMilestone() {
-    let closestIndex = -1; 
-    let closestDistance = Infinity; 
-
-    memoryMilestonePositions.forEach( 
-        (position,index) => { 
-
-            const distance = 
-                Math.abs( 
-                    memoryCarPosition - 
-                    position 
-                ); 
-
-            if( 
-                distance < 35 && 
-                distance < closestDistance 
-            ) { 
-
-                closestDistance = 
-                    distance; 
-
-                closestIndex = 
-                    index; 
-
-            } 
-
-        } 
-    ); 
-
-
-
-    if(closestIndex !== -1) { 
-
-        const milestone = 
-            document.getElementById( 
-                \`milestone-${closestIndex}\` 
-            ); 
-
-        if(milestone) { 
-
-            milestone.classList.remove( 
-                "reached" 
-            ); 
-
-            void milestone.offsetWidth; 
-
-            milestone.classList.add( 
-                "reached" 
-            ); 
-
-        } 
-
-
-
-        const car = 
-            document.getElementById( 
-                "memoryCar" 
-            ); 
-
-        if(car) { 
-
-            car.classList.remove( 
-                "jump" 
-            ); 
-
-            void car.offsetWidth; 
-
-            car.classList.add( 
-                "jump" 
-            ); 
-
-        } 
-
-
-
-        if( 
-            !memoryReached.has( 
-                closestIndex 
-            ) 
-        ) { 
-
-            memoryReached.add( 
-                closestIndex 
-            ); 
-
-            setTimeout(() => { 
-
-                if( 
-                    currentGame === "memory" 
-                ) { 
-
-                    openRoadMemory( 
-                        closestIndex 
-                    ); 
-
-                } 
-
-            },250); 
-
-        } 
-
-    } 
-
-}
-
-/* =========================================================
-OPEN MEMORY
-========================================================= */
-function openRoadMemory(index) {
-    const [text,image] = 
-        roadMemories[index]; 
-
-    gameTitle.textContent = 
-        "❤️ A MEMORY"; 
-
-    gameContent.innerHTML = \` 
-
-        \<div class="memory-reveal"> 
-
-            \<div class="memory-flip-card" id="memoryFlipCard">
-                \<div class="memory-flip-inner">
-                    \<div class="memory-flip-front">
-                        \<div>
-                            ${text.replace(/\n/g,"\<br>")}
-                            \<br>
-                            \<br>
-                            Tap to flip ❤️
-                        \</div>
-                    \</div>
-                    \<div class="memory-flip-back">
-                        \<img 
-                            src="${image}" 
-                            alt="Memory" 
-                            loading="eager" 
-                            decoding="async" 
-                        \>
-                    \</div>
-                \</div>
-            \</div>
-
-            \<div class="reward"> 
-                MEMORY DISCOVERED +10 TICKETS 🎟️ 
-            \</div> 
-
-            \<br> 
-
-            \<button 
-                class="big-btn" 
-                onclick="renderMemoryLane()"> 
-
-                CONTINUE DRIVING 🚗 
-
-            \</button> 
-
-        \</div> 
-    \`; 
-
-    const memoryFlipCard = document.getElementById("memoryFlipCard");
-    if(memoryFlipCard) {
-        memoryFlipCard.onclick = () => {
-            memoryFlipCard.classList.toggle("flipped");
-        };
     }
 
-    addTickets(10); 
+}
 
-    celebrationBurst(); 
+
+function renderMemoryLane() {
+
+    gameTitle.textContent =
+        "🚗 MEMORY LANE";
+
+    gameContent.innerHTML = `
+
+        <div style="height:100%;">
+
+            <div class="memory-lane-info">
+
+                <b>Drive through our memories ❤️</b><br>
+
+                Use the LEFT and RIGHT arrows to drive.<br>
+
+                Reach a milestone to discover it.
+
+            </div>
+
+            <div class="road" id="road">
+
+                <div class="road-line"></div>
+
+                <div class="milestones">
+
+                    ${roadMemories.map((m,i)=>`
+
+                        <button
+                            class="milestone"
+                            id="milestone-${i}"
+                            style="
+                                left:${70 + i*58}px;
+                            "
+                            onclick="openRoadMemory(${i})">
+
+                            ❤️
+
+                        </button>
+
+                    `).join("")}
+
+                </div>
+
+                <div class="car" id="memoryCar">
+                    🚗
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    const road =
+        document.getElementById("road");
+
+    const car =
+        document.getElementById("memoryCar");
+
+    memoryCarPosition = 20;
+
+    memoryMilestonePositions =
+        roadMemories.map(
+            (_,i) => 70 + i*58
+        );
+
+
+    function driveMemory(direction) {
+
+        memoryCarPosition +=
+            direction * 18;
+
+        memoryCarPosition =
+            Math.max(
+                20,
+                Math.min(
+                    memoryRoadWidth - 80,
+                    memoryCarPosition
+                )
+            );
+
+        car.style.left =
+            memoryCarPosition + "px";
+
+        const visibleWidth =
+            road.clientWidth;
+
+        const targetScroll =
+            memoryCarPosition -
+            visibleWidth / 2;
+
+        road.scrollLeft =
+            Math.max(
+                0,
+                Math.min(
+                    memoryRoadWidth - visibleWidth,
+                    targetScroll
+                )
+            );
+
+        checkMemoryMilestone();
+
+    }
+
+
+    window.memoryKeyHandler = e => {
+
+        if(
+            gameOverlay.classList.contains("hidden") ||
+            currentGame !== "memory"
+        ) return;
+
+        if(e.key === "ArrowRight") {
+
+            e.preventDefault();
+
+            driveMemory(1);
+
+        }
+
+        if(e.key === "ArrowLeft") {
+
+            e.preventDefault();
+
+            driveMemory(-1);
+
+        }
+
+    };
+
+
+    window.addEventListener(
+        "keydown",
+        window.memoryKeyHandler
+    );
+
+
+    road.addEventListener(
+        "wheel",
+        e => {
+
+            if(Math.abs(e.deltaY) > 0) {
+
+                e.preventDefault();
+
+                road.scrollLeft +=
+                    e.deltaY;
+
+                /*
+                   Make nearby images load after
+                   the user moves around the road.
+                */
+
+            }
+
+        },
+        {passive:false}
+    );
 
 }
 
+
 /* =========================================================
-BASKETBALL
+   MEMORY MILESTONE
 ========================================================= */
+
+function checkMemoryMilestone() {
+
+    let closestIndex = -1;
+    let closestDistance = Infinity;
+
+    memoryMilestonePositions.forEach(
+        (position,index) => {
+
+            const distance =
+                Math.abs(
+                    memoryCarPosition -
+                    position
+                );
+
+            if(
+                distance < 35 &&
+                distance < closestDistance
+            ) {
+
+                closestDistance =
+                    distance;
+
+                closestIndex =
+                    index;
+
+            }
+
+        }
+    );
+
+
+    if(closestIndex !== -1) {
+
+        const milestone =
+            document.getElementById(
+                `milestone-${closestIndex}`
+            );
+
+        if(milestone) {
+
+            milestone.classList.remove(
+                "reached"
+            );
+
+            void milestone.offsetWidth;
+
+            milestone.classList.add(
+                "reached"
+            );
+
+        }
+
+
+        const car =
+            document.getElementById(
+                "memoryCar"
+            );
+
+        if(car) {
+
+            car.classList.remove(
+                "jump"
+            );
+
+            void car.offsetWidth;
+
+            car.classList.add(
+                "jump"
+            );
+
+        }
+
+
+        if(
+            !memoryReached.has(
+                closestIndex
+            )
+        ) {
+
+            memoryReached.add(
+                closestIndex
+            );
+
+            setTimeout(() => {
+
+                if(
+                    currentGame === "memory"
+                ) {
+
+                    openRoadMemory(
+                        closestIndex
+                    );
+
+                }
+
+            },250);
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN MEMORY
+========================================================= */
+
+function openRoadMemory(index) {
+
+    const [text,image] =
+        roadMemories[index];
+
+    gameTitle.textContent =
+        "❤️ A MEMORY";
+
+    gameContent.innerHTML = `
+
+        <div class="memory-reveal">
+
+            <img
+                src="${image}"
+                alt="Memory"
+                loading="eager"
+                decoding="async"
+            >
+
+            <div class="memory-text">
+                ${text.replace(/\n/g,"<br>")}
+            </div>
+
+            <div class="reward">
+                MEMORY DISCOVERED +10 TICKETS 🎟️
+            </div>
+
+            <br>
+
+            <button
+                class="big-btn"
+                onclick="renderMemoryLane()">
+
+                CONTINUE DRIVING 🚗
+
+            </button>
+
+        </div>
+    `;
+
+    addTickets(10);
+
+    celebrationBurst();
+
+}
+
+
+/* =========================================================
+   BASKETBALL
+========================================================= */
+
 const basketballQuestions = [
-    { 
-        q:"Where did we go on our first date?", 
-        answers:[ 
-            "Uru Brew Park", 
-            "Cubbon Park", 
-            "Hakuna", 
-            "Glens" 
-        ], 
-        correct:"Uru Brew Park" 
-    }, 
 
-    { 
-        q:"What colour dress did I wear on our first date?", 
-        answers:[ 
-            "A small white dress with pink flowers + cute clips in my hair", 
-            "A black crop top", 
-            "A red saree", 
-            "A blue dress" 
-        ], 
-        correct:"A small white dress with pink flowers + cute clips in my hair" 
-    }, 
+    {
+        q:"Where did we go on our first date?",
+        answers:[
+            "Uru Brew Park",
+            "Cubbon Park",
+            "Hakuna",
+            "Glens"
+        ],
+        correct:"Uru Brew Park"
+    },
 
-    { 
-        q:"Where did we have our first kiss?", 
-        answers:[ 
-            "Hakuna", 
-            "Uru Brew Park", 
-            "Glens", 
-            "Cubbon Park" 
-        ], 
-        correct:"Hakuna" 
-    }, 
+    {
+        q:"What colour dress did I wear on our first date?",
+        answers:[
+            "A small white dress with pink flowers + cute clips in my hair",
+            "A black crop top",
+            "A red saree",
+            "A blue dress"
+        ],
+        correct:"A small white dress with pink flowers + cute clips in my hair"
+    },
 
-    { 
-        q:"Where did we go after our first date?", 
-        answers:[ 
-            "Glens", 
-            "Hakuna", 
-            "Gourmet", 
-            "Cubbon Park" 
-        ], 
-        correct:"Glens" 
-    }, 
+    {
+        q:"Where did we have our first kiss?",
+        answers:[
+            "Hakuna",
+            "Uru Brew Park",
+            "Glens",
+            "Cubbon Park"
+        ],
+        correct:"Hakuna"
+    },
 
-    { 
-        q:"What was the first nail design I got when you painted my nails?", 
-        answers:[ 
-            "White nails with butterflies on two fingers that join together to form one butterfly", 
-            "Pink hearts", 
-            "Blue flowers", 
-            "Red glitter" 
-        ], 
-        correct:"White nails with butterflies on two fingers that join together to form one butterfly" 
-    }, 
+    {
+        q:"Where did we go after our first date?",
+        answers:[
+            "Glens",
+            "Hakuna",
+            "Gourmet",
+            "Cubbon Park"
+        ],
+        correct:"Glens"
+    },
 
-    { 
-        q:"For what occasion did we first go out as a couple?", 
-        answers:[ 
-            "Ganesh Chaturthi", 
-            "Valentine's Day", 
-            "Christmas", 
-            "Our anniversary" 
-        ], 
-        correct:"Ganesh Chaturthi" 
-    }, 
+    {
+        q:"What was the first nail design I got when you painted my nails?",
+        answers:[
+            "White nails with butterflies on two fingers that join together to form one butterfly",
+            "Pink hearts",
+            "Blue flowers",
+            "Red glitter"
+        ],
+        correct:"White nails with butterflies on two fingers that join together to form one butterfly"
+    },
 
-    { 
-        q:"What was I wearing that day?", 
-        answers:[ 
-            "A black crop top with a black-and-white wrap-around skirt", 
-            "A white dress", 
-            "A pink saree", 
-            "A blue top and jeans" 
-        ], 
-        correct:"A black crop top with a black-and-white wrap-around skirt" 
-    }, 
+    {
+        q:"For what occasion did we first go out as a couple?",
+        answers:[
+            "Ganesh Chaturthi",
+            "Valentine's Day",
+            "Christmas",
+            "Our anniversary"
+        ],
+        correct:"Ganesh Chaturthi"
+    },
 
-    { 
-        q:"When and where did we first properly cuddle?", 
-        answers:[ 
-            "October, at your sister's house", 
-            "December, at my house", 
-            "October, at Hakuna", 
-            "November, at your house" 
-        ], 
-        correct:"October, at your sister's house" 
-    }, 
+    {
+        q:"What was I wearing that day?",
+        answers:[
+            "A black crop top with a black-and-white wrap-around skirt",
+            "A white dress",
+            "A pink saree",
+            "A blue top and jeans"
+        ],
+        correct:"A black crop top with a black-and-white wrap-around skirt"
+    },
 
-    { 
-        q:"What movie did we watch that day?", 
-        answers:[ 
-            "Yeh Jawaani Hai Deewani", 
-            "Spider-Man", 
-            "3 Idiots", 
-            "Zindagi Na Milegi Dobara" 
-        ], 
-        correct:"Yeh Jawaani Hai Deewani" 
-    }, 
+    {
+        q:"When and where did we first properly cuddle?",
+        answers:[
+            "October, at your sister's house",
+            "December, at my house",
+            "October, at Hakuna",
+            "November, at your house"
+        ],
+        correct:"October, at your sister's house"
+    },
 
-    { 
-        q:"What shows did you make me watch that became my absolute favourites?", 
-        answers:[ 
-            "Brooklyn Nine-Nine OR Modern Family", 
-            "Friends", 
-            "The Office", 
-            "How I Met Your Mother" 
-        ], 
-        correct:"Brooklyn Nine-Nine OR Modern Family" 
-    }, 
+    {
+        q:"What movie did we watch that day?",
+        answers:[
+            "Yeh Jawaani Hai Deewani",
+            "Spider-Man",
+            "3 Idiots",
+            "Zindagi Na Milegi Dobara"
+        ],
+        correct:"Yeh Jawaani Hai Deewani"
+    },
 
-    { 
-        q:"What are my favourite colours?", 
-        answers:[ 
-            "Blue, pink OR maroon", 
-            "Black and white", 
-            "Green and yellow", 
-            "Purple and orange" 
-        ], 
-        correct:"Blue, pink OR maroon" 
-    }, 
+    {
+        q:"What shows did you make me watch that became my absolute favourites?",
+        answers:[
+            "Brooklyn Nine-Nine OR Modern Family",
+            "Friends",
+            "The Office",
+            "How I Met Your Mother"
+        ],
+        correct:"Brooklyn Nine-Nine OR Modern Family"
+    },
 
-    { 
-        q:"What's one silly thing I love spending money on?", 
-        answers:[ 
-            "Bed sheets", 
-            "Shoes", 
-            "Makeup", 
-            "Plants" 
-        ], 
-        correct:"Bed sheets" 
-    } 
+    {
+        q:"What are my favourite colours?",
+        answers:[
+            "Blue, pink OR maroon",
+            "Black and white",
+            "Green and yellow",
+            "Purple and orange"
+        ],
+        correct:"Blue, pink OR maroon"
+    },
+
+    {
+        q:"What's one silly thing I love spending money on?",
+        answers:[
+            "Bed sheets",
+            "Shoes",
+            "Makeup",
+            "Plants"
+        ],
+        correct:"Bed sheets"
+    }
 
 ];
+
 let basketballIndex = 0;
 let basketballScore = 0;
 let basketballAnswered = false;
 
+
 function renderBasketball() {
-    gameTitle.textContent = 
-        "🏀 HOW WELL DO YOU KNOW US?"; 
 
-    basketballIndex = 0; 
-    basketballScore = 0; 
-    basketballAnswered = false; 
+    gameTitle.textContent =
+        "🏀 HOW WELL DO YOU KNOW US?";
 
-    renderBasketballQuestion(); 
+    basketballIndex = 0;
+    basketballScore = 0;
+    basketballAnswered = false;
+
+    renderBasketballQuestion();
 
 }
+
 
 function renderBasketballQuestion() {
-    if( 
-        basketballIndex >= 
-        basketballQuestions.length 
-    ) { 
 
-        gameContent.innerHTML = \` 
+    if(
+        basketballIndex >=
+        basketballQuestions.length
+    ) {
 
-            \<div class="center" 
-                 style=" 
-                    height:100%; 
-                    display\:flex; 
-                    flex-direction\:column; 
-                    justify-content\:center; 
-                    align-items\:center; 
-                 "> 
+        gameContent.innerHTML = `
 
-                \<div style="font-size:70px"> 
-                    🏀❤️ 
-                \</div> 
+            <div class="center"
+                 style="
+                    height:100%;
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                 ">
 
-                \<h2> 
-                    YOU MADE IT! 
-                \</h2> 
+                <div style="font-size:70px">
+                    🏀❤️
+                </div>
 
-                \<p style="margin:12px"> 
-                    You survived the ultimate us quiz. 
-                \</p> 
+                <h2>
+                    YOU MADE IT!
+                </h2>
 
-                \<div class="scoreboard"> 
-                    SCORE: 
-                    ${basketballScore} 
-                    / 
-                    ${basketballQuestions.length} 
-                \</div> 
+                <p style="margin:12px">
+                    You survived the ultimate us quiz.
+                </p>
 
-                \<div class="reward"> 
-                    +60 TICKETS 🎟️ 
-                \</div> 
+                <div class="scoreboard">
+                    SCORE:
+                    ${basketballScore}
+                    /
+                    ${basketballQuestions.length}
+                </div>
 
-                \<br> 
+                <div class="reward">
+                    +60 TICKETS 🎟️
+                </div>
 
-                \<button 
-                    class="big-btn" 
-                    onclick="renderBasketball()"> 
+                <br>
 
-                    PLAY AGAIN 
+                <button
+                    class="big-btn"
+                    onclick="renderBasketball()">
 
-                \</button> 
+                    PLAY AGAIN
 
-            \</div> 
-        \`; 
+                </button>
 
-        addTickets(60); 
-        successSound(); 
+            </div>
+        `;
 
-        return; 
+        addTickets(60);
+        successSound();
 
-    } 
+        return;
 
+    }
 
 
-    basketballAnswered = false; 
+    basketballAnswered = false;
 
-    const q = 
-        basketballQuestions[ 
-            basketballIndex 
-        ]; 
+    const q =
+        basketballQuestions[
+            basketballIndex
+        ];
 
-    gameContent.innerHTML = \` 
+    gameContent.innerHTML = `
 
-        \<div class="question-card"> 
+        <div class="question-card">
 
-            \<div class="scoreboard"> 
+            <div class="scoreboard">
 
-                \<span> 
-                    SCORE: ${basketballScore} 
-                \</span> 
+                <span>
+                    SCORE: ${basketballScore}
+                </span>
 
-                \<span> 
-                    ${basketballIndex + 1}/${basketballQuestions.length} 
-                \</span> 
+                <span>
+                    ${basketballIndex + 1}/${basketballQuestions.length}
+                </span>
 
-            \</div> 
+            </div>
 
-            \<div class="question"> 
-                ${q.q} 
-            \</div> 
+            <div class="question">
+                ${q.q}
+            </div>
 
-            \<div class="basketball-court"> 
+            <div class="basketball-court">
 
-                \<div class="hoop-backboard">\</div> 
-                \<div class="hoop-rim">\</div> 
-                \<div class="hoop-net">\</div> 
+                <div class="hoop-backboard"></div>
+                <div class="hoop-rim"></div>
+                <div class="hoop-net"></div>
 
-                \<div 
-                    class="ball" 
-                    id="basketballBall"> 
-                \</div> 
+                <div
+                    class="ball"
+                    id="basketballBall">
+                </div>
 
-            \</div> 
+            </div>
 
-            \<div class="answers"> 
+            <div class="answers">
 
-                ${q.answers.map((a,i)=>\` 
+                ${q.answers.map((a,i)=>`
 
-                    \<button 
-                        class="answer-btn" 
-                        data-answer-index="${i}"> 
+                    <button
+                        class="answer-btn"
+                        data-answer-index="${i}">
 
-                        ${a} 
+                        ${a}
 
-                    \</button> 
+                    </button>
 
-                \`).join("")} 
+                `).join("")}
 
-            \</div> 
+            </div>
 
-            \<div 
-                id="basketResult" 
-                style="margin-top:10px"> 
-            \</div> 
+            <div
+                id="basketResult"
+                style="margin-top:10px">
+            </div>
 
-        \</div> 
-    \`; 
+        </div>
+    `;
 
 
+    document.querySelectorAll(".answer-btn")
+        .forEach((btn,index) => {
 
-    document.querySelectorAll(".answer-btn") 
-        .forEach((btn,index) => { 
+            btn.onclick = () => {
 
-            btn.onclick = () => { 
+                if(basketballAnswered)
+                    return;
 
-                if(basketballAnswered) 
-                    return; 
+                basketballAnswered = true;
 
-                basketballAnswered = true; 
+                const answer =
+                    q.answers[index];
 
-                const answer = 
-                    q.answers[index]; 
+                const result =
+                    document.getElementById(
+                        "basketResult"
+                    );
 
-                const result = 
-                    document.getElementById( 
-                        "basketResult" 
-                    ); 
+                const ball =
+                    document.getElementById(
+                        "basketballBall"
+                    );
 
-                const ball = 
-                    document.getElementById( 
-                        "basketballBall" 
-                    ); 
+                document.querySelectorAll(
+                    ".answer-btn"
+                ).forEach(
+                    b => b.disabled = true
+                );
 
-                document.querySelectorAll( 
-                    ".answer-btn" 
-                ).forEach( 
-                    b => b.disabled = true 
-                ); 
 
+                if(answer === q.correct) {
 
+                    basketballScore++;
 
-                if(answer === q.correct) { 
+                    result.innerHTML =
+                        `<b style="color:#67f7a8">
+                            SWISH! 🏀❤️
+                         </b>`;
 
-                    basketballScore++; 
+                    ball.classList.add(
+                        "shoot-in"
+                    );
 
-                    result.innerHTML = 
-                        \`\<b style="color:#67f7a8"> 
-                            SWISH! 🏀❤️ 
-                         \</b>\`; 
+                    successSound();
+                    addTickets(10);
 
-                    ball.classList.add( 
-                        "shoot-in" 
-                    ); 
+                } else {
 
-                    successSound(); 
-                    addTickets(10); 
+                    result.innerHTML =
+                        `<b style="color:#ff7c9f">
+                            MISSED! The ball didn't make it in. 🏀
+                         </b>`;
 
-                } else { 
+                    ball.classList.add(
+                        "shoot-miss"
+                    );
 
-                    result.innerHTML = 
-                        \`\<b style="color:#ff7c9f"> 
-                            MISSED! The ball didn't make it in. 🏀 
-                         \</b>\`; 
+                    failSound();
 
-                    ball.classList.add( 
-                        "shoot-miss" 
-                    ); 
+                }
 
-                    failSound(); 
 
-                } 
+                setTimeout(() => {
 
+                    basketballIndex++;
 
+                    renderBasketballQuestion();
 
-                setTimeout(() => { 
+                },1200);
 
-                    basketballIndex++; 
+            };
 
-                    renderBasketballQuestion(); 
-
-                },1200); 
-
-            }; 
-
-        }); 
+        });
 
 }
 
+
 /* =========================================================
-WHACK A MOLE
+   WHACK A MOLE
 ========================================================= */
+
 const moleProblems = [
-    "TAKE ME FOR GRANTED", 
-    "ZONING OUT", 
-    "FORGETTING TO INFORM", 
-    "WALKING AWAY", 
-    "ASKING FOR A BREAK/ BREAKUP", 
-    "RAISING OUR VOICES", 
-    "REACTING BEFORE THINKING" 
+
+    "TAKE ME FOR GRANTED",
+    "ZONING OUT",
+    "FORGETTING TO INFORM",
+    "WALKING AWAY",
+    "ASKING FOR A BREAK/ BREAKUP",
+    "RAISING OUR VOICES",
+    "REACTING BEFORE THINKING"
 
 ];
+
 let moleIndex = 0;
 let moleGameOver = false;
 
+
 function renderMole() {
-    gameTitle.textContent = 
-        "🐹 WHACK-A-MOLE"; 
 
-    moleIndex = 0; 
-    moleGameOver = false; 
+    gameTitle.textContent =
+        "🐹 WHACK-A-MOLE";
 
-    gameContent.innerHTML = \` 
+    moleIndex = 0;
+    moleGameOver = false;
 
-        \<div class="mole-game"> 
+    gameContent.innerHTML = `
 
-            \<p> 
-                Our relationship problems have escaped. 
-                WHACK THEM. 🔨 
-            \</p> 
+        <div class="mole-game">
 
-            \<div 
-                id="moleProgress" 
-                style="margin-top:8px"> 
-            \</div> 
+            <p>
+                Our relationship problems have escaped.
+                WHACK THEM. 🔨
+            </p>
 
-            \<div 
-                class="mole-grid" 
-                id="moleGrid"> 
+            <div
+                id="moleProgress"
+                style="margin-top:8px">
+            </div>
 
-                ${Array(6).fill(0).map((\_,i)=>\` 
+            <div
+                class="mole-grid"
+                id="moleGrid">
 
-                    \<div 
-                        class="hole" 
-                        data-hole="${i}"> 
-                    \</div> 
+                ${Array(6).fill(0).map((_,i)=>`
 
-                \`).join("")} 
+                    <div
+                        class="hole"
+                        data-hole="${i}">
+                    </div>
 
-            \</div> 
+                `).join("")}
 
-        \</div> 
-    \`; 
+            </div>
 
-    spawnMole(); 
+        </div>
+    `;
+
+    spawnMole();
 
 }
+
 
 function spawnMole() {
-    if(moleGameOver) 
-        return; 
 
+    if(moleGameOver)
+        return;
 
 
-    if( 
-        moleIndex >= 
-        moleProblems.length 
-    ) { 
+    if(
+        moleIndex >=
+        moleProblems.length
+    ) {
 
-        gameContent.innerHTML = \` 
+        gameContent.innerHTML = `
 
-            \<div 
-                class="center" 
-                style=" 
-                    height:100%; 
-                    display\:flex; 
-                    flex-direction\:column; 
-                    justify-content\:center; 
-                    align-items\:center; 
-                "> 
+            <div
+                class="center"
+                style="
+                    height:100%;
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                ">
 
-                \<div style="font-size:70px"> 
-                    🐹🔨❤️ 
-                \</div> 
+                <div style="font-size:70px">
+                    🐹🔨❤️
+                </div>
 
-                \<h2> 
-                    ALL PROBLEMS WHACKED! 
-                \</h2> 
+                <h2>
+                    ALL PROBLEMS WHACKED!
+                </h2>
 
-                \<p style="margin:12px"> 
-                    Look at us solving things instead of running away. 
-                \</p> 
+                <p style="margin:12px">
+                    Look at us solving things instead of running away.
+                </p>
 
-                \<div class="reward"> 
-                    +50 TICKETS 🎟️ 
-                \</div> 
+                <div class="reward">
+                    +50 TICKETS 🎟️
+                </div>
 
-                \<br> 
+                <br>
 
-                \<button 
-                    class="big-btn" 
-                    onclick="renderMole()"> 
+                <button
+                    class="big-btn"
+                    onclick="renderMole()">
 
-                    PLAY AGAIN 
+                    PLAY AGAIN
 
-                \</button> 
+                </button>
 
-            \</div> 
-        \`; 
+            </div>
+        `;
 
-        addTickets(50); 
-        successSound(); 
+        addTickets(50);
+        successSound();
 
-        return; 
+        return;
 
-    } 
+    }
 
 
+    const progress =
+        document.getElementById(
+            "moleProgress"
+        );
 
-    const progress = 
-        document.getElementById( 
-            "moleProgress" 
-        ); 
+    if(progress) {
 
-    if(progress) { 
+        progress.textContent =
+            `${moleIndex + 1} / ${moleProblems.length}`;
 
-        progress.textContent = 
-            \`${moleIndex + 1} / ${moleProblems.length}\`; 
+    }
 
-    } 
 
+    const holes =
+        [...document.querySelectorAll(".hole")];
 
+    holes.forEach(
+        h => h.innerHTML = ""
+    );
 
-    const holes = 
-        [...document.querySelectorAll(".hole")]; 
 
-    holes.forEach( 
-        h => h.innerHTML = "" 
-    ); 
+    const randomHole =
+        holes[
+            Math.floor(
+                Math.random()*holes.length
+            )
+        ];
 
 
+    const mole =
+        document.createElement("div");
 
-    const randomHole = 
-        holes[ 
-            Math.floor( 
-                Math.random()\*holes.length 
-            ) 
-        ]; 
+    mole.className = "mole";
 
+    mole.textContent =
+        moleProblems[moleIndex];
 
 
-    const mole = 
-        document.createElement("div"); 
+    mole.onclick = () => {
 
-    mole.className = "mole"; 
+        if(moleGameOver)
+            return;
 
-    mole.textContent = 
-        moleProblems[moleIndex]; 
+        beep(220,.1,"square");
 
+        mole.style.transform =
+            "scale(.7)";
 
+        setTimeout(() => {
 
-    mole.onclick = () => { 
+            moleIndex++;
 
-        if(moleGameOver) 
-            return; 
+            addTickets(5);
 
-        beep(220,.1,"square"); 
+            spawnMole();
 
-        mole.style.transform = 
-            "scale(.7)"; 
+        },250);
 
-        setTimeout(() => { 
+    };
 
-            moleIndex++; 
 
-            addTickets(5); 
+    randomHole.appendChild(mole);
 
-            spawnMole(); 
 
-        },250); 
+    const shouldSpawnUs =
+        moleIndex > 0 &&
+        moleIndex % 2 === 0;
 
-    }; 
 
+    if(shouldSpawnUs) {
 
+        const remainingHoles =
+            holes.filter(
+                h => h !== randomHole
+            );
 
-    randomHole.appendChild(mole); 
+        const usHole =
+            remainingHoles[
+                Math.floor(
+                    Math.random() *
+                    remainingHoles.length
+                )
+            ];
 
 
+        const us =
+            document.createElement("img");
 
-    const shouldSpawnUs = 
-        moleIndex > 0 && 
-        moleIndex % 2 === 0; 
+        us.className = "moleUs";
+        us.src = "bitmoji.png";
+        us.alt = "US";
 
 
+        us.onclick = () => {
 
-    if(shouldSpawnUs) { 
+            moleGameOver = true;
 
-        const remainingHoles = 
-            holes.filter( 
-                h => h !== randomHole 
-            ); 
+            failSound();
 
-        const usHole = 
-            remainingHoles[ 
-                Math.floor( 
-                    Math.random() \* 
-                    remainingHoles.length 
-                ) 
-            ]; 
+            gameContent.innerHTML = `
 
+                <div class="mole-game-over">
 
+                    <div style="font-size:70px">
+                        😭
+                    </div>
 
-        const us = 
-            document.createElement("img"); 
+                    <div class="big-bubble">
+                        HOW DARE YOU SMASH US?
+                    </div>
 
-        us.className = "moleUs"; 
-        us.src = "bitmoji.png"; 
-        us.alt = "US"; 
+                    <p style="margin:12px">
+                        You were supposed to smash the problems,
+                        NOT US.
+                    </p>
 
+                    <br>
 
+                    <button
+                        class="big-btn"
+                        onclick="renderMole()">
 
-        us.onclick = () => { 
+                        TRY AGAIN
 
-            moleGameOver = true; 
+                    </button>
 
-            failSound(); 
+                </div>
 
-            gameContent.innerHTML = \` 
+            `;
 
-                \<div class="mole-game-over"> 
+        };
 
-                    \<div style="font-size:70px"> 
-                        😭 
-                    \</div> 
+        usHole.appendChild(us);
 
-                    \<div class="big-bubble"> 
-                        HOW DARE YOU SMASH US? 
-                    \</div> 
-
-                    \<p style="margin:12px"> 
-                        You were supposed to smash the problems, 
-                        NOT US. 
-                    \</p> 
-
-                    \<br> 
-
-                    \<button 
-                        class="big-btn" 
-                        onclick="renderMole()"> 
-
-                        TRY AGAIN 
-
-                    \</button> 
-
-                \</div> 
-
-            \`; 
-
-        }; 
-
-        usHole.appendChild(us); 
-
-    } 
+    }
 
 }
 
+
 /* =========================================================
-HIGH STRIKER
+   HIGH STRIKER
 ========================================================= */
+
 function renderStriker() {
-    gameTitle.textContent = 
-        "🔨 HIGH STRIKER"; 
 
-    gameContent.innerHTML = \` 
+    gameTitle.textContent =
+        "🔨 HIGH STRIKER";
 
-        \<div class="striker"> 
+    gameContent.innerHTML = `
 
-            \<h3> 
-                SMASH THE MACHINE! 
-            \</h3> 
+        <div class="striker">
 
-            \<div class="striker-machine"> 
+            <h3>
+                SMASH THE MACHINE!
+            </h3>
 
-                \<div class="striker-meter"> 
+            <div class="striker-machine">
 
-                    \<div 
-                        id="strikerFill" 
-                        class="striker-fill"> 
-                    \</div> 
+                <div class="striker-meter">
 
-                \</div> 
+                    <div
+                        id="strikerFill"
+                        class="striker-fill">
+                    </div>
 
-            \</div> 
+                </div>
 
-            \<div 
-                id="hammer" 
-                class="hammer"> 
+            </div>
 
-                🔨 
+            <div
+                id="hammer"
+                class="hammer">
 
-            \</div> 
+                🔨
 
-            \<button 
-                class="big-btn" 
-                id="smashButton"> 
+            </div>
 
-                SMASH! 
+            <button
+                class="big-btn"
+                id="smashButton">
 
-            \</button> 
+                SMASH!
 
-            \<div 
-                id="strikerResult" 
-                class="reward"> 
-            \</div> 
+            </button>
 
-        \</div> 
-    \`; 
+            <div
+                id="strikerResult"
+                class="reward">
+            </div>
 
-
-
-    let strength = 0; 
+        </div>
+    `;
 
 
-
-    document.getElementById( 
-        "smashButton" 
-    ).onclick = () => { 
-
-        const hammer = 
-            document.getElementById( 
-                "hammer" 
-            ); 
-
-        hammer.classList.add("hit"); 
-
-        setTimeout(() => 
-            hammer.classList.remove("hit"), 
-            150 
-        ); 
+    let strength = 0;
 
 
+    document.getElementById(
+        "smashButton"
+    ).onclick = () => {
 
-        strength += 
-            12 + 
-            Math.random()\*18; 
+        const hammer =
+            document.getElementById(
+                "hammer"
+            );
 
-        strength = 
-            Math.min( 
-                100, 
-                strength 
-            ); 
+        hammer.classList.add("hit");
 
-
-
-        document.getElementById( 
-            "strikerFill" 
-        ).style.height = 
-            strength + "%"; 
+        setTimeout(() =>
+            hammer.classList.remove("hit"),
+            150
+        );
 
 
+        strength +=
+            12 +
+            Math.random()*18;
 
-        beep( 
-            200 + strength\*4, 
-            .08, 
-            "square" 
-        ); 
-
-
-
-        if(strength >= 100) { 
-
-            const prizes = [ 
-                "💋", 
-                "🫂", 
-                "💨", 
-                "😈" 
-            ]; 
+        strength =
+            Math.min(
+                100,
+                strength
+            );
 
 
-
-            const prize = 
-                prizes[ 
-                    Math.floor( 
-                        Math.random()\*prizes.length 
-                    ) 
-                ]; 
+        document.getElementById(
+            "strikerFill"
+        ).style.height =
+            strength + "%";
 
 
-
-            document.getElementById( 
-                "strikerResult" 
-            ).innerHTML = \` 
-
-                \<div style="font-size:65px"> 
-                    ${prize} 
-                \</div> 
-
-                \<div> 
-                    DING DING DING! 
-                \</div> 
-
-                \<p> 
-                    YOUR PRIZE: ${prize} 
-                \</p> 
-
-            \`; 
+        beep(
+            200 + strength*4,
+            .08,
+            "square"
+        );
 
 
+        if(strength >= 100) {
 
-            addTickets(20); 
-            successSound(); 
+            const prizes = [
+                "💋",
+                "🫂",
+                "💨",
+                "😈"
+            ];
 
-            strength = 0; 
 
-            document.getElementById( 
-                "strikerFill" 
-            ).style.height = 
-                "0%"; 
+            const prize =
+                prizes[
+                    Math.floor(
+                        Math.random()*prizes.length
+                    )
+                ];
 
-        } 
 
-    }; 
+            document.getElementById(
+                "strikerResult"
+            ).innerHTML = `
+
+                <div style="font-size:65px">
+                    ${prize}
+                </div>
+
+                <div>
+                    DING DING DING!
+                </div>
+
+                <p>
+                    YOUR PRIZE: ${prize}
+                </p>
+
+            `;
+
+
+            addTickets(20);
+            successSound();
+
+            strength = 0;
+
+            document.getElementById(
+                "strikerFill"
+            ).style.height =
+                "0%";
+
+        }
+
+    };
 
 }
 
+
 /* =========================================================
-SHOOTING GALLERY
+   SHOOTING GALLERY
 ========================================================= */
+
 const shootingPrizes = [
-    "💋 1 Kiss", 
-    "💋 5 Kisses", 
-    "🫂 10 Minutes of Cuddles", 
-    "💋 20 Kisses", 
-    "💋 Kiss Attack", 
-    "🫂 Cuddle Attack" 
+
+    "💋 1 Kiss",
+    "💋 5 Kisses",
+    "🫂 10 Minutes of Cuddles",
+    "💋 20 Kisses",
+    "💋 Kiss Attack",
+    "🫂 Cuddle Attack"
 
 ];
 
+
 function renderShooting() {
-    gameTitle.textContent = 
-        "🎯 SHOOTING GALLERY"; 
 
-    gameContent.innerHTML = \` 
+    gameTitle.textContent =
+        "🎯 SHOOTING GALLERY";
 
-        \<div class="shooting"> 
+    gameContent.innerHTML = `
 
-            \<p> 
-                Aim carefully. You only need to hit ONE. 
-            \</p> 
+        <div class="shooting">
 
-            \<div 
-                class="target-field" 
-                id="targetField"> 
+            <p>
+                Aim carefully. You only need to hit ONE.
+            </p>
 
-            \</div> 
+            <div
+                class="target-field"
+                id="targetField">
 
-            \<div 
-                id="shootResult" 
-                class="reward"> 
+            </div>
 
-                Hit a target to win its prize. 
+            <div
+                id="shootResult"
+                class="reward">
 
-            \</div> 
+                Hit a target to win its prize.
 
-        \</div> 
-    \`; 
+            </div>
 
+        </div>
+    `;
 
 
-    const field = 
-        document.getElementById( 
-            "targetField" 
-        ); 
+    const field =
+        document.getElementById(
+            "targetField"
+        );
 
 
+    shootingPrizes.forEach(
+        (prize,i) => {
 
-    shootingPrizes.forEach( 
-        (prize,i) => { 
+            const target =
+                document.createElement(
+                    "button"
+                );
 
-            const target = 
-                document.createElement( 
-                    "button" 
-                ); 
+            target.className =
+                "target";
 
-            target.className = 
-                "target"; 
+            target.textContent =
+                prize;
 
-            target.textContent = 
-                prize; 
 
+            const row =
+                Math.floor(i / 3);
 
+            const col =
+                i % 3;
 
-            const row = 
-                Math.floor(i / 3); 
 
-            const col = 
-                i % 3; 
+            target.style.top =
+                (15 + row * 35) + "%";
 
+            target.dataset.baseY =
+                (15 + row * 35);
 
+            target.dataset.direction =
+                i % 2 === 0
+                ? "1"
+                : "-1";
 
-            target.style.top = 
-                (15 + row \* 35) + "%"; 
+            target.dataset.speed =
+                (
+                    .035 +
+                    Math.random()*.025
+                );
 
-            target.dataset.baseY = 
-                (15 + row \* 35); 
 
-            target.dataset.direction = 
-                i % 2 === 0 
-                ? "1" 
-                : "-1"; 
+            target.style.left =
+                (5 + col * 30) + "%";
 
-            target.dataset.speed = 
-                ( 
-                    .035 + 
-                    Math.random()\*.025 
-                ); 
+            target.dataset.x =
+                parseFloat(
+                    target.style.left
+                );
 
 
+            target.onclick = () => {
 
-            target.style.left = 
-                (5 + col \* 30) + "%"; 
+                const result =
+                    document.getElementById(
+                        "shootResult"
+                    );
 
-            target.dataset.x = 
-                parseFloat( 
-                    target.style.left 
-                ); 
+                result.innerHTML = `
 
+                    <div style="font-size:45px">
+                        🎯
+                    </div>
 
+                    YOU HIT IT!
 
-            target.onclick = () => { 
+                    <div
+                        style="
+                            font-size:24px;
+                            margin-top:10px
+                        ">
 
-                const result = 
-                    document.getElementById( 
-                        "shootResult" 
-                    ); 
+                        ${prize}
 
-                result.innerHTML = \` 
+                    </div>
+                `;
 
-                    \<div style="font-size:45px"> 
-                        🎯 
-                    \</div> 
 
-                    YOU HIT IT! 
+                beep(900,.08);
 
-                    \<div 
-                        style=" 
-                            font-size:24px; 
-                            margin-top:10px 
-                        "> 
+                setTimeout(
+                    ()=>beep(1200,.12),
+                    100
+                );
 
-                        ${prize} 
 
-                    \</div> 
-                \`; 
+                addTickets(15);
 
 
+                [...field.children].forEach(
+                    t => {
 
-                beep(900,.08); 
+                        t.disabled = true;
+                        t.style.opacity = ".3";
 
-                setTimeout( 
-                    ()=>beep(1200,.12), 
-                    100 
-                ); 
+                    }
+                );
 
 
+                target.style.opacity = "1";
+                target.style.transform =
+                    "scale(1.25)";
 
-                addTickets(15); 
 
+                if(window.shootingAnimation) {
 
+                    cancelAnimationFrame(
+                        window.shootingAnimation
+                    );
 
-                [...field.children].forEach( 
-                    t => { 
+                    window.shootingAnimation =
+                        null;
 
-                        t.disabled = true; 
-                        t.style.opacity = ".3"; 
+                }
 
-                    } 
-                ); 
 
+                celebrationBurst();
 
+            };
 
-                target.style.opacity = "1"; 
-                target.style.transform = 
-                    "scale(1.25)"; 
 
+            field.appendChild(target);
 
+        }
+    );
 
-                if(window\.shootingAnimation) { 
 
-                    cancelAnimationFrame( 
-                        window\.shootingAnimation 
-                    ); 
-
-                    window\.shootingAnimation = 
-                        null; 
-
-                } 
-
-
-
-                celebrationBurst(); 
-
-            }; 
-
-
-
-            field.appendChild(target); 
-
-        } 
-    ); 
-
-
-
-    animateShootingTargets(); 
+    animateShootingTargets();
 
 }
+
 
 function animateShootingTargets() {
-    if(currentGame !== "shooting") 
-        return; 
+
+    if(currentGame !== "shooting")
+        return;
 
 
+    const field =
+        document.getElementById(
+            "targetField"
+        );
 
-    const field = 
-        document.getElementById( 
-            "targetField" 
-        ); 
-
-    if(!field) 
-        return; 
-
+    if(!field)
+        return;
 
 
-    const targets = 
-        [ 
-            ...field.querySelectorAll( 
-                ".target" 
-            ) 
-        ]; 
+    const targets =
+        [
+            ...field.querySelectorAll(
+                ".target"
+            )
+        ];
 
 
+    targets.forEach(target => {
 
-    targets.forEach(target => { 
+        let x =
+            parseFloat(
+                target.dataset.x
+            );
 
-        let x = 
-            parseFloat( 
-                target.dataset.x 
-            ); 
+        let direction =
+            parseFloat(
+                target.dataset.direction
+            );
 
-        let direction = 
-            parseFloat( 
-                target.dataset.direction 
-            ); 
-
-        const speed = 
-            parseFloat( 
-                target.dataset.speed 
-            ); 
-
+        const speed =
+            parseFloat(
+                target.dataset.speed
+            );
 
 
-        x += 
-            direction \* 
-            speed; 
+        x +=
+            direction *
+            speed;
 
 
+        if(x >= 88) {
 
-        if(x >= 88) { 
+            x = 88;
+            direction = -1;
 
-            x = 88; 
-            direction = -1; 
-
-        } 
-
+        }
 
 
-        if(x <= 3) { 
+        if(x <= 3) {
 
-            x = 3; 
-            direction = 1; 
+            x = 3;
+            direction = 1;
 
-        } 
-
-
-
-        target.dataset.x = x; 
-
-        target.dataset.direction = 
-            direction; 
-
-        target.style.left = 
-            x + "%"; 
-
-    }); 
+        }
 
 
+        target.dataset.x = x;
 
-    window\.shootingAnimation = 
-        requestAnimationFrame( 
-            animateShootingTargets 
-        ); 
+        target.dataset.direction =
+            direction;
+
+        target.style.left =
+            x + "%";
+
+    });
+
+
+    window.shootingAnimation =
+        requestAnimationFrame(
+            animateShootingTargets
+        );
 
 }
 
+
 /* =========================================================
-SPIN WHEEL
+   SPIN WHEEL
 ========================================================= */
+
 let wheelSpun = false;
 
+
 function renderWheel() {
-    gameTitle.textContent = 
-        "🎡 SPIN THE WHEEL"; 
 
-    wheelSpun = false; 
+    gameTitle.textContent =
+        "🎡 SPIN THE WHEEL";
 
-
-
-    gameContent.innerHTML = \` 
-
-        \<div class="wheel-wrap"> 
-
-            \<div class="pointer"> 
-                🔻 
-            \</div> 
-
-            \<div 
-                class="wheel" 
-                id="wheel"> 
-            \</div> 
-
-            \<button 
-                class="big-btn" 
-                id="spinButton"> 
-
-                SPIN 
-
-            \</button> 
-
-            \<div 
-                id="wheelResult" 
-                class="reward"> 
-            \</div> 
-
-        \</div> 
-    \`; 
+    wheelSpun = false;
 
 
+    gameContent.innerHTML = `
 
-    document.getElementById( 
-        "spinButton" 
-    ).onclick = () => { 
+        <div class="wheel-wrap">
 
-        if(wheelSpun) 
-            return; 
+            <div class="pointer">
+                🔻
+            </div>
 
-        wheelSpun = true; 
+            <div
+                class="wheel"
+                id="wheel">
+            </div>
 
+            <button
+                class="big-btn"
+                id="spinButton">
 
+                SPIN
 
-        const wheel = 
-            document.getElementById( 
-                "wheel" 
-            ); 
+            </button>
 
+            <div
+                id="wheelResult"
+                class="reward">
+            </div>
 
-
-        const rotations = 
-            5 + 
-            Math.floor( 
-                Math.random()\*3 
-            ); 
-
-
-
-        wheel.style.transform = 
-            \`rotate(${rotations\*360 + 40}deg)\`; 
-
+        </div>
+    `;
 
 
-        beep(300,.1); 
+    document.getElementById(
+        "spinButton"
+    ).onclick = () => {
+
+        if(wheelSpun)
+            return;
+
+        wheelSpun = true;
 
 
-
-        setTimeout(() => { 
-
-            beep(1000,.25); 
-
-            addTickets(30); 
+        const wheel =
+            document.getElementById(
+                "wheel"
+            );
 
 
-
-            document.getElementById( 
-                "wheelResult" 
-            ).innerHTML = \` 
-
-                \<div style="font-size:50px"> 
-                    💌 
-                \</div> 
-
-                \<h2> 
-                    THE LETTER 
-                \</h2> 
-
-                \<p> 
-                    Your anniversary letter is waiting. 
-                \</p> 
-
-                \<br> 
-
-                \<button 
-                    class="big-btn" 
-                    onclick="showLetter()"> 
-
-                    OPEN THE LETTER 
-
-                \</button> 
-
-            \`; 
+        const rotations =
+            5 +
+            Math.floor(
+                Math.random()*3
+            );
 
 
+        wheel.style.transform =
+            `rotate(${rotations*360 + 40}deg)`;
 
-            celebrationBurst(); 
 
-        },3200); 
+        beep(300,.1);
 
-    }; 
+
+        setTimeout(() => {
+
+            beep(1000,.25);
+
+            addTickets(30);
+
+
+            document.getElementById(
+                "wheelResult"
+            ).innerHTML = `
+
+                <div style="font-size:50px">
+                    💌
+                </div>
+
+                <h2>
+                    THE LETTER
+                </h2>
+
+                <p>
+                    Your anniversary letter is waiting.
+                </p>
+
+                <br>
+
+                <button
+                    class="big-btn"
+                    onclick="showLetter()">
+
+                    OPEN THE LETTER
+
+                </button>
+
+            `;
+
+
+            celebrationBurst();
+
+        },3200);
+
+    };
 
 }
 
+
 /* =========================================================
-LETTER
+   LETTER
 ========================================================= */
+
 function showLetter() {
-    gameTitle.textContent = 
-        "💌 THE LETTER"; 
+
+    gameTitle.textContent =
+        "💌 THE LETTER";
 
 
+    gameContent.innerHTML = `
 
-    gameContent.innerHTML = \` 
+        <div class="letter">
 
-        \<div class="letter"> 
+            <h2>
+                To my dearest Dumbo, ❤️
+            </h2>
 
-            \<h2> 
-                To my dearest Dumbo, ❤️ 
-            \</h2> 
+            <p>
+                I genuinely don’t know how these two years passed by so quickly.
+                It feels like just yesterday that we were two people who liked
+                each other but didn’t have the courage to actually say it.
+                And somehow, here we are, two whole years of us. 🥹
+            </p>
 
-            \<p> 
-                I genuinely don’t know how these two years passed by so quickly. 
-                It feels like just yesterday that we were two people who liked 
-                each other but didn’t have the courage to actually say it. 
-                And somehow, here we are, two whole years of us. 🥹 
-            \</p> 
+            <p>
+                We’ve fought, we’ve cried, we’ve laughed until our stomachs
+                hurt, we’ve annoyed each other, forgiven each other, grown
+                together, and made so many memories that I don’t even know
+                where to begin. We’ve had our good days and our really,
+                really difficult ones. But through all of it, I’m so incredibly
+                grateful that you chose to stay.
+            </p>
 
-            \<p> 
-                We’ve fought, we’ve cried, we’ve laughed until our stomachs 
-                hurt, we’ve annoyed each other, forgiven each other, grown 
-                together, and made so many memories that I don’t even know 
-                where to begin. We’ve had our good days and our really, 
-                really difficult ones. But through all of it, I’m so incredibly 
-                grateful that you chose to stay. 
-            \</p> 
+            <p>
+                Even when I didn’t want you to. Even when I pushed you away.
+                Even when I thought walking away was easier than talking things
+                through. You somehow put your head to it and never left my side.
+                You’ve been there when I’ve been at my absolute worst, at my
+                best, when I’m annoyed, emotional, happy, stupid, dramatic,
+                literally every version of me. 😂 And you never made me feel
+                like I had to be someone else to deserve your love.
+            </p>
 
-            \<p> 
-                Even when I didn’t want you to. Even when I pushed you away. 
-                Even when I thought walking away was easier than talking things 
-                through. You somehow put your head to it and never left my side. 
-                You’ve been there when I’ve been at my absolute worst, at my 
-                best, when I’m annoyed, emotional, happy, stupid, dramatic, 
-                literally every version of me. 😂 And you never made me feel 
-                like I had to be someone else to deserve your love. 
-            \</p> 
+            <p>
+                You’re my cute little sunshine boy. ☀️ Every single time I see
+                you, somehow my day just gets brighter. You have this way of
+                making everything feel a little lighter just by being there.
+            </p>
 
-            \<p> 
-                You’re my cute little sunshine boy. ☀️ Every single time I see 
-                you, somehow my day just gets brighter. You have this way of 
-                making everything feel a little lighter just by being there. 
-            \</p> 
+            <p>
+                I love that I can be completely myself with you. You don’t
+                judge me. You listen to me. You let me be weird and annoying
+                and emotional and silly. You always put me before yourself,
+                and you’re always there when I need you. And I know there are
+                times when I say that I don’t feel your love, but please know
+                that I do. I feel it in so many little things you do, even when
+                I don’t say it enough.
+            </p>
 
-            \<p> 
-                I love that I can be completely myself with you. You don’t 
-                judge me. You listen to me. You let me be weird and annoying 
-                and emotional and silly. You always put me before yourself, 
-                and you’re always there when I need you. And I know there are 
-                times when I say that I don’t feel your love, but please know 
-                that I do. I feel it in so many little things you do, even when 
-                I don’t say it enough. 
-            \</p> 
+            <p>
+                We’ve made SO many memories in these two years. From the
+                beginning, to all our firsts, our dates, our stupid fights,
+                our little adventures, our celebrations, our cuddles, our
+                chaos, everything. And looking back at all of it makes me
+                realise just how much life we’ve already lived together.
+            </p>
 
-            \<p> 
-                We’ve made SO many memories in these two years. From the 
-                beginning, to all our firsts, our dates, our stupid fights, 
-                our little adventures, our celebrations, our cuddles, our 
-                chaos, everything. And looking back at all of it makes me 
-                realise just how much life we’ve already lived together. 
-            \</p> 
+            <p>
+                But more than anything, I think about what’s still ahead of us.
+            </p>
 
-            \<p> 
-                But more than anything, I think about what’s still ahead of us. 
-            \</p> 
+            <p>
+                Because when I imagine my future, I only see you in it.
+                There genuinely isn’t anyone else in this world I’d rather
+                choose. You make me the happiest, and I hope you always know
+                how much of a home you’ve become for me.
+            </p>
 
-            \<p> 
-                Because when I imagine my future, I only see you in it. 
-                There genuinely isn’t anyone else in this world I’d rather 
-                choose. You make me the happiest, and I hope you always know 
-                how much of a home you’ve become for me. 
-            \</p> 
+            <p>
+                And your arms… 🥹<br>
+                Your arms are my safe place.
+            </p>
 
-            \<p> 
-                And your arms… 🥹\<br> 
-                Your arms are my safe place. 
-            \</p> 
+            <p>
+                There is genuinely no fucking place on earth where I feel the
+                way I feel when I’m in your arms. I feel safe. I feel
+                comfortable. I feel happy. I feel loved. I feel like I can
+                finally switch everything off for a while and just exist.
+                And I hope you know how special that is to me.
+            </p>
 
-            \<p> 
-                There is genuinely no fucking place on earth where I feel the 
-                way I feel when I’m in your arms. I feel safe. I feel 
-                comfortable. I feel happy. I feel loved. I feel like I can 
-                finally switch everything off for a while and just exist. 
-                And I hope you know how special that is to me. 
-            \</p> 
+            <p>
+                I want you to know that I’ll always have your back too.
+                No matter what happens, no matter how difficult things get,
+                I’ll be there. If you ever fall, I’ll be right there to pick
+                up the pieces with you. I’ll help you find your way again,
+                I’ll support you, I’ll cheer for you, and I’ll remind you
+                of who you are when you forget.
+            </p>
 
-            \<p> 
-                I want you to know that I’ll always have your back too. 
-                No matter what happens, no matter how difficult things get, 
-                I’ll be there. If you ever fall, I’ll be right there to pick 
-                up the pieces with you. I’ll help you find your way again, 
-                I’ll support you, I’ll cheer for you, and I’ll remind you 
-                of who you are when you forget. 
-            \</p> 
+            <p>
+                I hope you always know that you never have to do life alone.
+            </p>
 
-            \<p> 
-                I hope you always know that you never have to do life alone. 
-            \</p> 
+            <p>
+                And your dad is also very proud of you because he really did
+                raise a fine man. A kind, respectful, loving, hardworking
+                man who has such a beautiful heart. I’m genuinely so grateful
+                to your parents, your mom and dad, for bringing you into this
+                world and raising the person you are today. I don’t think
+                I’ll ever be able to explain how grateful I am that you exist.
+            </p>
 
-            \<p> 
-                And your dad is also very proud of you because he really did 
-                raise a fine man. A kind, respectful, loving, hardworking 
-                man who has such a beautiful heart. I’m genuinely so grateful 
-                to your parents, your mom and dad, for bringing you into this 
-                world and raising the person you are today. I don’t think 
-                I’ll ever be able to explain how grateful I am that you exist. 
-            \</p> 
+            <p>
+                Two years feels like such a big number, but somehow, when I
+                think about spending the rest of my life with you, it also
+                feels like we’ve barely begun.
+            </p>
 
-            \<p> 
-                Two years feels like such a big number, but somehow, when I 
-                think about spending the rest of my life with you, it also 
-                feels like we’ve barely begun. 
-            \</p> 
+            <p>
+                I want the years ahead.
+            </p>
 
-            \<p> 
-                I want the years ahead. 
-            \</p> 
+            <p>
+                I want more stupid fights that we’ll eventually laugh about.
+                More dates. More random drives. More celebrations.
+                More cuddles. More photos. More adventures. More ordinary
+                days that somehow become our favourite memories.
+            </p>
 
-            \<p> 
-                I want more stupid fights that we’ll eventually laugh about. 
-                More dates. More random drives. More celebrations. 
-                More cuddles. More photos. More adventures. More ordinary 
-                days that somehow become our favourite memories. 
-            \</p> 
+            <p>
+                I want to grow old with you and still look at you the same
+                way I do now. I want us to keep choosing each other, even
+                when things aren’t easy. I want us to keep growing, learning,
+                annoying each other, laughing together, and finding our way
+                back to each other every single time.
+            </p>
 
-            \<p> 
-                I want to grow old with you and still look at you the same 
-                way I do now. I want us to keep choosing each other, even 
-                when things aren’t easy. I want us to keep growing, learning, 
-                annoying each other, laughing together, and finding our way 
-                back to each other every single time. 
-            \</p> 
+            <p>
+                And most importantly, I want us to never lose the little
+                things that make us us.
+            </p>
 
-            \<p> 
-                And most importantly, I want us to never lose the little 
-                things that make us us. 
-            \</p> 
+            <p>
+                Two years down, and I still choose you.
+            </p>
 
-            \<p> 
-                Two years down, and I still choose you. 
-            \</p> 
+            <p>
+                And I’ll keep choosing you.
+            </p>
 
-            \<p> 
-                And I’ll keep choosing you. 
-            \</p> 
+            <p>
+                Today, tomorrow, and in all the years that are waiting for us.
+            </p>
 
-            \<p> 
-                Today, tomorrow, and in all the years that are waiting for us. 
-            \</p> 
+            <p>
+                Happy 2 years, my Dumbo. ❤️
+            </p>
 
-            \<p> 
-                Happy 2 years, my Dumbo. ❤️ 
-            \</p> 
+            <p>
+                Here’s to us, to everything we’ve already been through,
+                and to everything we haven’t even experienced yet.
+            </p>
 
-            \<p> 
-                Here’s to us, to everything we’ve already been through, 
-                and to everything we haven’t even experienced yet. 
-            \</p> 
+            <p>
+                I love you. More than you probably realise. And I can’t wait
+                to grow old with you.
+            </p>
 
-            \<p> 
-                I love you. More than you probably realise. And I can’t wait 
-                to grow old with you. 
-            \</p> 
+            <p>
+                Forever your Gube,<br>
+                Cement ❤️
+            </p>
 
-            \<p> 
-                Forever your Gube,\<br> 
-                Cement ❤️ 
-            \</p> 
-
-        \</div> 
-    \`; 
+        </div>
+    `;
 
 }
 
+
 /* =========================================================
-TICKET COUNTER
+   TICKET COUNTER
 ========================================================= */
+
 function renderCounter() {
-    gameTitle.textContent = 
-        "🎟️ TICKET COUNTER"; 
+
+    gameTitle.textContent =
+        "🎟️ TICKET COUNTER";
 
 
+    gameContent.innerHTML = `
 
-    gameContent.innerHTML = \` 
+        <div class="counter">
 
-        \<div class="counter"> 
+            <div class="counter-avatar">
 
-            \<div class="counter-avatar"> 
+                <img
+                    src="bitmoji.png"
+                    alt="Bitmoji">
 
-                \<img 
-                    src="bitmoji.png" 
-                    alt="Bitmoji"> 
+            </div>
 
-            \</div> 
+            <h2>
+                Welcome back, Dumbo. ❤️
+            </h2>
 
-            \<h2> 
-                Welcome back, Dumbo. ❤️ 
-            \</h2> 
+            <p style="margin:12px">
+                Look at all those tickets!
+            </p>
 
-            \<p style="margin:12px"> 
-                Look at all those tickets! 
-            \</p> 
+            <div style="
+                font-size:42px;
+                color:#ffe47a;
+                margin:15px;
+            ">
+                🎟️ ${tickets}
+            </div>
 
-            \<div style=" 
-                font-size:42px; 
-                color:#ffe47a; 
-                margin:15px; 
-            "> 
-                🎟️ ${tickets} 
-            \</div> 
+            <p>
+                Ready for your final reward?
+            </p>
 
-            \<p> 
-                Ready for your final reward? 
-            \</p> 
+            <br>
 
-            \<br> 
+            <button
+                class="big-btn"
+                id="finalButton">
 
-            \<button 
-                class="big-btn" 
-                id="finalButton"> 
+                CLICK ME ❤️
 
-                CLICK ME ❤️ 
+            </button>
 
-            \</button> 
-
-        \</div> 
-    \`; 
-
+        </div>
+    `;
 
 
-    document.getElementById( 
-        "finalButton" 
-    ).onclick = 
-        finalCelebration; 
+    document.getElementById(
+        "finalButton"
+    ).onclick =
+        finalCelebration;
 
 }
 
+
 /* =========================================================
-FINAL CELEBRATION
+   FINAL CELEBRATION
 ========================================================= */
+
 function finalCelebration() {
-    gameOverlay.classList.add("hidden"); 
 
-    const final = 
-        document.getElementById( 
-            "finalCelebration" 
-        ); 
+    gameOverlay.classList.add("hidden");
 
-    final.classList.remove("hidden"); 
+    const final =
+        document.getElementById(
+            "finalCelebration"
+        );
 
-    successSound(); 
+    final.classList.remove("hidden");
 
-    createConfetti(); 
+    successSound();
 
-    createHearts(); 
+    createConfetti();
+
+    createHearts();
 
 }
 
+
 /* =========================================================
-CONFETTI
+   CONFETTI
 ========================================================= */
+
 function createConfetti() {
-    for(let i=0;i<150;i++) { 
 
-        const c = 
-            document.createElement("div"); 
+    for(let i=0;i<150;i++) {
 
-        c.className = 
-            "confetti"; 
+        const c =
+            document.createElement("div");
 
-        c.style.left = 
-            Math.random()\*100 + "%"; 
+        c.className =
+            "confetti";
 
-        c.style.animationDuration = 
-            (2 + Math.random()\*4) + "s"; 
+        c.style.left =
+            Math.random()*100 + "%";
 
-        c.style.animationDelay = 
-            Math.random()\*2 + "s"; 
+        c.style.animationDuration =
+            (2 + Math.random()*4) + "s";
 
-        c.style.transform = 
-            \`rotate(${Math.random()\*360}deg)\`; 
+        c.style.animationDelay =
+            Math.random()*2 + "s";
 
-        c.style.background = 
-            [ 
-                "#ff6fae", 
-                "#ffe47a", 
-                "#72d9ff", 
-                "#a98cff", 
-                "#ffffff" 
-            ][ 
-                Math.floor( 
-                    Math.random()\*5 
-                ) 
-            ]; 
+        c.style.transform =
+            `rotate(${Math.random()*360}deg)`;
 
-        document.getElementById( 
-            "finalCelebration" 
-        ).appendChild(c); 
+        c.style.background =
+            [
+                "#ff6fae",
+                "#ffe47a",
+                "#72d9ff",
+                "#a98cff",
+                "#ffffff"
+            ][
+                Math.floor(
+                    Math.random()*5
+                )
+            ];
 
-    } 
+        document.getElementById(
+            "finalCelebration"
+        ).appendChild(c);
+
+    }
 
 }
 
+
 /* =========================================================
-HEARTS
+   HEARTS
 ========================================================= */
+
 function createHearts() {
-    for(let i=0;i<45;i++) { 
 
-        const h = 
-            document.createElement("div"); 
+    for(let i=0;i<45;i++) {
 
-        h.className = 
-            "heart"; 
+        const h =
+            document.createElement("div");
 
-        h.textContent = 
-            Math.random() > .5 
-            ? "❤️" 
-            : "💗"; 
+        h.className =
+            "heart";
 
-        h.style.left = 
-            Math.random()\*100 + "%"; 
+        h.textContent =
+            Math.random() > .5
+            ? "❤️"
+            : "💗";
 
-        h.style.animationDuration = 
-            (3 + Math.random()\*4) + "s"; 
+        h.style.left =
+            Math.random()*100 + "%";
 
-        h.style.animationDelay = 
-            Math.random()\*3 + "s"; 
+        h.style.animationDuration =
+            (3 + Math.random()*4) + "s";
 
-        document.getElementById( 
-            "finalCelebration" 
-        ).appendChild(h); 
+        h.style.animationDelay =
+            Math.random()*3 + "s";
 
-    } 
+        document.getElementById(
+            "finalCelebration"
+        ).appendChild(h);
+
+    }
 
 }
 
+
 /* =========================================================
-CELEBRATION BURST
+   CELEBRATION BURST
 ========================================================= */
+
 function celebrationBurst() {
-    for(let i=0;i<20;i++) { 
 
-        const h = 
-            document.createElement("div"); 
+    for(let i=0;i<20;i++) {
 
-        h.textContent = 
-            Math.random() > .5 
-            ? "❤️" 
-            : "✨"; 
+        const h =
+            document.createElement("div");
 
-        h.style.position = "fixed"; 
-        h.style.left = "50%"; 
-        h.style.top = "50%"; 
-        h.style.zIndex = "99999"; 
-        h.style.pointerEvents = "none"; 
-        h.style.fontSize = "20px"; 
+        h.textContent =
+            Math.random() > .5
+            ? "❤️"
+            : "✨";
 
-
-
-        document.body.appendChild(h); 
+        h.style.position = "fixed";
+        h.style.left = "50%";
+        h.style.top = "50%";
+        h.style.zIndex = "99999";
+        h.style.pointerEvents = "none";
+        h.style.fontSize = "20px";
 
 
-
-        const angle = 
-            Math.random()\*Math.PI\*2; 
-
-        const distance = 
-            50 + Math.random()\*150; 
+        document.body.appendChild(h);
 
 
+        const angle =
+            Math.random()*Math.PI*2;
 
-        h.animate([ 
-            { 
-                transform: 
-                    "translate(-50%,-50%) scale(.2)", 
-                opacity:1 
-            }, 
-            { 
-                transform: 
-                    \`translate(calc(-50% + ${Math.cos(angle)\*distance}px), calc(-50% + ${Math.sin(angle)\*distance}px)) scale(1.3)\`, 
-                opacity:0 
-            } 
-        ],{ 
-            duration:800, 
-            easing:"ease-out" 
-        }).onfinish = () => 
-            h.remove(); 
+        const distance =
+            50 + Math.random()*150;
 
-    } 
+
+        h.animate([
+            {
+                transform:
+                    "translate(-50%,-50%) scale(.2)",
+                opacity:1
+            },
+            {
+                transform:
+                    `translate(calc(-50% + ${Math.cos(angle)*distance}px), calc(-50% + ${Math.sin(angle)*distance}px)) scale(1.3)`,
+                opacity:0
+            }
+        ],{
+            duration:800,
+            easing:"ease-out"
+        }).onfinish = () =>
+            h.remove();
+
+    }
 
 }
 
+
 /* =========================================================
-SOUND TOGGLE
+   SOUND TOGGLE
 ========================================================= */
+
 document.getElementById(
-"soundButton"
+    "soundButton"
 ).addEventListener(
-"click",
-() => {
-        soundOn = 
-            !soundOn; 
+    "click",
+    () => {
 
-        document.getElementById( 
-            "soundButton" 
-        ).textContent = 
-            soundOn 
-            ? "🔊" 
-            : "🔇"; 
+        soundOn =
+            !soundOn;
+
+        document.getElementById(
+            "soundButton"
+        ).textContent =
+            soundOn
+            ? "🔊"
+            : "🔇";
 
 
+        if(soundOn) {
 
-        if(soundOn) { 
+            if(audioContext &&
+               audioContext.state === "suspended") {
 
-            if(audioContext && 
-               audioContext.state === "suspended") { 
+                audioContext.resume();
 
-                audioContext.resume(); 
+            }
 
-            } 
+            beep(700,.1);
 
-            beep(700,.1); 
+            startBackgroundMusic();
 
-            startBackgroundMusic(); 
+        } else {
 
-        } else { 
+            stopBackgroundMusic();
 
-            stopBackgroundMusic(); 
+        }
 
-        } 
-
-    } 
+    }
 );
 
+
 /* =========================================================
-RESIZE
+   RESIZE
 ========================================================= */
+
 window.addEventListener(
-"resize",
-() => {
-        playerX = 
-            Math.min( 
-                playerX, 
-                window\.innerWidth - 50 
-            ); 
+    "resize",
+    () => {
 
-        playerY = 
-            Math.min( 
-                playerY, 
-                window\.innerHeight - 70 
-            ); 
+        playerX =
+            Math.min(
+                playerX,
+                window.innerWidth - 50
+            );
 
-        updatePlayer(); 
+        playerY =
+            Math.min(
+                playerY,
+                window.innerHeight - 70
+            );
 
-    } 
+        updatePlayer();
+
+    }
 );
 
+
 /* =========================================================
-MOBILE TOUCH MOVEMENT
+   MOBILE TOUCH MOVEMENT
 ========================================================= */
+
 let touchStartX = 0;
 let touchStartY = 0;
 
-window.addEventListener(
-"touchstart",
-e => {
-        if(e.touches.length !== 1) 
-            return; 
-
-        touchStartX = 
-            e.touches[0].clientX; 
-
-        touchStartY = 
-            e.touches[0].clientY; 
-
-    } 
-);
 
 window.addEventListener(
-"touchmove",
-e => {
-        if(e.touches.length !== 1) 
-            return; 
+    "touchstart",
+    e => {
 
-        if( 
-            !gameOverlay.classList.contains( 
-                "hidden" 
-            ) 
-        ) return; 
+        if(e.touches.length !== 1)
+            return;
 
+        touchStartX =
+            e.touches[0].clientX;
 
+        touchStartY =
+            e.touches[0].clientY;
 
-        const x = 
-            e.touches[0].clientX; 
-
-        const y = 
-            e.touches[0].clientY; 
-
-
-
-        const dx = 
-            x - touchStartX; 
-
-        const dy = 
-            y - touchStartY; 
-
-
-
-        playerX += dx; 
-        playerY += dy; 
-
-
-
-        playerX = 
-            Math.max( 
-                40, 
-                Math.min( 
-                    window\.innerWidth-40, 
-                    playerX 
-                ) 
-            ); 
-
-
-
-        playerY = 
-            Math.max( 
-                80, 
-                Math.min( 
-                    window\.innerHeight-60, 
-                    playerY 
-                ) 
-            ); 
-
-
-
-        updatePlayer(); 
-        checkNearbyMachine(); 
-
-
-
-        touchStartX = x; 
-        touchStartY = y; 
-
-    } 
+    }
 );
+
+
+window.addEventListener(
+    "touchmove",
+    e => {
+
+        if(e.touches.length !== 1)
+            return;
+
+        if(
+            !gameOverlay.classList.contains(
+                "hidden"
+            )
+        ) return;
+
+
+        const x =
+            e.touches[0].clientX;
+
+        const y =
+            e.touches[0].clientY;
+
+
+        const dx =
+            x - touchStartX;
+
+        const dy =
+            y - touchStartY;
+
+
+        playerX += dx;
+        playerY += dy;
+
+
+        playerX =
+            Math.max(
+                40,
+                Math.min(
+                    window.innerWidth-40,
+                    playerX
+                )
+            );
+
+
+        playerY =
+            Math.max(
+                80,
+                Math.min(
+                    window.innerHeight-60,
+                    playerY
+                )
+            );
+
+
+        updatePlayer();
+        checkNearbyMachine();
+
+
+        touchStartX = x;
+        touchStartY = y;
+
+    }
+);
+
 
 /* =========================================================
-INITIAL PLAYER POSITION
+   INITIAL PLAYER POSITION
 ========================================================= */
+
 updatePlayer();
+
 </script>
+
 </body>
 </html>
