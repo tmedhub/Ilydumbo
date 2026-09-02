@@ -2,2006 +2,1612 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE US ARCADE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>The Us Arcade</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-:root{
-  --pink:#ff4fa3;
-  --cyan:#42e8ff;
-  --yellow:#ffe36e;
-  --purple:#9d7cff;
-  --green:#67f7a8;
-  --white:#f7f7ff;
-  --muted:#aeb3d1;
-  --dark:#080914;
-  --panel:#101326;
-  --panel2:#171a34;
-  --line:rgba(255,255,255,.13);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-*{
-  box-sizing:border-box;
+:root {
+    --pink: #ff6fae;
+    --pink2: #ffb7d5;
+    --purple: #a98cff;
+    --blue: #72d9ff;
+    --yellow: #ffe47a;
+    --cream: #fff8ee;
+    --dark: #171325;
+    --dark2: #241b38;
+    --panel: rgba(27, 21, 48, .94);
 }
 
-html,body{
-  width:100%;
-  height:100%;
-  margin:0;
-  overflow:hidden;
-  background:var(--dark);
-  color:var(--white);
-  font-family:"Press Start 2P","Courier New",monospace;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #090711;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: white;
 }
 
-button{
-  font-family:inherit;
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
 }
 
-.hidden{
-  display:none!important;
+.hidden {
+    display: none !important;
 }
 
 /* =========================================================
-   ENTRANCE
+   LOADING / ENTRANCE
 ========================================================= */
 
-#entrance{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100dvh;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 38%,rgba(255,79,163,.16),transparent 30%),
-    radial-gradient(circle at 15% 80%,rgba(66,232,255,.10),transparent 25%),
-    linear-gradient(145deg,#090a17,#11132a 55%,#090a15);
+#entrance {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background:
+        radial-gradient(circle at 50% 35%, rgba(255,111,174,.2), transparent 35%),
+        linear-gradient(135deg, #120d22, #090711 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-.entrance-grid{
-  position:absolute;
-  inset:0;
-  opacity:.13;
-  background-image:
-    linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
-  background-size:55px 55px;
-  transform:perspective(450px) rotateX(55deg) scale(1.5);
-  transform-origin:bottom;
+.entrance-card {
+    width: min(900px, 94vw);
+    height: min(650px, 90vh);
+    border: 3px solid var(--pink);
+    border-radius: 30px;
+    background:
+        linear-gradient(rgba(20,15,35,.88), rgba(20,15,35,.94)),
+        url("bg.png") center/cover;
+    box-shadow:
+        0 0 20px rgba(255,111,174,.6),
+        0 0 80px rgba(169,140,255,.2),
+        inset 0 0 60px rgba(255,111,174,.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.entrance-neon{
-  position:absolute;
-  top:7%;
-  left:50%;
-  transform:translateX(-50%);
-  text-align:center;
-  z-index:3;
+.entrance-title {
+    font-size: clamp(32px, 6vw, 72px);
+    color: white;
+    text-align: center;
+    letter-spacing: 5px;
+    text-shadow:
+        0 0 5px white,
+        0 0 15px var(--pink),
+        0 0 30px var(--pink);
+    margin-bottom: 35px;
 }
 
-.entrance-neon .small{
-  font-size:clamp(8px,1vw,13px);
-  color:var(--cyan);
-  letter-spacing:4px;
-  margin-bottom:14px;
-  text-shadow:0 0 15px var(--cyan);
+.entrance-player {
+    position: relative;
+    width: 150px;
+    height: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
-.entrance-neon h1{
-  margin:0;
-  font-size:clamp(28px,6vw,75px);
-  line-height:1;
-  color:var(--pink);
-  text-shadow:
-    4px 4px 0 #5c1740,
-    0 0 12px var(--pink),
-    0 0 35px rgba(255,79,163,.7);
+.entrance-player img {
+    width: 130px;
+    max-height: 190px;
+    object-fit: contain;
+    animation: floatPlayer 2s ease-in-out infinite;
 }
 
-.entrance-neon .subtitle{
-  margin-top:15px;
-  font-size:clamp(8px,1vw,13px);
-  color:var(--yellow);
-  text-shadow:0 0 12px rgba(255,227,110,.8);
+@keyframes floatPlayer {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
 }
 
-.entrance-floor{
-  position:absolute;
-  left:5%;
-  right:5%;
-  bottom:0;
-  height:28%;
-  border-top:3px solid rgba(66,232,255,.3);
-  background:
-    linear-gradient(rgba(66,232,255,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(66,232,255,.08) 1px,transparent 1px);
-  background-size:45px 45px;
-  transform:perspective(300px) rotateX(55deg);
-  transform-origin:bottom;
+/* Speech bubble */
+
+.speech-bubble {
+    position: absolute;
+    left: calc(50% + 65px);
+    top: 15px;
+    width: min(390px, 55vw);
+    min-width: 230px;
+    padding: 18px 22px;
+    background: white;
+    color: #34233e;
+    border-radius: 22px;
+    font-size: clamp(13px, 1.6vw, 18px);
+    line-height: 1.45;
+    box-shadow: 0 8px 25px rgba(0,0,0,.3);
+    animation: bubbleIn .8s ease forwards;
 }
 
-.entrance-machine{
-  position:absolute;
-  bottom:10%;
-  width:150px;
-  height:240px;
-  z-index:2;
-  filter:drop-shadow(0 0 12px rgba(255,79,163,.35));
+.speech-bubble:before {
+    content: "";
+    position: absolute;
+    left: -18px;
+    top: 38px;
+    border-width: 10px 20px 10px 0;
+    border-style: solid;
+    border-color: transparent white transparent transparent;
 }
 
-.entrance-machine.left{
-  left:8%;
+@keyframes bubbleIn {
+    from {
+        opacity: 0;
+        transform: scale(.8) translateX(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
 }
 
-.entrance-machine.right{
-  right:8%;
+.start-button {
+    margin-top: 35px;
+    padding: 15px 38px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--pink), #ff438f);
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    box-shadow: 0 0 20px rgba(255,111,174,.6);
+    transition: .2s;
 }
 
-.machine-top{
-  position:absolute;
-  top:0;
-  left:7%;
-  width:86%;
-  height:65%;
-  border:5px solid #282b4a;
-  border-radius:15px 15px 7px 7px;
-  background:#11142b;
-  box-shadow:
-    inset 0 0 0 4px #090a17,
-    0 0 0 2px var(--pink);
-}
-
-.machine-screen{
-  position:absolute;
-  top:12%;
-  left:10%;
-  right:10%;
-  height:48%;
-  border:4px solid #313654;
-  background:
-    radial-gradient(circle at center,rgba(66,232,255,.2),transparent 55%),
-    #070914;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--cyan);
-  font-size:10px;
-  text-align:center;
-  line-height:1.8;
-}
-
-.machine-buttons{
-  position:absolute;
-  bottom:10%;
-  left:18%;
-  right:18%;
-  display:flex;
-  justify-content:space-around;
-}
-
-.machine-buttons i{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:var(--pink);
-  box-shadow:0 0 10px var(--pink);
-}
-
-.machine-buttons i:nth-child(2){
-  background:var(--yellow);
-  box-shadow:0 0 10px var(--yellow);
-}
-
-.machine-base{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:39%;
-  background:#171a34;
-  clip-path:polygon(5% 0,95% 0,85% 100%,15% 100%);
-  border-top:5px solid #2b2f50;
-}
-
-.entrance-character{
-  position:absolute;
-  z-index:5;
-  left:8%;
-  bottom:16%;
-  width:clamp(100px,13vw,175px);
-  animation:float 2.5s ease-in-out infinite;
-}
-
-.entrance-character img{
-  display:block;
-  width:100%;
-  height:auto;
-  object-fit:contain;
-  filter:drop-shadow(0 10px 12px rgba(0,0,0,.4));
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-
-.speech{
-  position:absolute;
-  z-index:6;
-  left:38%;
-  top:39%;
-  width:min(520px,42vw);
-  padding:22px 25px;
-  background:#fff;
-  color:#16172a;
-  border:4px solid var(--pink);
-  box-shadow:
-    8px 8px 0 rgba(255,79,163,.35),
-    0 0 30px rgba(255,79,163,.25);
-  line-height:1.8;
-  font-size:clamp(8px,1vw,12px);
-}
-
-.speech:before{
-  content:"";
-  position:absolute;
-  left:-23px;
-  top:35px;
-  width:20px;
-  height:20px;
-  background:white;
-  border-left:4px solid var(--pink);
-  border-bottom:4px solid var(--pink);
-  transform:rotate(45deg);
-}
-
-.enter-button{
-  position:absolute;
-  z-index:10;
-  left:50%;
-  bottom:7%;
-  transform:translateX(-50%);
-  padding:18px 30px;
-  background:var(--pink);
-  color:white;
-  border:4px solid white;
-  box-shadow:
-    0 7px 0 #9c2e65,
-    0 0 25px rgba(255,79,163,.7);
-  cursor:pointer;
-  font-size:12px;
-  transition:.15s;
-}
-
-.enter-button:hover{
-  transform:translateX(-50%) translateY(-3px);
-  box-shadow:
-    0 10px 0 #9c2e65,
-    0 0 35px rgba(255,79,163,.8);
-}
-
-.enter-button:active{
-  transform:translateX(-50%) translateY(4px);
-  box-shadow:0 3px 0 #9c2e65;
+.start-button:hover {
+    transform: translateY(-3px) scale(1.04);
 }
 
 /* =========================================================
    ARCADE
 ========================================================= */
 
-#arcade{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100dvh;
-  overflow:hidden;
-  background:#080914;
+#arcade {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #090711;
 }
 
-.arcade-background{
-  position:absolute;
-  inset:-5px;
-  background-image:url("bg.jpg");
-  background-size:cover;
-  background-position:center;
-  filter:blur(2px);
-  transform:scale(1.03);
+#arcadeWorld {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
 }
 
-.arcade-overlay{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(to bottom,rgba(5,6,15,.32),rgba(5,6,15,.12) 45%,rgba(5,6,15,.45)),
-    radial-gradient(circle at center,transparent 45%,rgba(0,0,0,.35));
+#background {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(10,7,20,.12), rgba(10,7,20,.12)),
+        url("bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.topbar{
-  position:absolute;
-  z-index:20;
-  top:14px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(1450px,calc(100% - 28px));
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
+/* slight arcade overlay */
+
+#background:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.38)),
+        linear-gradient(transparent 96%, rgba(255,255,255,.025) 100%);
 }
 
-.logo{
-  padding:12px 16px;
-  background:rgba(8,9,20,.8);
-  border:2px solid var(--pink);
-  color:var(--pink);
-  box-shadow:0 0 18px rgba(255,79,163,.3);
-  font-size:clamp(9px,1vw,13px);
+/* =========================================================
+   HUD
+========================================================= */
+
+#hud {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
 }
 
-.ticket-display{
-  padding:12px 16px;
-  background:rgba(8,9,20,.8);
-  border:2px solid var(--yellow);
-  color:var(--yellow);
-  font-size:10px;
+.logo {
+    pointer-events: auto;
+    background: rgba(20,15,35,.86);
+    border: 2px solid var(--pink);
+    padding: 8px 15px;
+    border-radius: 14px;
+    font-size: clamp(13px, 1.5vw, 18px);
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255,111,174,.35);
 }
 
-.mute{
-  width:42px;
-  height:42px;
-  background:rgba(8,9,20,.8);
-  color:white;
-  border:2px solid rgba(255,255,255,.5);
-  cursor:pointer;
+.hud-right {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
-.arcade-stage{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:min(1450px,calc(100% - 24px));
-  height:min(800px,calc(100dvh - 24px));
+.tickets {
+    pointer-events: auto;
+    background: rgba(20,15,35,.9);
+    border: 2px solid var(--yellow);
+    border-radius: 14px;
+    padding: 8px 15px;
+    color: var(--yellow);
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255,228,122,.25);
 }
 
-.arcade-title{
-  position:absolute;
-  z-index:4;
-  top:8%;
-  left:50%;
-  transform:translateX(-50%);
-  text-align:center;
-  font-size:clamp(15px,2vw,27px);
-  color:var(--yellow);
-  text-shadow:
-    3px 3px 0 #6e5620,
-    0 0 14px var(--yellow);
-  white-space:nowrap;
+.sound-btn {
+    pointer-events: auto;
+    background: rgba(20,15,35,.9);
+    border: 2px solid var(--blue);
+    color: white;
+    border-radius: 14px;
+    padding: 8px 12px;
 }
 
-.machine{
-  position:absolute;
-  z-index:5;
-  width:145px;
-  height:185px;
-  cursor:pointer;
-  transition:.2s;
+/* =========================================================
+   ARCADE MACHINES
+========================================================= */
+
+.machine {
+    position: absolute;
+    width: clamp(100px, 11vw, 165px);
+    min-height: 125px;
+    z-index: 20;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: transform .2s, filter .2s;
 }
 
-.machine:hover,
-.machine.near{
-  transform:translateY(-7px) scale(1.04);
+.machine:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: brightness(1.15);
 }
 
-.machine.near .cabinet{
-  box-shadow:
-    0 0 0 3px var(--yellow),
-    0 0 25px rgba(255,227,110,.7);
+.machine-body {
+    width: 100%;
+    height: 100%;
+    min-height: 125px;
+    border-radius: 18px 18px 10px 10px;
+    background: linear-gradient(145deg, #342653, #171127);
+    border: 3px solid var(--purple);
+    box-shadow:
+        0 0 12px rgba(169,140,255,.55),
+        inset 0 0 20px rgba(255,255,255,.04);
+    padding: 9px;
+    text-align: center;
+    position: relative;
 }
 
-.cabinet{
-  position:absolute;
-  inset:0;
-  background:#11142a;
-  border:4px solid #292d4d;
-  border-radius:13px;
-  box-shadow:
-    inset 0 0 0 3px #080914,
-    0 12px 20px rgba(0,0,0,.35);
-  transition:.2s;
+.machine-screen {
+    height: 55px;
+    border-radius: 9px;
+    background: #0b0814;
+    border: 2px solid var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(20px, 2.5vw, 32px);
+    margin-bottom: 7px;
+    box-shadow: inset 0 0 15px rgba(114,217,255,.18);
 }
 
-.cabinet-screen{
-  position:absolute;
-  top:12px;
-  left:11px;
-  right:11px;
-  height:92px;
-  border:4px solid #303553;
-  background:#080914;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:7px;
-  color:var(--cyan);
-  font-size:8px;
-  line-height:1.7;
-  text-shadow:0 0 8px currentColor;
+.machine-name {
+    font-size: clamp(9px, 1vw, 13px);
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    line-height: 1.15;
 }
 
-.cabinet-control{
-  position:absolute;
-  left:8px;
-  right:8px;
-  top:109px;
-  height:38px;
-  border-top:4px solid #303553;
-  background:#191d38;
+.machine-sub {
+    margin-top: 4px;
+    color: var(--pink2);
+    font-size: 9px;
 }
 
-.joystick{
-  position:absolute;
-  left:20px;
-  top:5px;
-  width:8px;
-  height:22px;
-  background:#d8d9e7;
+.machine.near {
+    transform: translate(-50%, -50%) scale(1.08);
+    filter: brightness(1.3);
 }
 
-.joystick:before{
-  content:"";
-  position:absolute;
-  left:-6px;
-  top:-6px;
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:var(--pink);
+.machine.near .machine-body {
+    border-color: var(--yellow);
+    box-shadow:
+        0 0 12px var(--yellow),
+        0 0 35px rgba(255,228,122,.35);
 }
 
-.buttons{
-  position:absolute;
-  right:12px;
-  top:8px;
-  display:flex;
-  gap:6px;
+/* scattered layout */
+
+#m-claw       { left: 14%; top: 29%; }
+#m-photo      { left: 35%; top: 24%; }
+#m-jukebox    { left: 65%; top: 24%; }
+#m-memory     { left: 87%; top: 31%; }
+
+#m-basketball { left: 19%; top: 67%; }
+#m-mole       { left: 43%; top: 72%; }
+#m-striker    { left: 65%; top: 69%; }
+#m-shooting   { left: 87%; top: 65%; }
+#m-wheel      { left: 78%; top: 47%; }
+
+#ticketMachine {
+    left: 50%;
+    top: 88%;
 }
 
-.buttons i{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:var(--pink);
+/* =========================================================
+   PLAYER
+========================================================= */
+
+#player {
+    position: absolute;
+    width: clamp(58px, 7vw, 90px);
+    height: clamp(80px, 10vw, 120px);
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: left .08s linear, top .08s linear;
 }
 
-.buttons i:nth-child(2){
-  background:var(--yellow);
+#player img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,.35));
 }
 
-.coin{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:11px;
-  width:12px;
-  height:7px;
-  border-radius:5px;
-  background:#5b607c;
+#playerBubble {
+    position: absolute;
+    width: 190px;
+    right: calc(100% + 12px);
+    top: -30px;
+    background: white;
+    color: #30213d;
+    border-radius: 17px;
+    padding: 10px 13px;
+    font-size: 12px;
+    line-height: 1.35;
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
+    opacity: 0;
+    transition: .3s;
 }
 
-.machine-name{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:-30px;
-  width:170px;
-  text-align:center;
-  font-size:8px;
-  line-height:1.5;
-  color:white;
-  text-shadow:0 2px 3px #000;
+#playerBubble.show {
+    opacity: 1;
 }
 
-/* scattered positions */
-
-.m-claw{
-  left:5%;
-  top:21%;
+#playerBubble:after {
+    content: "";
+    position: absolute;
+    right: -12px;
+    bottom: 18px;
+    border-width: 8px 0 8px 13px;
+    border-style: solid;
+    border-color: transparent transparent transparent white;
 }
 
-.m-photo{
-  left:23%;
-  top:13%;
+/* =========================================================
+   ENTER PROMPT
+========================================================= */
+
+#enterPrompt {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    z-index: 300;
+    padding: 9px 20px;
+    border-radius: 999px;
+    background: rgba(15,11,27,.9);
+    border: 2px solid var(--pink);
+    color: white;
+    font-size: clamp(11px, 1.4vw, 15px);
+    box-shadow: 0 0 15px rgba(255,111,174,.4);
+    transition: .2s;
 }
 
-.m-jukebox{
-  left:42%;
-  top:12%;
-}
-
-.m-memory{
-  right:5%;
-  top:21%;
-}
-
-.m-basket{
-  left:7%;
-  top:55%;
-}
-
-.m-whack{
-  left:28%;
-  top:59%;
-}
-
-.m-high{
-  left:52%;
-  top:56%;
-}
-
-.m-shoot{
-  right:23%;
-  top:57%;
-}
-
-.m-wheel{
-  right:5%;
-  top:63%;
-}
-
-.player{
-  position:absolute;
-  z-index:12;
-  width:clamp(70px,7vw,105px);
-  transition:left .12s linear,top .12s linear;
-  pointer-events:none;
-  filter:drop-shadow(0 7px 7px rgba(0,0,0,.5));
-}
-
-.player img{
-  display:block;
-  width:100%;
-}
-
-.interact-hint{
-  position:absolute;
-  z-index:30;
-  pointer-events:none;
-  padding:9px 12px;
-  background:rgba(8,9,20,.9);
-  border:2px solid var(--yellow);
-  color:var(--yellow);
-  font-size:8px;
-  opacity:0;
-  transition:.2s;
+#enterPrompt.active {
+    border-color: var(--yellow);
+    color: var(--yellow);
+    box-shadow: 0 0 20px rgba(255,228,122,.6);
 }
 
 /* =========================================================
    GAME MODAL
 ========================================================= */
 
-#gameModal{
-  position:fixed;
-  z-index:100;
-  inset:0;
-  background:rgba(4,5,12,.78);
-  backdrop-filter:blur(7px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+#gameOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(6,4,12,.78);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
 }
 
-.game-window{
-  width:min(1000px,95vw);
-  height:min(700px,90dvh);
-  background:var(--panel);
-  border:3px solid var(--pink);
-  box-shadow:
-    0 0 0 4px rgba(255,79,163,.1),
-    0 0 50px rgba(255,79,163,.25);
-  position:relative;
-  overflow:hidden;
+.game-window {
+    width: min(900px, 96vw);
+    height: min(650px, 90vh);
+    max-height: 90vh;
+    overflow: hidden;
+    background: linear-gradient(145deg, #241a39, #100c1e);
+    border: 3px solid var(--pink);
+    border-radius: 25px;
+    box-shadow:
+        0 0 30px rgba(255,111,174,.4),
+        0 0 100px rgba(169,140,255,.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.window-header{
-  height:54px;
-  padding:0 18px;
-  background:#171a34;
-  border-bottom:2px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.game-header {
+    flex: 0 0 auto;
+    padding: 12px 18px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.window-title{
-  color:var(--pink);
-  font-size:11px;
+.game-title {
+    font-size: clamp(17px, 2.5vw, 28px);
+    color: white;
 }
 
-.back-button{
-  padding:10px 14px;
-  border:2px solid var(--cyan);
-  background:transparent;
-  color:var(--cyan);
-  cursor:pointer;
-  font-size:8px;
+.back-btn {
+    background: #39284f;
+    color: white;
+    border: 2px solid var(--pink2);
+    padding: 7px 14px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
-.back-button:hover{
-  background:var(--cyan);
-  color:#071018;
-}
-
-.game-content{
-  height:calc(100% - 54px);
-  overflow:auto;
-  padding:25px;
-}
-
-/* =========================================================
-   GENERIC
-========================================================= */
-
-.game-intro{
-  text-align:center;
-  color:var(--muted);
-  font-size:9px;
-  line-height:1.8;
-  margin-bottom:20px;
-}
-
-.primary{
-  border:2px solid var(--pink);
-  background:var(--pink);
-  color:white;
-  padding:14px 20px;
-  cursor:pointer;
-  font-size:9px;
-  box-shadow:0 5px 0 #9c2e65;
-}
-
-.primary:active{
-  transform:translateY(3px);
-  box-shadow:0 2px 0 #9c2e65;
-}
-
-.secondary{
-  border:2px solid var(--cyan);
-  background:transparent;
-  color:var(--cyan);
-  padding:12px 17px;
-  cursor:pointer;
-  font-size:8px;
+.game-content {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 18px;
 }
 
 /* =========================================================
-   CLAW
+   GENERAL GAME UI
 ========================================================= */
 
-.claw-area{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+.big-btn {
+    background: linear-gradient(135deg, var(--pink), #ff408d);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 0 18px rgba(255,111,174,.4);
+    transition: .2s;
 }
 
-.claw-machine{
-  position:relative;
-  width:min(570px,90%);
-  height:390px;
-  border:7px solid #34395f;
-  background:#0a0b18;
-  box-shadow:inset 0 0 0 4px #05060d;
-  overflow:hidden;
+.big-btn:hover {
+    transform: scale(1.04);
 }
 
-.claw-rail{
-  position:absolute;
-  top:34px;
-  left:8%;
-  width:84%;
-  height:7px;
-  background:#555b82;
+.center {
+    text-align: center;
 }
 
-.claw-arm{
-  position:absolute;
-  top:34px;
-  left:50%;
-  width:8px;
-  height:135px;
-  background:#b8bad0;
-  transform:translateX(-50%);
-  transition:left .1s linear;
+.reward {
+    margin-top: 12px;
+    color: var(--yellow);
+    font-weight: bold;
 }
 
-.claw-head{
-  position:absolute;
-  top:165px;
-  left:50%;
-  transform:translateX(-50%);
-  width:45px;
-  height:35px;
-  background:#c9cbd8;
+/* =========================================================
+   CLAW MACHINE
+========================================================= */
+
+.claw-game {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.claw-finger{
-  position:absolute;
-  top:27px;
-  width:7px;
-  height:35px;
-  background:#b6b8c9;
+.claw-stage {
+    position: relative;
+    width: min(600px, 90%);
+    height: min(370px, 55vh);
+    border: 3px solid var(--purple);
+    border-radius: 20px;
+    background: linear-gradient(#161126, #0d0a18);
+    overflow: hidden;
 }
 
-.claw-finger.left{
-  left:3px;
-  transform:rotate(25deg);
+.claw-rail {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    right: 30px;
+    height: 9px;
+    background: #8e76ba;
+    border-radius: 10px;
 }
 
-.claw-finger.right{
-  right:3px;
-  transform:rotate(-25deg);
+.claw {
+    position: absolute;
+    top: 27px;
+    left: 50%;
+    width: 45px;
+    height: 115px;
+    transform: translateX(-50%);
+    transition: left .2s ease;
+    z-index: 5;
 }
 
-.capsules{
-  position:absolute;
-  left:7%;
-  right:7%;
-  bottom:10px;
-  height:145px;
-  display:flex;
-  align-items:end;
-  justify-content:space-around;
+.claw-cable {
+    width: 5px;
+    height: 70px;
+    margin: auto;
+    background: #bbb;
 }
 
-.capsule{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--pink),#6c204a);
-  border:3px solid white;
-  box-shadow:0 0 12px rgba(255,79,163,.5);
+.claw-hand {
+    position: relative;
+    width: 42px;
+    height: 35px;
+    border: 5px solid #ddd;
+    border-top: 0;
+    border-radius: 0 0 20px 20px;
 }
 
-.capsule:nth-child(2n){
-  background:linear-gradient(135deg,var(--cyan),#225a6a);
+.claw-hand:before,
+.claw-hand:after {
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    width: 8px;
+    height: 24px;
+    background: #ddd;
+    border-radius: 10px;
 }
 
-.capsule:nth-child(3n){
-  background:linear-gradient(135deg,var(--yellow),#716329);
+.claw-hand:before {
+    left: 2px;
+    transform: rotate(25deg);
 }
 
-.claw-controls{
-  margin-top:17px;
-  display:flex;
-  gap:10px;
+.claw-hand:after {
+    right: 2px;
+    transform: rotate(-25deg);
 }
 
-.claw-message{
-  margin-top:14px;
-  min-height:35px;
-  color:var(--yellow);
-  font-size:9px;
-  text-align:center;
-  line-height:1.7;
+.claw-capsules {
+    position: absolute;
+    bottom: 20px;
+    left: 8%;
+    right: 8%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.reveal-card{
-  position:absolute;
-  inset:30px;
-  z-index:20;
-  background:#11142a;
-  border:3px solid var(--pink);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:15px;
-  padding:20px;
-  text-align:center;
+.capsule {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    border: 3px solid white;
+    box-shadow: 0 0 12px rgba(255,111,174,.5);
+    transition: .2s;
 }
 
-.reveal-card img{
-  max-width:240px;
-  max-height:220px;
-  object-fit:contain;
-  border:3px solid white;
+.capsule:hover {
+    transform: translateY(-5px);
 }
 
-.reveal-card p{
-  max-width:600px;
-  font-size:9px;
-  line-height:1.8;
+.claw-dropping {
+    animation: clawDrop .8s ease forwards;
+}
+
+@keyframes clawDrop {
+    0% { transform: translateX(-50%) translateY(0); }
+    100% { transform: translateX(-50%) translateY(185px); }
+}
+
+/* =========================================================
+   MEMORY REVEAL
+========================================================= */
+
+.memory-reveal {
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+}
+
+.memory-reveal img {
+    max-width: min(500px, 90%);
+    max-height: 42vh;
+    object-fit: contain;
+    border-radius: 15px;
+    border: 3px solid var(--pink2);
+    box-shadow: 0 0 25px rgba(255,111,174,.3);
+}
+
+.memory-text {
+    margin-top: 15px;
+    font-size: clamp(14px, 1.8vw, 19px);
+    line-height: 1.5;
+    color: #fff6fc;
 }
 
 /* =========================================================
    PHOTO BOOTH
 ========================================================= */
 
-.photobooth{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  height:100%;
+.photo-booth {
+    text-align: center;
 }
 
-.booth-screen{
-  width:min(580px,90%);
-  height:340px;
-  background:#070812;
-  border:5px solid #373b60;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  position:relative;
+.photo-frame {
+    width: min(330px, 80%);
+    margin: auto;
+    background: white;
+    padding: 12px 12px 18px;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.4);
 }
 
-.booth-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  width:80%;
+.photo-frame img {
+    display: block;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 7px;
 }
 
-.booth-grid img{
-  width:100%;
-  aspect-ratio:1;
-  object-fit:cover;
-  border:3px solid white;
+.photo-frame .strip-text {
+    color: #30213d;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 2px;
 }
 
-.countdown{
-  position:absolute;
-  font-size:65px;
-  color:white;
-  text-shadow:0 0 25px var(--pink);
+.booth-stage {
+    min-height: 270px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.flash{
-  position:absolute;
-  inset:0;
-  background:white;
-  opacity:0;
-  pointer-events:none;
+.countdown {
+    font-size: clamp(60px, 12vw, 120px);
+    font-weight: bold;
+    text-shadow: 0 0 30px var(--pink);
+    animation: countPulse .8s infinite;
 }
 
-.flash.active{
-  animation:cameraFlash .5s;
+@keyframes countPulse {
+    50% { transform: scale(1.12); }
 }
 
-@keyframes cameraFlash{
-  0%{opacity:0}
-  30%{opacity:1}
-  100%{opacity:0}
+.flash {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: white;
+    animation: flash .4s ease forwards;
+    pointer-events: none;
 }
 
-.camera-preview{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.booth-buttons{
-  display:flex;
-  gap:12px;
-  margin-top:18px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.photo-strip{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.photo-strip img{
-  width:120px;
-  height:150px;
-  object-fit:cover;
-  border:4px solid white;
+@keyframes flash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 /* =========================================================
    JUKEBOX
 ========================================================= */
 
-.jukebox{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+.jukebox {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-.jukebox-body{
-  width:270px;
-  height:400px;
-  background:linear-gradient(90deg,#252a48,#101326,#252a48);
-  border:5px solid #4a5079;
-  border-radius:130px 130px 20px 20px;
-  padding:30px;
-  position:relative;
-  box-shadow:0 0 35px rgba(66,232,255,.2);
+.jukebox-body {
+    width: min(360px, 80%);
+    padding: 25px;
+    border-radius: 40px 40px 20px 20px;
+    background: linear-gradient(145deg, #472b65, #171026);
+    border: 4px solid var(--purple);
+    box-shadow: 0 0 30px rgba(169,140,255,.4);
 }
 
-.jukebox-glow{
-  position:absolute;
-  top:55px;
-  left:40px;
-  right:40px;
-  height:160px;
-  border-radius:50%;
-  background:radial-gradient(circle,var(--pink),transparent 65%);
-  opacity:.55;
-  animation:pulse 1.5s infinite;
+.jukebox-screen {
+    height: 130px;
+    background: #080711;
+    border: 3px solid var(--blue);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    margin-bottom: 20px;
+    animation: jukeboxGlow 1.5s infinite alternate;
 }
 
-@keyframes pulse{
-  50%{opacity:.25}
-}
-
-.jukebox-record{
-  position:absolute;
-  top:80px;
-  left:50%;
-  transform:translateX(-50%);
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  border:10px solid #080914;
-  background:#24294a;
-  animation:spin 3s linear infinite paused;
-}
-
-.jukebox.playing .jukebox-record{
-  animation-play-state:running;
-}
-
-@keyframes spin{
-  to{transform:translateX(-50%) rotate(360deg)}
-}
-
-.music-notes{
-  position:absolute;
-  top:35px;
-  right:30px;
-  color:var(--yellow);
-  font-size:20px;
-  animation:notes 1.5s infinite;
-}
-
-@keyframes notes{
-  0%{transform:translateY(15px);opacity:0}
-  50%{opacity:1}
-  100%{transform:translateY(-20px);opacity:0}
+@keyframes jukeboxGlow {
+    from { box-shadow: 0 0 10px var(--blue); }
+    to { box-shadow: 0 0 30px var(--pink); }
 }
 
 /* =========================================================
    MEMORY LANE
 ========================================================= */
 
-.memory-game{
-  height:100%;
-  display:flex;
-  flex-direction:column;
+.road {
+    position: relative;
+    height: 100%;
+    min-height: 450px;
+    border-radius: 25px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #2b2a32 0px,
+            #2b2a32 100px,
+            #32313a 100px,
+            #32313a 200px
+        );
 }
 
-.memory-road{
-  position:relative;
-  flex:1;
-  min-height:300px;
-  background:
-    linear-gradient(90deg,#1a1b25 0 9%,#32323b 9% 91%,#1a1b25 91%);
-  overflow:hidden;
-  border:3px solid #454963;
+.road-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 1800px;
+    height: 8px;
+    transform: translateY(-50%);
+    background: repeating-linear-gradient(
+        90deg,
+        #fff 0 60px,
+        transparent 60px 120px
+    );
 }
 
-.road-lines{
-  position:absolute;
-  left:9%;
-  right:9%;
-  top:50%;
-  height:8px;
-  background:repeating-linear-gradient(
-    90deg,
-    var(--yellow) 0 50px,
-    transparent 50px 100px
-  );
+.milestones {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 1800px;
 }
 
-.memory-car{
-  position:absolute;
-  z-index:5;
-  left:6%;
-  top:calc(50% - 55px);
-  width:110px;
-  transition:left .18s ease;
+.milestone {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 4px solid var(--yellow);
+    background: var(--pink);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(255,228,122,.6);
 }
 
-.memory-car img{
-  width:100%;
-  display:block;
+.car {
+    position: absolute;
+    top: calc(50% + 60px);
+    left: 20px;
+    font-size: 55px;
+    transition: left .3s ease;
+    z-index: 5;
 }
 
-.memory-marker{
-  position:absolute;
-  z-index:3;
-  top:25%;
-  transform:translateX(-50%);
-  text-align:center;
-}
-
-.marker-stick{
-  width:4px;
-  height:70px;
-  background:var(--cyan);
-  margin:auto;
-}
-
-.marker-sign{
-  background:#11142a;
-  border:2px solid var(--cyan);
-  padding:9px;
-  width:100px;
-  font-size:7px;
-  line-height:1.5;
-  color:var(--cyan);
-}
-
-.memory-controls{
-  padding-top:15px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-}
-
-.memory-info{
-  text-align:center;
-  padding:10px;
-  color:var(--yellow);
-  font-size:8px;
-  line-height:1.7;
-}
-
-.memory-popup{
-  position:absolute;
-  z-index:30;
-  inset:20px;
-  background:#11142a;
-  border:3px solid var(--pink);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:20px;
-  padding:20px;
-}
-
-.memory-popup img{
-  max-width:48%;
-  max-height:80%;
-  object-fit:contain;
-  border:4px solid white;
-}
-
-.memory-popup-text{
-  max-width:45%;
-  font-size:9px;
-  line-height:2;
-  text-align:center;
+.memory-lane-info {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    z-index: 20;
+    background: rgba(15,10,25,.88);
+    padding: 12px;
+    border-radius: 15px;
+    max-width: 330px;
 }
 
 /* =========================================================
    BASKETBALL
 ========================================================= */
 
-.basketball-game{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+.question-card {
+    max-width: 700px;
+    margin: 10px auto;
+    background: rgba(255,255,255,.07);
+    border: 2px solid var(--purple);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
 }
 
-.scoreboard{
-  color:var(--yellow);
-  font-size:9px;
-  margin-bottom:15px;
+.question {
+    font-size: clamp(17px, 2.5vw, 25px);
+    line-height: 1.35;
+    margin-bottom: 20px;
 }
 
-.question{
-  width:min(720px,95%);
-  background:#171a34;
-  border:2px solid var(--cyan);
-  padding:18px;
-  text-align:center;
-  font-size:10px;
-  line-height:1.8;
-  margin-bottom:15px;
+.answers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
-.answers{
-  width:min(720px,95%);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+.answer-btn {
+    padding: 13px;
+    border-radius: 14px;
+    background: #35264b;
+    color: white;
+    border: 2px solid #6d558d;
+    transition: .2s;
 }
 
-.answer{
-  padding:14px;
-  background:#101326;
-  border:2px solid #444967;
-  color:white;
-  cursor:pointer;
-  font-family:inherit;
-  font-size:7px;
-  line-height:1.7;
+.answer-btn:hover {
+    border-color: var(--pink);
+    transform: translateY(-2px);
 }
 
-.answer:hover{
-  border-color:var(--pink);
+.basketball {
+    font-size: 65px;
+    margin: 10px;
+    animation: ballBounce .5s ease;
 }
 
-.answer.correct{
-  border-color:var(--green);
-  background:rgba(103,247,168,.12);
-}
-
-.answer.wrong{
-  border-color:#ff6868;
-  background:rgba(255,104,104,.12);
-}
-
-.hoop-area{
-  position:relative;
-  width:100%;
-  height:160px;
-  margin-top:auto;
-  overflow:hidden;
-}
-
-.hoop{
-  position:absolute;
-  right:18%;
-  top:40px;
-  width:120px;
-  height:10px;
-  background:var(--pink);
-  box-shadow:0 0 15px var(--pink);
-}
-
-.net{
-  position:absolute;
-  right:20%;
-  top:48px;
-  width:75px;
-  height:60px;
-  border:2px solid white;
-  border-top:0;
-  transform:perspective(100px) rotateX(-10deg);
-}
-
-.ball{
-  position:absolute;
-  left:20%;
-  bottom:20px;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  background:#ff944d;
-  border:3px solid #662d14;
-}
-
-.ball.shoot{
-  animation:ballShoot .8s forwards;
-}
-
-@keyframes ballShoot{
-  0%{left:20%;bottom:20px}
-  100%{left:77%;bottom:100px}
+@keyframes ballBounce {
+    0% { transform: translateY(-100px); }
+    60% { transform: translateY(10px); }
+    100% { transform: translateY(0); }
 }
 
 /* =========================================================
-   WHACK
+   WHACK A MOLE
 ========================================================= */
 
-.whack-game{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+.mole-game {
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
 }
 
-.whack-score{
-  color:var(--yellow);
-  font-size:9px;
-  margin-bottom:15px;
+.mole-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
 }
 
-.holes{
-  width:min(700px,95%);
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin:auto;
+.hole {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #0b0813;
+    border: 4px solid #49385d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
 }
 
-.hole{
-  position:relative;
-  height:115px;
-  background:#080914;
-  border:3px solid #3b405f;
-  border-radius:50%;
-  overflow:hidden;
-  cursor:pointer;
+.mole {
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    background: linear-gradient(#9b674f, #593628);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: clamp(8px, 1.2vw, 13px);
+    cursor: pointer;
+    animation: molePop .18s ease;
 }
 
-.hole:after{
-  content:"";
-  position:absolute;
-  left:10%;
-  right:10%;
-  bottom:12px;
-  height:32px;
-  background:#02030a;
-  border-radius:50%;
-}
-
-.mole{
-  position:absolute;
-  z-index:2;
-  left:50%;
-  bottom:-90px;
-  transform:translateX(-50%);
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#c87b55;
-  border:4px solid #713d2c;
-  transition:.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:6px;
-  line-height:1.5;
-  padding:10px;
-  color:white;
-}
-
-.mole.active{
-  bottom:3px;
-}
-
-.mole.bitmoji{
-  background:#171a34;
-  border-color:var(--pink);
-  padding:4px;
-}
-
-.mole.bitmoji img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
+@keyframes molePop {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
 }
 
 /* =========================================================
    HIGH STRIKER
 ========================================================= */
 
-.striker{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:20px;
+.striker {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
 }
 
-.striker-meter{
-  width:90px;
-  height:350px;
-  border:5px solid #454b70;
-  background:#080914;
-  position:relative;
-  display:flex;
-  align-items:end;
-  justify-content:center;
-  padding:7px;
+.striker-machine {
+    width: 110px;
+    height: 310px;
+    border: 4px solid var(--purple);
+    margin: 15px auto;
+    border-radius: 20px;
+    position: relative;
+    background: #100c19;
 }
 
-.striker-fill{
-  width:100%;
-  height:10%;
-  background:linear-gradient(to top,var(--pink),var(--yellow));
-  transition:.8s cubic-bezier(.17,.67,.3,1);
+.striker-meter {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    right: 20px;
+    top: 20px;
+    border: 3px solid white;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-end;
+    padding: 5px;
 }
 
-.striker-levels{
-  position:absolute;
-  inset:10px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  align-items:center;
-  pointer-events:none;
+.striker-fill {
+    width: 100%;
+    height: 5%;
+    background: linear-gradient(var(--pink), var(--yellow));
+    border-radius: 8px;
+    transition: height .15s;
 }
 
-.striker-levels span{
-  font-size:7px;
-  color:white;
+.hammer {
+    font-size: 55px;
+    margin: 5px;
+    transition: .15s;
 }
 
-.striker-prize{
-  min-height:25px;
-  color:var(--yellow);
-  font-size:11px;
-  text-align:center;
+.hammer.hit {
+    transform: rotate(-30deg) scale(1.2);
 }
 
 /* =========================================================
-   SHOOTING
+   SHOOTING GALLERY
 ========================================================= */
 
-.shooting{
-  height:100%;
-  display:flex;
-  flex-direction:column;
+.shooting {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
 }
 
-.shooting-score{
-  text-align:center;
-  color:var(--yellow);
-  font-size:9px;
-  margin-bottom:12px;
+.target-field {
+    position: relative;
+    height: min(350px, 50vh);
+    margin-top: 15px;
+    background: #0b0814;
+    border: 3px solid var(--purple);
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-.gallery{
-  position:relative;
-  flex:1;
-  background:#090a14;
-  border:3px solid #3b405f;
-  overflow:hidden;
+.target {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: radial-gradient(circle, white 0 15%, var(--pink) 16% 35%, white 36% 50%, var(--purple) 51%);
+    border: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9px;
+    color: #24162f;
+    font-weight: bold;
+    text-align: center;
+    cursor: crosshair;
+    transition: .15s;
 }
 
-.target{
-  position:absolute;
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  border:5px solid white;
-  background:var(--pink);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:6px;
-  line-height:1.5;
-}
-
-.target:after{
-  content:"";
-  position:absolute;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:4px solid white;
-}
-
-.crosshair{
-  position:absolute;
-  z-index:20;
-  width:40px;
-  height:40px;
-  border:3px solid var(--cyan);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-  box-shadow:0 0 12px var(--cyan);
-}
-
-.crosshair:before,
-.crosshair:after{
-  content:"";
-  position:absolute;
-  background:var(--cyan);
-}
-
-.crosshair:before{
-  left:50%;
-  top:-8px;
-  width:2px;
-  height:50px;
-}
-
-.crosshair:after{
-  top:50%;
-  left:-8px;
-  width:50px;
-  height:2px;
+.target:hover {
+    transform: scale(1.1);
 }
 
 /* =========================================================
-   SPIN WHEEL
+   WHEEL
 ========================================================= */
 
-.spin-game{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+.wheel-wrap {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
 }
 
-.wheel{
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  border:9px solid white;
-  background:
-    conic-gradient(
-      var(--pink) 0deg 60deg,
-      var(--cyan) 60deg 120deg,
-      var(--purple) 120deg 180deg,
-      var(--yellow) 180deg 240deg,
-      var(--pink) 240deg 300deg,
-      var(--cyan) 300deg 360deg
-    );
-  box-shadow:0 0 35px rgba(255,79,163,.3);
-  transition:transform 4s cubic-bezier(.12,.7,.15,1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.wheel {
+    width: min(330px, 65vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid white;
+    background:
+        conic-gradient(
+            var(--pink) 0deg 45deg,
+            var(--purple) 45deg 90deg,
+            var(--blue) 90deg 135deg,
+            var(--yellow) 135deg 180deg,
+            var(--pink) 180deg 225deg,
+            var(--purple) 225deg 270deg,
+            var(--blue) 270deg 315deg,
+            var(--yellow) 315deg 360deg
+        );
+    box-shadow: 0 0 30px rgba(255,111,174,.5);
+    transition: transform 3s cubic-bezier(.15,.8,.2,1);
+    position: relative;
 }
 
-.wheel-center{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#11142a;
-  border:4px solid white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:8px;
+.wheel:after {
+    content: "💌";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
 }
 
-.wheel-arrow{
-  width:0;
-  height:0;
-  border-left:14px solid transparent;
-  border-right:14px solid transparent;
-  border-top:25px solid var(--yellow);
-  margin-bottom:-5px;
+.pointer {
+    font-size: 35px;
+    transform: rotate(180deg);
 }
 
-.letter{
-  max-width:750px;
-  margin:20px auto;
-  padding:25px;
-  background:#fff;
-  color:#191a2b;
-  line-height:2;
-  font-family:Georgia,serif;
-  font-size:15px;
-  text-align:left;
-  overflow:auto;
-  max-height:430px;
-  white-space:pre-line;
+/* =========================================================
+   LETTER
+========================================================= */
+
+.letter {
+    max-width: 700px;
+    margin: auto;
+    background: #fff8ee;
+    color: #38243b;
+    padding: clamp(20px, 4vw, 40px);
+    border-radius: 15px;
+    line-height: 1.7;
+    max-height: 65vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,.4);
+}
+
+.letter h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #c53d72;
+}
+
+.letter p {
+    margin-bottom: 15px;
 }
 
 /* =========================================================
    TICKET COUNTER
 ========================================================= */
 
-.ticket-counter{
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.counter {
+    text-align: center;
+    max-width: 650px;
+    margin: auto;
 }
 
-.counter-card{
-  width:min(600px,95%);
-  text-align:center;
-  background:#171a34;
-  border:3px solid var(--yellow);
-  padding:45px 30px;
-  box-shadow:0 0 35px rgba(255,227,110,.2);
+.counter-avatar {
+    height: 180px;
+    margin: 10px auto;
 }
 
-.counter-card h2{
-  color:var(--yellow);
-  font-size:18px;
-  line-height:1.6;
+.counter-avatar img {
+    height: 100%;
+    max-width: 180px;
+    object-fit: contain;
 }
 
-.counter-card p{
-  color:var(--muted);
-  font-size:9px;
-  line-height:2;
+/* =========================================================
+   FINAL
+========================================================= */
+
+#finalCelebration {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background:
+        radial-gradient(circle at center, rgba(255,111,174,.3), transparent 40%),
+        rgba(8,5,16,.96);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
 }
 
-.final{
-  animation:finalPop .6s ease;
+.final-content {
+    position: relative;
+    z-index: 5;
+    padding: 20px;
+    animation: finalIn 1s ease;
 }
 
-@keyframes finalPop{
-  0%{transform:scale(.7);opacity:0}
-  100%{transform:scale(1);opacity:1}
+@keyframes finalIn {
+    from {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-.heart{
-  position:fixed;
-  z-index:300;
-  pointer-events:none;
-  font-size:25px;
-  animation:heartFall 2s forwards;
+.final-title {
+    font-size: clamp(32px, 7vw, 78px);
+    line-height: 1.05;
+    color: white;
+    text-shadow:
+        0 0 10px var(--pink),
+        0 0 30px var(--pink),
+        0 0 60px var(--purple);
 }
 
-@keyframes heartFall{
-  0%{
-    transform:translateY(0) scale(.5);
-    opacity:1;
-  }
-  100%{
-    transform:translateY(100vh) rotate(360deg) scale(1.2);
-    opacity:0;
-  }
+.final-sub {
+    margin-top: 25px;
+    font-size: clamp(17px, 3vw, 28px);
+    color: var(--pink2);
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 16px;
+    top: -30px;
+    animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(900deg);
+    }
+}
+
+.heart {
+    position: absolute;
+    font-size: 25px;
+    animation: heartFloat 4s linear forwards;
+}
+
+@keyframes heartFloat {
+    from {
+        transform: translateY(110vh) scale(.5);
+        opacity: 0;
+    }
+    20% { opacity: 1; }
+    to {
+        transform: translateY(-20vh) scale(1.3) rotate(20deg);
+        opacity: 0;
+    }
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:850px){
+@media (max-width: 700px) {
 
-  .entrance-machine{
-    transform:scale(.7);
-    transform-origin:bottom;
-  }
+    .machine {
+        width: 90px;
+        min-height: 105px;
+    }
 
-  .entrance-machine.left{
-    left:-10px;
-  }
+    .machine-body {
+        min-height: 105px;
+        padding: 6px;
+    }
 
-  .entrance-machine.right{
-    right:-10px;
-  }
+    .machine-screen {
+        height: 42px;
+    }
 
-  .entrance-character{
-    left:4%;
-    bottom:18%;
-    width:110px;
-  }
+    #m-claw       { left: 12%; top: 27%; }
+    #m-photo      { left: 34%; top: 23%; }
+    #m-jukebox    { left: 67%; top: 24%; }
+    #m-memory     { left: 88%; top: 30%; }
 
-  .speech{
-    left:auto;
-    right:4%;
-    top:37%;
-    width:58%;
-    font-size:7px;
-    padding:15px;
-  }
+    #m-basketball { left: 17%; top: 65%; }
+    #m-mole       { left: 42%; top: 71%; }
+    #m-striker    { left: 65%; top: 67%; }
+    #m-shooting   { left: 88%; top: 62%; }
+    #m-wheel      { left: 78%; top: 45%; }
 
-  .speech:before{
-    display:none;
-  }
+    #ticketMachine {
+        left: 50%;
+        top: 87%;
+    }
 
-  .machine{
-    width:110px;
-    height:145px;
-  }
+    .answers {
+        grid-template-columns: 1fr;
+    }
 
-  .cabinet-screen{
-    height:70px;
-    font-size:6px;
-  }
-
-  .cabinet-control{
-    top:87px;
-  }
-
-  .machine-name{
-    width:130px;
-    font-size:6px;
-  }
-
-  .m-claw{left:2%;top:21%}
-  .m-photo{left:26%;top:17%}
-  .m-jukebox{left:44%;top:15%}
-  .m-memory{right:2%;top:22%}
-  .m-basket{left:3%;top:58%}
-  .m-whack{left:28%;top:62%}
-  .m-high{left:53%;top:59%}
-  .m-shoot{right:25%;top:62%}
-  .m-wheel{right:2%;top:67%}
-
-  .answers{
-    grid-template-columns:1fr;
-  }
-
-  .memory-popup{
-    flex-direction:column;
-  }
-
-  .memory-popup img{
-    max-width:80%;
-    max-height:45%;
-  }
-
-  .memory-popup-text{
-    max-width:90%;
-  }
+    .speech-bubble {
+        left: 110%;
+        width: 190px;
+        min-width: 0;
+    }
 }
 
-@media(max-height:650px){
+@media (max-height: 600px) {
 
-  .entrance-neon{
-    top:3%;
-  }
+    .machine {
+        min-height: 85px;
+    }
 
-  .entrance-character{
-    bottom:12%;
-  }
+    .machine-body {
+        min-height: 85px;
+    }
 
-  .speech{
-    top:31%;
-  }
+    .machine-screen {
+        height: 32px;
+    }
 
-  .enter-button{
-    bottom:3%;
-  }
+    #enterPrompt {
+        bottom: 7px;
+    }
 
-  .machine{
-    transform:scale(.78);
-    transform-origin:center;
-  }
-
-  .arcade-title{
-    top:6%;
-  }
+    #hud {
+        top: 5px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================================================
+<!-- =======================================================
      ENTRANCE
-========================================================= -->
+======================================================= -->
 
 <section id="entrance">
 
-  <div class="entrance-grid"></div>
+    <div class="entrance-card">
 
-  <div class="entrance-neon">
-    <div class="small">WELCOME TO</div>
-    <h1>THE US ARCADE</h1>
-    <div class="subtitle">ONE PLAYER. ONE LOVE STORY.</div>
-  </div>
+        <div class="entrance-title">
+            THE US ARCADE
+        </div>
 
-  <div class="entrance-machine left">
-    <div class="machine-top">
-      <div class="machine-screen">INSERT<br>LOVE<br>TO PLAY</div>
-      <div class="machine-buttons">
-        <i></i><i></i>
-      </div>
+        <div class="entrance-player">
+
+            <img src="bitmoji.png" alt="Player">
+
+            <div class="speech-bubble">
+                Hey Dumbo... ❤️<br><br>
+                Welcome to our little arcade.
+                I made this place just for you.
+                Every game has a little piece of us hidden inside.
+                <br><br>
+                Come on... let's play. 🥹
+            </div>
+
+        </div>
+
+        <button class="start-button" id="startButton">
+            ENTER THE ARCADE
+        </button>
+
     </div>
-    <div class="machine-base"></div>
-  </div>
-
-  <div class="entrance-machine right">
-    <div class="machine-top">
-      <div class="machine-screen">LEVEL<br>02<br>US</div>
-      <div class="machine-buttons">
-        <i></i><i></i>
-      </div>
-    </div>
-    <div class="machine-base"></div>
-  </div>
-
-  <div class="entrance-character">
-    <img src="bitmoji.jpg" alt="player">
-  </div>
-
-  <div class="speech">
-    Hey you.<br><br>
-    Welcome to our very own little arcade.
-    Every game here is basically a tiny piece
-    of us, so play properly okay?
-    <br><br>
-    Your mission is simple:
-    collect the memories, survive the games,
-    and make it to the end.
-  </div>
-
-  <div class="entrance-floor"></div>
-
-  <button class="enter-button" id="enterButton">
-    ENTER TO PLAY
-  </button>
 
 </section>
 
 
-<!-- =========================================================
+<!-- =======================================================
      ARCADE
-========================================================= -->
+======================================================= -->
 
 <section id="arcade" class="hidden">
 
-  <div class="arcade-background"></div>
-  <div class="arcade-overlay"></div>
+    <div id="arcadeWorld">
 
-  <div class="topbar">
-    <div class="logo">THE US ARCADE</div>
+        <div id="background"></div>
 
-    <div class="ticket-display">
-      TICKETS: <span id="ticketCount">0</span>
+        <!-- HUD -->
+
+        <div id="hud">
+
+            <div class="logo">
+                THE US ❤️
+            </div>
+
+            <div class="hud-right">
+
+                <div class="tickets">
+                    🎟️ <span id="ticketCount">0</span>
+                </div>
+
+                <button class="sound-btn" id="soundButton">
+                    🔊
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- MACHINES -->
+
+        <div class="machine" id="m-claw" data-game="claw">
+            <div class="machine-body">
+                <div class="machine-screen">🧸</div>
+                <div class="machine-name">Claw Machine</div>
+                <div class="machine-sub">Memories</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-photo" data-game="photo">
+            <div class="machine-body">
+                <div class="machine-screen">📸</div>
+                <div class="machine-name">Photo Booth</div>
+                <div class="machine-sub">Say cheese!</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-jukebox" data-game="jukebox">
+            <div class="machine-body">
+                <div class="machine-screen">🎵</div>
+                <div class="machine-name">Jukebox</div>
+                <div class="machine-sub">Our songs</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-memory" data-game="memory">
+            <div class="machine-body">
+                <div class="machine-screen">🚗</div>
+                <div class="machine-name">Memory Lane</div>
+                <div class="machine-sub">Our journey</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-basketball" data-game="basketball">
+            <div class="machine-body">
+                <div class="machine-screen">🏀</div>
+                <div class="machine-name">Basketball</div>
+                <div class="machine-sub">How well do you know us?</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-mole" data-game="mole">
+            <div class="machine-body">
+                <div class="machine-screen">🐹</div>
+                <div class="machine-name">Whack-A-Mole</div>
+                <div class="machine-sub">Our little fights</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-striker" data-game="striker">
+            <div class="machine-body">
+                <div class="machine-screen">🔨</div>
+                <div class="machine-name">High Striker</div>
+                <div class="machine-sub">Test your strength</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-shooting" data-game="shooting">
+            <div class="machine-body">
+                <div class="machine-screen">🎯</div>
+                <div class="machine-name">Shooting Gallery</div>
+                <div class="machine-sub">Aim carefully</div>
+            </div>
+        </div>
+
+        <div class="machine" id="m-wheel" data-game="wheel">
+            <div class="machine-body">
+                <div class="machine-screen">🎡</div>
+                <div class="machine-name">Spin The Wheel</div>
+                <div class="machine-sub">One surprise</div>
+            </div>
+        </div>
+
+        <div class="machine" id="ticketMachine" data-game="counter">
+            <div class="machine-body">
+                <div class="machine-screen">🎟️</div>
+                <div class="machine-name">Ticket Counter</div>
+                <div class="machine-sub">Come back here ❤️</div>
+            </div>
+        </div>
+
+
+        <!-- PLAYER -->
+
+        <div id="player">
+
+            <img src="bitmoji.png" alt="Player">
+
+            <div id="playerBubble">
+                Use the arrow keys to move me around!
+            </div>
+
+        </div>
+
+
+        <!-- ONLY ONE ENTER PROMPT -->
+
+        <div id="enterPrompt">
+            Walk to a machine and press <b>ENTER</b>
+        </div>
+
     </div>
 
-    <button class="mute" id="muteButton">♪</button>
-  </div>
-
-  <div class="arcade-stage">
-
-    <div class="arcade-title">
-      OUR LITTLE ARCADE
-    </div>
-
-    <!-- CLAW -->
-    <div class="machine m-claw" data-game="claw" data-x="10" data-y="25">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          CLAW<br>MACHINE
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">CLAW MACHINE</div>
-    </div>
-
-    <!-- PHOTO -->
-    <div class="machine m-photo" data-game="photo" data-x="29" data-y="22">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          PHOTO<br>BOOTH
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">PHOTO BOOTH</div>
-    </div>
-
-    <!-- JUKEBOX -->
-    <div class="machine m-jukebox" data-game="jukebox" data-x="48" data-y="21">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          JUKE<br>BOX
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">JUKEBOX</div>
-    </div>
-
-    <!-- MEMORY -->
-    <div class="machine m-memory" data-game="memory" data-x="87" data-y="25">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          MEMORY<br>LANE
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">MEMORY LANE</div>
-    </div>
-
-    <!-- BASKETBALL -->
-    <div class="machine m-basket" data-game="basketball" data-x="12" data-y="69">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          HOW WELL<br>DO YOU<br>KNOW US?
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">BASKETBALL</div>
-    </div>
-
-    <!-- WHACK -->
-    <div class="machine m-whack" data-game="whack" data-x="34" data-y="72">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          WHACK<br>A<br>MOLE
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">WHACK-A-MOLE</div>
-    </div>
-
-    <!-- HIGH STRIKER -->
-    <div class="machine m-high" data-game="high" data-x="58" data-y="69">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          HIGH<br>STRIKER
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">HIGH STRIKER</div>
-    </div>
-
-    <!-- SHOOT -->
-    <div class="machine m-shoot" data-game="shoot" data-x="76" data-y="72">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          SHOOTING<br>GALLERY
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">SHOOTING GALLERY</div>
-    </div>
-
-    <!-- WHEEL -->
-    <div class="machine m-wheel" data-game="wheel" data-x="89" data-y="76">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          SPIN<br>THE<br>WHEEL
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">SPIN WHEEL</div>
-    </div>
-
-    <!-- PLAYER -->
-    <div class="player" id="player">
-      <img src="bitmoji.jpg" alt="player">
-    </div>
-
-    <div class="interact-hint" id="interactHint">
-      ENTER TO PLAY
-    </div>
-
-  </div>
 </section>
 
 
-<!-- =========================================================
-     GAME MODAL
-========================================================= -->
+<!-- =======================================================
+     GAME OVERLAY
+======================================================= -->
 
-<div id="gameModal" class="hidden">
+<div id="gameOverlay" class="hidden">
 
-  <div class="game-window">
+    <div class="game-window">
 
-    <div class="window-header">
-      <div class="window-title" id="windowTitle">
-        GAME
-      </div>
+        <div class="game-header">
 
-      <button class="back-button" id="backButton">
-        BACK TO ARCADE
-      </button>
+            <div class="game-title" id="gameTitle">
+                Game
+            </div>
+
+            <button class="back-btn" id="backButton">
+                ← BACK
+            </button>
+
+        </div>
+
+        <div class="game-content" id="gameContent"></div>
+
     </div>
 
-    <div class="game-content" id="gameContent"></div>
+</div>
 
-  </div>
+
+<!-- =======================================================
+     FINAL
+======================================================= -->
+
+<div id="finalCelebration" class="hidden">
+
+    <div class="final-content">
+
+        <div class="final-title">
+            HAPPY TWO-YEAR<br>
+            ANNIVERSARY TO US! ❤️
+        </div>
+
+        <div class="final-sub">
+            Two years down, so many more to go. ❤️
+        </div>
+
+    </div>
+
 </div>
 
 
 <script>
+
 /* =========================================================
-   BASIC STATE
+   GLOBAL STATE
 ========================================================= */
 
 const entrance = document.getElementById("entrance");
 const arcade = document.getElementById("arcade");
-const enterButton = document.getElementById("enterButton");
-const gameModal = document.getElementById("gameModal");
-const gameContent = document.getElementById("gameContent");
-const windowTitle = document.getElementById("windowTitle");
-const backButton = document.getElementById("backButton");
-
-let tickets = 0;
-let muted = false;
-let currentGame = null;
-
-const visitedGames = new Set();
+const startButton = document.getElementById("startButton");
 
 const player = document.getElementById("player");
+const playerBubble = document.getElementById("playerBubble");
+const enterPrompt = document.getElementById("enterPrompt");
 
-let playerX = 50;
-let playerY = 48;
+const gameOverlay = document.getElementById("gameOverlay");
+const gameTitle = document.getElementById("gameTitle");
+const gameContent = document.getElementById("gameContent");
+const backButton = document.getElementById("backButton");
+
+const ticketCountElement = document.getElementById("ticketCount");
+
+let tickets = 0;
+let currentGame = null;
+let soundOn = true;
+
+let playerX = window.innerWidth / 2;
+let playerY = window.innerHeight * .52;
+
+const speed = 4;
+
+const keys = {
+    ArrowUp: false,
+    ArrowDown: false,
+    ArrowLeft: false,
+    ArrowRight: false
+};
+
+let nearMachine = null;
 
 const machines = [...document.querySelectorAll(".machine")];
 
 
 /* =========================================================
-   SOUND
+   AUDIO
 ========================================================= */
 
 let audioContext = null;
 
-function initAudio(){
-  if(!audioContext){
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  }
+function audio() {
+
+    if (!soundOn) return;
+
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    return audioContext;
 }
 
-function beep(freq=440,duration=.08,type="square",volume=.035){
-  if(muted) return;
+function beep(freq = 500, duration = .1, type = "sine") {
 
-  initAudio();
+    if (!soundOn) return;
 
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
+    const ctx = audio();
 
-  oscillator.type = type;
-  oscillator.frequency.value = freq;
+    if (!ctx) return;
 
-  gain.gain.setValueAtTime(volume,audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(
-    .001,
-    audioContext.currentTime + duration
-  );
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
 
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
+    oscillator.type = type;
+    oscillator.frequency.value = freq;
 
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + duration);
+    gain.gain.setValueAtTime(.06, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + duration);
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + duration);
 }
 
-function successSound(){
-  beep(523,.08);
-  setTimeout(()=>beep(659,.08),80);
-  setTimeout(()=>beep(784,.15),160);
+function successSound() {
+    beep(600,.08);
+    setTimeout(() => beep(850,.1),80);
+    setTimeout(() => beep(1100,.15),170);
 }
 
-function clickSound(){
-  beep(300,.05);
+function failSound() {
+    beep(180,.15,"square");
 }
 
 
@@ -2009,198 +1615,313 @@ function clickSound(){
    TICKETS
 ========================================================= */
 
-function addTickets(amount){
-  tickets += amount;
-  document.getElementById("ticketCount").textContent = tickets;
-  beep(880,.08);
-  setTimeout(()=>beep(1100,.1),80);
+function addTickets(amount) {
+
+    tickets += amount;
+
+    ticketCountElement.textContent = tickets;
+
+    beep(800,.07);
+    setTimeout(() => beep(1100,.1),80);
+
+    createTicketParticles();
+}
+
+function createTicketParticles() {
+
+    for(let i=0;i<6;i++) {
+
+        const t = document.createElement("div");
+
+        t.textContent = "🎟️";
+
+        t.style.position = "fixed";
+        t.style.left = "50%";
+        t.style.top = "50%";
+        t.style.zIndex = "9999";
+        t.style.pointerEvents = "none";
+        t.style.fontSize = "20px";
+
+        document.body.appendChild(t);
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 80 + Math.random()*100;
+
+        t.animate([
+            {
+                transform:"translate(-50%,-50%) scale(.5)",
+                opacity:1
+            },
+            {
+                transform:
+                    `translate(calc(-50% + ${Math.cos(angle)*distance}px), calc(-50% + ${Math.sin(angle)*distance}px)) scale(1.2)`,
+                opacity:0
+            }
+        ],{
+            duration:700,
+            easing:"ease-out"
+        }).onfinish = () => t.remove();
+    }
 }
 
 
 /* =========================================================
-   ENTER ARCADE
+   START
 ========================================================= */
 
-function enterArcade(){
-  initAudio();
-  beep(330,.1);
-  setTimeout(()=>beep(440,.1),100);
+startButton.addEventListener("click", () => {
 
-  entrance.classList.add("hidden");
-  arcade.classList.remove("hidden");
+    beep(600,.1);
+    entrance.classList.add("hidden");
+    arcade.classList.remove("hidden");
 
-  positionPlayer();
-}
+    playerX = window.innerWidth / 2;
+    playerY = window.innerHeight * .52;
 
-enterButton.addEventListener("click",enterArcade);
+    updatePlayer();
+
+    setTimeout(() => {
+        playerBubble.classList.add("show");
+
+        setTimeout(() => {
+            playerBubble.classList.remove("show");
+        },4000);
+
+    },500);
+});
 
 
 /* =========================================================
    PLAYER MOVEMENT
 ========================================================= */
 
-function positionPlayer(){
-  playerX = Math.max(4,Math.min(94,playerX));
-  playerY = Math.max(14,Math.min(88,playerY));
+window.addEventListener("keydown", e => {
 
-  player.style.left = playerX + "%";
-  player.style.top = playerY + "%";
+    if (e.key in keys) {
 
-  updateNearestMachine();
+        e.preventDefault();
+
+        keys[e.key] = true;
+
+    }
+
+    if (e.key === "Enter") {
+
+        e.preventDefault();
+
+        if (!gameOverlay.classList.contains("hidden")) return;
+
+        if (nearMachine) {
+
+            openGame(nearMachine.dataset.game);
+
+        }
+
+    }
+
+});
+
+window.addEventListener("keyup", e => {
+
+    if (e.key in keys) {
+        keys[e.key] = false;
+    }
+
+});
+
+
+function movementLoop() {
+
+    if (gameOverlay.classList.contains("hidden") &&
+        !arcade.classList.contains("hidden")) {
+
+        if (keys.ArrowUp) playerY -= speed;
+        if (keys.ArrowDown) playerY += speed;
+        if (keys.ArrowLeft) playerX -= speed;
+        if (keys.ArrowRight) playerX += speed;
+
+        const playerWidth = player.offsetWidth;
+        const playerHeight = player.offsetHeight;
+
+        playerX = Math.max(playerWidth / 2, Math.min(window.innerWidth - playerWidth / 2, playerX));
+        playerY = Math.max(80, Math.min(window.innerHeight - 60, playerY));
+
+        updatePlayer();
+        checkNearbyMachine();
+    }
+
+    requestAnimationFrame(movementLoop);
 }
 
-function updateNearestMachine(){
+movementLoop();
 
-  let nearest = null;
-  let shortest = Infinity;
 
-  machines.forEach(machine=>{
-    const mx = Number(machine.dataset.x);
-    const my = Number(machine.dataset.y);
+function updatePlayer() {
 
-    const distance = Math.hypot(
-      playerX - mx,
-      playerY - my
-    );
+    player.style.left = playerX + "px";
+    player.style.top = playerY + "px";
 
-    machine.classList.remove("near");
-
-    if(distance < shortest){
-      shortest = distance;
-      nearest = machine;
-    }
-  });
-
-  const hint = document.getElementById("interactHint");
-
-  if(nearest && shortest < 13){
-    nearest.classList.add("near");
-
-    hint.style.opacity = "1";
-    hint.style.left = Math.min(playerX + 5,82) + "%";
-    hint.style.top = Math.max(playerY - 7,12) + "%";
-  }else{
-    hint.style.opacity = "0";
-  }
 }
 
-document.addEventListener("keydown",e=>{
 
-  if(
-    ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Enter"," "]
-    .includes(e.key)
-  ){
-    e.preventDefault();
-  }
+/* =========================================================
+   MACHINE DETECTION
+========================================================= */
 
-  if(arcade.classList.contains("hidden")){
+function checkNearbyMachine() {
 
-    if(e.key === "Enter"){
-      enterArcade();
+    let closest = null;
+    let closestDistance = Infinity;
+
+    machines.forEach(machine => {
+
+        const rect = machine.getBoundingClientRect();
+
+        const mx = rect.left + rect.width/2;
+        const my = rect.top + rect.height/2;
+
+        const distance = Math.hypot(
+            playerX - mx,
+            playerY - my
+        );
+
+        if (distance < 145 && distance < closestDistance) {
+
+            closest = machine;
+            closestDistance = distance;
+
+        }
+
+    });
+
+    machines.forEach(m => m.classList.remove("near"));
+
+    nearMachine = closest;
+
+    if (closest) {
+
+        closest.classList.add("near");
+
+        const name =
+            closest.querySelector(".machine-name").textContent;
+
+        enterPrompt.innerHTML =
+            `Press <b>ENTER</b> to play ${name}`;
+
+        enterPrompt.classList.add("active");
+
+    } else {
+
+        enterPrompt.innerHTML =
+            `Walk to a machine and press <b>ENTER</b>`;
+
+        enterPrompt.classList.remove("active");
+
     }
 
-    return;
-  }
+}
 
-  if(!gameModal.classList.contains("hidden")) return;
 
-  const step = 2.2;
+/* =========================================================
+   MACHINE CLICK ALSO WORKS
+========================================================= */
 
-  if(e.key === "ArrowLeft"){
-    playerX -= step;
-    beep(160,.025);
-  }
+machines.forEach(machine => {
 
-  if(e.key === "ArrowRight"){
-    playerX += step;
-    beep(180,.025);
-  }
+    machine.addEventListener("click", () => {
 
-  if(e.key === "ArrowUp"){
-    playerY -= step;
-    beep(200,.025);
-  }
+        openGame(machine.dataset.game);
 
-  if(e.key === "ArrowDown"){
-    playerY += step;
-    beep(150,.025);
-  }
+    });
 
-  if(e.key === "Enter"){
-    const nearby = machines.find(m=>m.classList.contains("near"));
-
-    if(nearby){
-      openGame(nearby.dataset.game);
-    }
-  }
-
-  positionPlayer();
 });
 
 
 /* =========================================================
-   OPEN GAMES
+   OPEN GAME
 ========================================================= */
 
-function openGame(game){
+function openGame(game) {
 
-  currentGame = game;
-  visitedGames.add(game);
+    currentGame = game;
 
-  gameModal.classList.remove("hidden");
+    gameOverlay.classList.remove("hidden");
 
-  const gameNames = {
-    claw:"CLAW MACHINE",
-    photo:"PHOTO BOOTH",
-    jukebox:"JUKEBOX",
-    memory:"MEMORY LANE",
-    basketball:"BASKETBALL",
-    whack:"WHACK-A-MOLE",
-    high:"HIGH STRIKER",
-    shoot:"SHOOTING GALLERY",
-    wheel:"SPIN WHEEL",
-    counter:"TICKET COUNTER"
-  };
+    document.body.style.overflow = "hidden";
 
-  windowTitle.textContent = gameNames[game] || "GAME";
+    renderGame(game);
 
-  gameContent.innerHTML = "";
-
-  clickSound();
-
-  if(game === "claw") createClaw();
-  if(game === "photo") createPhotoBooth();
-  if(game === "jukebox") createJukebox();
-  if(game === "memory") createMemoryLane();
-  if(game === "basketball") createBasketball();
-  if(game === "whack") createWhack();
-  if(game === "high") createHighStriker();
-  if(game === "shoot") createShooting();
-  if(game === "wheel") createWheel();
-  if(game === "counter") createTicketCounter();
 }
-
-function closeGame(){
-
-  gameModal.classList.add("hidden");
-  gameContent.innerHTML = "";
-  currentGame = null;
-
-  positionPlayer();
-}
-
-backButton.addEventListener("click",closeGame);
 
 
 /* =========================================================
-   CLICK MACHINES
+   BACK
 ========================================================= */
 
-machines.forEach(machine=>{
-  machine.addEventListener("click",()=>{
-    openGame(machine.dataset.game);
-  });
-});
+backButton.onclick = () => {
+
+    gameOverlay.classList.add("hidden");
+
+    currentGame = null;
+
+    gameContent.innerHTML = "";
+
+    document.body.style.overflow = "hidden";
+
+};
+
+
+/* =========================================================
+   GAME RENDERER
+========================================================= */
+
+function renderGame(game) {
+
+    switch(game) {
+
+        case "claw":
+            renderClaw();
+            break;
+
+        case "photo":
+            renderPhotoBooth();
+            break;
+
+        case "jukebox":
+            renderJukebox();
+            break;
+
+        case "memory":
+            renderMemoryLane();
+            break;
+
+        case "basketball":
+            renderBasketball();
+            break;
+
+        case "mole":
+            renderMole();
+            break;
+
+        case "striker":
+            renderStriker();
+            break;
+
+        case "shooting":
+            renderShooting();
+            break;
+
+        case "wheel":
+            renderWheel();
+            break;
+
+        case "counter":
+            renderCounter();
+            break;
+
+    }
+
+}
 
 
 /* =========================================================
@@ -2209,187 +1930,204 @@ machines.forEach(machine=>{
 
 const clawMemories = [
 
-  {
-    image:"claw1.jpg",
-    text:"My first time watching Spider-Man movie in a theatre and ofc with you."
-  },
+    {
+        image:"20.heic",
+        text:"My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday."
+    },
 
-  {
-    image:"claw2.jpg",
-    text:"🎁 My gift to you after my first salary as a full-timer."
-  },
+    {
+        image:"2.heic",
+        text:"Happy two years to us ❤️"
+    },
 
-  {
-    image:"claw3.jpg",
-    text:"My 20th birthday, when you came to surprise me."
-  },
+    {
+        image:"claw3.jpeg",
+        text:"My gift to you after my first salary as a full-timer."
+    },
 
-  {
-    image:"claw4.jpg",
-    text:"Last ethnic day together, one of my favourite pictures."
-  },
+    {
+        image:"lastethnic.heic",
+        text:"Last ethnic day together and yeah, one of my favorite picture."
+    },
 
-  {
-    image:"claw5.jpg",
-    text:"Valentine’s Day, you got me this pretty saree and we went all desi."
-  },
+    {
+        image:"saree.heic",
+        text:"Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day."
+    },
 
-  {
-    image:"claw6.jpg",
-    text:"when you were riding beside me while I was leaving to kolkata"
-  },
+    {
+        image:"claw6.heic",
+        text:"The memory from the very night you left for Kolkata, when you were riding beside me while I was going..."
+    },
 
-  {
-    image:"claw7.jpg",
-    text:"getting Bappa home for the first time and wearing matching outfits.."
-  }
+    {
+        image:"bappa.heic",
+        text:"Got Bappa home and we were matching outfits. Hehe."
+    }
 
 ];
 
-let clawX = 50;
+let clawWon = new Set();
 let clawBusy = false;
 
-function createClaw(){
+function renderClaw() {
 
-  gameContent.innerHTML = `
-    <div class="claw-area">
+    gameTitle.textContent = "🧸 THE MEMORY CLAW";
 
-      <div class="game-intro">
-        MOVE THE CLAW. DROP IT.<br>
-        MAYBE YOU'LL CATCH A MEMORY.
-      </div>
+    gameContent.innerHTML = `
 
-      <div class="claw-machine">
+        <div class="claw-game">
 
-        <div class="claw-rail"></div>
+            <p class="center">
+                Move the claw and grab a capsule.
+            </p>
 
-        <div class="claw-arm" id="clawArm">
-          <div class="claw-head">
-            <div class="claw-finger left"></div>
-            <div class="claw-finger right"></div>
-          </div>
+            <div class="claw-stage">
+
+                <div class="claw-rail"></div>
+
+                <div class="claw" id="claw">
+
+                    <div class="claw-cable"></div>
+
+                    <div class="claw-hand"></div>
+
+                </div>
+
+                <div class="claw-capsules">
+
+                    ${clawMemories.map((m,i) => `
+                        <button
+                            class="capsule ${clawWon.has(i) ? "hidden" : ""}"
+                            data-index="${i}">
+                            ${i+1}
+                        </button>
+                    `).join("")}
+
+                </div>
+
+            </div>
+
+            <div style="margin-top:15px">
+                <button class="big-btn" id="dropClaw">
+                    DROP CLAW
+                </button>
+            </div>
+
+            <div id="clawStatus" class="reward">
+                Choose a capsule.
+            </div>
+
         </div>
+    `;
 
-        <div class="capsules">
-          ${clawMemories.map((_,i)=>`
-            <div class="capsule" data-index="${i}"></div>
-          `).join("")}
+    let clawPosition = 50;
+
+    const claw = document.getElementById("claw");
+
+    window.clawKeyHandler = e => {
+
+        if (!gameOverlay.classList.contains("hidden") &&
+            currentGame === "claw") {
+
+            if(e.key === "ArrowLeft") {
+
+                clawPosition = Math.max(8,clawPosition-5);
+                claw.style.left = clawPosition + "%";
+
+            }
+
+            if(e.key === "ArrowRight") {
+
+                clawPosition = Math.min(92,clawPosition+5);
+                claw.style.left = clawPosition + "%";
+
+            }
+
+        }
+
+    };
+
+    window.addEventListener("keydown", window.clawKeyHandler);
+
+    document.getElementById("dropClaw").onclick = () => {
+
+        if(clawBusy) return;
+
+        const available = clawMemories
+            .map((_,i)=>i)
+            .filter(i=>!clawWon.has(i));
+
+        if(!available.length) {
+
+            document.getElementById("clawStatus").textContent =
+                "You found all seven memories. ❤️";
+
+            return;
+        }
+
+        clawBusy = true;
+
+        beep(350,.15);
+
+        claw.classList.add("claw-dropping");
+
+        setTimeout(() => {
+
+            const index =
+                available[Math.floor(Math.random()*available.length)];
+
+            clawWon.add(index);
+
+            claw.classList.remove("claw-dropping");
+
+            successSound();
+
+            addTickets(25);
+
+            showMemory(
+                clawMemories[index],
+                "MEMORY FOUND! ❤️",
+                25
+            );
+
+            clawBusy = false;
+
+        },900);
+
+    };
+
+}
+
+function showMemory(memory,title,reward) {
+
+    gameTitle.textContent = title;
+
+    gameContent.innerHTML = `
+
+        <div class="memory-reveal">
+
+            <img src="${memory.image}" alt="Our memory">
+
+            <div class="memory-text">
+                ${memory.text}
+            </div>
+
+            <div class="reward">
+                +${reward} TICKETS 🎟️
+            </div>
+
+            <br>
+
+            <button class="big-btn" onclick="renderClaw()">
+                BACK TO CLAW
+            </button>
+
         </div>
+    `;
 
-        <div class="reveal-card hidden" id="clawReveal"></div>
+    celebrationBurst();
 
-      </div>
-
-      <div class="claw-controls">
-
-        <button class="secondary" id="clawLeft">
-          LEFT
-        </button>
-
-        <button class="primary" id="clawDrop">
-          DROP
-        </button>
-
-        <button class="secondary" id="clawRight">
-          RIGHT
-        </button>
-
-      </div>
-
-      <div class="claw-message" id="clawMessage">
-        PICK A CAPSULE.
-      </div>
-
-    </div>
-  `;
-
-  document.getElementById("clawLeft").onclick=()=>{
-    if(!clawBusy){
-      clawX=Math.max(12,clawX-8);
-      updateClaw();
-    }
-  };
-
-  document.getElementById("clawRight").onclick=()=>{
-    if(!clawBusy){
-      clawX=Math.min(88,clawX+8);
-      updateClaw();
-    }
-  };
-
-  document.getElementById("clawDrop").onclick=dropClaw;
-
-  updateClaw();
-}
-
-function updateClaw(){
-  document.getElementById("clawArm").style.left = clawX + "%";
-}
-
-function dropClaw(){
-
-  if(clawBusy) return;
-
-  clawBusy=true;
-
-  const arm = document.getElementById("clawArm");
-  const message = document.getElementById("clawMessage");
-
-  message.textContent="DOWN WE GO...";
-  beep(220,.1);
-
-  arm.style.transition="top .7s ease";
-  arm.style.top="210px";
-
-  setTimeout(()=>{
-
-    beep(350,.1);
-
-    arm.style.top="34px";
-
-    setTimeout(()=>{
-
-      clawBusy=false;
-
-      const index =
-        Math.floor(
-          ((clawX-12)/(76)) * clawMemories.length
-        );
-
-      const safeIndex =
-        Math.max(
-          0,
-          Math.min(clawMemories.length-1,index)
-        );
-
-      showClawMemory(safeIndex);
-
-    },700);
-
-  },700);
-}
-
-function showClawMemory(index){
-
-  const memory=clawMemories[index];
-  const reveal=document.getElementById("clawReveal");
-
-  reveal.classList.remove("hidden");
-
-  reveal.innerHTML=`
-    <img src="${memory.image}" alt="memory">
-    <p>${memory.text}</p>
-    <button class="primary" id="clawClose">
-      KEEP THIS MEMORY
-    </button>
-  `;
-
-  successSound();
-  addTickets(15);
-
-  document.getElementById("clawClose").onclick=()=>{
-    reveal.classList.add("hidden");
-  };
 }
 
 
@@ -2397,197 +2135,121 @@ function showClawMemory(index){
    PHOTO BOOTH
 ========================================================= */
 
-const boothPhotos = [
-  "photo_booth1.jpg",
-  "photo_booth2.jpg",
-  "photo_booth.jpg",
-  "phbooth.jpg"
-];
+function renderPhotoBooth() {
 
-function createPhotoBooth(){
+    gameTitle.textContent = "📸 OUR PHOTO BOOTH";
 
-  gameContent.innerHTML=`
-    <div class="photobooth">
+    gameContent.innerHTML = `
 
-      <div class="game-intro">
-        FOUR LITTLE PHOTOS.<br>
-        ONE VERY CUTE PHOTO STRIP.
-      </div>
+        <div class="photo-booth">
 
-      <div class="booth-screen" id="boothScreen">
+            <p>
+                Get ready for our little arcade photo strip.
+            </p>
 
-        <div class="booth-grid" id="boothGrid">
-          ${boothPhotos.map(img=>`
-            <img src="${img}">
-          `).join("")}
+            <div class="booth-stage" id="boothStage">
+
+                <button class="big-btn" id="takePhotos">
+                    TAKE OUR PHOTO
+                </button>
+
+            </div>
+
         </div>
+    `;
 
-        <div class="countdown hidden" id="countdown"></div>
-        <div class="flash" id="flash"></div>
+    document.getElementById("takePhotos").onclick =
+        startPhotoCountdown;
 
-      </div>
-
-      <div class="booth-buttons">
-
-        <button class="primary" id="takePhotos">
-          TAKE OUR PHOTOS
-        </button>
-
-        <button class="secondary" id="cameraButton">
-          SAY CHEESE. CLICK ME
-        </button>
-
-      </div>
-
-      <div id="cameraArea"></div>
-
-    </div>
-  `;
-
-  document.getElementById("takePhotos").onclick=startPhotoCountdown;
-
-  document.getElementById("cameraButton").onclick=startCamera;
 }
 
-function startPhotoCountdown(){
 
-  const countdown=document.getElementById("countdown");
-  const flash=document.getElementById("flash");
+function startPhotoCountdown() {
 
-  let count=3;
+    const stage = document.getElementById("boothStage");
 
-  countdown.classList.remove("hidden");
-  countdown.textContent=count;
+    let number = 3;
 
-  const timer=setInterval(()=>{
+    stage.innerHTML =
+        `<div class="countdown">${number}</div>`;
 
-    count--;
+    const interval = setInterval(() => {
 
-    if(count>0){
+        number--;
 
-      countdown.textContent=count;
-      beep(500,.1);
+        if(number > 0) {
 
-    }else{
+            stage.innerHTML =
+                `<div class="countdown">${number}</div>`;
 
-      clearInterval(timer);
+            beep(600,.1);
 
-      countdown.classList.add("hidden");
+        } else {
 
-      flash.classList.remove("active");
-      void flash.offsetWidth;
-      flash.classList.add("active");
+            clearInterval(interval);
 
-      beep(900,.12);
+            beep(1200,.25);
 
-      addTickets(20);
-      successSound();
+            const flash = document.createElement("div");
 
-    }
+            flash.className = "flash";
 
-  },800);
+            document.body.appendChild(flash);
+
+            setTimeout(() => flash.remove(),400);
+
+            setTimeout(showPhotoStrip,450);
+
+        }
+
+    },900);
+
 }
 
-async function startCamera(){
 
-  const area=document.getElementById("cameraArea");
+function showPhotoStrip() {
 
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    addTickets(20);
+    successSound();
 
-    area.innerHTML=`
-      <p style="color:#ffe36e;font-size:8px;line-height:2;margin-top:15px">
-        CAMERA ACCESS IS NOT AVAILABLE IN THIS BROWSER.
-      </p>
+    gameTitle.textContent = "📸 OUR PHOTO STRIP";
+
+    gameContent.innerHTML = `
+
+        <div class="photo-booth">
+
+            <div class="photo-frame">
+
+                <img src="photo_booth1.jpeg">
+
+                <img src="photo_booth2.heic">
+
+                <img src="photo_booth.heic">
+
+                <img src="photo_booth1.jpeg">
+
+                <div class="strip-text">
+                    THE US ❤️
+                </div>
+
+            </div>
+
+            <div class="reward">
+                +20 TICKETS 🎟️
+            </div>
+
+            <br>
+
+            <button class="big-btn"
+                onclick="renderPhotoBooth()">
+                TAKE ANOTHER
+            </button>
+
+        </div>
     `;
 
-    return;
-  }
+    celebrationBurst();
 
-  try{
-
-    const stream=
-      await navigator.mediaDevices.getUserMedia({
-        video:true,
-        audio:false
-      });
-
-    area.innerHTML=`
-      <div style="
-        margin-top:15px;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:10px;
-      ">
-
-        <video
-          id="cameraVideo"
-          autoplay
-          playsinline
-          style="
-            width:min(420px,90%);
-            border:3px solid white;
-          "
-        ></video>
-
-        <button class="primary" id="capturePhoto">
-          CAPTURE
-        </button>
-
-      </div>
-    `;
-
-    document.getElementById("cameraVideo").srcObject=stream;
-
-    document.getElementById("capturePhoto").onclick=()=>{
-
-      const video=document.getElementById("cameraVideo");
-
-      const canvas=document.createElement("canvas");
-
-      canvas.width=video.videoWidth;
-      canvas.height=video.videoHeight;
-
-      const ctx=canvas.getContext("2d");
-
-      ctx.drawImage(
-        video,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      const img=document.createElement("img");
-
-      img.src=canvas.toDataURL("image/jpeg");
-      img.style.width="min(420px,90%)";
-      img.style.border="4px solid white";
-
-      area.innerHTML="";
-
-      area.appendChild(img);
-
-      stream.getTracks().forEach(track=>track.stop());
-
-      addTickets(25);
-      successSound();
-    };
-
-  }catch(error){
-
-    area.innerHTML=`
-      <p style="
-        color:#ffe36e;
-        font-size:8px;
-        line-height:2;
-        margin-top:15px;
-      ">
-        CAMERA ACCESS WAS BLOCKED.<br>
-        YOU CAN STILL USE OUR PHOTO STRIP.
-      </p>
-    `;
-  }
 }
 
 
@@ -2595,1483 +2257,1395 @@ async function startCamera(){
    JUKEBOX
 ========================================================= */
 
-const spotifyPlaylist =
-"https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9";   
-   
-function createJukebox(){   
-   
-  gameContent.innerHTML=`   
-    <div class="jukebox">   
-   
-      <div class="game-intro">   
-        PUT ON OUR SOUNDTRACK.   
-      </div>   
-   
-      <div class="jukebox-body" id="jukeboxBody">   
-   
-        <div class="jukebox-glow"></div>   
-        <div class="jukebox-record"></div>   
-        <div class="music-notes">♪</div>   
-   
-      </div>   
-   
-      <button class="primary" id="musicButton" style="margin-top:20px">   
-        PLAY OUR PLAYLIST   
-      </button>   
-   
-      <p style="   
-        color:var(--muted);   
-        font-size:7px;   
-        margin-top:15px;   
-        line-height:1.8;   
-      ">   
-        THE ARCADE HAS A SOUNDTRACK NOW.   
-      </p>   
-   
-    </div>   
-  `;   
-   
-  document.getElementById("musicButton").onclick=()=>{   
-   
-    document.getElementById("jukeboxBody")   
-      .classList.add("playing");   
-   
-    window.open(   
-      spotifyPlaylist,   
-      "_blank"   
-    );   
-   
-    addTickets(15);   
-    successSound();   
-  };   
-}   
-   
-   
-/* =========================================================   
-   MEMORY LANE   
-========================================================= */   
-   
-const memories = [   
-   
-  ["csa.jpg","Met in Csa and i found you cutee 🥰"],   
-  ["cubbon.jpg","Cubbon park where we hung out so much and that day i liked you a little more🥹"],   
-  ["bhang.jpg","Bhaang day I drunk called you and cried cause u went without saying bye"],   
-  ["luna.jpg","You got me lunaaaaa"],   
-  ["houseparty.jpg","The house party that changed everything"],   
-  ["off.jpg","Our first photo after officially becoming a couple"],   
-  ["ethnic.jpg","Our first ethnic day together"],   
-  ["ganesh.jpg","First Ganesh Chaturthi and first time we went out as a coupleeee"],   
-  ["date.jpg","First date and the first time you got me flowers"],   
-  ["fam.jpg","Cute family photo and how Gourmet used to be our second home."],   
-  ["bday.jpg","When you came to surprise me on my birthday in my night, it was fun."],   
-  ["dinner.jpg","Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match."],   
-  ["phbooth.jpg","First photo booth experience"],   
-  ["first.jpg","First 👀"],   
-  ["concert.jpg","Our first concert together"],   
-  ["vd.jpg","First Valentine's Day together and we went to Caliburrito."],   
-  ["6.jpg","Six month anniversary yayyyy"],   
-  ["summer.jpg","That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun."],   
-  ["fatfam.jpg","The big fat family dinner where you met all the boyfriends and we hung out with my friend group."],   
-  ["bappa.jpg","Got Bappa home and we were matching outfits. Hehe."],   
-  ["lastethnic.jpg","Last ethnic day together and yeah, one of my favorite picture."],   
-  ["20.jpg","My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday."],   
-  ["cookie.jpg","Miss our little cookie."],   
-  ["christmas.jpg","Our last Christmas lights together as college students."],   
-  ["saree.jpg","Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day."],   
-  ["farewell.jpg","Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together."],   
-  ["newh.jpg","New house and you came with a big bouquet of flowers as housewarming."],   
-  ["grad.jpg","Yayyy grad day"],   
-  ["2.jpg","Happy two years to us ❤️"]   
-   
-];   
-   
-let memoryIndex=0;   
-let memoryOpened=false;   
-let memoryPosition=6;   
-   
-function createMemoryLane(){   
-   
-  memoryIndex=0;   
-  memoryOpened=false;   
-  memoryPosition=6;   
-   
-  gameContent.innerHTML=`   
-    <div class="memory-game">   
-   
-      <div class="memory-info" id="memoryInfo">   
-        DRIVE FORWARD TO THE FIRST MEMORY   
-      </div>   
-   
-      <div class="memory-road" id="memoryRoad">   
-   
-        <div class="road-lines"></div>   
-   
-        <div class="memory-car" id="memoryCar">   
-          <img src="bitmoji.jpg" alt="car">   
-        </div>   
-   
-        <div id="memoryMarkers"></div>   
-   
-        <div   
-          class="memory-popup hidden"   
-          id="memoryPopup"   
-        ></div>   
-   
-      </div>   
-   
-      <div class="memory-controls">   
-   
-        <button class="secondary" id="memoryBack">   
-          ◀ BACK   
-        </button>   
-   
-        <button class="primary" id="memoryForward">   
-          DRIVE ▶   
-        </button>   
-   
-      </div>   
-   
-    </div>   
-  `;   
-   
-  const markers=document.getElementById("memoryMarkers");   
-   
-  memories.forEach((memory,i)=>{   
-   
-    const marker=document.createElement("div");   
-   
-    marker.className="memory-marker";   
-   
-    marker.style.left =   
-      (7 + i * (86/(memories.length-1))) + "%";   
-   
-    marker.innerHTML=`   
-      <div class="marker-sign">   
-        ${String(i+1).padStart(2,"0")}   
-      </div>   
-      <div class="marker-stick"></div>   
-    `;   
-   
-    markers.appendChild(marker);   
-  });   
-   
-  document.getElementById("memoryForward")   
-    .onclick=moveMemoryForward;   
-   
-  document.getElementById("memoryBack")   
-    .onclick=moveMemoryBack;   
-   
-  updateMemory();   
-}   
-   
-function updateMemory(){   
-   
-  const car=document.getElementById("memoryCar");   
-   
-  if(!car) return;   
-   
-  car.style.left=memoryPosition+"%";   
-   
-  const info=document.getElementById("memoryInfo");   
-   
-  if(memoryIndex < memories.length){   
-   
-    if(   
-      memoryPosition >=   
-      7 + memoryIndex*(86/(memories.length-1)) - 4   
-    ){   
-   
-      info.textContent=   
-        "MEMORY HERE. PRESS OPEN.";   
-   
-      car.animate(   
-        [   
-          {transform:"translateY(0)"},   
-          {transform:"translateY(-16px)"},   
-          {transform:"translateY(0)"}   
-        ],   
-        {duration:450}   
-      );   
-   
-    }else{   
-   
-      info.textContent=   
-        `MEMORY ${memoryIndex+1} OF ${memories.length}`;   
-    }   
-   
-  }   
-}   
-   
-function moveMemoryForward(){   
-   
-  if(memoryIndex >= memories.length) return;   
-   
-  const target=   
-    7 + memoryIndex*(86/(memories.length-1));   
-   
-  if(memoryPosition < target - 3){   
-   
-    memoryPosition=Math.min(   
-      target,   
-      memoryPosition+7   
-    );   
-   
-  }else{   
-   
-    openMemory(memoryIndex);   
-  }   
-   
-  updateMemory();   
-}   
-   
-function moveMemoryBack(){   
-   
-  memoryPosition=Math.max(   
-    6,   
-    memoryPosition-7   
-  );   
-   
-  updateMemory();   
-}   
-   
-function openMemory(index){   
-   
-  const popup=document.getElementById("memoryPopup");   
-   
-  const memory=memories[index];   
-   
-  popup.classList.remove("hidden");   
-   
-  popup.innerHTML=`   
-    <img src="${memory[0]}" alt="memory">   
-   
-    <div class="memory-popup-text">   
-      <div style="   
-        color:var(--pink);   
-        margin-bottom:15px;   
-      ">   
-        MEMORY ${index+1}   
-      </div>   
-   
-      ${memory[1]}   
-   
-      <br><br>   
-   
-      <button   
-        class="primary"   
-        id="continueMemory"   
-      >   
-        CONTINUE   
-      </button>   
-    </div>   
-  `;   
-   
-  memoryOpened=true;   
-  addTickets(5);   
-  successSound();   
-   
-  document.getElementById("continueMemory").onclick=()=>{   
-   
-    popup.classList.add("hidden");   
-   
-    if(memoryIndex < memories.length-1){   
-   
-      memoryIndex++;   
-   
-      memoryPosition=   
-        7 + (memoryIndex-1)*(86/(memories.length-1));   
-   
-    }else{   
-   
-      document.getElementById("memoryInfo")   
-        .textContent="YOU REACHED THE END OF OUR STORY. ❤️";   
-   
-      addTickets(50);   
-      successSound();   
-   
-    }   
-   
-    updateMemory();   
-  };   
-}   
-   
-   
-/* =========================================================   
-   BASKETBALL   
-========================================================= */   
-   
-const questions=[   
-   
-  {   
-    q:"Where did we go on our first date?",   
-    a:[   
-      "Uru Brew Park",   
-      "Glens",   
-      "Cubbon Park",   
-      "Caliburrito"   
-    ],   
-    correct:"Uru Brew Park"   
-  },   
-   
-  {   
-    q:"What colour dress did I wear on our first date?",   
-    a:[   
-      "A small white dress with pink flowers + cute clips in my hair",   
-      "A black crop top",   
-      "A red dress",   
-      "A blue saree"   
-    ],   
-    correct:"A small white dress with pink flowers + cute clips in my hair"   
-  },   
-   
-  {   
-    q:"Where did we have our first kiss?",   
-    a:[   
-      "Hakuna",   
-      "House party",   
-      "Uru Brew Park",   
-      "Glens"   
-    ],   
-    correct:"Hakuna"   
-  },   
-   
-  {   
-    q:"Where did we go after our first date?",   
-    a:[   
-      "Glens for dessert",   
-      "Cubbon Park",   
-      "Hakuna",   
-      "Caliburrito"   
-    ],   
-    correct:"Glens for dessert"   
-  },   
-   
-  {   
-    q:"What was the first nail design I got when you painted my nails?",   
-    a:[   
-      "White nails with butterflies on two fingers that join together to form one butterfly",   
-      "Pink hearts",   
-      "French tips",   
-      "Blue stars"   
-    ],   
-    correct:"White nails with butterflies on two fingers that join together to form one butterfly"   
-  },   
-   
-  {   
-    q:"For what occasion did we first go out as a couple?",   
-    a:[   
-      "Ganesh Chaturthi",   
-      "Valentine's Day",   
-      "Christmas",   
-      "My birthday"   
-    ],   
-    correct:"Ganesh Chaturthi"   
-  },   
-   
-  {   
-    q:"What was I wearing that day?",   
-    a:[   
-      "A black crop top with a black-and-white wrap-around skirt",   
-      "A white dress",   
-      "A saree",   
-      "A red top and jeans"   
-    ],   
-    correct:"A black crop top with a black-and-white wrap-around skirt"   
-  },   
-   
-  {   
-    q:"When and where did we first properly cuddle?",   
-    a:[   
-      "October, at your sister’s house",   
-      "August, at my house",   
-      "October, at Hakuna",   
-      "December, at your house"   
-    ],   
-    correct:"October, at your sister’s house"   
-  },   
-   
-  {   
-    q:"What movie did we watch that day?",   
-    a:[   
-      "Yeh Jawaani Hai Deewani",   
-      "Spider-Man",   
-      "3 Idiots",   
-      "Zindagi Na Milegi Dobara"   
-    ],   
-    correct:"Yeh Jawaani Hai Deewani"   
-  },   
-   
-  {   
-    q:"What shows did you make me watch that became my absolute favourites?",   
-    a:[   
-      "Brooklyn Nine-Nine",   
-      "Modern Family",   
-      "Friends",   
-      "Brooklyn Nine-Nine OR Modern Family"   
-    ],   
-    correct:["Brooklyn Nine-Nine","Modern Family","Brooklyn Nine-Nine OR Modern Family"]   
-  },   
-   
-  {   
-    q:"What are my favourite colours?",   
-    a:[   
-      "Blue, pink",   
-      "Maroon",   
-      "Black, white",   
-      "Blue, pink OR maroon"   
-    ],   
-    correct:["Blue, pink","maroon","Blue, pink OR maroon"]   
-  },   
-   
-  {   
-    q:"What’s one silly thing I love spending money on?",   
-    a:[   
-      "Bed sheets",   
-      "Shoes",   
-      "Candles",   
-      "Phone cases"   
-    ],   
-    correct:"Bed sheets"   
-  }   
-   
-];   
-   
-let questionIndex=0;   
-let correctAnswers=0;   
-let wrongAnswers=0;   
-   
-function createBasketball(){   
-   
-  questionIndex=0;   
-  correctAnswers=0;   
-  wrongAnswers=0;   
-   
-  renderQuestion();   
-}   
-   
-function renderQuestion(){   
-   
-  if(questionIndex >= questions.length){   
-   
-    gameContent.innerHTML=`   
-      <div style="   
-        height:100%;   
-        display:flex;   
-        flex-direction:column;   
-        align-items:center;   
-        justify-content:center;   
-        text-align:center;   
-      ">   
-   
-        <div style="   
-          color:var(--yellow);   
-          font-size:18px;   
-          line-height:1.7;   
-        ">   
-          GAME OVER   
-        </div>   
-   
-        <p style="   
-          font-size:10px;   
-          line-height:2;   
-          color:var(--muted);   
-        ">   
-          ${correctAnswers} CORRECT<br>   
-          ${wrongAnswers} WRONG   
-        </p>   
-   
-        <p style="   
-          font-size:10px;   
-          color:var(--pink);   
-        ">   
-          YOU KNOW US PRETTY WELL.   
-        </p>   
-   
-        <button   
-          class="primary"   
-          onclick="closeGame()"   
-        >   
-          BACK TO ARCADE   
-        </button>   
-   
-      </div>   
-    `;   
-   
-    addTickets(correctAnswers*5 + 20);   
-    successSound();   
-   
-    return;   
-  }   
-   
-  const question=questions[questionIndex];   
-   
-  gameContent.innerHTML=`   
-    <div class="basketball-game">   
-   
-      <div class="scoreboard">   
-        ${questionIndex+1} / ${questions.length}   
-        &nbsp; | &nbsp;   
-        ${correctAnswers} CORRECT   
-        &nbsp; | &nbsp;   
-        ${wrongAnswers} WRONG   
-      </div>   
-   
-      <div class="question">   
-        ${question.q}   
-      </div>   
-   
-      <div class="answers">   
-        ${question.a.map(answer=>`   
-          <button   
-            class="answer"   
-            data-answer="${escapeHtml(answer)}"   
-          >   
-            ${answer}   
-          </button>   
-        `).join("")}   
-      </div>   
-   
-      <div class="hoop-area">   
-        <div class="hoop"></div>   
-        <div class="net"></div>   
-        <div class="ball" id="basketBall"></div>   
-      </div>   
-   
-    </div>   
-  `;   
-   
-  document.querySelectorAll(".answer")   
-    .forEach(button=>{   
-   
-      button.onclick=()=>{   
-   
-        const selected=button.textContent.trim();   
-   
-        const correct=   
-          Array.isArray(question.correct)   
-          ? question.correct.includes(selected)   
-          : selected === question.correct;   
-   
-        document.querySelectorAll(".answer")   
-          .forEach(b=>b.disabled=true);   
-   
-        if(correct){   
-   
-          button.classList.add("correct");   
-   
-          correctAnswers++;   
-   
-          const ball=   
-            document.getElementById("basketBall");   
-   
-          ball.classList.add("shoot");   
-   
-          successSound();   
-   
-        }else{   
-   
-          button.classList.add("wrong");   
-   
-          wrongAnswers++;   
-   
-          beep(120,.15);   
-   
-        }   
-   
-        setTimeout(()=>{   
-          questionIndex++;   
-          renderQuestion();   
-        },900);   
-   
-      };   
-   
-    });   
-}   
-   
-   
-/* =========================================================   
-   WHACK-A-MOLE   
-========================================================= */   
-   
-const problems=[   
-   
-  "TAKE ME FOR GRANTED",   
-  "ZONING OUT",   
-  "FORGETTING TO INFORM",   
-  "WALKING AWAY",   
-  "ASKING FOR A BREAK / BREAKUP",   
-  "RAISING OUR VOICES",   
-  "REACTING BEFORE THINKING"   
-   
-];   
-   
-let whackHits=0;   
-let whackTimer=null;   
-let distractionUsed=false;   
-   
-function createWhack(){   
-   
-  whackHits=0;   
-  distractionUsed=false;   
-   
-  gameContent.innerHTML=`   
-    <div class="whack-game">   
-   
-      <div class="whack-score" id="whackScore">   
-        0 / 7 PROBLEMS SMASHED   
-      </div>   
-   
-      <div class="holes">   
-   
-        ${[0,1,2,3,4,5].map(i=>`   
-          <div class="hole" data-hole="${i}">   
-            <div class="mole" data-mole="${i}"></div>   
-          </div>   
-        `).join("")}   
-   
-      </div>   
-   
-      <p style="   
-        color:var(--muted);   
-        font-size:7px;   
-        line-height:1.8;   
-        text-align:center;   
-      ">   
-        CLICK THE PROBLEM.<br>   
-        BUT BE CAREFUL.   
-      </p>   
-   
-    </div>   
-  `;   
-   
-  document.querySelectorAll(".hole")   
-    .forEach(hole=>{   
-      hole.onclick=()=>{   
-        const mole=hole.querySelector(".mole");   
-   
-        if(mole.classList.contains("active")){   
-          hitMole(mole);   
-        }   
-      };   
-    });   
-   
-  nextMole();   
-}   
-   
-function nextMole(){   
-   
-  if(whackHits>=7){   
-   
-    gameContent.innerHTML=`   
-      <div style="   
-        height:100%;   
-        display:flex;   
-        flex-direction:column;   
-        align-items:center;   
-        justify-content:center;   
-        text-align:center;   
-      ">   
-   
-        <div style="   
-          color:var(--green);   
-          font-size:17px;   
-          line-height:1.7;   
-        ">   
-          ALL SMASHED.   
-        </div>   
-   
-        <p style="   
-          color:var(--muted);   
-          font-size:9px;   
-          line-height:2;   
-        ">   
-          We may have a few problems,<br>   
-          but at least we're pretty good<br>   
-          at fixing them.   
-        </p>   
-   
-        <button   
-          class="primary"   
-          onclick="closeGame()"   
-        >   
-          BACK TO ARCADE   
-        </button>   
-   
-      </div>   
-    `;   
-   
-    addTickets(35);   
-    successSound();   
-   
-    return;   
-  }   
-   
-  document.querySelectorAll(".mole")   
-    .forEach(m=>{   
-      m.classList.remove("active","bitmoji");   
-      m.innerHTML="";   
-    });   
-   
-  const holes=   
-    [...document.querySelectorAll(".hole")];   
-   
-  const randomHole=   
-    holes[Math.floor(Math.random()*holes.length)];   
-   
-  const mole=randomHole.querySelector(".mole");   
-   
-  const useBitmoji =   
-    whackHits===2 ||   
-    whackHits===5;   
-   
-  if(useBitmoji){   
-   
-    mole.classList.add("bitmoji");   
-   
-    mole.innerHTML=`   
-      <img src="bitmoji.jpg" alt="us">   
-    `;   
-   
-  }else{   
-   
-    mole.textContent=   
-      problems[whackHits];   
-   
-  }   
-   
-  mole.classList.add("active");   
-   
-  clearTimeout(whackTimer);   
-   
-  whackTimer=setTimeout(()=>{   
-   
-    mole.classList.remove("active");   
-    nextMole();   
-   
-  },1500);   
-}   
-   
-function hitMole(mole){   
-   
-  if(mole.classList.contains("bitmoji")){   
-   
-    clearTimeout(whackTimer);   
-   
-    beep(80,.3);   
-   
-    gameContent.innerHTML=`   
-      <div style="   
-        height:100%;   
-        display:flex;   
-        flex-direction:column;   
-        align-items:center;   
-        justify-content:center;   
-        text-align:center;   
-      ">   
-   
-        <img   
-          src="bitmoji.jpg"   
-          style="   
-            width:180px;   
-            max-height:230px;   
-            object-fit:contain;   
-          "   
-        >   
-   
-        <div style="   
-          color:var(--pink);   
-          font-size:17px;   
-          line-height:1.7;   
-          margin-top:15px;   
-        ">   
-          HOW DARE YOU<br>   
-          SMASH US?   
-        </div>   
-   
-        <button   
-          class="primary"   
-          style="margin-top:20px"   
-          onclick="createWhack()"   
-        >   
-          TRY AGAIN   
-        </button>   
-   
-      </div>   
-    `;   
-   
-    return;   
-  }   
-   
-  mole.classList.remove("active");   
-   
-  whackHits++;   
-   
-  document.getElementById("whackScore")   
-    .textContent=   
-      `${whackHits} / 7 PROBLEMS SMASHED`;   
-   
-  beep(600,.08);   
-   
-  setTimeout(nextMole,250);   
-}   
-   
-   
-/* =========================================================   
-   HIGH STRIKER   
-========================================================= */   
-   
-function createHighStriker(){   
-   
-  gameContent.innerHTML=`   
-    <div class="striker">   
-   
-      <div class="game-intro">   
-        HIT THE BUTTON.<br>   
-        SEE HOW HIGH YOU CAN GO.   
-      </div>   
-   
-      <div class="striker-meter">   
-   
-        <div   
-          class="striker-fill"   
-          id="strikerFill"   
-        ></div>   
-   
-        <div class="striker-levels">   
-          <span>😈</span>   
-          <span>💨</span>   
-          <span>🫂</span>   
-          <span>💋</span>   
-        </div>   
-   
-      </div>   
-   
-      <button   
-        class="primary"   
-        id="smashButton"   
-      >   
-        SMASH   
-      </button>   
-   
-      <div   
-        class="striker-prize"   
-        id="strikerPrize"   
-      ></div>   
-   
-    </div>   
-  `;   
-   
-  document.getElementById("smashButton")   
-    .onclick=smashStriker;   
-}   
-   
-function smashStriker(){   
-   
-  const fill=   
-    document.getElementById("strikerFill");   
-   
-  const prize=   
-    document.getElementById("strikerPrize");   
-   
-  const height=   
-    Math.floor(   
-      55 + Math.random()*45   
-    );   
-   
-  fill.style.height=height+"%";   
-   
-  beep(250,.1);   
-   
-  setTimeout(()=>{   
-    beep(500,.1);   
-    setTimeout(()=>beep(900,.18),100);   
-  },400);   
-   
-  const prizes=[   
-    "💋",   
-    "🫂",   
-    "💨",   
-    "😈"   
-  ];   
-   
-  const result=   
-    prizes[   
-      Math.floor(Math.random()*prizes.length)   
-    ];   
-   
-  setTimeout(()=>{   
-   
-    prize.textContent=   
-      "YOU WON: " + result;   
-   
-    addTickets(20);   
-    successSound();   
-   
-  },700);   
-}   
-   
-   
-/* =========================================================   
-   SHOOTING GALLERY   
-========================================================= */   
-   
-const shootingPrizes=[   
-  "💋 1 Kiss",   
-  "💋 5 Kisses",   
-  "🫂 10 Minutes of Cuddles",   
-  "💋 20 Kisses",   
-  "💋 Kiss Attack",   
-  "🫂 Cuddle Attack"   
-];   
-   
-let targetInterval=null;   
-let crossX=50;   
-let crossY=50;   
-   
-function createShooting(){   
-   
-  gameContent.innerHTML=`   
-    <div class="shooting">   
-   
-      <div class="shooting-score">   
-        AIM. SHOOT. WIN.   
-      </div>   
-   
-      <div class="gallery" id="gallery">   
-   
-        <div   
-          class="crosshair"   
-          id="crosshair"   
-          style="left:50%;top:50%"   
-        ></div>   
-   
-        ${shootingPrizes.map((prize,i)=>`   
-          <div   
-            class="target"   
-            data-prize="${escapeHtml(prize)}"   
-            data-index="${i}"   
-            style="   
-              top:${10+i*13}%;   
-              left:${i%2===0 ? 5 : 70}%;   
-            "   
-          >   
-            ${prize}   
-          </div>   
-        `).join("")}   
-   
-      </div>   
-   
-      <p style="   
-        text-align:center;   
-        color:var(--muted);   
-        font-size:7px;   
-        line-height:1.8;   
-        margin:12px;   
-      ">   
-        MOVE WITH ARROWS OR MOUSE.<br>   
-        SHOOT WITH CLICK / ENTER.   
-      </p>   
-   
-    </div>   
-  `;   
-   
-  const gallery=   
-    document.getElementById("gallery");   
-   
-  const crosshair=   
-    document.getElementById("crosshair");   
-   
-  gallery.addEventListener("mousemove",e=>{   
-   
-    const rect=gallery.getBoundingClientRect();   
-   
-    crossX=   
-      ((e.clientX-rect.left)/rect.width)*100;   
-   
-    crossY=   
-      ((e.clientY-rect.top)/rect.height)*100;   
-   
-    crosshair.style.left=crossX+"%";   
-    crosshair.style.top=crossY+"%";   
-   
-  });   
-   
-  gallery.addEventListener("click",shootTarget);   
-   
-  document.querySelectorAll(".target")   
-    .forEach((target,i)=>{   
-   
-      target.animate(   
-        [   
-          {transform:"translateX(0)"},   
-          {transform:`translateX(${i%2===0?650:-650}px)`},   
-          {transform:"translateX(0)"}   
-        ],   
-        {   
-          duration:3500+i*300,   
-          iterations:Infinity,   
-          easing:"linear"   
-        }   
-      );   
-   
-    });   
-}   
-   
-function shootTarget(e){   
-   
-  const target=   
-    e.target.closest(".target");   
-   
-  if(!target) return;   
-   
-  const rect=   
-    target.getBoundingClientRect();   
-   
-  const cx=   
-    rect.left + rect.width/2;   
-   
-  const cy=   
-    rect.top + rect.height/2;   
-   
-  const distance=   
-    Math.hypot(   
-      e.clientX-cx,   
-      e.clientY-cy   
-    );   
-   
-  if(distance < 65){   
-   
-    const prize=   
-      target.dataset.prize;   
-   
-    target.style.visibility="hidden";   
-   
-    beep(700,.08);   
-    setTimeout(()=>beep(1000,.15),80);   
-   
-    gameContent.innerHTML=`   
-      <div style="   
-        height:100%;   
-        display:flex;   
-        flex-direction:column;   
-        align-items:center;   
-        justify-content:center;   
-        text-align:center;   
-      ">   
-   
-        <div style="   
-          color:var(--yellow);   
-          font-size:11px;   
-        ">   
-          BULLSEYE.   
-        </div>   
-   
-        <div style="   
-          color:var(--pink);   
-          font-size:22px;   
-          margin:30px 0;   
-        ">   
-          ${prize}   
-        </div>   
-   
-        <button   
-          class="primary"   
-          onclick="closeGame()"   
-        >   
-          BACK TO ARCADE   
-        </button>   
-   
-      </div>   
-    `;   
-   
-    addTickets(20);   
-    successSound();   
-  }   
-}   
-   
-   
-/* =========================================================   
-   SPIN WHEEL   
-========================================================= */   
-   
-const anniversaryLetter=   
-`To my dearest Dumbo, ❤️   
-   
-I genuinely don’t know how these two years passed by so quickly. It feels like just yesterday that we were two people who liked each other but didn’t have the courage to actually say it. And somehow, here we are, two whole years of us. 🥹   
-   
-Two years of memories, laughter, fights, random plans, food, dates, cuddles, chaos, and so many little moments that I never want to forget.   
-   
-We've grown together, changed together, annoyed each other, loved each other, and somehow kept choosing each other through all of it.   
-   
-I don't know what the next few years are going to look like, but I know I want to experience them with you.   
-   
-Thank you for being my person, for all the memories we've made, and for all the ones we haven't made yet.   
-   
-Happy two years to us. ❤️   
-   
-Forever your Gube,   
-Cement ❤️`;   
-   
-let wheelSpinning=false;   
-   
-function createWheel(){   
-   
-  gameContent.innerHTML=`   
-    <div class="spin-game">   
-   
-      <div class="game-intro">   
-        THERE'S ONLY ONE THING<br>   
-        WAITING AT THE END.   
-      </div>   
-   
-      <div class="wheel-arrow"></div>   
-   
-      <div class="wheel" id="wheel">   
-        <div class="wheel-center">   
-          US   
-        </div>   
-      </div>   
-   
-      <button   
-        class="primary"   
-        id="spinButton"   
-        style="margin-top:25px"   
-      >   
-        SPIN   
-      </button>   
-   
-      <div id="letterArea"></div>   
-   
-    </div>   
-  `;   
-   
-  document.getElementById("spinButton")   
-    .onclick=spinWheel;   
-}   
-   
-function spinWheel(){   
-   
-  if(wheelSpinning) return;   
-   
-  wheelSpinning=true;   
-   
-  const wheel=document.getElementById("wheel");   
-   
-  const rotation=   
-    1800 + Math.floor(Math.random()*720);   
-   
-  wheel.style.transform=   
-    `rotate(${rotation}deg)`;   
-   
-  beep(200,.1);   
-   
-  let pulses=0;   
-   
-  const pulse=setInterval(()=>{   
-   
-    beep(   
-      250 + pulses*35,   
-      .035   
-    );   
-   
-    pulses++;   
-   
-    if(pulses>15){   
-      clearInterval(pulse);   
-    }   
-   
-  },200);   
-   
-  setTimeout(()=>{   
-   
-    wheelSpinning=false;   
-   
-    document.getElementById("letterArea")   
-      .innerHTML=`   
-        <div class="letter">   
-          ${anniversaryLetter}   
-        </div>   
-      `;   
-   
-    document.getElementById("spinButton")   
-      .classList.add("hidden");   
-   
-    addTickets(30);   
-    successSound();   
-   
-  },4200);   
-}   
-   
-   
-/* =========================================================   
-   TICKET COUNTER   
-========================================================= */   
-   
-function createTicketCounter(){   
-   
-  const unlocked=   
-    visitedGames.size >= 9;   
-   
-  if(!unlocked){   
-   
-    gameContent.innerHTML=`   
-      <div class="ticket-counter">   
-   
-        <div class="counter-card">   
-   
-          <h2>NOT YET.</h2>   
-   
-          <p>   
-            You need to visit every arcade game first.   
-          </p>   
-   
-          <p>   
-            ${visitedGames.size} / 9 GAMES VISITED   
-          </p>   
-   
-          <button   
-            class="primary"   
-            onclick="closeGame()"   
-          >   
-            BACK TO ARCADE   
-          </button>   
-   
-        </div>   
-   
-      </div>   
-    `;   
-   
-    return;   
-  }   
-   
-  gameContent.innerHTML=`   
-    <div class="ticket-counter">   
-   
-      <div class="counter-card">   
-   
-        <h2>   
-          TICKETS COLLECTED   
-        </h2>   
-   
-        <div style="   
-          font-size:42px;   
-          color:var(--yellow);   
-          margin:25px 0;   
-          text-shadow:0 0 20px var(--yellow);   
-        ">   
-          ${tickets}   
-        </div>   
-   
-        <p>   
-          You played every single game.   
-        </p>   
-   
-        <p>   
-          So there's one last thing left.   
-        </p>   
-   
-        <button   
-          class="primary"   
-          id="finalButton"   
-          style="margin-top:20px"   
-        >   
-          CLICK ME ❤️   
-        </button>   
-   
-      </div>   
-   
-    </div>   
-  `;   
-   
-  document.getElementById("finalButton")   
-    .onclick=showFinal;   
-}   
-   
-function showFinal(){   
-   
-  gameContent.innerHTML=`   
-    <div class="ticket-counter">   
-   
-      <div class="counter-card final">   
-   
-        <div style="   
-          font-size:45px;   
-          margin-bottom:25px;   
-        ">   
-          ❤️   
-        </div>   
-   
-        <h2>   
-          HAPPY TWO-YEAR<br>   
-          ANNIVERSARY TO US!   
-        </h2>   
-   
-        <p style="   
-          color:var(--pink);   
-          font-size:11px;   
-          line-height:2;   
-        ">   
-          Two years down,<br>   
-          so many more to go. ❤️   
-        </p>   
-   
-        <div style="   
-          margin-top:25px;   
-          color:var(--muted);   
-          font-size:8px;   
-          line-height:2;   
-        ">   
-          GAME COMPLETE.   
-        </div>   
-   
-      </div>   
-   
-    </div>   
-  `;   
-   
-  successSound();   
-   
-  for(let i=0;i<35;i++){   
-   
-    setTimeout(()=>{   
-   
-      const heart=document.createElement("div");   
-   
-      heart.className="heart";   
-      heart.textContent=   
-        Math.random()>.5 ? "❤️" : "♥";   
-   
-      heart.style.left=   
-        Math.random()*100+"vw";   
-   
-      heart.style.top="-30px";   
-   
-      document.body.appendChild(heart);   
-   
-      setTimeout(()=>{   
-        heart.remove();   
-      },2200);   
-   
-    },i*60);   
-  }   
-}   
-   
-   
-/* =========================================================   
-   SHOW TICKET COUNTER WHEN ALL GAMES VISITED   
-========================================================= */   
-   
-function checkTicketCounter(){   
-   
-  if(visitedGames.size >= 9){   
-   
-    // Ticket counter is deliberately placed   
-    // in the middle of the arcade.   
-    if(!document.querySelector(".m-counter")){   
-   
-      const counter=document.createElement("div");   
-   
-      counter.className="machine m-counter";   
-   
-      counter.style.left="44%";   
-      counter.style.top="39%";   
-   
-      counter.dataset.game="counter";   
-   
-      counter.innerHTML=`   
-        <div class="cabinet" style="   
-          border-color:var(--yellow);   
-          box-shadow:   
-            0 0 0 3px var(--yellow),   
-            0 0 25px rgba(255,227,110,.4);   
-        ">   
-   
-          <div class="cabinet-screen" style="   
-            color:var(--yellow);   
-          ">   
-            TICKET<br>   
-            COUNTER   
-          </div>   
-   
-          <div class="cabinet-control">   
-            <div class="buttons">   
-              <i></i>   
-              <i></i>   
-            </div>   
-          </div>   
-   
-          <div class="coin"></div>   
-   
-        </div>   
-   
-        <div class="machine-name">   
-          TICKET COUNTER   
-        </div>   
-      `;   
-   
-      document.querySelector(".arcade-stage")   
-        .appendChild(counter);   
-   
-      counter.addEventListener("click",()=>{   
-        openGame("counter");   
-      });   
-    }   
-  }   
-}   
-   
-   
-/* =========================================================   
-   CHECK VISITED   
-========================================================= */   
-   
-const originalOpenGame=openGame;   
-   
-openGame=function(game){   
-   
-  originalOpenGame(game);   
-   
-  setTimeout(checkTicketCounter,100);   
-};   
-   
-   
-/* =========================================================   
-   MUTE   
-========================================================= */   
-   
-document.getElementById("muteButton")   
-  .onclick=()=>{   
-   
-    muted=!muted;   
-   
-    document.getElementById("muteButton")   
-      .textContent=   
-        muted ? "×" : "♪";   
-   
-  };   
-   
-   
-/* =========================================================   
-   ESCAPE HTML   
-========================================================= */   
-   
-function escapeHtml(text){   
-   
-  return text   
-    .replaceAll("&","&amp;")   
-    .replaceAll("<","&lt;")   
-    .replaceAll(">","&gt;")   
-    .replaceAll('"',"&quot;")   
-    .replaceAll("'","&#039;");   
-}   
-   
-   
-/* =========================================================   
-   INITIAL   
-========================================================= */   
-   
-positionPlayer();   
-   
-</script>   
-   
-</body>   
-</html> only change the technicals i mentioned through our chat please keep design like this change what i said after ONLY  
+function renderJukebox() {
+
+    gameTitle.textContent = "🎵 OUR JUKEBOX";
+
+    gameContent.innerHTML = `
+
+        <div class="jukebox">
+
+            <div class="jukebox-body">
+
+                <div class="jukebox-screen">
+                    🎵
+                </div>
+
+                <h2>
+                    OUR SOUNDTRACK
+                </h2>
+
+                <p style="margin:15px 0">
+                    Every relationship needs a soundtrack.
+                </p>
+
+                <button class="big-btn" id="spotifyBtn">
+                    OPEN OUR SPOTIFY
+                </button>
+
+                <div class="reward">
+                    +15 TICKETS 🎟️
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    document.getElementById("spotifyBtn").onclick = () => {
+
+        window.open(
+            "https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9",
+            "_blank"
+        );
+
+        addTickets(15);
+        successSound();
+
+    };
+
+}
+
+
+/* =========================================================
+   MEMORY LANE
+========================================================= */
+
+const roadMemories = [
+
+    ["Met in Csa and i found you cutee 🥰","csa.jpg"],
+    ["Cubbon park where we hung out so much and that day i liked you a little more🥹","cubbon.png"],
+    ["Bhaang day\nI drunk called you and cried cause u went without saying bye","bhang.jpg"],
+    ["You got me lunaaaaa","luna.heic"],
+    ["The house party that changed everything","houseparty.jpeg"],
+    ["Our first photo after officially becoming a couple","off.jpeg"],
+    ["Our first ethnic day together","ethnic.heic"],
+    ["First Ganesh Chaturthi and first time we went out as a coupleeee","ganesh.png"],
+    ["First date and the first time you got me flowers","date.jpg"],
+    ["Cute family photo and how Gourmet used to be our second home.","fam.jpg"],
+    ["When you came to surprise me on my birthday in my night, it was fun.","bday.jpg"],
+    ["Birthday dinner where my friends threatened you to go wear something to match and you went out of your way to buy yourself a new outfit so we could color match.","dinner.jpeg"],
+    ["First photo booth experience","phbooth.heic"],
+    ["First 👀","first.heic"],
+    ["Our first concert together","concert.heic"],
+    ["First Valentine's Day together and we went to Caliburrito.","vd.heic"],
+    ["Six month anniversary yayyyy","6.heic"],
+    ["That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun.","summer.heic"],
+    ["The big fat family dinner where you met all the boyfriends and we hung out with my friend group.","fatfam.heic"],
+    ["Got Bappa home and we were matching outfits. Hehe.","bappa.heic"],
+    ["Last ethnic day together and yeah, one of my favorite picture.","lastethnic.heic"],
+    ["My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday.","20.heic"],
+    ["Miss our little cookie.","cookie.heic"],
+    ["Our last Christmas lights together as college students.","christmas.heic"],
+    ["Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day.","saree.heic"],
+    ["Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together.","farewell.heic"],
+    ["New house and you came with a big bouquet of flowers as housewarming.","newh.heic"],
+    ["Yayyy grad day","grad.jpeg"],
+    ["Happy two years to us ❤️","2.heic"]
+
+];
+
+function renderMemoryLane() {
+
+    gameTitle.textContent = "🚗 MEMORY LANE";
+
+    gameContent.innerHTML = `
+
+        <div style="height:100%;">
+
+            <div class="memory-lane-info">
+                <b>Drive through our memories ❤️</b><br>
+                Stop at a milestone to discover it.
+            </div>
+
+            <div class="road" id="road">
+
+                <div class="road-line"></div>
+
+                <div class="milestones">
+
+                    ${roadMemories.map((m,i)=>`
+
+                        <button
+                            class="milestone"
+                            style="
+                                left:${70 + i*58}px;
+                            "
+                            onclick="openRoadMemory(${i})">
+
+                            ❤️
+
+                        </button>
+
+                    `).join("")}
+
+                </div>
+
+                <div class="car" id="memoryCar">
+                    🚗
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    const road = document.getElementById("road");
+
+    road.addEventListener("wheel", e => {
+
+        if(Math.abs(e.deltaY) > 0) {
+
+            e.preventDefault();
+
+            road.scrollLeft += e.deltaY;
+
+        }
+
+    },{passive:false});
+
+}
+
+
+function openRoadMemory(index) {
+
+    const [text,image] = roadMemories[index];
+
+    gameTitle.textContent = "❤️ A MEMORY";
+
+    gameContent.innerHTML = `
+
+        <div class="memory-reveal">
+
+            <img src="${image}" alt="Memory">
+
+            <div class="memory-text">
+                ${text.replace(/\n/g,"<br>")}
+            </div>
+
+            <div class="reward">
+                MEMORY DISCOVERED +10 TICKETS 🎟️
+            </div>
+
+            <br>
+
+            <button
+                class="big-btn"
+                onclick="renderMemoryLane()">
+
+                CONTINUE DRIVING 🚗
+
+            </button>
+
+        </div>
+    `;
+
+    addTickets(10);
+
+    celebrationBurst();
+
+}
+
+
+/* =========================================================
+   BASKETBALL
+========================================================= */
+
+const basketballQuestions = [
+
+    {
+        q:"Where did we go on our first date?",
+        answers:["Uru Brew Park","Cubbon Park","Hakuna","Glens"],
+        correct:"Uru Brew Park"
+    },
+
+    {
+        q:"What colour dress did I wear on our first date?",
+        answers:[
+            "A small white dress with pink flowers + cute clips in my hair",
+            "A black crop top",
+            "A red saree",
+            "A blue dress"
+        ],
+        correct:"A small white dress with pink flowers + cute clips in my hair"
+    },
+
+    {
+        q:"Where did we have our first kiss?",
+        answers:["Hakuna","Uru Brew Park","Glens","Cubbon Park"],
+        correct:"Hakuna"
+    },
+
+    {
+        q:"Where did we go after our first date?",
+        answers:["Glens","Hakuna","Gourmet","Cubbon Park"],
+        correct:"Glens"
+    },
+
+    {
+        q:"What was the first nail design I got when you painted my nails?",
+        answers:[
+            "White nails with butterflies on two fingers that join together to form one butterfly",
+            "Pink hearts",
+            "Blue flowers",
+            "Red glitter"
+        ],
+        correct:"White nails with butterflies on two fingers that join together to form one butterfly"
+    },
+
+    {
+        q:"For what occasion did we first go out as a couple?",
+        answers:["Ganesh Chaturthi","Valentine's Day","Christmas","Our anniversary"],
+        correct:"Ganesh Chaturthi"
+    },
+
+    {
+        q:"What was I wearing that day?",
+        answers:[
+            "A black crop top with a black-and-white wrap-around skirt",
+            "A white dress",
+            "A pink saree",
+            "A blue top and jeans"
+        ],
+        correct:"A black crop top with a black-and-white wrap-around skirt"
+    },
+
+    {
+        q:"When and where did we first properly cuddle?",
+        answers:[
+            "October, at your sister's house",
+            "December, at my house",
+            "October, at Hakuna",
+            "November, at your house"
+        ],
+        correct:"October, at your sister's house"
+    },
+
+    {
+        q:"What movie did we watch that day?",
+        answers:[
+            "Yeh Jawaani Hai Deewani",
+            "Spider-Man",
+            "3 Idiots",
+            "Zindagi Na Milegi Dobara"
+        ],
+        correct:"Yeh Jawaani Hai Deewani"
+    },
+
+    {
+        q:"What shows did you make me watch that became my absolute favourites?",
+        answers:[
+            "Brooklyn Nine-Nine OR Modern Family",
+            "Friends",
+            "The Office",
+            "How I Met Your Mother"
+        ],
+        correct:"Brooklyn Nine-Nine OR Modern Family"
+    },
+
+    {
+        q:"What are my favourite colours?",
+        answers:[
+            "Blue, pink OR maroon",
+            "Black and white",
+            "Green and yellow",
+            "Purple and orange"
+        ],
+        correct:"Blue, pink OR maroon"
+    },
+
+    {
+        q:"What's one silly thing I love spending money on?",
+        answers:[
+            "Bed sheets",
+            "Shoes",
+            "Makeup",
+            "Plants"
+        ],
+        correct:"Bed sheets"
+    }
+
+];
+
+let basketballIndex = 0;
+
+function renderBasketball() {
+
+    gameTitle.textContent = "🏀 HOW WELL DO YOU KNOW US?";
+
+    basketballIndex = 0;
+
+    renderBasketballQuestion();
+
+}
+
+
+function renderBasketballQuestion() {
+
+    if(basketballIndex >= basketballQuestions.length) {
+
+        gameContent.innerHTML = `
+
+            <div class="center">
+
+                <div style="font-size:80px">
+                    🏀❤️
+                </div>
+
+                <h2>
+                    YOU MADE IT!
+                </h2>
+
+                <p style="margin:15px">
+                    You survived the ultimate us quiz.
+                </p>
+
+                <div class="reward">
+                    +60 TICKETS 🎟️
+                </div>
+
+                <br>
+
+                <button
+                    class="big-btn"
+                    onclick="renderBasketball()">
+
+                    PLAY AGAIN
+
+                </button>
+
+            </div>
+        `;
+
+        addTickets(60);
+        successSound();
+
+        return;
+
+    }
+
+    const q = basketballQuestions[basketballIndex];
+
+    gameContent.innerHTML = `
+
+        <div class="question-card">
+
+            <div class="question">
+                ${q.q}
+            </div>
+
+            <div class="basketball">
+                🏀
+            </div>
+
+            <div class="answers">
+
+                ${q.answers.map(a=>`
+
+                    <button
+                        class="answer-btn"
+                        data-answer="${a.replace(/"/g,"&quot;")}">
+
+                        ${a}
+
+                    </button>
+
+                `).join("")}
+
+            </div>
+
+            <div id="basketResult"
+                 style="margin-top:15px">
+            </div>
+
+        </div>
+    `;
+
+    document.querySelectorAll(".answer-btn")
+        .forEach(btn => {
+
+            btn.onclick = () => {
+
+                const answer = btn.dataset.answer;
+
+                const result =
+                    document.getElementById("basketResult");
+
+                if(answer === q.correct) {
+
+                    result.innerHTML =
+                        `<b style="color:#67f7a8">
+                            SWISH! 🏀❤️
+                         </b>`;
+
+                    successSound();
+                    addTickets(10);
+
+                } else {
+
+                    result.innerHTML =
+                        `<b style="color:#ff7c9f">
+                            OOPS! MISSED! 🏀
+                         </b>`;
+
+                    failSound();
+
+                }
+
+                document.querySelectorAll(".answer-btn")
+                    .forEach(b => b.disabled = true);
+
+                setTimeout(() => {
+
+                    basketballIndex++;
+
+                    renderBasketballQuestion();
+
+                },1000);
+
+            };
+
+        });
+
+}
+
+
+/* =========================================================
+   WHACK A MOLE
+========================================================= */
+
+const moleProblems = [
+
+    "TAKE ME FOR GRANTED",
+    "ZONING OUT",
+    "FORGETTING TO INFORM",
+    "WALKING AWAY",
+    "ASKING FOR A BREAK/ BREAKUP",
+    "RAISING OUR VOICES",
+    "REACTING BEFORE THINKING"
+
+];
+
+let moleIndex = 0;
+
+function renderMole() {
+
+    gameTitle.textContent = "🐹 WHACK-A-MOLE";
+
+    moleIndex = 0;
+
+    gameContent.innerHTML = `
+
+        <div class="mole-game">
+
+            <p>
+                Our relationship problems have escaped.
+                WHACK THEM. 🔨
+            </p>
+
+            <div id="moleProgress"
+                 style="margin-top:8px">
+            </div>
+
+            <div class="mole-grid" id="moleGrid">
+
+                ${Array(9).fill(0).map((_,i)=>`
+
+                    <div class="hole"
+                         data-hole="${i}">
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+        </div>
+    `;
+
+    spawnMole();
+
+}
+
+
+function spawnMole() {
+
+    if(moleIndex >= moleProblems.length) {
+
+        gameContent.innerHTML = `
+
+            <div class="center">
+
+                <div style="font-size:80px">
+                    🐹🔨❤️
+                </div>
+
+                <h2>
+                    ALL PROBLEMS WHACKED!
+                </h2>
+
+                <p style="margin:15px">
+                    Look at us solving things instead of running away.
+                </p>
+
+                <div class="reward">
+                    +50 TICKETS 🎟️
+                </div>
+
+                <br>
+
+                <button class="big-btn"
+                        onclick="renderMole()">
+                    PLAY AGAIN
+                </button>
+
+            </div>
+        `;
+
+        addTickets(50);
+        successSound();
+
+        return;
+
+    }
+
+    const progress =
+        document.getElementById("moleProgress");
+
+    if(progress) {
+
+        progress.textContent =
+            `${moleIndex + 1} / ${moleProblems.length}`;
+
+    }
+
+    const holes =
+        [...document.querySelectorAll(".hole")];
+
+    const randomHole =
+        holes[Math.floor(Math.random()*holes.length)];
+
+    holes.forEach(h => h.innerHTML = "");
+
+    const mole =
+        document.createElement("div");
+
+    mole.className = "mole";
+
+    mole.textContent =
+        moleProblems[moleIndex];
+
+    mole.onclick = () => {
+
+        beep(220,.1,"square");
+
+        mole.style.transform = "scale(.7)";
+
+        setTimeout(() => {
+
+            moleIndex++;
+
+            addTickets(5);
+
+            spawnMole();
+
+        },250);
+
+    };
+
+    randomHole.appendChild(mole);
+
+}
+
+
+/* =========================================================
+   HIGH STRIKER
+========================================================= */
+
+function renderStriker() {
+
+    gameTitle.textContent = "🔨 HIGH STRIKER";
+
+    gameContent.innerHTML = `
+
+        <div class="striker">
+
+            <h3>
+                SMASH THE MACHINE!
+            </h3>
+
+            <div class="striker-machine">
+
+                <div class="striker-meter">
+
+                    <div
+                        id="strikerFill"
+                        class="striker-fill">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                id="hammer"
+                class="hammer">
+
+                🔨
+
+            </div>
+
+            <button
+                class="big-btn"
+                id="smashButton">
+
+                SMASH!
+
+            </button>
+
+            <div id="strikerResult"
+                 class="reward">
+            </div>
+
+        </div>
+    `;
+
+    let strength = 0;
+
+    document.getElementById("smashButton").onclick = () => {
+
+        const hammer =
+            document.getElementById("hammer");
+
+        hammer.classList.add("hit");
+
+        setTimeout(() =>
+            hammer.classList.remove("hit"),150);
+
+        strength += 12 + Math.random()*18;
+
+        strength = Math.min(100,strength);
+
+        document.getElementById("strikerFill")
+            .style.height = strength + "%";
+
+        beep(200 + strength*4,.08,"square");
+
+        if(strength >= 100) {
+
+            const prizes = [
+                "💋",
+                "🫂",
+                "💨",
+                "😈"
+            ];
+
+            const prize =
+                prizes[Math.floor(Math.random()*prizes.length)];
+
+            document.getElementById("strikerResult").innerHTML = `
+
+                <div style="font-size:70px">
+                    ${prize}
+                </div>
+
+                <div>
+                    DING DING DING!
+                </div>
+
+                <p>
+                    YOUR PRIZE: ${prize}
+                </p>
+
+            `;
+
+            addTickets(20);
+            successSound();
+
+            strength = 0;
+
+            document.getElementById("strikerFill")
+                .style.height = "0%";
+
+        }
+
+    };
+
+}
+
+
+/* =========================================================
+   SHOOTING GALLERY
+========================================================= */
+
+const shootingPrizes = [
+    "💋 1 Kiss",
+    "💋 5 Kisses",
+    "🫂 10 Minutes of Cuddles",
+    "💋 20 Kisses",
+    "💋 Kiss Attack",
+    "🫂 Cuddle Attack"
+];
+
+function renderShooting() {
+
+    gameTitle.textContent = "🎯 SHOOTING GALLERY";
+
+    gameContent.innerHTML = `
+
+        <div class="shooting">
+
+            <p>
+                Aim carefully. You only need to hit ONE.
+            </p>
+
+            <div class="target-field"
+                 id="targetField">
+
+            </div>
+
+            <div id="shootResult"
+                 class="reward">
+                Hit a target to win its prize.
+            </div>
+
+        </div>
+    `;
+
+    const field =
+        document.getElementById("targetField");
+
+    shootingPrizes.forEach((prize,i) => {
+
+        const target =
+            document.createElement("button");
+
+        target.className = "target";
+
+        target.textContent = prize;
+
+        target.style.left =
+            (8 + Math.random()*78) + "%";
+
+        target.style.top =
+            (8 + Math.random()*72) + "%";
+
+        target.onclick = () => {
+
+            const result =
+                document.getElementById("shootResult");
+
+            result.innerHTML = `
+                <div style="font-size:45px">
+                    🎯
+                </div>
+
+                YOU HIT IT!
+
+                <div style="font-size:24px;margin-top:10px">
+                    ${prize}
+                </div>
+            `;
+
+            beep(900,.08);
+            setTimeout(()=>beep(1200,.12),100);
+
+            addTickets(15);
+
+            [...field.children].forEach(t => {
+                t.disabled = true;
+                t.style.opacity = ".3";
+            });
+
+            target.style.opacity = "1";
+            target.style.transform = "scale(1.25)";
+
+            celebrationBurst();
+
+        };
+
+        field.appendChild(target);
+
+    });
+
+}
+
+
+/* =========================================================
+   SPIN WHEEL
+========================================================= */
+
+let wheelSpun = false;
+
+function renderWheel() {
+
+    gameTitle.textContent = "🎡 SPIN THE WHEEL";
+
+    wheelSpun = false;
+
+    gameContent.innerHTML = `
+
+        <div class="wheel-wrap">
+
+            <div class="pointer">
+                🔻
+            </div>
+
+            <div
+                class="wheel"
+                id="wheel">
+            </div>
+
+            <button
+                class="big-btn"
+                id="spinButton">
+
+                SPIN
+
+            </button>
+
+            <div id="wheelResult"
+                 class="reward">
+            </div>
+
+        </div>
+    `;
+
+    document.getElementById("spinButton").onclick = () => {
+
+        if(wheelSpun) return;
+
+        wheelSpun = true;
+
+        const wheel =
+            document.getElementById("wheel");
+
+        const rotations =
+            5 + Math.floor(Math.random()*3);
+
+        wheel.style.transform =
+            `rotate(${rotations*360 + 40}deg)`;
+
+        beep(300,.1);
+
+        setTimeout(() => {
+
+            beep(1000,.25);
+            addTickets(30);
+
+            document.getElementById("wheelResult").innerHTML = `
+
+                <div style="font-size:50px">
+                    💌
+                </div>
+
+                <h2>
+                    THE LETTER
+                </h2>
+
+                <p>
+                    Your anniversary letter is waiting.
+                </p>
+
+                <br>
+
+                <button
+                    class="big-btn"
+                    onclick="showLetter()">
+
+                    OPEN THE LETTER
+
+                </button>
+
+            `;
+
+            celebrationBurst();
+
+        },3200);
+
+    };
+
+}
+
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+function showLetter() {
+
+    gameTitle.textContent = "💌 THE LETTER";
+
+    gameContent.innerHTML = `
+
+        <div class="letter">
+
+            <h2>
+                To my dearest Dumbo, ❤️
+            </h2>
+
+            <p>
+                I genuinely don’t know how these two years passed by so quickly.
+                It feels like just yesterday that we were two people who liked
+                each other but didn’t have the courage to actually say it.
+                And somehow, here we are, two whole years of us. 🥹
+            </p>
+
+            <p>
+                We’ve fought, we’ve cried, we’ve laughed until our stomachs
+                hurt, we’ve annoyed each other, forgiven each other, grown
+                together, and made so many memories that I don’t even know
+                where to begin. We’ve had our good days and our really,
+                really difficult ones. But through all of it, I’m so incredibly
+                grateful that you chose to stay.
+            </p>
+
+            <p>
+                Even when I didn’t want you to. Even when I pushed you away.
+                Even when I thought walking away was easier than talking things
+                through. You somehow put your head to it and never left my side.
+                You’ve been there when I’ve been at my absolute worst, at my
+                best, when I’m annoyed, emotional, happy, stupid, dramatic,
+                literally every version of me. 😂 And you never made me feel
+                like I had to be someone else to deserve your love.
+            </p>
+
+            <p>
+                You’re my cute little sunshine boy. ☀️ Every single time I see
+                you, somehow my day just gets brighter. You have this way of
+                making everything feel a little lighter just by being there.
+            </p>
+
+            <p>
+                I love that I can be completely myself with you. You don’t
+                judge me. You listen to me. You let me be weird and annoying
+                and emotional and silly. You always put me before yourself,
+                and you’re always there when I need you. And I know there are
+                times when I say that I don’t feel your love, but please know
+                that I do. I feel it in so many little things you do, even when
+                I don’t say it enough.
+            </p>
+
+            <p>
+                We’ve made SO many memories in these two years. From the
+                beginning, to all our firsts, our dates, our stupid fights,
+                our little adventures, our celebrations, our cuddles, our
+                chaos, everything. And looking back at all of it makes me
+                realise just how much life we’ve already lived together.
+            </p>
+
+            <p>
+                But more than anything, I think about what’s still ahead of us.
+            </p>
+
+            <p>
+                Because when I imagine my future, I only see you in it.
+                There genuinely isn’t anyone else in this world I’d rather
+                choose. You make me the happiest, and I hope you always know
+                how much of a home you’ve become for me.
+            </p>
+
+            <p>
+                And your arms… 🥹<br>
+                Your arms are my safe place.
+            </p>
+
+            <p>
+                There is genuinely no fucking place on earth where I feel the
+                way I feel when I’m in your arms. I feel safe. I feel
+                comfortable. I feel happy. I feel loved. I feel like I can
+                finally switch everything off for a while and just exist.
+                And I hope you know how special that is to me.
+            </p>
+
+            <p>
+                I want you to know that I’ll always have your back too.
+                No matter what happens, no matter how difficult things get,
+                I’ll be there. If you ever fall, I’ll be right there to pick
+                up the pieces with you. I’ll help you find your way again,
+                I’ll support you, I’ll cheer for you, and I’ll remind you
+                of who you are when you forget.
+            </p>
+
+            <p>
+                I hope you always know that you never have to do life alone.
+            </p>
+
+            <p>
+                And your dad is also very proud of you because he really did
+                raise a fine man. A kind, respectful, loving, hardworking
+                man who has such a beautiful heart. I’m genuinely so grateful
+                to your parents, your mom and dad, for bringing you into this
+                world and raising the person you are today. I don’t think
+                I’ll ever be able to explain how grateful I am that you exist.
+            </p>
+
+            <p>
+                Two years feels like such a big number, but somehow, when I
+                think about spending the rest of my life with you, it also
+                feels like we’ve barely begun.
+            </p>
+
+            <p>
+                I want the years ahead.
+            </p>
+
+            <p>
+                I want more stupid fights that we’ll eventually laugh about.
+                More dates. More random drives. More celebrations.
+                More cuddles. More photos. More adventures. More ordinary
+                days that somehow become our favourite memories.
+            </p>
+
+            <p>
+                I want to grow old with you and still look at you the same
+                way I do now. I want us to keep choosing each other, even
+                when things aren’t easy. I want us to keep growing, learning,
+                annoying each other, laughing together, and finding our way
+                back to each other every single time.
+            </p>
+
+            <p>
+                And most importantly, I want us to never lose the little
+                things that make us us.
+            </p>
+
+            <p>
+                Two years down, and I still choose you.
+            </p>
+
+            <p>
+                And I’ll keep choosing you.
+            </p>
+
+            <p>
+                Today, tomorrow, and in all the years that are waiting for us.
+            </p>
+
+            <p>
+                Happy 2 years, my Dumbo. ❤️
+            </p>
+
+            <p>
+                Here’s to us, to everything we’ve already been through,
+                and to everything we haven’t even experienced yet.
+            </p>
+
+            <p>
+                I love you. More than you probably realise. And I can’t wait
+                to grow old with you.
+            </p>
+
+            <p>
+                Forever your Gube,<br>
+                Cement ❤️
+            </p>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================================================
+   TICKET COUNTER
+========================================================= */
+
+function renderCounter() {
+
+    gameTitle.textContent = "🎟️ TICKET COUNTER";
+
+    gameContent.innerHTML = `
+
+        <div class="counter">
+
+            <div class="counter-avatar">
+
+                <img
+                    src="bitmoji.png"
+                    alt="Bitmoji">
+
+            </div>
+
+            <h2>
+                Welcome back, Dumbo. ❤️
+            </h2>
+
+            <p style="margin:12px">
+                Look at all those tickets!
+            </p>
+
+            <div style="
+                font-size:42px;
+                color:#ffe47a;
+                margin:15px;
+            ">
+                🎟️ ${tickets}
+            </div>
+
+            <p>
+                Ready for your final reward?
+            </p>
+
+            <br>
+
+            <button
+                class="big-btn"
+                id="finalButton">
+
+                CLICK ME ❤️
+
+            </button>
+
+        </div>
+    `;
+
+    document.getElementById("finalButton").onclick =
+        finalCelebration;
+
+}
+
+
+/* =========================================================
+   FINAL CELEBRATION
+========================================================= */
+
+function finalCelebration() {
+
+    gameOverlay.classList.add("hidden");
+
+    const final =
+        document.getElementById("finalCelebration");
+
+    final.classList.remove("hidden");
+
+    successSound();
+
+    createConfetti();
+
+    createHearts();
+
+}
+
+
+function createConfetti() {
+
+    for(let i=0;i<150;i++) {
+
+        const c =
+            document.createElement("div");
+
+        c.className = "confetti";
+
+        c.style.left =
+            Math.random()*100 + "%";
+
+        c.style.animationDuration =
+            (2 + Math.random()*4) + "s";
+
+        c.style.animationDelay =
+            Math.random()*2 + "s";
+
+        c.style.transform =
+            `rotate(${Math.random()*360}deg)`;
+
+        c.style.background =
+            [
+                "#ff6fae",
+                "#ffe47a",
+                "#72d9ff",
+                "#a98cff",
+                "#ffffff"
+            ][Math.floor(Math.random()*5)];
+
+        document.getElementById("finalCelebration")
+            .appendChild(c);
+
+    }
+
+}
+
+
+function createHearts() {
+
+    for(let i=0;i<45;i++) {
+
+        const h =
+            document.createElement("div");
+
+        h.className = "heart";
+
+        h.textContent =
+            Math.random() > .5 ? "❤️" : "💗";
+
+        h.style.left =
+            Math.random()*100 + "%";
+
+        h.style.animationDuration =
+            (3 + Math.random()*4) + "s";
+
+        h.style.animationDelay =
+            Math.random()*3 + "s";
+
+        document.getElementById("finalCelebration")
+            .appendChild(h);
+
+    }
+
+}
+
+
+function celebrationBurst() {
+
+    for(let i=0;i<20;i++) {
+
+        const h =
+            document.createElement("div");
+
+        h.textContent =
+            Math.random() > .5 ? "❤️" : "✨";
+
+        h.style.position = "fixed";
+        h.style.left = "50%";
+        h.style.top = "50%";
+        h.style.zIndex = "99999";
+        h.style.pointerEvents = "none";
+        h.style.fontSize = "20px";
+
+        document.body.appendChild(h);
+
+        const angle =
+            Math.random()*Math.PI*2;
+
+        const distance =
+            50 + Math.random()*150;
+
+        h.animate([
+            {
+                transform:"translate(-50%,-50%) scale(.2)",
+                opacity:1
+            },
+            {
+                transform:
+                    `translate(calc(-50% + ${Math.cos(angle)*distance}px), calc(-50% + ${Math.sin(angle)*distance}px)) scale(1.3)`,
+                opacity:0
+            }
+        ],{
+            duration:800,
+            easing:"ease-out"
+        }).onfinish = () => h.remove();
+
+    }
+
+}
+
+
+/* =========================================================
+   SOUND TOGGLE
+========================================================= */
+
+document.getElementById("soundButton")
+    .addEventListener("click", () => {
+
+        soundOn = !soundOn;
+
+        document.getElementById("soundButton")
+            .textContent = soundOn ? "🔊" : "🔇";
+
+        if(soundOn) beep(700,.1);
+
+    });
+
+
+/* =========================================================
+   CLEANUP CLAW LISTENER
+========================================================= */
+
+backButton.addEventListener("click", () => {
+
+    if(window.clawKeyHandler) {
+
+        window.removeEventListener(
+            "keydown",
+            window.clawKeyHandler
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener("resize", () => {
+
+    playerX =
+        Math.min(playerX, window.innerWidth - 50);
+
+    playerY =
+        Math.min(playerY, window.innerHeight - 70);
+
+    updatePlayer();
+
+});
+
+
+/* =========================================================
+   MOBILE TOUCH MOVEMENT
+========================================================= */
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+window.addEventListener("touchstart", e => {
+
+    if(e.touches.length !== 1) return;
+
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+
+});
+
+window.addEventListener("touchmove", e => {
+
+    if(e.touches.length !== 1) return;
+
+    if(!gameOverlay.classList.contains("hidden")) return;
+
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    const dx = x - touchStartX;
+    const dy = y - touchStartY;
+
+    playerX += dx;
+    playerY += dy;
+
+    playerX =
+        Math.max(40,
+        Math.min(window.innerWidth-40,playerX));
+
+    playerY =
+        Math.max(80,
+        Math.min(window.innerHeight-60,playerY));
+
+    updatePlayer();
+    checkNearbyMachine();
+
+    touchStartX = x;
+    touchStartY = y;
+
+});
+
+
+/* =========================================================
+   INITIAL PLAYER POSITION
+========================================================= */
+
+updatePlayer();
+
+</script>
+
+</body>
+</html>
