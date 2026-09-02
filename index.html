@@ -63,8 +63,8 @@ button {
 }
 
 .entrance-card {
-    width: min(900px, 94vw);
-    height: min(650px, 90vh);
+    width: min(1100px, 96vw);
+    height: min(760px, 94vh);
     border: 3px solid var(--pink);
     border-radius: 30px;
     background:
@@ -83,7 +83,7 @@ button {
 }
 
 .entrance-title {
-    font-size: clamp(32px, 6vw, 72px);
+    font-size: clamp(38px, 7vw, 82px);
     color: white;
     text-align: center;
     letter-spacing: 5px;
@@ -91,21 +91,21 @@ button {
         0 0 5px white,
         0 0 15px var(--pink),
         0 0 30px var(--pink);
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .entrance-player {
     position: relative;
-    width: 150px;
-    height: 210px;
+    width: 230px;
+    height: 290px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
 }
 
 .entrance-player img {
-    width: 130px;
-    max-height: 190px;
+    width: 205px;
+    max-height: 275px;
     object-fit: contain;
     animation: floatPlayer 2s ease-in-out infinite;
 }
@@ -119,15 +119,15 @@ button {
 
 .speech-bubble {
     position: absolute;
-    left: calc(50% + 65px);
-    top: 15px;
-    width: min(390px, 55vw);
-    min-width: 230px;
-    padding: 18px 22px;
+    left: calc(50% + 90px);
+    top: 5px;
+    width: min(430px, 48vw);
+    min-width: 250px;
+    padding: 20px 24px;
     background: white;
     color: #34233e;
     border-radius: 22px;
-    font-size: clamp(13px, 1.6vw, 18px);
+    font-size: clamp(14px, 1.7vw, 20px);
     line-height: 1.45;
     box-shadow: 0 8px 25px rgba(0,0,0,.3);
     animation: bubbleIn .8s ease forwards;
@@ -155,13 +155,13 @@ button {
 }
 
 .start-button {
-    margin-top: 35px;
-    padding: 15px 38px;
+    margin-top: 40px;
+    padding: 17px 45px;
     border-radius: 999px;
     background: linear-gradient(135deg, var(--pink), #ff438f);
     color: white;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 19px;
     box-shadow: 0 0 20px rgba(255,111,174,.6);
     transition: .2s;
 }
@@ -189,13 +189,15 @@ button {
 
 #background {
     position: absolute;
-    inset: 0;
+    inset: -8px;
     background-image:
         linear-gradient(rgba(10,7,20,.12), rgba(10,7,20,.12)),
         url("bg.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    filter: blur(2.2px);
+    transform: scale(1.02);
 }
 
 /* slight arcade overlay */
@@ -269,8 +271,8 @@ button {
 
 .machine {
     position: absolute;
-    width: clamp(100px, 11vw, 165px);
-    min-height: 125px;
+    width: clamp(135px, 15vw, 220px);
+    min-height: 165px;
     z-index: 20;
     transform: translate(-50%, -50%);
     cursor: pointer;
@@ -285,33 +287,33 @@ button {
 .machine-body {
     width: 100%;
     height: 100%;
-    min-height: 125px;
+    min-height: 165px;
     border-radius: 18px 18px 10px 10px;
     background: linear-gradient(145deg, #342653, #171127);
     border: 3px solid var(--purple);
     box-shadow:
         0 0 12px rgba(169,140,255,.55),
         inset 0 0 20px rgba(255,255,255,.04);
-    padding: 9px;
+    padding: 11px;
     text-align: center;
     position: relative;
 }
 
 .machine-screen {
-    height: 55px;
+    height: 75px;
     border-radius: 9px;
     background: #0b0814;
     border: 2px solid var(--blue);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(20px, 2.5vw, 32px);
-    margin-bottom: 7px;
+    font-size: clamp(28px, 3.5vw, 44px);
+    margin-bottom: 9px;
     box-shadow: inset 0 0 15px rgba(114,217,255,.18);
 }
 
 .machine-name {
-    font-size: clamp(9px, 1vw, 13px);
+    font-size: clamp(11px, 1.2vw, 15px);
     font-weight: bold;
     color: white;
     text-transform: uppercase;
@@ -319,9 +321,9 @@ button {
 }
 
 .machine-sub {
-    margin-top: 4px;
+    margin-top: 5px;
     color: var(--pink2);
-    font-size: 9px;
+    font-size: 11px;
 }
 
 .machine.near {
@@ -351,7 +353,7 @@ button {
 
 #ticketMachine {
     left: 50%;
-    top: 88%;
+    top: 50%;
 }
 
 /* =========================================================
@@ -360,8 +362,8 @@ button {
 
 #player {
     position: absolute;
-    width: clamp(58px, 7vw, 90px);
-    height: clamp(80px, 10vw, 120px);
+    width: clamp(85px, 10vw, 135px);
+    height: clamp(115px, 14vw, 175px);
     z-index: 100;
     transform: translate(-50%, -50%);
     pointer-events: none;
@@ -377,7 +379,7 @@ button {
 
 #playerBubble {
     position: absolute;
-    width: 190px;
+    width: 210px;
     right: calc(100% + 12px);
     top: -30px;
     background: white;
@@ -678,7 +680,8 @@ button {
     box-shadow: 0 10px 30px rgba(0,0,0,.4);
 }
 
-.photo-frame img {
+.photo-frame img,
+.photo-frame .camera-photo {
     display: block;
     width: 100%;
     height: 100px;
@@ -691,6 +694,47 @@ button {
     font-weight: bold;
     font-size: 12px;
     letter-spacing: 2px;
+    line-height: 1.5;
+}
+
+.camera-strip-button {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 7px;
+    background: linear-gradient(135deg, #fff, #ffe9f3);
+    border: 3px dashed #ff6fae;
+    color: #30213d;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.camera-strip-button:hover {
+    background: #fff0f7;
+    transform: scale(1.02);
+}
+
+.camera-box {
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.camera-video {
+    width: 100%;
+    max-height: 55vh;
+    border-radius: 18px;
+    border: 3px solid var(--pink2);
+    background: #05040a;
+    object-fit: cover;
+    transform: scaleX(-1);
+}
+
+.camera-message {
+    margin: 15px;
+    font-size: 18px;
+    color: var(--pink2);
 }
 
 .booth-stage {
@@ -790,7 +834,7 @@ button {
     position: absolute;
     top: 50%;
     left: 0;
-    width: 1800px;
+    width: 1900px;
     height: 8px;
     transform: translateY(-50%);
     background: repeating-linear-gradient(
@@ -805,7 +849,7 @@ button {
     top: 0;
     left: 0;
     height: 100%;
-    width: 1800px;
+    width: 1900px;
 }
 
 .milestone {
@@ -823,13 +867,35 @@ button {
     box-shadow: 0 0 20px rgba(255,228,122,.6);
 }
 
+.milestone.reached {
+    animation: milestonePulse .5s ease;
+}
+
+@keyframes milestonePulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
 .car {
     position: absolute;
     top: calc(50% + 60px);
     left: 20px;
-    font-size: 55px;
-    transition: left .3s ease;
+    font-size: 70px;
+    transition: left .15s ease, transform .15s ease;
     z-index: 5;
+    user-select: none;
+}
+
+.car.jump {
+    animation: carJump .45s ease;
+}
+
+@keyframes carJump {
+    0% { transform: translateY(0) rotate(0); }
+    35% { transform: translateY(-35px) rotate(-4deg); }
+    65% { transform: translateY(-20px) rotate(4deg); }
+    100% { transform: translateY(0) rotate(0); }
 }
 
 .memory-lane-info {
@@ -840,7 +906,7 @@ button {
     background: rgba(15,10,25,.88);
     padding: 12px;
     border-radius: 15px;
-    max-width: 330px;
+    max-width: 380px;
 }
 
 /* =========================================================
@@ -852,7 +918,7 @@ button {
     margin: 10px auto;
     background: rgba(255,255,255,.07);
     border: 2px solid var(--purple);
-    padding: 25px;
+    padding: 20px;
     border-radius: 20px;
     text-align: center;
 }
@@ -860,7 +926,156 @@ button {
 .question {
     font-size: clamp(17px, 2.5vw, 25px);
     line-height: 1.35;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.scoreboard {
+    display: inline-flex;
+    gap: 25px;
+    align-items: center;
+    background: #090711;
+    border: 2px solid var(--yellow);
+    padding: 9px 20px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    color: var(--yellow);
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255,228,122,.2);
+}
+
+.basketball-court {
+    position: relative;
+    height: 190px;
+    max-width: 600px;
+    margin: 5px auto 12px;
+    overflow: hidden;
+    border-radius: 18px;
+    background:
+        linear-gradient(rgba(20,15,35,.2), rgba(20,15,35,.2)),
+        #171127;
+    border: 3px solid var(--purple);
+}
+
+.hoop-backboard {
+    position: absolute;
+    right: 45px;
+    top: 25px;
+    width: 95px;
+    height: 70px;
+    border: 5px solid white;
+    background: rgba(114,217,255,.12);
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(114,217,255,.3);
+}
+
+.hoop-rim {
+    position: absolute;
+    right: 48px;
+    top: 91px;
+    width: 90px;
+    height: 18px;
+    border: 6px solid #ff6f38;
+    border-radius: 50%;
+    z-index: 3;
+    box-shadow: 0 0 10px rgba(255,111,56,.6);
+}
+
+.hoop-net {
+    position: absolute;
+    right: 58px;
+    top: 102px;
+    width: 70px;
+    height: 55px;
+    border-left: 3px dashed white;
+    border-right: 3px dashed white;
+    border-bottom: 3px dashed white;
+    border-radius: 0 0 40px 40px;
+    z-index: 2;
+    opacity: .8;
+}
+
+.ball {
+    position: absolute;
+    left: 80px;
+    bottom: 25px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, #ffb45b 0 7%, transparent 8%),
+        linear-gradient(135deg, #ff9a3d, #d85b19);
+    border: 4px solid #2d160b;
+    box-shadow: 0 4px 10px rgba(0,0,0,.4);
+    z-index: 5;
+    transition: none;
+}
+
+.ball:before {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: -4px;
+    width: 4px;
+    height: 58px;
+    background: #2d160b;
+    border-radius: 50%;
+    transform: rotate(35deg);
+}
+
+.ball:after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 25px;
+    width: 58px;
+    height: 4px;
+    background: #2d160b;
+    border-radius: 50%;
+    transform: rotate(-25deg);
+}
+
+.ball.shoot-in {
+    animation: basketballIn .8s ease forwards;
+}
+
+.ball.shoot-miss {
+    animation: basketballMiss .8s ease forwards;
+}
+
+@keyframes basketballIn {
+    0% {
+        left: 80px;
+        bottom: 25px;
+        transform: scale(1);
+    }
+    60% {
+        left: calc(100% - 130px);
+        bottom: 80px;
+        transform: scale(.8) rotate(400deg);
+    }
+    100% {
+        left: calc(100% - 90px);
+        bottom: 65px;
+        transform: scale(.45) rotate(720deg);
+    }
+}
+
+@keyframes basketballMiss {
+    0% {
+        left: 80px;
+        bottom: 25px;
+        transform: scale(1);
+    }
+    55% {
+        left: 52%;
+        bottom: 125px;
+        transform: scale(.8) rotate(300deg);
+    }
+    100% {
+        left: 65%;
+        bottom: -40px;
+        transform: scale(.6) rotate(650deg);
+    }
 }
 
 .answers {
@@ -883,18 +1098,6 @@ button {
     transform: translateY(-2px);
 }
 
-.basketball {
-    font-size: 65px;
-    margin: 10px;
-    animation: ballBounce .5s ease;
-}
-
-@keyframes ballBounce {
-    0% { transform: translateY(-100px); }
-    60% { transform: translateY(10px); }
-    100% { transform: translateY(0); }
-}
-
 /* =========================================================
    WHACK A MOLE
 ========================================================= */
@@ -906,14 +1109,16 @@ button {
 }
 
 .mole-grid {
-    margin-top: 20px;
+    margin-top: 15px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+    grid-template-rows: repeat(2, minmax(100px, 1fr));
+    gap: 12px;
+    max-height: 420px;
 }
 
 .hole {
-    aspect-ratio: 1;
+    aspect-ratio: 1.15;
     border-radius: 50%;
     background: #0b0813;
     border: 4px solid #49385d;
@@ -922,6 +1127,7 @@ button {
     align-items: center;
     overflow: hidden;
     position: relative;
+    min-height: 95px;
 }
 
 .mole {
@@ -938,11 +1144,39 @@ button {
     font-size: clamp(8px, 1.2vw, 13px);
     cursor: pointer;
     animation: molePop .18s ease;
+    text-align: center;
+}
+
+.moleUs {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    cursor: pointer;
+    animation: molePop .18s ease;
+    filter: drop-shadow(0 4px 5px rgba(0,0,0,.35));
 }
 
 @keyframes molePop {
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
+}
+
+.mole-game-over {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.mole-game-over .big-bubble {
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 22px;
+    background: white;
+    color: #34233e;
+    border-radius: 22px;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: bold;
+    box-shadow: 0 0 30px rgba(255,111,174,.35);
 }
 
 /* =========================================================
@@ -1031,7 +1265,7 @@ button {
     font-weight: bold;
     text-align: center;
     cursor: crosshair;
-    transition: .15s;
+    transition: transform .15s;
 }
 
 .target:hover {
@@ -1224,18 +1458,53 @@ button {
 
 @media (max-width: 700px) {
 
+    .entrance-card {
+        height: 94vh;
+    }
+
+    .entrance-title {
+        font-size: clamp(30px, 9vw, 55px);
+        margin-bottom: 20px;
+    }
+
+    .entrance-player {
+        width: 180px;
+        height: 220px;
+    }
+
+    .entrance-player img {
+        width: 165px;
+        max-height: 215px;
+    }
+
+    .speech-bubble {
+        left: 100%;
+        width: 190px;
+        min-width: 0;
+        font-size: 12px;
+    }
+
     .machine {
-        width: 90px;
-        min-height: 105px;
+        width: 105px;
+        min-height: 125px;
     }
 
     .machine-body {
-        min-height: 105px;
-        padding: 6px;
+        min-height: 125px;
+        padding: 7px;
     }
 
     .machine-screen {
-        height: 42px;
+        height: 52px;
+        font-size: 27px;
+    }
+
+    .machine-name {
+        font-size: 9px;
+    }
+
+    .machine-sub {
+        font-size: 8px;
     }
 
     #m-claw       { left: 12%; top: 27%; }
@@ -1251,11 +1520,25 @@ button {
 
     #ticketMachine {
         left: 50%;
-        top: 87%;
+        top: 50%;
+    }
+
+    #player {
+        width: 75px;
+        height: 105px;
     }
 
     .answers {
         grid-template-columns: 1fr;
+    }
+
+    .mole-grid {
+        gap: 8px;
+        max-height: 350px;
+    }
+
+    .hole {
+        min-height: 80px;
     }
 
     .speech-bubble {
@@ -1263,20 +1546,24 @@ button {
         width: 190px;
         min-width: 0;
     }
+
+    .car {
+        font-size: 55px;
+    }
 }
 
 @media (max-height: 600px) {
 
     .machine {
-        min-height: 85px;
+        min-height: 100px;
     }
 
     .machine-body {
-        min-height: 85px;
+        min-height: 100px;
     }
 
     .machine-screen {
-        height: 32px;
+        height: 40px;
     }
 
     #enterPrompt {
@@ -1285,6 +1572,22 @@ button {
 
     #hud {
         top: 5px;
+    }
+
+    .entrance-title {
+        margin-bottom: 15px;
+    }
+
+    .entrance-player {
+        height: 170px;
+    }
+
+    .entrance-player img {
+        max-height: 165px;
+    }
+
+    .start-button {
+        margin-top: 15px;
     }
 }
 </style>
@@ -1435,7 +1738,7 @@ button {
             </div>
         </div>
 
-        <div class="machine" id="ticketMachine" data-game="counter">
+        <div class="machine hidden" id="ticketMachine" data-game="counter">
             <div class="machine-body">
                 <div class="machine-screen">🎟️</div>
                 <div class="machine-name">Ticket Counter</div>
@@ -1537,6 +1840,7 @@ const gameContent = document.getElementById("gameContent");
 const backButton = document.getElementById("backButton");
 
 const ticketCountElement = document.getElementById("ticketCount");
+const ticketMachine = document.getElementById("ticketMachine");
 
 let tickets = 0;
 let currentGame = null;
@@ -1556,7 +1860,21 @@ const keys = {
 
 let nearMachine = null;
 
-const machines = [...document.querySelectorAll(".machine")];
+const machines = [...document.querySelectorAll(".machine:not(#ticketMachine)")];
+
+const visitedGames = new Set();
+
+const TOTAL_GAMES = [
+    "claw",
+    "photo",
+    "jukebox",
+    "memory",
+    "basketball",
+    "mole",
+    "striker",
+    "shooting",
+    "wheel"
+];
 
 
 /* =========================================================
@@ -1666,12 +1984,66 @@ function createTicketParticles() {
 
 
 /* =========================================================
+   GAME COMPLETION / TICKET COUNTER
+========================================================= */
+
+function markGameVisited(game) {
+
+    if (game === "counter") return;
+
+    visitedGames.add(game);
+
+    checkAllGamesVisited();
+}
+
+function checkAllGamesVisited() {
+
+    const allDone =
+        TOTAL_GAMES.every(game => visitedGames.has(game));
+
+    if(allDone) {
+
+        ticketMachine.classList.remove("hidden");
+
+        ticketMachine.style.left = "50%";
+        ticketMachine.style.top = "50%";
+
+        enterPrompt.innerHTML =
+            `The Ticket Counter is unlocked!`;
+
+        ticketMachine.animate([
+            {
+                transform:"translate(-50%,-50%) scale(.3)",
+                opacity:0
+            },
+            {
+                transform:"translate(-50%,-50%) scale(1.15)",
+                opacity:1
+            },
+            {
+                transform:"translate(-50%,-50%) scale(1)",
+                opacity:1
+            }
+        ],{
+            duration:700,
+            easing:"ease-out"
+        });
+
+        successSound();
+
+    }
+
+}
+
+
+/* =========================================================
    START
 ========================================================= */
 
 startButton.addEventListener("click", () => {
 
     beep(600,.1);
+
     entrance.classList.add("hidden");
     arcade.classList.remove("hidden");
 
@@ -1681,6 +2053,7 @@ startButton.addEventListener("click", () => {
     updatePlayer();
 
     setTimeout(() => {
+
         playerBubble.classList.add("show");
 
         setTimeout(() => {
@@ -1688,6 +2061,7 @@ startButton.addEventListener("click", () => {
         },4000);
 
     },500);
+
 });
 
 
@@ -1712,6 +2086,8 @@ window.addEventListener("keydown", e => {
         if (!gameOverlay.classList.contains("hidden")) return;
 
         if (nearMachine) {
+
+            markGameVisited(nearMachine.dataset.game);
 
             openGame(nearMachine.dataset.game);
 
@@ -1743,8 +2119,15 @@ function movementLoop() {
         const playerWidth = player.offsetWidth;
         const playerHeight = player.offsetHeight;
 
-        playerX = Math.max(playerWidth / 2, Math.min(window.innerWidth - playerWidth / 2, playerX));
-        playerY = Math.max(80, Math.min(window.innerHeight - 60, playerY));
+        playerX = Math.max(
+            playerWidth / 2,
+            Math.min(window.innerWidth - playerWidth / 2, playerX)
+        );
+
+        playerY = Math.max(
+            80,
+            Math.min(window.innerHeight - 60, playerY)
+        );
 
         updatePlayer();
         checkNearbyMachine();
@@ -1773,7 +2156,7 @@ function checkNearbyMachine() {
     let closest = null;
     let closestDistance = Infinity;
 
-    machines.forEach(machine => {
+    [...document.querySelectorAll(".machine:not(.hidden)")].forEach(machine => {
 
         const rect = machine.getBoundingClientRect();
 
@@ -1785,7 +2168,7 @@ function checkNearbyMachine() {
             playerY - my
         );
 
-        if (distance < 145 && distance < closestDistance) {
+        if (distance < 170 && distance < closestDistance) {
 
             closest = machine;
             closestDistance = distance;
@@ -1794,7 +2177,8 @@ function checkNearbyMachine() {
 
     });
 
-    machines.forEach(m => m.classList.remove("near"));
+    document.querySelectorAll(".machine")
+        .forEach(m => m.classList.remove("near"));
 
     nearMachine = closest;
 
@@ -1826,9 +2210,11 @@ function checkNearbyMachine() {
    MACHINE CLICK ALSO WORKS
 ========================================================= */
 
-machines.forEach(machine => {
+document.querySelectorAll(".machine").forEach(machine => {
 
     machine.addEventListener("click", () => {
+
+        markGameVisited(machine.dataset.game);
 
         openGame(machine.dataset.game);
 
@@ -1860,6 +2246,8 @@ function openGame(game) {
 
 backButton.onclick = () => {
 
+    cleanupGame();
+
     gameOverlay.classList.add("hidden");
 
     currentGame = null;
@@ -1868,7 +2256,55 @@ backButton.onclick = () => {
 
     document.body.style.overflow = "hidden";
 
+    updatePlayer();
+    checkNearbyMachine();
+
 };
+
+
+function cleanupGame() {
+
+    if(window.clawKeyHandler) {
+
+        window.removeEventListener(
+            "keydown",
+            window.clawKeyHandler
+        );
+
+        window.clawKeyHandler = null;
+
+    }
+
+    if(window.memoryKeyHandler) {
+
+        window.removeEventListener(
+            "keydown",
+            window.memoryKeyHandler
+        );
+
+        window.memoryKeyHandler = null;
+
+    }
+
+    if(window.shootingAnimation) {
+
+        cancelAnimationFrame(window.shootingAnimation);
+
+        window.shootingAnimation = null;
+
+    }
+
+    if(window.cameraStream) {
+
+        window.cameraStream
+            .getTracks()
+            .forEach(track => track.stop());
+
+        window.cameraStream = null;
+
+    }
+
+}
 
 
 /* =========================================================
@@ -1876,6 +2312,8 @@ backButton.onclick = () => {
 ========================================================= */
 
 function renderGame(game) {
+
+    cleanupGame();
 
     switch(game) {
 
@@ -1931,38 +2369,38 @@ function renderGame(game) {
 const clawMemories = [
 
     {
-        image:"20.heic",
-        text:"My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday."
+        image:"claw1.jpg",
+        text:"My first time watching Spider-Man movie in a theatre and ofc with you."
     },
 
     {
-        image:"2.heic",
-        text:"Happy two years to us ❤️"
+        image:"claw2.jpg",
+        text:"🎁 My gift to you after my first salary as a full-timer."
     },
 
     {
         image:"claw3.jpeg",
-        text:"My gift to you after my first salary as a full-timer."
+        text:"My 20th birthday, when you came to surprise me."
     },
 
     {
-        image:"lastethnic.heic",
-        text:"Last ethnic day together and yeah, one of my favorite picture."
+        image:"claw4.png",
+        text:"Last ethnic day together, one of my favourite pictures."
     },
 
     {
-        image:"saree.heic",
-        text:"Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day."
+        image:"claw5.jpg",
+        text:"Valentine’s Day, you got me this pretty saree and we went all desi."
     },
 
     {
-        image:"claw6.heic",
-        text:"The memory from the very night you left for Kolkata, when you were riding beside me while I was going..."
+        image:"claw6.jpg",
+        text:"When you were riding beside me while I was leaving to Kolkata."
     },
 
     {
-        image:"bappa.heic",
-        text:"Got Bappa home and we were matching outfits. Hehe."
+        image:"claw7.jpg",
+        text:"Getting Bappa home for the first time and wearing matching outfits."
     }
 
 ];
@@ -2032,12 +2470,16 @@ function renderClaw() {
 
             if(e.key === "ArrowLeft") {
 
+                e.preventDefault();
+
                 clawPosition = Math.max(8,clawPosition-5);
                 claw.style.left = clawPosition + "%";
 
             }
 
             if(e.key === "ArrowRight") {
+
+                e.preventDefault();
 
                 clawPosition = Math.min(92,clawPosition+5);
                 claw.style.left = clawPosition + "%";
@@ -2220,13 +2662,24 @@ function showPhotoStrip() {
 
             <div class="photo-frame">
 
-                <img src="photo_booth1.jpeg">
+                <img src="photo_booth1.jpeg" alt="Photo 1">
 
-                <img src="photo_booth2.heic">
+                <img src="photo_booth2.jpg" alt="Photo 2">
 
-                <img src="photo_booth.heic">
+                <img src="photo_booth.jpg" alt="Photo 3">
 
-                <img src="photo_booth1.jpeg">
+                <img src="photo_booth1.jpeg" alt="Photo 4">
+
+                <button
+                    class="camera-strip-button"
+                    id="cameraStripButton">
+
+                    AND ONE TO COMMEMORATE TODAY<br>
+                    <br>
+                    SAY CHEESE<br>
+                    CLICK ME
+
+                </button>
 
                 <div class="strip-text">
                     THE US ❤️
@@ -2242,12 +2695,166 @@ function showPhotoStrip() {
 
             <button class="big-btn"
                 onclick="renderPhotoBooth()">
+
                 TAKE ANOTHER
+
             </button>
 
         </div>
     `;
 
+    document.getElementById("cameraStripButton")
+        .onclick = turnOnCamera;
+
+    celebrationBurst();
+
+}
+
+
+async function turnOnCamera() {
+
+    gameTitle.textContent = "📸 SAY CHEESE";
+
+    gameContent.innerHTML = `
+
+        <div class="camera-box">
+
+            <p class="camera-message">
+                One more picture to commemorate today.
+            </p>
+
+            <video
+                id="cameraVideo"
+                class="camera-video"
+                autoplay
+                playsinline>
+            </video>
+
+            <br><br>
+
+            <button class="big-btn" id="captureCamera">
+                SAY CHEESE
+            </button>
+
+            <div
+                id="cameraResult"
+                class="reward">
+            </div>
+
+        </div>
+    `;
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    try {
+
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+                video:true,
+                audio:false
+            });
+
+        window.cameraStream = stream;
+
+        video.srcObject = stream;
+
+        document.getElementById("captureCamera")
+            .onclick = captureCameraPhoto;
+
+    } catch(error) {
+
+        document.getElementById("cameraResult").innerHTML = `
+            <p>
+                Camera access was blocked.
+                Please allow camera access in your browser and try again.
+            </p>
+        `;
+
+    }
+
+}
+
+
+function captureCameraPhoto() {
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    if(!video) return;
+
+    const canvas =
+        document.createElement("canvas");
+
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.translate(canvas.width,0);
+    ctx.scale(-1,1);
+
+    ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const image =
+        canvas.toDataURL("image/png");
+
+    if(window.cameraStream) {
+
+        window.cameraStream
+            .getTracks()
+            .forEach(track => track.stop());
+
+        window.cameraStream = null;
+
+    }
+
+    gameContent.innerHTML = `
+
+        <div class="camera-box">
+
+            <p class="camera-message">
+                AND ONE TO COMMEMORATE TODAY ❤️
+            </p>
+
+            <img
+                src="${image}"
+                style="
+                    width:100%;
+                    max-height:55vh;
+                    object-fit:contain;
+                    border-radius:18px;
+                    border:3px solid var(--pink2);
+                    box-shadow:0 0 25px rgba(255,111,174,.35);
+                "
+            >
+
+            <br><br>
+
+            <div class="reward">
+                THIS ONE IS JUST FOR TODAY.
+            </div>
+
+            <br>
+
+            <button
+                class="big-btn"
+                onclick="showPhotoStrip()">
+
+                BACK TO PHOTO STRIP
+
+            </button>
+
+        </div>
+    `;
+
+    successSound();
     celebrationBurst();
 
 }
@@ -2313,37 +2920,42 @@ function renderJukebox() {
 
 const roadMemories = [
 
-    ["Met in Csa and i found you cutee 🥰","csa.jpg"],
+    ["Met in Csa and i found you cutee 🥰","csa.jpeg"],
     ["Cubbon park where we hung out so much and that day i liked you a little more🥹","cubbon.png"],
     ["Bhaang day\nI drunk called you and cried cause u went without saying bye","bhang.jpg"],
-    ["You got me lunaaaaa","luna.heic"],
+    ["You got me lunaaaaa","luna.jpg"],
     ["The house party that changed everything","houseparty.jpeg"],
     ["Our first photo after officially becoming a couple","off.jpeg"],
-    ["Our first ethnic day together","ethnic.heic"],
+    ["Our first ethnic day together","ethnic.jpg"],
     ["First Ganesh Chaturthi and first time we went out as a coupleeee","ganesh.png"],
     ["First date and the first time you got me flowers","date.jpg"],
     ["Cute family photo and how Gourmet used to be our second home.","fam.jpg"],
     ["When you came to surprise me on my birthday in my night, it was fun.","bday.jpg"],
-    ["Birthday dinner where my friends threatened you to go wear something to match and you went out of your way to buy yourself a new outfit so we could color match.","dinner.jpeg"],
-    ["First photo booth experience","phbooth.heic"],
-    ["First 👀","first.heic"],
-    ["Our first concert together","concert.heic"],
-    ["First Valentine's Day together and we went to Caliburrito.","vd.heic"],
-    ["Six month anniversary yayyyy","6.heic"],
-    ["That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun.","summer.heic"],
-    ["The big fat family dinner where you met all the boyfriends and we hung out with my friend group.","fatfam.heic"],
-    ["Got Bappa home and we were matching outfits. Hehe.","bappa.heic"],
-    ["Last ethnic day together and yeah, one of my favorite picture.","lastethnic.heic"],
-    ["My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday.","20.heic"],
-    ["Miss our little cookie.","cookie.heic"],
-    ["Our last Christmas lights together as college students.","christmas.heic"],
-    ["Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day.","saree.heic"],
-    ["Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together.","farewell.heic"],
-    ["New house and you came with a big bouquet of flowers as housewarming.","newh.heic"],
+    ["Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match.","dinner.jpeg"],
+    ["First photo booth experience","phbooth.jpg"],
+    ["First 👀","first.jpg"],
+    ["Our first concert together","concert.jpg"],
+    ["First Valentine's Day together and we went to Caliburrito.","vd.jpg"],
+    ["Six month anniversary yayyyy","6.jpg"],
+    ["That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun.","summer.jpg"],
+    ["The big fat family dinner where you met all the boyfriends and we hung out with my friend group.","fatfam.jpg"],
+    ["Got Bappa home and we were matching outfits. Hehe.","bappa.jpg"],
+    ["Last ethnic day together and yeah, one of my favorite picture.","lastethnic.jpg"],
+    ["My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday.","20.jpg"],
+    ["Miss our little cookie.","cookie.jpg"],
+    ["Our last Christmas lights together as college students.","christmas.jpg"],
+    ["Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day.","saree.jpg"],
+    ["Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together.","farewell.jpg"],
+    ["New house and you came with a big bouquet of flowers as housewarming.","newh.jpg"],
     ["Yayyy grad day","grad.jpeg"],
-    ["Happy two years to us ❤️","2.heic"]
+    ["Happy two years to us ❤️","2.jpg"]
 
 ];
+
+let memoryCarPosition = 20;
+let memoryRoadWidth = 1900;
+let memoryMilestonePositions = [];
+let memoryReached = new Set();
 
 function renderMemoryLane() {
 
@@ -2355,7 +2967,8 @@ function renderMemoryLane() {
 
             <div class="memory-lane-info">
                 <b>Drive through our memories ❤️</b><br>
-                Stop at a milestone to discover it.
+                Use the LEFT and RIGHT arrows to drive.<br>
+                Reach a milestone to discover it.
             </div>
 
             <div class="road" id="road">
@@ -2368,6 +2981,7 @@ function renderMemoryLane() {
 
                         <button
                             class="milestone"
+                            id="milestone-${i}"
                             style="
                                 left:${70 + i*58}px;
                             "
@@ -2390,7 +3004,80 @@ function renderMemoryLane() {
         </div>
     `;
 
-    const road = document.getElementById("road");
+    const road =
+        document.getElementById("road");
+
+    const car =
+        document.getElementById("memoryCar");
+
+    memoryCarPosition = 20;
+
+    memoryMilestonePositions =
+        roadMemories.map((_,i) => 70 + i*58);
+
+    function driveMemory(direction) {
+
+        memoryCarPosition += direction * 18;
+
+        memoryCarPosition =
+            Math.max(
+                20,
+                Math.min(
+                    memoryRoadWidth - 80,
+                    memoryCarPosition
+                )
+            );
+
+        car.style.left =
+            memoryCarPosition + "px";
+
+        const visibleWidth = road.clientWidth;
+
+        const targetScroll =
+            memoryCarPosition - visibleWidth / 2;
+
+        road.scrollLeft =
+            Math.max(
+                0,
+                Math.min(
+                    memoryRoadWidth - visibleWidth,
+                    targetScroll
+                )
+            );
+
+        checkMemoryMilestone();
+
+    }
+
+    window.memoryKeyHandler = e => {
+
+        if(
+            gameOverlay.classList.contains("hidden") ||
+            currentGame !== "memory"
+        ) return;
+
+        if(e.key === "ArrowRight") {
+
+            e.preventDefault();
+
+            driveMemory(1);
+
+        }
+
+        if(e.key === "ArrowLeft") {
+
+            e.preventDefault();
+
+            driveMemory(-1);
+
+        }
+
+    };
+
+    window.addEventListener(
+        "keydown",
+        window.memoryKeyHandler
+    );
 
     road.addEventListener("wheel", e => {
 
@@ -2407,9 +3094,81 @@ function renderMemoryLane() {
 }
 
 
+function checkMemoryMilestone() {
+
+    let closestIndex = -1;
+    let closestDistance = Infinity;
+
+    memoryMilestonePositions.forEach((position,index) => {
+
+        const distance =
+            Math.abs(memoryCarPosition - position);
+
+        if(
+            distance < 35 &&
+            distance < closestDistance
+        ) {
+
+            closestDistance = distance;
+            closestIndex = index;
+
+        }
+
+    });
+
+    if(closestIndex !== -1) {
+
+        const milestone =
+            document.getElementById(
+                `milestone-${closestIndex}`
+            );
+
+        if(milestone) {
+
+            milestone.classList.remove("reached");
+
+            void milestone.offsetWidth;
+
+            milestone.classList.add("reached");
+
+        }
+
+        const car =
+            document.getElementById("memoryCar");
+
+        if(car) {
+
+            car.classList.remove("jump");
+
+            void car.offsetWidth;
+
+            car.classList.add("jump");
+
+        }
+
+        if(!memoryReached.has(closestIndex)) {
+
+            memoryReached.add(closestIndex);
+
+            setTimeout(() => {
+
+                if(currentGame === "memory") {
+                    openRoadMemory(closestIndex);
+                }
+
+            },250);
+
+        }
+
+    }
+
+}
+
+
 function openRoadMemory(index) {
 
-    const [text,image] = roadMemories[index];
+    const [text,image] =
+        roadMemories[index];
 
     gameTitle.textContent = "❤️ A MEMORY";
 
@@ -2568,12 +3327,16 @@ const basketballQuestions = [
 ];
 
 let basketballIndex = 0;
+let basketballScore = 0;
+let basketballAnswered = false;
 
 function renderBasketball() {
 
     gameTitle.textContent = "🏀 HOW WELL DO YOU KNOW US?";
 
     basketballIndex = 0;
+    basketballScore = 0;
+    basketballAnswered = false;
 
     renderBasketballQuestion();
 
@@ -2600,6 +3363,10 @@ function renderBasketballQuestion() {
                     You survived the ultimate us quiz.
                 </p>
 
+                <div class="scoreboard">
+                    SCORE: ${basketballScore} / ${basketballQuestions.length}
+                </div>
+
                 <div class="reward">
                     +60 TICKETS 🎟️
                 </div>
@@ -2624,27 +3391,51 @@ function renderBasketballQuestion() {
 
     }
 
-    const q = basketballQuestions[basketballIndex];
+    basketballAnswered = false;
+
+    const q =
+        basketballQuestions[basketballIndex];
 
     gameContent.innerHTML = `
 
         <div class="question-card">
 
+            <div class="scoreboard">
+
+                <span>
+                    SCORE: ${basketballScore}
+                </span>
+
+                <span>
+                    ${basketballIndex + 1}/${basketballQuestions.length}
+                </span>
+
+            </div>
+
             <div class="question">
                 ${q.q}
             </div>
 
-            <div class="basketball">
-                🏀
+            <div class="basketball-court">
+
+                <div class="hoop-backboard"></div>
+                <div class="hoop-rim"></div>
+                <div class="hoop-net"></div>
+
+                <div
+                    class="ball"
+                    id="basketballBall">
+                </div>
+
             </div>
 
             <div class="answers">
 
-                ${q.answers.map(a=>`
+                ${q.answers.map((a,i)=>`
 
                     <button
                         class="answer-btn"
-                        data-answer="${a.replace(/"/g,"&quot;")}">
+                        data-answer-index="${i}">
 
                         ${a}
 
@@ -2662,21 +3453,36 @@ function renderBasketballQuestion() {
     `;
 
     document.querySelectorAll(".answer-btn")
-        .forEach(btn => {
+        .forEach((btn,index) => {
 
             btn.onclick = () => {
 
-                const answer = btn.dataset.answer;
+                if(basketballAnswered) return;
+
+                basketballAnswered = true;
+
+                const answer =
+                    q.answers[index];
 
                 const result =
                     document.getElementById("basketResult");
 
+                const ball =
+                    document.getElementById("basketballBall");
+
+                document.querySelectorAll(".answer-btn")
+                    .forEach(b => b.disabled = true);
+
                 if(answer === q.correct) {
+
+                    basketballScore++;
 
                     result.innerHTML =
                         `<b style="color:#67f7a8">
                             SWISH! 🏀❤️
                          </b>`;
+
+                    ball.classList.add("shoot-in");
 
                     successSound();
                     addTickets(10);
@@ -2685,15 +3491,14 @@ function renderBasketballQuestion() {
 
                     result.innerHTML =
                         `<b style="color:#ff7c9f">
-                            OOPS! MISSED! 🏀
+                            MISSED! The ball didn't make it in. 🏀
                          </b>`;
+
+                    ball.classList.add("shoot-miss");
 
                     failSound();
 
                 }
-
-                document.querySelectorAll(".answer-btn")
-                    .forEach(b => b.disabled = true);
 
                 setTimeout(() => {
 
@@ -2701,7 +3506,7 @@ function renderBasketballQuestion() {
 
                     renderBasketballQuestion();
 
-                },1000);
+                },1200);
 
             };
 
@@ -2727,12 +3532,14 @@ const moleProblems = [
 ];
 
 let moleIndex = 0;
+let moleGameOver = false;
 
 function renderMole() {
 
     gameTitle.textContent = "🐹 WHACK-A-MOLE";
 
     moleIndex = 0;
+    moleGameOver = false;
 
     gameContent.innerHTML = `
 
@@ -2749,7 +3556,7 @@ function renderMole() {
 
             <div class="mole-grid" id="moleGrid">
 
-                ${Array(9).fill(0).map((_,i)=>`
+                ${Array(6).fill(0).map((_,i)=>`
 
                     <div class="hole"
                          data-hole="${i}">
@@ -2768,6 +3575,8 @@ function renderMole() {
 
 
 function spawnMole() {
+
+    if(moleGameOver) return;
 
     if(moleIndex >= moleProblems.length) {
 
@@ -2821,10 +3630,10 @@ function spawnMole() {
     const holes =
         [...document.querySelectorAll(".hole")];
 
+    holes.forEach(h => h.innerHTML = "");
+
     const randomHole =
         holes[Math.floor(Math.random()*holes.length)];
-
-    holes.forEach(h => h.innerHTML = "");
 
     const mole =
         document.createElement("div");
@@ -2835,6 +3644,8 @@ function spawnMole() {
         moleProblems[moleIndex];
 
     mole.onclick = () => {
+
+        if(moleGameOver) return;
 
         beep(220,.1,"square");
 
@@ -2853,6 +3664,78 @@ function spawnMole() {
     };
 
     randomHole.appendChild(mole);
+
+    /*
+       Every few rounds, Bitmoji appears instead.
+       Hitting Bitmoji immediately ends the game.
+    */
+
+    const shouldSpawnUs =
+        moleIndex > 0 &&
+        moleIndex % 2 === 0;
+
+    if(shouldSpawnUs) {
+
+        const remainingHoles =
+            holes.filter(h => h !== randomHole);
+
+        const usHole =
+            remainingHoles[
+                Math.floor(
+                    Math.random() *
+                    remainingHoles.length
+                )
+            ];
+
+        const us =
+            document.createElement("img");
+
+        us.className = "moleUs";
+        us.src = "bitmoji.png";
+        us.alt = "US";
+
+        us.onclick = () => {
+
+            moleGameOver = true;
+
+            failSound();
+
+            gameContent.innerHTML = `
+
+                <div class="mole-game-over">
+
+                    <div style="font-size:80px">
+                        😭
+                    </div>
+
+                    <div class="big-bubble">
+                        HOW DARE YOU SMASH US?
+                    </div>
+
+                    <p style="margin:15px">
+                        You were supposed to smash the problems,
+                        NOT US.
+                    </p>
+
+                    <br>
+
+                    <button
+                        class="big-btn"
+                        onclick="renderMole()">
+
+                        TRY AGAIN
+
+                    </button>
+
+                </div>
+
+            `;
+
+        };
+
+        usHole.appendChild(us);
+
+    }
 
 }
 
@@ -3023,11 +3906,31 @@ function renderShooting() {
 
         target.textContent = prize;
 
-        target.style.left =
-            (8 + Math.random()*78) + "%";
+        const row =
+            Math.floor(i / 3);
+
+        const col =
+            i % 3;
 
         target.style.top =
-            (8 + Math.random()*72) + "%";
+            (15 + row * 35) + "%";
+
+        target.dataset.baseY =
+            (15 + row * 35);
+
+        target.dataset.direction =
+            i % 2 === 0 ? "1" : "-1";
+
+        target.dataset.speed =
+            (0.035 + Math.random()*0.025);
+
+        target.style.left =
+            (5 + col * 30) + "%";
+
+        target.dataset.x =
+            parseFloat(
+                target.style.left
+            );
 
         target.onclick = () => {
 
@@ -3059,6 +3962,16 @@ function renderShooting() {
             target.style.opacity = "1";
             target.style.transform = "scale(1.25)";
 
+            if(window.shootingAnimation) {
+
+                cancelAnimationFrame(
+                    window.shootingAnimation
+                );
+
+                window.shootingAnimation = null;
+
+            }
+
             celebrationBurst();
 
         };
@@ -3066,6 +3979,62 @@ function renderShooting() {
         field.appendChild(target);
 
     });
+
+    animateShootingTargets();
+
+}
+
+
+function animateShootingTargets() {
+
+    if(currentGame !== "shooting") return;
+
+    const field =
+        document.getElementById("targetField");
+
+    if(!field) return;
+
+    const targets =
+        [...field.querySelectorAll(".target")];
+
+    targets.forEach(target => {
+
+        let x =
+            parseFloat(target.dataset.x);
+
+        let direction =
+            parseFloat(target.dataset.direction);
+
+        const speed =
+            parseFloat(target.dataset.speed);
+
+        x += direction * speed;
+
+        if(x >= 88) {
+
+            x = 88;
+            direction = -1;
+
+        }
+
+        if(x <= 3) {
+
+            x = 3;
+            direction = 1;
+
+        }
+
+        target.dataset.x = x;
+        target.dataset.direction = direction;
+
+        target.style.left = x + "%";
+
+    });
+
+    window.shootingAnimation =
+        requestAnimationFrame(
+            animateShootingTargets
+        );
 
 }
 
@@ -3557,34 +4526,22 @@ document.getElementById("soundButton")
 
 
 /* =========================================================
-   CLEANUP CLAW LISTENER
-========================================================= */
-
-backButton.addEventListener("click", () => {
-
-    if(window.clawKeyHandler) {
-
-        window.removeEventListener(
-            "keydown",
-            window.clawKeyHandler
-        );
-
-    }
-
-});
-
-
-/* =========================================================
    RESIZE
 ========================================================= */
 
 window.addEventListener("resize", () => {
 
     playerX =
-        Math.min(playerX, window.innerWidth - 50);
+        Math.min(
+            playerX,
+            window.innerWidth - 50
+        );
 
     playerY =
-        Math.min(playerY, window.innerHeight - 70);
+        Math.min(
+            playerY,
+            window.innerHeight - 70
+        );
 
     updatePlayer();
 
@@ -3623,12 +4580,22 @@ window.addEventListener("touchmove", e => {
     playerY += dy;
 
     playerX =
-        Math.max(40,
-        Math.min(window.innerWidth-40,playerX));
+        Math.max(
+            40,
+            Math.min(
+                window.innerWidth-40,
+                playerX
+            )
+        );
 
     playerY =
-        Math.max(80,
-        Math.min(window.innerHeight-60,playerY));
+        Math.max(
+            80,
+            Math.min(
+                window.innerHeight-60,
+                playerY
+            )
+        );
 
     updatePlayer();
     checkNearbyMachine();
