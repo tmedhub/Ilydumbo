@@ -1,0 +1,2666 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>THE US ARCADE</title>
+
+<style>
+:root{
+    --pink:#ff4fa3;
+    --cyan:#42e8ff;
+    --yellow:#ffe36e;
+    --purple:#9d7cff;
+    --green:#67f7a8;
+    --white:#f7f7ff;
+    --muted:#aeb3d1;
+    --dark:#070812;
+    --panel:rgba(12,15,35,.94);
+    --panel2:rgba(23,26,52,.95);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#080914;
+    color:var(--white);
+}
+
+button{
+    font-family:inherit;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+body{
+    background-image:
+        linear-gradient(rgba(5,6,18,.25),rgba(5,6,18,.25)),
+        url("bg.png");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+#music{
+    display:none;
+}
+
+.music-control{
+    position:fixed;
+    right:18px;
+    top:18px;
+    z-index:1000;
+    border:1px solid rgba(66,232,255,.55);
+    background:rgba(8,9,20,.82);
+    color:var(--cyan);
+    padding:10px 15px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+    box-shadow:0 0 20px rgba(66,232,255,.18);
+    backdrop-filter:blur(8px);
+}
+
+.music-control:hover{
+    box-shadow:0 0 28px rgba(66,232,255,.45);
+}
+
+/* =========================================================
+   ENTRANCE
+========================================================= */
+
+#entrance{
+    position:fixed;
+    inset:0;
+    z-index:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:
+        radial-gradient(circle at 50% 30%,rgba(255,79,163,.16),transparent 35%),
+        rgba(3,4,12,.82);
+    backdrop-filter:blur(5px);
+}
+
+.intro-box{
+    width:min(720px,94vw);
+    padding:38px;
+    border:1px solid rgba(255,79,163,.55);
+    border-radius:24px;
+    background:rgba(10,12,28,.93);
+    box-shadow:
+        0 0 35px rgba(255,79,163,.2),
+        inset 0 0 35px rgba(66,232,255,.04);
+    text-align:center;
+}
+
+.intro-small{
+    color:var(--cyan);
+    font-size:12px;
+    letter-spacing:4px;
+    font-weight:900;
+    margin-bottom:14px;
+}
+
+.intro-title{
+    font-size:clamp(42px,8vw,88px);
+    line-height:.9;
+    font-weight:1000;
+    color:var(--white);
+    text-shadow:
+        0 0 10px var(--pink),
+        0 0 35px rgba(255,79,163,.65);
+    margin-bottom:28px;
+}
+
+#typedMessage{
+    min-height:110px;
+    color:#dddff5;
+    font-size:clamp(15px,2vw,20px);
+    line-height:1.65;
+    white-space:pre-line;
+}
+
+.cursor{
+    display:inline-block;
+    width:7px;
+    height:20px;
+    background:var(--pink);
+    margin-left:4px;
+    animation:blink .7s infinite;
+    vertical-align:middle;
+}
+
+@keyframes blink{
+    50%{opacity:0}
+}
+
+.enter-btn{
+    margin-top:25px;
+    border:1px solid var(--pink);
+    background:linear-gradient(135deg,rgba(255,79,163,.2),rgba(157,124,255,.2));
+    color:white;
+    padding:15px 30px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:1000;
+    letter-spacing:2px;
+    box-shadow:0 0 20px rgba(255,79,163,.2);
+    transition:.2s;
+}
+
+.enter-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 35px rgba(255,79,163,.55);
+}
+
+/* =========================================================
+   ARCADE
+========================================================= */
+
+#arcade{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+}
+
+.arcade-overlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at center,transparent 40%,rgba(0,0,0,.32)),
+        linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.3));
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:76px;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    background:linear-gradient(to bottom,rgba(5,6,17,.92),rgba(5,6,17,.45),transparent);
+}
+
+.logo{
+    font-weight:1000;
+    font-size:clamp(20px,3vw,34px);
+    letter-spacing:3px;
+    color:white;
+    text-shadow:
+        0 0 8px var(--pink),
+        0 0 22px rgba(255,79,163,.6);
+}
+
+.logo span{
+    color:var(--cyan);
+}
+
+.stats{
+    display:flex;
+    gap:10px;
+}
+
+.stat{
+    padding:8px 12px;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(7,8,20,.7);
+    border-radius:9px;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   FLOOR
+========================================================= */
+
+#floor{
+    position:absolute;
+    left:0;
+    right:0;
+    top:76px;
+    bottom:0;
+    overflow:hidden;
+}
+
+/* decorative floor lines */
+
+.floor-line{
+    position:absolute;
+    height:2px;
+    background:rgba(66,232,255,.12);
+    box-shadow:0 0 12px rgba(66,232,255,.1);
+    transform:rotate(-12deg);
+}
+
+.floor-line.one{
+    width:1000px;
+    left:-100px;
+    top:28%;
+}
+
+.floor-line.two{
+    width:850px;
+    right:-120px;
+    top:68%;
+    transform:rotate(14deg);
+}
+
+.floor-line.three{
+    width:700px;
+    left:20%;
+    bottom:8%;
+    transform:rotate(-3deg);
+}
+
+/* =========================================================
+   ARCADE MACHINES
+========================================================= */
+
+.machine{
+    position:absolute;
+    width:190px;
+    height:255px;
+    z-index:20;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.machine:hover{
+    transform:translateY(-5px) scale(1.02);
+}
+
+.machine-body{
+    position:absolute;
+    inset:0;
+    border-radius:22px 22px 12px 12px;
+    background:
+        linear-gradient(145deg,#25284b,#101225 60%,#080914);
+    border:2px solid rgba(255,255,255,.15);
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.5),
+        inset 0 0 25px rgba(255,255,255,.025);
+}
+
+.machine-screen{
+    position:absolute;
+    top:23px;
+    left:17px;
+    right:17px;
+    height:130px;
+    border-radius:14px;
+    background:#050611;
+    border:2px solid rgba(255,255,255,.12);
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.machine-screen:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 4px,
+        rgba(255,255,255,.025) 5px
+    );
+    pointer-events:none;
+}
+
+/* Picture-like game headings */
+
+.game-art{
+    width:105px;
+    height:105px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    filter:drop-shadow(0 0 14px currentColor);
+}
+
+/* WHEEL */
+
+.wheel-art{
+    color:var(--pink);
+    border:7px solid currentColor;
+    border-radius:50%;
+}
+
+.wheel-art:before{
+    content:"";
+    position:absolute;
+    inset:7px;
+    border:2px solid currentColor;
+    border-radius:50%;
+}
+
+.wheel-art:after{
+    content:"★";
+    font-size:32px;
+    color:var(--yellow);
+}
+
+/* MUSIC */
+
+.music-art{
+    color:var(--cyan);
+}
+
+.music-art:before{
+    content:"♫";
+    font-size:85px;
+    font-weight:1000;
+    text-shadow:0 0 18px var(--cyan);
+}
+
+.music-art:after{
+    content:"";
+    position:absolute;
+    bottom:10px;
+    width:75px;
+    height:4px;
+    background:currentColor;
+    box-shadow:0 -10px 0 currentColor;
+}
+
+/* MEMORY */
+
+.memory-art{
+    color:var(--purple);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.memory-art i{
+    display:block;
+    border:3px solid currentColor;
+    border-radius:8px;
+    height:45px;
+    box-shadow:0 0 12px currentColor;
+}
+
+.memory-art i:nth-child(2),
+.memory-art i:nth-child(3){
+    color:var(--pink);
+}
+
+.memory-art i:nth-child(4){
+    color:var(--cyan);
+}
+
+/* BASKETBALL */
+
+.ball-art{
+    color:#ff9b45;
+    border:7px solid currentColor;
+    border-radius:50%;
+    overflow:hidden;
+}
+
+.ball-art:before,
+.ball-art:after{
+    content:"";
+    position:absolute;
+    background:currentColor;
+}
+
+.ball-art:before{
+    width:140%;
+    height:6px;
+    transform:rotate(45deg);
+}
+
+.ball-art:after{
+    width:6px;
+    height:140%;
+    transform:rotate(45deg);
+}
+
+/* HEART */
+
+.heart-art{
+    color:var(--pink);
+}
+
+.heart-art:before{
+    content:"♥";
+    font-size:105px;
+    text-shadow:0 0 25px var(--pink);
+}
+
+/* TRIVIA */
+
+.trivia-art{
+    color:var(--yellow);
+    border:5px solid currentColor;
+    border-radius:18px;
+    font-size:65px;
+    font-weight:1000;
+}
+
+.trivia-art:before{
+    content:"?";
+}
+
+/* cabinet details */
+
+.machine-panel{
+    position:absolute;
+    bottom:15px;
+    left:17px;
+    right:17px;
+    height:63px;
+    border-radius:12px;
+    background:#0b0d20;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.machine-lights{
+    position:absolute;
+    bottom:25px;
+    left:29px;
+    display:flex;
+    gap:8px;
+}
+
+.machine-lights i{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--pink);
+    box-shadow:0 0 10px currentColor;
+}
+
+.machine-lights i:nth-child(2){
+    background:var(--cyan);
+}
+
+.machine-lights i:nth-child(3){
+    background:var(--yellow);
+}
+
+.machine-button{
+    position:absolute;
+    right:27px;
+    bottom:25px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:var(--pink);
+    box-shadow:0 0 12px var(--pink);
+}
+
+.machine-near{
+    position:absolute;
+    top:-38px;
+    left:50%;
+    transform:translateX(-50%);
+    white-space:nowrap;
+    padding:8px 12px;
+    border-radius:8px;
+    background:rgba(5,6,17,.9);
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    font-size:10px;
+    font-weight:1000;
+    letter-spacing:1px;
+    box-shadow:0 0 20px rgba(66,232,255,.2);
+    opacity:0;
+    pointer-events:none;
+}
+
+.machine.active .machine-near{
+    opacity:1;
+}
+
+/* Organic arcade layout */
+
+.m1{
+    left:7%;
+    top:8%;
+    transform:rotate(-2deg);
+}
+
+.m2{
+    left:31%;
+    top:4%;
+    transform:rotate(3deg);
+}
+
+.m3{
+    right:9%;
+    top:10%;
+    transform:rotate(-3deg);
+}
+
+.m4{
+    left:14%;
+    top:48%;
+    transform:rotate(2deg);
+}
+
+.m5{
+    left:49%;
+    top:39%;
+    transform:rotate(-2deg);
+}
+
+.m6{
+    right:10%;
+    top:52%;
+    transform:rotate(3deg);
+}
+
+/* =========================================================
+   DECOR
+========================================================= */
+
+.arcade-table{
+    position:absolute;
+    width:170px;
+    height:70px;
+    border-radius:50%;
+    background:rgba(10,12,27,.9);
+    border:2px solid rgba(157,124,255,.25);
+    box-shadow:0 20px 20px rgba(0,0,0,.3);
+}
+
+.table1{
+    left:39%;
+    bottom:5%;
+}
+
+.table2{
+    right:35%;
+    top:23%;
+    transform:rotate(12deg);
+}
+
+.neon-sign{
+    position:absolute;
+    padding:10px 18px;
+    border:2px solid var(--pink);
+    border-radius:10px;
+    color:var(--pink);
+    font-weight:1000;
+    letter-spacing:4px;
+    box-shadow:0 0 20px rgba(255,79,163,.3);
+    background:rgba(8,9,20,.55);
+    transform:rotate(-4deg);
+}
+
+.sign1{
+    left:46%;
+    top:8%;
+}
+
+.sign2{
+    right:4%;
+    bottom:8%;
+    color:var(--cyan);
+    border-color:var(--cyan);
+}
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+#player{
+    position:absolute;
+    width:75px;
+    height:100px;
+    z-index:80;
+    left:50%;
+    top:70%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    transition:transform .08s linear;
+}
+
+#player img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 8px rgba(255,79,163,.7))
+        drop-shadow(0 12px 15px rgba(0,0,0,.45));
+}
+
+.player-shadow{
+    position:absolute;
+    width:58px;
+    height:14px;
+    background:rgba(0,0,0,.5);
+    border-radius:50%;
+    left:50%;
+    bottom:-2px;
+    transform:translateX(-50%);
+    filter:blur(3px);
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls{
+    position:absolute;
+    left:18px;
+    bottom:18px;
+    z-index:100;
+    width:140px;
+    height:140px;
+}
+
+.control{
+    position:absolute;
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:rgba(7,8,20,.8);
+    border:1px solid rgba(66,232,255,.35);
+    color:var(--cyan);
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 0 12px rgba(66,232,255,.12);
+}
+
+.control:active{
+    transform:scale(.94);
+}
+
+.up{left:47px;top:0}
+.left{left:0;top:47px}
+.down{left:47px;top:47px}
+.right{right:0;top:47px}
+
+.interact{
+    position:absolute;
+    right:20px;
+    bottom:24px;
+    z-index:100;
+    border:1px solid var(--yellow);
+    background:rgba(7,8,20,.8);
+    color:var(--yellow);
+    border-radius:10px;
+    padding:12px 16px;
+    font-weight:1000;
+    letter-spacing:1px;
+}
+
+/* =========================================================
+   GAME OVERLAY
+========================================================= */
+
+#gameOverlay{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    background:
+        linear-gradient(rgba(4,5,15,.76),rgba(4,5,15,.84)),
+        url("bg.png");
+    background-size:cover;
+    background-position:center;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.game-window{
+    width:min(950px,96vw);
+    max-height:92vh;
+    overflow:auto;
+    background:rgba(8,10,25,.96);
+    border:1px solid rgba(255,79,163,.4);
+    border-radius:22px;
+    box-shadow:
+        0 0 50px rgba(255,79,163,.2),
+        inset 0 0 40px rgba(66,232,255,.025);
+    padding:25px;
+    position:relative;
+}
+
+.game-window::-webkit-scrollbar{
+    width:5px;
+}
+
+.game-window::-webkit-scrollbar-thumb{
+    background:var(--pink);
+    border-radius:20px;
+}
+
+.game-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.game-title{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.game-title-art{
+    width:58px;
+    height:58px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.15);
+    background:#050611;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.game-title-art span{
+    font-size:30px;
+}
+
+.game-title h2{
+    font-size:22px;
+    letter-spacing:2px;
+}
+
+.back-btn{
+    border:1px solid var(--pink);
+    color:white;
+    background:rgba(255,79,163,.1);
+    border-radius:9px;
+    padding:10px 15px;
+    cursor:pointer;
+    font-weight:1000;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+.back-btn:hover{
+    background:rgba(255,79,163,.25);
+}
+
+/* =========================================================
+   COMMON GAME UI
+========================================================= */
+
+.game-card{
+    background:rgba(20,22,45,.75);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:22px;
+}
+
+.game-message{
+    color:var(--muted);
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.primary{
+    background:var(--pink);
+    border:0;
+    color:white;
+    padding:12px 20px;
+    border-radius:9px;
+    font-weight:1000;
+    cursor:pointer;
+}
+
+.secondary{
+    background:rgba(66,232,255,.1);
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    padding:12px 20px;
+    border-radius:9px;
+    font-weight:1000;
+    cursor:pointer;
+}
+
+/* =========================================================
+   TRIVIA
+========================================================= */
+
+.question{
+    font-size:24px;
+    line-height:1.35;
+    margin-bottom:20px;
+}
+
+.answers{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.answer{
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(7,8,20,.8);
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    cursor:pointer;
+    text-align:left;
+    transition:.15s;
+}
+
+.answer:hover{
+    border-color:var(--cyan);
+}
+
+.answer.correct{
+    border-color:var(--green);
+    background:rgba(103,247,168,.1);
+}
+
+.answer.wrong{
+    border-color:var(--pink);
+    background:rgba(255,79,163,.1);
+}
+
+.progress{
+    height:7px;
+    background:#080914;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.progress div{
+    height:100%;
+    width:0;
+    background:var(--pink);
+    transition:.3s;
+}
+
+/* =========================================================
+   MEMORY
+========================================================= */
+
+.memory-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    max-width:650px;
+    margin:auto;
+}
+
+.memory-card{
+    aspect-ratio:1;
+    perspective:600px;
+    cursor:pointer;
+}
+
+.memory-inner{
+    width:100%;
+    height:100%;
+    transition:transform .35s;
+    transform-style:preserve-3d;
+    position:relative;
+}
+
+.memory-card.flipped .memory-inner,
+.memory-card.matched .memory-inner{
+    transform:rotateY(180deg);
+}
+
+.memory-front,
+.memory-back{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.memory-front{
+    background:
+        linear-gradient(135deg,var(--pink),var(--purple));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+}
+
+.memory-back{
+    transform:rotateY(180deg);
+    background:#080914;
+    border:2px solid rgba(255,255,255,.1);
+}
+
+.memory-back img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* =========================================================
+   BASKETBALL
+========================================================= */
+
+.basket-area{
+    height:380px;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(to bottom,rgba(66,232,255,.03),rgba(255,79,163,.03));
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.hoop{
+    position:absolute;
+    top:50px;
+    right:100px;
+    width:100px;
+    height:80px;
+    border:5px solid var(--yellow);
+    border-radius:0 0 50px 50px;
+}
+
+.ball{
+    position:absolute;
+    bottom:35px;
+    left:50%;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#ff9b45;
+    border:4px solid #30190c;
+    cursor:pointer;
+    transform:translateX(-50%);
+    transition:.3s;
+}
+
+.ball:before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:5px;
+    background:#30190c;
+    top:27px;
+    transform:rotate(45deg);
+}
+
+.basket-score{
+    position:absolute;
+    top:15px;
+    left:20px;
+    font-weight:1000;
+    color:var(--yellow);
+}
+
+/* =========================================================
+   CATCH MEMORIES
+========================================================= */
+
+.catch-area{
+    position:relative;
+    height:430px;
+    overflow:hidden;
+    border-radius:16px;
+    background:rgba(5,6,17,.7);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.memory-heart{
+    position:absolute;
+    font-size:38px;
+    color:var(--pink);
+    cursor:pointer;
+    filter:drop-shadow(0 0 10px var(--pink));
+    animation:floatHeart 2s infinite alternate ease-in-out;
+}
+
+@keyframes floatHeart{
+    from{transform:translateY(0) rotate(-5deg)}
+    to{transform:translateY(-12px) rotate(5deg)}
+}
+
+/* =========================================================
+   MUSIC GAME
+========================================================= */
+
+.music-game{
+    text-align:center;
+}
+
+.beat{
+    width:180px;
+    height:180px;
+    margin:25px auto;
+    border-radius:50%;
+    border:5px solid var(--cyan);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:70px;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(66,232,255,.2);
+    transition:.1s;
+}
+
+.beat.active{
+    transform:scale(1.12);
+    box-shadow:0 0 60px rgba(66,232,255,.7);
+}
+
+.music-score{
+    font-size:18px;
+    color:var(--cyan);
+    font-weight:1000;
+}
+
+/* =========================================================
+   WHEEL
+========================================================= */
+
+.wheel-wrap{
+    text-align:center;
+}
+
+.wheel{
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    margin:20px auto;
+    border:7px solid white;
+    position:relative;
+    overflow:hidden;
+    background:conic-gradient(
+        var(--pink) 0deg 60deg,
+        var(--cyan) 60deg 120deg,
+        var(--yellow) 120deg 180deg,
+        var(--purple) 180deg 240deg,
+        var(--green) 240deg 300deg,
+        #ff8b8b 300deg 360deg
+    );
+    transition:transform 3s cubic-bezier(.1,.7,.1,1);
+    box-shadow:0 0 35px rgba(255,79,163,.35);
+}
+
+.wheel:after{
+    content:"US";
+    position:absolute;
+    width:70px;
+    height:70px;
+    background:#090a18;
+    border:3px solid white;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:1000;
+}
+
+.pointer{
+    width:0;
+    height:0;
+    border-left:12px solid transparent;
+    border-right:12px solid transparent;
+    border-top:30px solid var(--pink);
+    margin:auto;
+}
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final-message{
+    text-align:center;
+    padding:30px;
+}
+
+.final-message h1{
+    font-size:clamp(50px,10vw,100px);
+    color:white;
+    text-shadow:
+        0 0 10px var(--pink),
+        0 0 35px var(--pink);
+}
+
+.final-message h2{
+    color:var(--cyan);
+    margin:12px 0 25px;
+}
+
+.final-message img{
+    width:min(420px,90%);
+    max-height:280px;
+    object-fit:cover;
+    border-radius:18px;
+    border:2px solid rgba(255,255,255,.15);
+    box-shadow:0 0 35px rgba(255,79,163,.25);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:800px){
+
+    .topbar{
+        padding:0 14px;
+    }
+
+    .stats{
+        display:none;
+    }
+
+    .machine{
+        width:145px;
+        height:200px;
+    }
+
+    .machine-screen{
+        height:100px;
+    }
+
+    .machine-panel{
+        height:48px;
+    }
+
+    .game-window{
+        padding:17px;
+    }
+
+    .answers{
+        grid-template-columns:1fr;
+    }
+
+    .memory-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .m3,.m6{
+        right:2%;
+    }
+
+    .m1{
+        left:2%;
+    }
+
+    .m4{
+        left:4%;
+    }
+
+    .m5{
+        left:38%;
+    }
+
+    .sign1{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-control" id="musicButton">MUSIC OFF</button>
+
+<!-- =====================================================
+     ENTRANCE
+===================================================== -->
+
+<section id="entrance">
+
+    <div class="intro-box">
+
+        <div class="intro-small">INSERT COIN</div>
+
+        <div class="intro-title">
+            THE US<br>
+            ARCADE
+        </div>
+
+        <div id="typedMessage"></div>
+
+        <button class="enter-btn" id="enterButton">
+            ENTER OUR ARCADE
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ARCADE
+===================================================== -->
+
+<section id="arcade" class="hidden">
+
+    <div class="topbar">
+
+        <div class="logo">
+            THE <span>US</span> ARCADE
+        </div>
+
+        <div class="stats">
+            <div class="stat">730 DAYS</div>
+            <div class="stat">2 YEARS</div>
+            <div class="stat" id="gameCounter">0 / 6 GAMES</div>
+        </div>
+
+    </div>
+
+    <div id="floor">
+
+        <div class="arcade-overlay"></div>
+
+        <div class="floor-line one"></div>
+        <div class="floor-line two"></div>
+        <div class="floor-line three"></div>
+
+        <div class="neon-sign sign1">LOVE LEVEL</div>
+        <div class="neon-sign sign2">PLAYER 2</div>
+
+        <div class="arcade-table table1"></div>
+        <div class="arcade-table table2"></div>
+
+
+        <!-- WHEEL -->
+
+        <div class="machine m1"
+             data-game="wheel"
+             data-x="7"
+             data-y="8">
+
+            <div class="machine-body">
+
+                <div class="machine-screen">
+
+                    <div class="game-art wheel-art"></div>
+
+                </div>
+
+                <div class="machine-panel"></div>
+
+                <div class="machine-lights">
+                    <i></i><i></i><i></i>
+                </div>
+
+                <div class="machine-button"></div>
+
+            </div>
+
+            <div class="machine-near">
+                PRESS ENTER TO PLAY
+            </div>
+
+        </div>
+
+
+        <!-- MUSIC -->
+
+        <div class="machine m2"
+             data-game="music">
+
+            <div class="machine-body">
+
+                <div class="machine-screen">
+
+                    <div class="game-art music-art"></div>
+
+                </div>
+
+                <div class="machine-panel"></div>
+
+                <div class="machine-lights">
+                    <i></i><i></i><i></i>
+                </div>
+
+                <div class="machine-button"></div>
+
+            </div>
+
+            <div class="machine-near">
+                PRESS ENTER TO PLAY
+            </div>
+
+        </div>
+
+
+        <!-- MEMORY -->
+
+        <div class="machine m3"
+             data-game="memory">
+
+            <div class="machine-body">
+
+                <div class="machine-screen">
+
+                    <div class="game-art memory-art">
+                        <i></i><i></i><i></i><i></i>
+                    </div>
+
+                </div>
+
+                <div class="machine-panel"></div>
+
+                <div class="machine-lights">
+                    <i></i><i></i><i></i>
+                </div>
+
+                <div class="machine-button"></div>
+
+            </div>
+
+            <div class="machine-near">
+                PRESS ENTER TO PLAY
+            </div>
+
+        </div>
+
+
+        <!-- BASKETBALL -->
+
+        <div class="machine m4"
+             data-game="basketball">
+
+            <div class="machine-body">
+
+                <div class="machine-screen">
+
+                    <div class="game-art ball-art"></div>
+
+                </div>
+
+                <div class="machine-panel"></div>
+
+                <div class="machine-lights">
+                    <i></i><i></i><i></i>
+                </div>
+
+                <div class="machine-button"></div>
+
+            </div>
+
+            <div class="machine-near">
+                PRESS ENTER TO PLAY
+            </div>
+
+        </div>
+
+
+        <!-- MEMORIES -->
+
+        <div class="machine m5"
+             data-game="memories">
+
+            <div class="machine-body">
+
+                <div class="machine-screen">
+
+                    <div class="game-art heart-art"></div>
+
+                </div>
+
+                <div class="machine-panel"></div>
+
+                <div class="machine-lights">
+                    <i></i><i></i><i></i>
+                </div>
+
+                <div class="machine-button"></div>
+
+            </div>
+
+            <div class="machine-near">
+                PRESS ENTER TO PLAY
+            </div>
+
+        </div>
+
+
+        <!-- TRIVIA -->
+
+        <div class="machine m6"
+             data-game="trivia">
+
+            <div class="machine-body">
+
+                <div class="machine-screen">
+
+                    <div class="game-art trivia-art"></div>
+
+                </div>
+
+                <div class="machine-panel"></div>
+
+                <div class="machine-lights">
+                    <i></i><i></i><i></i>
+                </div>
+
+                <div class="machine-button"></div>
+
+            </div>
+
+            <div class="machine-near">
+                PRESS ENTER TO PLAY
+            </div>
+
+        </div>
+
+
+        <!-- PLAYER -->
+
+        <div id="player">
+
+            <img src="bitmoji.png" alt="Player">
+
+            <div class="player-shadow"></div>
+
+        </div>
+
+
+        <!-- MOBILE CONTROLS -->
+
+        <div class="controls">
+
+            <button class="control up" data-dir="up">↑</button>
+            <button class="control left" data-dir="left">←</button>
+            <button class="control down" data-dir="down">↓</button>
+            <button class="control right" data-dir="right">→</button>
+
+        </div>
+
+        <div class="interact">
+            ENTER = PLAY
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GAME WINDOW
+===================================================== -->
+
+<section id="gameOverlay">
+
+    <div class="game-window">
+
+        <div class="game-header">
+
+            <div class="game-title">
+
+                <div class="game-title-art" id="gameIcon">
+                    <span>♥</span>
+                </div>
+
+                <div>
+                    <h2 id="gameTitle">GAME</h2>
+                </div>
+
+            </div>
+
+            <button class="back-btn" id="backButton">
+                BACK TO ARCADE
+            </button>
+
+        </div>
+
+        <div id="gameContent"></div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+const entrance = document.getElementById("entrance");
+const arcade = document.getElementById("arcade");
+const gameOverlay = document.getElementById("gameOverlay");
+const gameContent = document.getElementById("gameContent");
+const gameTitle = document.getElementById("gameTitle");
+const gameIcon = document.getElementById("gameIcon");
+const player = document.getElementById("player");
+const music = document.getElementById("music");
+const musicButton = document.getElementById("musicButton");
+const gameCounter = document.getElementById("gameCounter");
+
+let musicPlaying = false;
+
+const completedGames = new Set();
+
+let playerX = window.innerWidth * .5;
+let playerY = window.innerHeight * .70;
+
+const speed = 8;
+
+let currentGame = null;
+
+
+/* =========================================================
+   ENTRANCE TYPEWRITER
+========================================================= */
+
+const introText =
+`Two years.
+
+730 days.
+
+A ridiculous amount of memories,
+inside jokes, chaos, dates, fights,
+food, surprises and way too many pictures.
+
+So I made us our own arcade.
+
+Every machine has a little piece of us inside.
+
+Ready, Player 2?`;
+
+const typedMessage = document.getElementById("typedMessage");
+
+let typeIndex = 0;
+
+function typeIntro(){
+
+    if(typeIndex < introText.length){
+
+        typedMessage.innerHTML =
+            introText.slice(0,typeIndex + 1)
+            .replace(/\n/g,"<br>")
+            + '<span class="cursor"></span>';
+
+        typeIndex++;
+
+        setTimeout(typeIntro,18);
+
+    }else{
+
+        typedMessage.innerHTML =
+            introText.replace(/\n/g,"<br>")
+            + '<span class="cursor"></span>';
+
+    }
+}
+
+typeIntro();
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+function startMusic(){
+
+    music.volume = .45;
+
+    const promise = music.play();
+
+    if(promise){
+
+        promise.then(()=>{
+
+            musicPlaying = true;
+            musicButton.textContent = "MUSIC ON";
+
+        }).catch(()=>{
+
+            musicPlaying = false;
+            musicButton.textContent = "MUSIC OFF";
+
+        });
+
+    }
+}
+
+document.getElementById("enterButton").addEventListener("click",()=>{
+
+    entrance.classList.add("hidden");
+    arcade.classList.remove("hidden");
+
+    startMusic();
+
+});
+
+musicButton.addEventListener("click",()=>{
+
+    if(music.paused){
+
+        music.play().then(()=>{
+
+            musicPlaying = true;
+            musicButton.textContent = "MUSIC ON";
+
+        });
+
+    }else{
+
+        music.pause();
+
+        musicPlaying = false;
+
+        musicButton.textContent = "MUSIC OFF";
+
+    }
+
+});
+
+
+/* =========================================================
+   PLAYER MOVEMENT
+========================================================= */
+
+function clampPlayer(){
+
+    const floor = document.getElementById("floor");
+
+    const rect = floor.getBoundingClientRect();
+
+    const halfW = 38;
+    const halfH = 45;
+
+    playerX = Math.max(
+        rect.left + halfW,
+        Math.min(rect.right - halfW,playerX)
+    );
+
+    playerY = Math.max(
+        rect.top + halfH,
+        Math.min(rect.bottom - halfH,playerY)
+    );
+}
+
+function updatePlayer(){
+
+    clampPlayer();
+
+    player.style.left = playerX + "px";
+    player.style.top = playerY + "px";
+
+    checkMachineDistance();
+}
+
+function movePlayer(dx,dy){
+
+    playerX += dx;
+    playerY += dy;
+
+    updatePlayer();
+}
+
+document.addEventListener("keydown",(e)=>{
+
+    if(gameOverlay.style.display === "flex"){
+
+        if(e.key === "Escape"){
+            closeGame();
+        }
+
+        return;
+    }
+
+    if(entrance.classList.contains("hidden") === false){
+
+        return;
+    }
+
+    let dx = 0;
+    let dy = 0;
+
+    if(e.key === "ArrowUp" || e.key.toLowerCase()==="w"){
+        dy = -speed;
+    }
+
+    if(e.key === "ArrowDown" || e.key.toLowerCase()==="s"){
+        dy = speed;
+    }
+
+    if(e.key === "ArrowLeft" || e.key.toLowerCase()==="a"){
+        dx = -speed;
+    }
+
+    if(e.key === "ArrowRight" || e.key.toLowerCase()==="d"){
+        dx = speed;
+    }
+
+    if(dx || dy){
+
+        e.preventDefault();
+        movePlayer(dx,dy);
+
+    }
+
+    if(e.key === "Enter"){
+
+        const machine = nearestMachine();
+
+        if(machine){
+            openGame(machine.dataset.game);
+        }
+
+    }
+
+});
+
+
+/* =========================================================
+   MOBILE BUTTONS
+========================================================= */
+
+document.querySelectorAll(".control").forEach(button=>{
+
+    button.addEventListener("pointerdown",(e)=>{
+
+        e.preventDefault();
+
+        const dir = button.dataset.dir;
+
+        if(dir==="up") movePlayer(0,-speed);
+        if(dir==="down") movePlayer(0,speed);
+        if(dir==="left") movePlayer(-speed,0);
+        if(dir==="right") movePlayer(speed,0);
+
+    });
+
+});
+
+
+/* =========================================================
+   MACHINE DETECTION
+========================================================= */
+
+const machines = [...document.querySelectorAll(".machine")];
+
+function getMachineCenter(machine){
+
+    const r = machine.getBoundingClientRect();
+
+    return {
+        x:r.left + r.width/2,
+        y:r.top + r.height/2
+    };
+}
+
+function distanceToMachine(machine){
+
+    const c = getMachineCenter(machine);
+
+    return Math.hypot(
+        playerX-c.x,
+        playerY-c.y
+    );
+
+}
+
+function nearestMachine(){
+
+    let nearest = null;
+    let best = Infinity;
+
+    machines.forEach(machine=>{
+
+        const d = distanceToMachine(machine);
+
+        if(d < best){
+
+            best = d;
+            nearest = machine;
+
+        }
+
+    });
+
+    return best < 190 ? nearest : null;
+}
+
+function checkMachineDistance(){
+
+    machines.forEach(machine=>{
+        machine.classList.remove("active");
+    });
+
+    const nearest = nearestMachine();
+
+    if(nearest){
+        nearest.classList.add("active");
+    }
+
+}
+
+
+/* =========================================================
+   CLICK MACHINE
+========================================================= */
+
+machines.forEach(machine=>{
+
+    machine.addEventListener("click",()=>{
+
+        if(nearestMachine() === machine){
+
+            openGame(machine.dataset.game);
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   GAME OPENING
+========================================================= */
+
+function openGame(game){
+
+    currentGame = game;
+
+    gameOverlay.style.display = "flex";
+
+    const info = {
+        wheel:{
+            title:"THE US WHEEL",
+            icon:"◎"
+        },
+        music:{
+            title:"OUR MUSIC",
+            icon:"♫"
+        },
+        memory:{
+            title:"MEMORY MATCH",
+            icon:"▦"
+        },
+        basketball:{
+            title:"DATE NIGHT HOOPS",
+            icon:"●"
+        },
+        memories:{
+            title:"CATCH OUR MEMORIES",
+            icon:"♥"
+        },
+        trivia:{
+            title:"HOW WELL DO YOU KNOW US?",
+            icon:"?"
+        }
+    };
+
+    gameTitle.textContent = info[game].title;
+    gameIcon.innerHTML = "<span>"+info[game].icon+"</span>";
+
+    if(game==="wheel") startWheel();
+    if(game==="music") startMusicGame();
+    if(game==="memory") startMemory();
+    if(game==="basketball") startBasketball();
+    if(game==="memories") startMemories();
+    if(game==="trivia") startTrivia();
+
+}
+
+
+/* =========================================================
+   BACK TO ARCADE
+========================================================= */
+
+document.getElementById("backButton").addEventListener("click",closeGame);
+
+function closeGame(){
+
+    gameOverlay.style.display = "none";
+
+    gameContent.innerHTML = "";
+
+    currentGame = null;
+
+    updatePlayer();
+
+}
+
+
+/* =========================================================
+   COMPLETE GAME
+========================================================= */
+
+function completeGame(name){
+
+    completedGames.add(name);
+
+    gameCounter.textContent =
+        completedGames.size + " / 6 GAMES";
+
+}
+
+
+/* =========================================================
+   WHEEL GAME
+========================================================= */
+
+function startWheel(){
+
+    gameContent.innerHTML = `
+
+        <div class="game-card wheel-wrap">
+
+            <p class="game-message">
+                Spin the wheel and let fate decide what happens next.
+            </p>
+
+            <div class="pointer"></div>
+
+            <div class="wheel" id="wheel"></div>
+
+            <button class="primary" id="spinWheel">
+                SPIN THE WHEEL
+            </button>
+
+            <div id="wheelResult" style="margin-top:20px;font-weight:900;"></div>
+
+        </div>
+
+    `;
+
+    let spinning = false;
+    let rotation = 0;
+
+    const results = [
+        "You owe me a date.",
+        "Cuddle attack.",
+        "Pick our next food adventure.",
+        "One embarrassing memory.",
+        "Kiss tax.",
+        "We look at old pictures."
+    ];
+
+    document.getElementById("spinWheel").onclick = ()=>{
+
+        if(spinning) return;
+
+        spinning = true;
+
+        const extra =
+            1440 +
+            Math.floor(Math.random()*360);
+
+        rotation += extra;
+
+        document.getElementById("wheel").style.transform =
+            `rotate(${rotation}deg)`;
+
+        setTimeout(()=>{
+
+            const result =
+                results[Math.floor(Math.random()*results.length)];
+
+            document.getElementById("wheelResult").textContent =
+                result;
+
+            completeGame("wheel");
+
+            spinning = false;
+
+        },3100);
+
+    };
+
+}
+
+
+/* =========================================================
+   MUSIC GAME
+========================================================= */
+
+function startMusicGame(){
+
+    gameContent.innerHTML = `
+
+        <div class="game-card music-game">
+
+            <p class="game-message">
+                Test your reaction time.
+                Click the glowing note whenever it lights up.
+            </p>
+
+            <div class="music-score">
+                SCORE: <span id="musicScore">0</span> / 8
+            </div>
+
+            <div class="beat" id="beat">
+                ♫
+            </div>
+
+            <div id="musicGameMessage">
+                Wait for it...
+            </div>
+
+        </div>
+
+    `;
+
+    let score = 0;
+    let active = false;
+    let finished = false;
+
+    const beat = document.getElementById("beat");
+
+    function light(){
+
+        if(finished) return;
+
+        active = true;
+
+        beat.classList.add("active");
+
+    }
+
+    function next(){
+
+        if(finished) return;
+
+        setTimeout(light,700 + Math.random()*1200);
+
+    }
+
+    beat.onclick = ()=>{
+
+        if(!active) return;
+
+        active = false;
+
+        beat.classList.remove("active");
+
+        score++;
+
+        document.getElementById("musicScore").textContent = score;
+
+        if(score>=8){
+
+            finished = true;
+
+            document.getElementById("musicGameMessage").textContent =
+                "Perfect. You still know the rhythm of us.";
+
+            completeGame("music");
+
+        }else{
+
+            next();
+
+        }
+
+    };
+
+    next();
+
+}
+
+
+/* =========================================================
+   MEMORY GAME
+========================================================= */
+
+function startMemory(){
+
+    const images = [
+        "ethnic_day_1.png",
+        "ganesh_chaturthi_1.png",
+        "first_date_flowers.png",
+        "gourmet_family.png",
+        "birthday_night_surprise.png",
+        "birthday_dinner_color_match.png"
+    ];
+
+    const cards = [...images,...images]
+        .sort(()=>Math.random()-.5);
+
+    gameContent.innerHTML = `
+
+        <div class="game-card">
+
+            <p class="game-message">
+                Match every memory with its twin.
+            </p>
+
+            <div class="memory-grid" id="memoryGrid"></div>
+
+            <p id="memoryStatus"
+               style="text-align:center;margin-top:15px;color:var(--muted)">
+                Matches: 0 / 6
+            </p>
+
+        </div>
+
+    `;
+
+    const grid = document.getElementById("memoryGrid");
+
+    let first = null;
+    let second = null;
+    let locked = false;
+    let matches = 0;
+
+    cards.forEach(src=>{
+
+        const card = document.createElement("div");
+
+        card.className = "memory-card";
+
+        card.innerHTML = `
+
+            <div class="memory-inner">
+
+                <div class="memory-front">
+                    ♥
+                </div>
+
+                <div class="memory-back">
+                    <img src="${src}" alt="">
+                </div>
+
+            </div>
+
+        `;
+
+        card.addEventListener("click",()=>{
+
+            if(locked ||
+               card===first ||
+               card.classList.contains("matched")) return;
+
+            card.classList.add("flipped");
+
+            if(!first){
+
+                first = card;
+
+                return;
+
+            }
+
+            second = card;
+            locked = true;
+
+            const img1 = first.querySelector("img").src;
+            const img2 = second.querySelector("img").src;
+
+            if(img1 === img2){
+
+                first.classList.add("matched");
+                second.classList.add("matched");
+
+                matches++;
+
+                document.getElementById("memoryStatus").textContent =
+                    "Matches: " + matches + " / 6";
+
+                first = null;
+                second = null;
+                locked = false;
+
+                if(matches===6){
+
+                    completeGame("memory");
+
+                    document.getElementById("memoryStatus").textContent =
+                        "You remembered all of us.";
+
+                }
+
+            }else{
+
+                setTimeout(()=>{
+
+                    first.classList.remove("flipped");
+                    second.classList.remove("flipped");
+
+                    first = null;
+                    second = null;
+                    locked = false;
+
+                },800);
+
+            }
+
+        });
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   BASKETBALL
+========================================================= */
+
+function startBasketball(){
+
+    gameContent.innerHTML = `
+
+        <div class="game-card">
+
+            <p class="game-message">
+                Score 5 baskets before the clock runs out.
+                Click the basketball when it appears.
+            </p>
+
+            <div class="basket-area">
+
+                <div class="basket-score">
+                    SCORE: <span id="basketScore">0</span> / 5
+                </div>
+
+                <div class="hoop"></div>
+
+                <div class="ball" id="ball"></div>
+
+            </div>
+
+            <p id="basketMessage"
+               style="text-align:center;margin-top:15px;">
+                Shoot!
+            </p>
+
+        </div>
+
+    `;
+
+    const ball = document.getElementById("ball");
+
+    let score = 0;
+    let shots = 0;
+    let finished = false;
+
+    ball.onclick = ()=>{
+
+        if(finished) return;
+
+        score++;
+        shots++;
+
+        document.getElementById("basketScore").textContent =
+            score;
+
+        ball.style.left =
+            (20 + Math.random()*60) + "%";
+
+        ball.style.bottom =
+            (20 + Math.random()*60) + "px";
+
+        if(score>=5){
+
+            finished = true;
+
+            document.getElementById("basketMessage").textContent =
+                "Nothing but net. Player 2 wins.";
+
+            completeGame("basketball");
+
+        }
+
+    };
+
+}
+
+
+/* =========================================================
+   CATCH MEMORIES
+========================================================= */
+
+function startMemories(){
+
+    gameContent.innerHTML = `
+
+        <div class="game-card">
+
+            <p class="game-message">
+                Catch 10 hearts before they disappear.
+                Every heart represents one tiny piece of us.
+            </p>
+
+            <div class="catch-area" id="catchArea"></div>
+
+            <p style="text-align:center;margin-top:12px;">
+                CAUGHT: <span id="heartScore">0</span> / 10
+            </p>
+
+        </div>
+
+    `;
+
+    const area = document.getElementById("catchArea");
+
+    let score = 0;
+
+    function spawn(){
+
+        if(score>=10) return;
+
+        const heart = document.createElement("div");
+
+        heart.className = "memory-heart";
+        heart.textContent = "♥";
+
+        heart.style.left =
+            (5 + Math.random()*85) + "%";
+
+        heart.style.top =
+            (5 + Math.random()*80) + "%";
+
+        area.appendChild(heart);
+
+        heart.onclick = ()=>{
+
+            score++;
+
+            document.getElementById("heartScore").textContent =
+                score;
+
+            heart.remove();
+
+            if(score>=10){
+
+                completeGame("memories");
+
+                area.innerHTML =
+                    '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:25px;font-weight:1000;color:var(--pink)">YOU CAUGHT ALL OUR LOVE</div>';
+
+            }else{
+
+                spawn();
+
+            }
+
+        };
+
+    }
+
+    for(let i=0;i<4;i++){
+        spawn();
+    }
+
+}
+
+
+/* =========================================================
+   TRIVIA
+========================================================= */
+
+function startTrivia(){
+
+    const questions = [
+
+        {
+            q:"What was our first Valentine's Day destination?",
+            a:[
+                "Caliburrito",
+                "Gourmet",
+                "The movies",
+                "Home"
+            ],
+            correct:0
+        },
+
+        {
+            q:"What was one of our earliest big couple firsts?",
+            a:[
+                "First concert",
+                "First ethnic day together",
+                "Graduation",
+                "New house"
+            ],
+            correct:1
+        },
+
+        {
+            q:"What did you bring when you came for the housewarming?",
+            a:[
+                "Cake",
+                "Pizza",
+                "A big bouquet of flowers",
+                "Nothing"
+            ],
+            correct:2
+        },
+
+        {
+            q:"What happened on the birthday dinner night?",
+            a:[
+                "You bought an outfit to color match",
+                "You forgot the dinner",
+                "We went bowling",
+                "We stayed home"
+            ],
+            correct:0
+        },
+
+        {
+            q:"How long are we celebrating?",
+            a:[
+                "One year",
+                "Six months",
+                "Two years",
+                "Ten years"
+            ],
+            correct:2
+        }
+
+    ];
+
+    let index = 0;
+    let score = 0;
+
+    function render(){
+
+        if(index>=questions.length){
+
+            gameContent.innerHTML = `
+
+                <div class="game-card final-message">
+
+                    <h1>${score}/${questions.length}</h1>
+
+                    <h2>
+                        ${
+                            score===questions.length
+                            ? "YOU ACTUALLY KNOW US."
+                            : "OKAY, WE NEED TO MAKE MORE MEMORIES."
+                        }
+                    </h2>
+
+                    <p class="game-message">
+                        Either way, you're stuck with me.
+                    </p>
+
+                    <button class="primary" id="finishTrivia">
+                        FINISH
+                    </button>
+
+                </div>
+
+            `;
+
+            completeGame("trivia");
+
+            document.getElementById("finishTrivia").onclick =
+                ()=>{
+
+                    gameContent.innerHTML = `
+
+                        <div class="game-card final-message">
+
+                            <h1>US</h1>
+
+                            <h2>730 DAYS</h2>
+
+                            <img src="two_years.png">
+
+                            <p class="game-message">
+                                Happy two years to us.
+                                Here's to every memory we've already made
+                                and every ridiculous one still waiting for us.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                };
+
+            return;
+        }
+
+        const question = questions[index];
+
+        gameContent.innerHTML = `
+
+            <div class="game-card">
+
+                <div class="progress">
+                    <div style="width:${(index/questions.length)*100}%"></div>
+                </div>
+
+                <p style="color:var(--cyan);font-weight:900;margin-bottom:10px;">
+                    QUESTION ${index+1} / ${questions.length}
+                </p>
+
+                <div class="question">
+                    ${question.q}
+                </div>
+
+                <div class="answers">
+
+                    ${question.a.map((answer,i)=>`
+
+                        <button class="answer" data-index="${i}">
+                            ${answer}
+                        </button>
+
+                    `).join("")}
+
+                </div>
+
+            </div>
+
+        `;
+
+        document.querySelectorAll(".answer").forEach(button=>{
+
+            button.onclick = ()=>{
+
+                const selected =
+                    Number(button.dataset.index);
+
+                document.querySelectorAll(".answer")
+                    .forEach(b=>b.disabled=true);
+
+                if(selected===question.correct){
+
+                    button.classList.add("correct");
+                    score++;
+
+                }else{
+
+                    button.classList.add("wrong");
+
+                    document.querySelectorAll(".answer")
+                        [question.correct]
+                        .classList.add("correct");
+
+                }
+
+                setTimeout(()=>{
+
+                    index++;
+                    render();
+
+                },800);
+
+            };
+
+        });
+
+    }
+
+    render();
+
+}
+
+
+/* =========================================================
+   INITIAL PLAYER POSITION
+========================================================= */
+
+window.addEventListener("resize",()=>{
+
+    updatePlayer();
+
+});
+
+setTimeout(updatePlayer,100);
+
+
+/* =========================================================
+   FINAL MESSAGE WHEN ALL GAMES COMPLETE
+========================================================= */
+
+setInterval(()=>{
+
+    if(completedGames.size===6){
+
+        gameCounter.textContent =
+            "ALL 6 GAMES COMPLETE";
+
+    }
+
+},500);
+
+</script>
+
+</body>
+</html>
+```
