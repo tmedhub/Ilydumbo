@@ -3,87 +3,135 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>THE US ARCADE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE US ARCADE ❤️</title>
+
+<!-- HEIC support -->
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap');
+
 :root{
-    --pink:#ff4fa3;
-    --cyan:#42e8ff;
-    --yellow:#ffe36e;
-    --purple:#9d7cff;
-    --green:#67f7a8;
-    --white:#f7f7ff;
-    --muted:#aeb3d1;
-    --dark:#070812;
-    --panel:rgba(12,15,35,.94);
-    --panel2:rgba(23,26,52,.95);
+  --pink:#ff6fae;
+  --hot:#ff3f8e;
+  --cream:#fff7f0;
+  --yellow:#ffe477;
+  --blue:#7ddcff;
+  --purple:#b59aff;
+  --green:#83e6a8;
+  --dark:#100d20;
+  --dark2:#1b1530;
+  --white:#fff;
+  --muted:#d9d0e8;
 }
 
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#080914;
-    color:var(--white);
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#090711;
+  font-family:'Nunito',sans-serif;
+  color:white;
 }
 
 button{
-    font-family:inherit;
+  font-family:'Nunito',sans-serif;
+  cursor:pointer;
+  border:0;
 }
 
 .hidden{
-    display:none!important;
+  display:none!important;
 }
 
 /* =========================================================
-   BACKGROUND
+   GLOBAL
 ========================================================= */
 
-body{
-    background-image:
-        linear-gradient(rgba(5,6,18,.25),rgba(5,6,18,.25)),
-        url("bg.png");
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
+#app{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
 }
 
-/* =========================================================
-   MUSIC
-========================================================= */
-
-#music{
-    display:none;
+.pixel{
+  font-family:'Press Start 2P',monospace;
 }
 
-.music-control{
-    position:fixed;
-    right:18px;
-    top:18px;
-    z-index:1000;
-    border:1px solid rgba(66,232,255,.55);
-    background:rgba(8,9,20,.82);
-    color:var(--cyan);
-    padding:10px 15px;
-    border-radius:999px;
-    cursor:pointer;
-    font-size:12px;
-    font-weight:900;
-    letter-spacing:1px;
-    box-shadow:0 0 20px rgba(66,232,255,.18);
-    backdrop-filter:blur(8px);
+.screen{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
 }
 
-.music-control:hover{
-    box-shadow:0 0 28px rgba(66,232,255,.45);
+.glow{
+  text-shadow:
+    0 0 5px #fff,
+    0 0 12px var(--pink),
+    0 0 25px var(--pink);
+}
+
+.btn{
+  padding:14px 24px;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--pink),var(--hot));
+  color:white;
+  font-weight:900;
+  font-size:16px;
+  box-shadow:
+    0 7px 0 #a51f5c,
+    0 0 20px rgba(255,80,150,.5);
+  transition:.15s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  filter:brightness(1.1);
+}
+
+.btn:active{
+  transform:translateY(5px);
+  box-shadow:0 2px 0 #a51f5c;
+}
+
+.backBtn{
+  position:absolute;
+  top:20px;
+  left:20px;
+  z-index:100;
+  background:rgba(20,15,35,.9);
+  border:2px solid rgba(255,255,255,.2);
+  color:white;
+  border-radius:14px;
+  padding:11px 17px;
+  font-weight:900;
+}
+
+.backBtn:hover{
+  background:var(--pink);
+}
+
+.gameTitle{
+  font-family:'Press Start 2P',monospace;
+  font-size:clamp(20px,3vw,36px);
+  text-align:center;
+  color:white;
+  text-shadow:0 0 12px var(--pink),0 0 30px var(--pink);
+}
+
+.gameSubtitle{
+  text-align:center;
+  color:#eadfea;
+  margin-top:10px;
 }
 
 /* =========================================================
@@ -91,90 +139,74 @@ body{
 ========================================================= */
 
 #entrance{
-    position:fixed;
-    inset:0;
-    z-index:900;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:
-        radial-gradient(circle at 50% 30%,rgba(255,79,163,.16),transparent 35%),
-        rgba(3,4,12,.82);
-    backdrop-filter:blur(5px);
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,100,170,.22),transparent 35%),
+    linear-gradient(180deg,#120c25,#080711);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.intro-box{
-    width:min(720px,94vw);
-    padding:38px;
-    border:1px solid rgba(255,79,163,.55);
-    border-radius:24px;
-    background:rgba(10,12,28,.93);
-    box-shadow:
-        0 0 35px rgba(255,79,163,.2),
-        inset 0 0 35px rgba(66,232,255,.04);
-    text-align:center;
+.entranceStars{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
-.intro-small{
-    color:var(--cyan);
-    font-size:12px;
-    letter-spacing:4px;
-    font-weight:900;
-    margin-bottom:14px;
+.star{
+  position:absolute;
+  color:white;
+  animation:twinkle 1.8s infinite alternate;
 }
 
-.intro-title{
-    font-size:clamp(42px,8vw,88px);
-    line-height:.9;
-    font-weight:1000;
-    color:var(--white);
-    text-shadow:
-        0 0 10px var(--pink),
-        0 0 35px rgba(255,79,163,.65);
-    margin-bottom:28px;
+@keyframes twinkle{
+  from{opacity:.2;transform:scale(.7)}
+  to{opacity:1;transform:scale(1.2)}
 }
 
-#typedMessage{
-    min-height:110px;
-    color:#dddff5;
-    font-size:clamp(15px,2vw,20px);
-    line-height:1.65;
-    white-space:pre-line;
+.entranceBox{
+  width:min(720px,90vw);
+  text-align:center;
+  position:relative;
+  z-index:2;
 }
 
-.cursor{
-    display:inline-block;
-    width:7px;
-    height:20px;
-    background:var(--pink);
-    margin-left:4px;
-    animation:blink .7s infinite;
-    vertical-align:middle;
+.arcadeLogo{
+  font-family:'Press Start 2P',monospace;
+  font-size:clamp(26px,6vw,60px);
+  line-height:1.3;
+  color:white;
+  text-shadow:
+    0 0 8px var(--pink),
+    0 0 18px var(--pink),
+    0 0 35px var(--purple);
+  margin-bottom:30px;
 }
 
-@keyframes blink{
-    50%{opacity:0}
+.entranceAvatar{
+  width:145px;
+  height:145px;
+  object-fit:contain;
+  animation:float 2s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px rgba(255,110,175,.7));
 }
 
-.enter-btn{
-    margin-top:25px;
-    border:1px solid var(--pink);
-    background:linear-gradient(135deg,rgba(255,79,163,.2),rgba(157,124,255,.2));
-    color:white;
-    padding:15px 30px;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:14px;
-    font-weight:1000;
-    letter-spacing:2px;
-    box-shadow:0 0 20px rgba(255,79,163,.2);
-    transition:.2s;
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
 
-.enter-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 35px rgba(255,79,163,.55);
+.entranceMessage{
+  margin:25px auto;
+  padding:25px;
+  max-width:600px;
+  border:2px solid rgba(255,130,185,.5);
+  border-radius:25px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(12px);
+  box-shadow:0 0 30px rgba(255,80,160,.18);
+  font-size:19px;
+  line-height:1.7;
 }
 
 /* =========================================================
@@ -182,461 +214,66 @@ body{
 ========================================================= */
 
 #arcade{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
+  background:#080711;
 }
 
-.arcade-overlay{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:
-        radial-gradient(circle at center,transparent 40%,rgba(0,0,0,.32)),
-        linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.3));
+#arcadeBg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
 }
 
-/* =========================================================
-   TOP BAR
-========================================================= */
-
-.topbar{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:76px;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 25px;
-    background:linear-gradient(to bottom,rgba(5,6,17,.92),rgba(5,6,17,.45),transparent);
+.arcadeShade{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(10,7,20,.08),
+    rgba(10,7,20,.22)
+  );
+  pointer-events:none;
+  z-index:1;
 }
 
-.logo{
-    font-weight:1000;
-    font-size:clamp(20px,3vw,34px);
-    letter-spacing:3px;
-    color:white;
-    text-shadow:
-        0 0 8px var(--pink),
-        0 0 22px rgba(255,79,163,.6);
+#hud{
+  position:absolute;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:20;
+  display:flex;
+  gap:12px;
+  align-items:center;
 }
 
-.logo span{
-    color:var(--cyan);
+.hudPill{
+  padding:11px 17px;
+  border-radius:20px;
+  background:rgba(13,10,25,.9);
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:0 0 15px rgba(255,100,170,.2);
+  font-weight:900;
 }
 
-.stats{
-    display:flex;
-    gap:10px;
+.ticketIcon{
+  color:var(--yellow);
 }
 
-.stat{
-    padding:8px 12px;
-    border:1px solid rgba(255,255,255,.15);
-    background:rgba(7,8,20,.7);
-    border-radius:9px;
-    font-size:11px;
-    font-weight:900;
-    letter-spacing:1px;
-}
-
-/* =========================================================
-   FLOOR
-========================================================= */
-
-#floor{
-    position:absolute;
-    left:0;
-    right:0;
-    top:76px;
-    bottom:0;
-    overflow:hidden;
-}
-
-/* decorative floor lines */
-
-.floor-line{
-    position:absolute;
-    height:2px;
-    background:rgba(66,232,255,.12);
-    box-shadow:0 0 12px rgba(66,232,255,.1);
-    transform:rotate(-12deg);
-}
-
-.floor-line.one{
-    width:1000px;
-    left:-100px;
-    top:28%;
-}
-
-.floor-line.two{
-    width:850px;
-    right:-120px;
-    top:68%;
-    transform:rotate(14deg);
-}
-
-.floor-line.three{
-    width:700px;
-    left:20%;
-    bottom:8%;
-    transform:rotate(-3deg);
-}
-
-/* =========================================================
-   ARCADE MACHINES
-========================================================= */
-
-.machine{
-    position:absolute;
-    width:190px;
-    height:255px;
-    z-index:20;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.machine:hover{
-    transform:translateY(-5px) scale(1.02);
-}
-
-.machine-body{
-    position:absolute;
-    inset:0;
-    border-radius:22px 22px 12px 12px;
-    background:
-        linear-gradient(145deg,#25284b,#101225 60%,#080914);
-    border:2px solid rgba(255,255,255,.15);
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.5),
-        inset 0 0 25px rgba(255,255,255,.025);
-}
-
-.machine-screen{
-    position:absolute;
-    top:23px;
-    left:17px;
-    right:17px;
-    height:130px;
-    border-radius:14px;
-    background:#050611;
-    border:2px solid rgba(255,255,255,.12);
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.machine-screen:after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 4px,
-        rgba(255,255,255,.025) 5px
-    );
-    pointer-events:none;
-}
-
-/* Picture-like game headings */
-
-.game-art{
-    width:105px;
-    height:105px;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    filter:drop-shadow(0 0 14px currentColor);
-}
-
-/* WHEEL */
-
-.wheel-art{
-    color:var(--pink);
-    border:7px solid currentColor;
-    border-radius:50%;
-}
-
-.wheel-art:before{
-    content:"";
-    position:absolute;
-    inset:7px;
-    border:2px solid currentColor;
-    border-radius:50%;
-}
-
-.wheel-art:after{
-    content:"★";
-    font-size:32px;
-    color:var(--yellow);
-}
-
-/* MUSIC */
-
-.music-art{
-    color:var(--cyan);
-}
-
-.music-art:before{
-    content:"♫";
-    font-size:85px;
-    font-weight:1000;
-    text-shadow:0 0 18px var(--cyan);
-}
-
-.music-art:after{
-    content:"";
-    position:absolute;
-    bottom:10px;
-    width:75px;
-    height:4px;
-    background:currentColor;
-    box-shadow:0 -10px 0 currentColor;
-}
-
-/* MEMORY */
-
-.memory-art{
-    color:var(--purple);
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-}
-
-.memory-art i{
-    display:block;
-    border:3px solid currentColor;
-    border-radius:8px;
-    height:45px;
-    box-shadow:0 0 12px currentColor;
-}
-
-.memory-art i:nth-child(2),
-.memory-art i:nth-child(3){
-    color:var(--pink);
-}
-
-.memory-art i:nth-child(4){
-    color:var(--cyan);
-}
-
-/* BASKETBALL */
-
-.ball-art{
-    color:#ff9b45;
-    border:7px solid currentColor;
-    border-radius:50%;
-    overflow:hidden;
-}
-
-.ball-art:before,
-.ball-art:after{
-    content:"";
-    position:absolute;
-    background:currentColor;
-}
-
-.ball-art:before{
-    width:140%;
-    height:6px;
-    transform:rotate(45deg);
-}
-
-.ball-art:after{
-    width:6px;
-    height:140%;
-    transform:rotate(45deg);
-}
-
-/* HEART */
-
-.heart-art{
-    color:var(--pink);
-}
-
-.heart-art:before{
-    content:"♥";
-    font-size:105px;
-    text-shadow:0 0 25px var(--pink);
-}
-
-/* TRIVIA */
-
-.trivia-art{
-    color:var(--yellow);
-    border:5px solid currentColor;
-    border-radius:18px;
-    font-size:65px;
-    font-weight:1000;
-}
-
-.trivia-art:before{
-    content:"?";
-}
-
-/* cabinet details */
-
-.machine-panel{
-    position:absolute;
-    bottom:15px;
-    left:17px;
-    right:17px;
-    height:63px;
-    border-radius:12px;
-    background:#0b0d20;
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.machine-lights{
-    position:absolute;
-    bottom:25px;
-    left:29px;
-    display:flex;
-    gap:8px;
-}
-
-.machine-lights i{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:var(--pink);
-    box-shadow:0 0 10px currentColor;
-}
-
-.machine-lights i:nth-child(2){
-    background:var(--cyan);
-}
-
-.machine-lights i:nth-child(3){
-    background:var(--yellow);
-}
-
-.machine-button{
-    position:absolute;
-    right:27px;
-    bottom:25px;
-    width:22px;
-    height:22px;
-    border-radius:50%;
-    background:var(--pink);
-    box-shadow:0 0 12px var(--pink);
-}
-
-.machine-near{
-    position:absolute;
-    top:-38px;
-    left:50%;
-    transform:translateX(-50%);
-    white-space:nowrap;
-    padding:8px 12px;
-    border-radius:8px;
-    background:rgba(5,6,17,.9);
-    border:1px solid var(--cyan);
-    color:var(--cyan);
-    font-size:10px;
-    font-weight:1000;
-    letter-spacing:1px;
-    box-shadow:0 0 20px rgba(66,232,255,.2);
-    opacity:0;
-    pointer-events:none;
-}
-
-.machine.active .machine-near{
-    opacity:1;
-}
-
-/* Organic arcade layout */
-
-.m1{
-    left:7%;
-    top:8%;
-    transform:rotate(-2deg);
-}
-
-.m2{
-    left:31%;
-    top:4%;
-    transform:rotate(3deg);
-}
-
-.m3{
-    right:9%;
-    top:10%;
-    transform:rotate(-3deg);
-}
-
-.m4{
-    left:14%;
-    top:48%;
-    transform:rotate(2deg);
-}
-
-.m5{
-    left:49%;
-    top:39%;
-    transform:rotate(-2deg);
-}
-
-.m6{
-    right:10%;
-    top:52%;
-    transform:rotate(3deg);
-}
-
-/* =========================================================
-   DECOR
-========================================================= */
-
-.arcade-table{
-    position:absolute;
-    width:170px;
-    height:70px;
-    border-radius:50%;
-    background:rgba(10,12,27,.9);
-    border:2px solid rgba(157,124,255,.25);
-    box-shadow:0 20px 20px rgba(0,0,0,.3);
-}
-
-.table1{
-    left:39%;
-    bottom:5%;
-}
-
-.table2{
-    right:35%;
-    top:23%;
-    transform:rotate(12deg);
-}
-
-.neon-sign{
-    position:absolute;
-    padding:10px 18px;
-    border:2px solid var(--pink);
-    border-radius:10px;
-    color:var(--pink);
-    font-weight:1000;
-    letter-spacing:4px;
-    box-shadow:0 0 20px rgba(255,79,163,.3);
-    background:rgba(8,9,20,.55);
-    transform:rotate(-4deg);
-}
-
-.sign1{
-    left:46%;
-    top:8%;
-}
-
-.sign2{
-    right:4%;
-    bottom:8%;
-    color:var(--cyan);
-    border-color:var(--cyan);
+#soundButton{
+  position:fixed;
+  right:18px;
+  top:16px;
+  z-index:30;
+  background:rgba(15,10,30,.9);
+  border:2px solid rgba(255,255,255,.2);
+  color:white;
+  border-radius:50%;
+  width:46px;
+  height:46px;
+  font-size:20px;
 }
 
 /* =========================================================
@@ -644,2020 +281,3721 @@ body{
 ========================================================= */
 
 #player{
-    position:absolute;
-    width:75px;
-    height:100px;
-    z-index:80;
-    left:50%;
-    top:70%;
-    transform:translate(-50%,-50%);
-    pointer-events:none;
-    transition:transform .08s linear;
+  position:absolute;
+  width:72px;
+  height:72px;
+  object-fit:contain;
+  z-index:15;
+  user-select:none;
+  pointer-events:none;
+  filter:drop-shadow(0 5px 7px rgba(0,0,0,.45));
+  transition:transform:.05s linear;
 }
 
-#player img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    filter:
-        drop-shadow(0 0 8px rgba(255,79,163,.7))
-        drop-shadow(0 12px 15px rgba(0,0,0,.45));
+/* =========================================================
+   MACHINE HOTSPOTS
+========================================================= */
+
+.machine{
+  position:absolute;
+  z-index:10;
+  border:2px solid transparent;
+  border-radius:20px;
+  transition:.2s;
 }
 
-.player-shadow{
-    position:absolute;
-    width:58px;
-    height:14px;
-    background:rgba(0,0,0,.5);
-    border-radius:50%;
-    left:50%;
-    bottom:-2px;
-    transform:translateX(-50%);
-    filter:blur(3px);
+.machine:hover{
+  border-color:rgba(255,255,255,.4);
+  box-shadow:0 0 25px rgba(255,100,180,.4);
+}
+
+.machine.near{
+  border-color:var(--yellow);
+  box-shadow:
+    0 0 8px var(--yellow),
+    0 0 25px rgba(255,228,119,.7);
+}
+
+.machineLabel{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:-28px;
+  white-space:nowrap;
+  background:rgba(10,7,20,.88);
+  border-radius:12px;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:900;
+  opacity:0;
+  transition:.2s;
+}
+
+.machine.near .machineLabel{
+  opacity:1;
+}
+
+.machineHint{
+  position:absolute;
+  bottom:-53px;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  background:var(--yellow);
+  color:#241626;
+  padding:4px 8px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:900;
+  opacity:0;
+}
+
+.machine.near .machineHint{
+  opacity:1;
+}
+
+/*
+  These positions are intentionally scattered.
+  They sit on top of bg.png.
+*/
+
+#mClaw{
+  left:10%;
+  top:22%;
+  width:150px;
+  height:180px;
+}
+
+#mPhoto{
+  left:34%;
+  top:17%;
+  width:155px;
+  height:180px;
+}
+
+#mJuke{
+  right:12%;
+  top:18%;
+  width:150px;
+  height:150px;
+}
+
+#mMemory{
+  left:8%;
+  bottom:15%;
+  width:190px;
+  height:120px;
+}
+
+#mBasket{
+  left:40%;
+  bottom:15%;
+  width:150px;
+  height:160px;
+}
+
+#mMole{
+  right:31%;
+  top:42%;
+  width:155px;
+  height:140px;
+}
+
+#mHigh{
+  right:11%;
+  bottom:18%;
+  width:150px;
+  height:180px;
+}
+
+#mShoot{
+  left:56%;
+  top:18%;
+  width:180px;
+  height:140px;
+}
+
+#mWheel{
+  right:37%;
+  bottom:13%;
+  width:150px;
+  height:150px;
+}
+
+#mCounter{
+  right:4%;
+  bottom:5%;
+  width:210px;
+  height:170px;
+}
+
+/* generic machine visual */
+.machineVisual{
+  width:100%;
+  height:100%;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:8px;
+  font-size:48px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.025));
+  border:3px solid rgba(255,255,255,.2);
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,.05),
+    0 10px 25px rgba(0,0,0,.35);
+}
+
+.machineVisual small{
+  font-family:'Press Start 2P',monospace;
+  font-size:8px;
+  text-align:center;
+  color:white;
+}
+
+.counterVisual{
+  background:linear-gradient(145deg,#71385b,#2b1838);
 }
 
 /* =========================================================
    CONTROLS
 ========================================================= */
 
-.controls{
-    position:absolute;
-    left:18px;
-    bottom:18px;
-    z-index:100;
-    width:140px;
-    height:140px;
+#controls{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  z-index:25;
+  display:grid;
+  grid-template-columns:45px 45px 45px;
+  grid-template-rows:45px 45px;
+  gap:4px;
 }
 
-.control{
-    position:absolute;
-    width:45px;
-    height:45px;
-    border-radius:12px;
-    background:rgba(7,8,20,.8);
-    border:1px solid rgba(66,232,255,.35);
-    color:var(--cyan);
-    font-size:20px;
-    cursor:pointer;
-    box-shadow:0 0 12px rgba(66,232,255,.12);
+.arrow{
+  background:rgba(15,10,28,.85);
+  color:white;
+  border:2px solid rgba(255,255,255,.15);
+  border-radius:10px;
+  font-size:18px;
 }
 
-.control:active{
-    transform:scale(.94);
+.arrow:nth-child(1){
+  grid-column:2;
 }
 
-.up{left:47px;top:0}
-.left{left:0;top:47px}
-.down{left:47px;top:47px}
-.right{right:0;top:47px}
+.arrow:nth-child(2){
+  grid-column:1;
+  grid-row:2;
+}
 
-.interact{
-    position:absolute;
-    right:20px;
-    bottom:24px;
-    z-index:100;
-    border:1px solid var(--yellow);
-    background:rgba(7,8,20,.8);
-    color:var(--yellow);
-    border-radius:10px;
-    padding:12px 16px;
-    font-weight:1000;
-    letter-spacing:1px;
+.arrow:nth-child(3){
+  grid-column:2;
+  grid-row:2;
+}
+
+.arrow:nth-child(4){
+  grid-column:3;
+  grid-row:2;
 }
 
 /* =========================================================
-   GAME OVERLAY
+   INTERACTION POPUP
 ========================================================= */
 
-#gameOverlay{
-    position:fixed;
-    inset:0;
-    z-index:500;
-    background:
-        linear-gradient(rgba(4,5,15,.76),rgba(4,5,15,.84)),
-        url("bg.png");
-    background-size:cover;
-    background-position:center;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
+#interactionHint{
+  position:absolute;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%);
+  z-index:30;
+  background:rgba(10,7,20,.93);
+  border:2px solid var(--yellow);
+  color:white;
+  padding:12px 20px;
+  border-radius:16px;
+  font-weight:900;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
 }
 
-.game-window{
-    width:min(950px,96vw);
-    max-height:92vh;
-    overflow:auto;
-    background:rgba(8,10,25,.96);
-    border:1px solid rgba(255,79,163,.4);
-    border-radius:22px;
-    box-shadow:
-        0 0 50px rgba(255,79,163,.2),
-        inset 0 0 40px rgba(66,232,255,.025);
-    padding:25px;
-    position:relative;
-}
-
-.game-window::-webkit-scrollbar{
-    width:5px;
-}
-
-.game-window::-webkit-scrollbar-thumb{
-    background:var(--pink);
-    border-radius:20px;
-}
-
-.game-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    margin-bottom:20px;
-}
-
-.game-title{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.game-title-art{
-    width:58px;
-    height:58px;
-    border-radius:13px;
-    border:1px solid rgba(255,255,255,.15);
-    background:#050611;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.game-title-art span{
-    font-size:30px;
-}
-
-.game-title h2{
-    font-size:22px;
-    letter-spacing:2px;
-}
-
-.back-btn{
-    border:1px solid var(--pink);
-    color:white;
-    background:rgba(255,79,163,.1);
-    border-radius:9px;
-    padding:10px 15px;
-    cursor:pointer;
-    font-weight:1000;
-    font-size:11px;
-    letter-spacing:1px;
-}
-
-.back-btn:hover{
-    background:rgba(255,79,163,.25);
+#interactionHint.show{
+  opacity:1;
 }
 
 /* =========================================================
-   COMMON GAME UI
+   GAME OVERLAYS
 ========================================================= */
 
-.game-card{
-    background:rgba(20,22,45,.75);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:16px;
-    padding:22px;
+.gameOverlay{
+  position:absolute;
+  inset:0;
+  z-index:100;
+  background:
+    radial-gradient(circle at center,rgba(70,30,70,.72),rgba(5,4,12,.97));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:auto;
+  padding:30px;
 }
 
-.game-message{
-    color:var(--muted);
-    line-height:1.6;
-    margin-bottom:18px;
-}
-
-.primary{
-    background:var(--pink);
-    border:0;
-    color:white;
-    padding:12px 20px;
-    border-radius:9px;
-    font-weight:1000;
-    cursor:pointer;
-}
-
-.secondary{
-    background:rgba(66,232,255,.1);
-    border:1px solid var(--cyan);
-    color:var(--cyan);
-    padding:12px 20px;
-    border-radius:9px;
-    font-weight:1000;
-    cursor:pointer;
+.gamePanel{
+  width:min(950px,94vw);
+  max-height:94vh;
+  overflow:auto;
+  position:relative;
+  background:
+    linear-gradient(145deg,rgba(38,27,55,.98),rgba(15,11,28,.98));
+  border:2px solid rgba(255,130,190,.4);
+  border-radius:28px;
+  padding:35px;
+  box-shadow:
+    0 0 30px rgba(255,80,160,.2),
+    0 25px 70px rgba(0,0,0,.6);
 }
 
 /* =========================================================
-   TRIVIA
+   CLAW
 ========================================================= */
 
-.question{
-    font-size:24px;
-    line-height:1.35;
-    margin-bottom:20px;
+.clawArea{
+  height:440px;
+  margin-top:20px;
+  position:relative;
+  background:linear-gradient(180deg,#32203f,#171125);
+  border-radius:25px;
+  border:4px solid #8c6a9f;
+  overflow:hidden;
 }
 
-.answers{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+.clawGlass{
+  position:absolute;
+  inset:15px;
+  border:3px solid rgba(255,255,255,.2);
+  border-radius:15px;
 }
 
-.answer{
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(7,8,20,.8);
-    color:white;
-    padding:15px;
-    border-radius:10px;
-    cursor:pointer;
-    text-align:left;
-    transition:.15s;
+.clawRail{
+  position:absolute;
+  top:35px;
+  left:50px;
+  right:50px;
+  height:10px;
+  border-radius:10px;
+  background:#bbb;
 }
 
-.answer:hover{
-    border-color:var(--cyan);
+.clawArm{
+  position:absolute;
+  top:40px;
+  left:100px;
+  width:8px;
+  height:190px;
+  background:#bbb;
+  transition:left .25s;
 }
 
-.answer.correct{
-    border-color:var(--green);
-    background:rgba(103,247,168,.1);
+.clawHead{
+  position:absolute;
+  top:215px;
+  left:-13px;
+  width:35px;
+  height:35px;
+  border:7px solid #ddd;
+  border-top:0;
+  border-radius:0 0 18px 18px;
 }
 
-.answer.wrong{
-    border-color:var(--pink);
-    background:rgba(255,79,163,.1);
+.clawArm.drop{
+  animation:clawDrop 1.4s ease-in-out;
 }
 
-.progress{
-    height:7px;
-    background:#080914;
-    border-radius:20px;
-    overflow:hidden;
-    margin-bottom:20px;
+@keyframes clawDrop{
+  0%,100%{transform:translateY(0)}
+  45%,65%{transform:translateY(130px)}
 }
 
-.progress div{
-    height:100%;
-    width:0;
-    background:var(--pink);
-    transition:.3s;
+.capsules{
+  position:absolute;
+  left:35px;
+  right:35px;
+  bottom:30px;
+  display:flex;
+  justify-content:space-around;
+  align-items:end;
+}
+
+.capsule{
+  width:65px;
+  height:80px;
+  border-radius:50%;
+  background:linear-gradient(180deg,#ff94c7 0 50%,#fff 50%);
+  border:3px solid white;
+  box-shadow:0 0 15px rgba(255,120,190,.5);
+  transition:.2s;
+}
+
+.capsule.won{
+  opacity:.2;
+  transform:scale(.8);
+}
+
+.clawControls{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:18px;
+}
+
+.clawPosition{
+  color:var(--yellow);
+  font-weight:900;
+}
+
+.memoryReveal{
+  position:absolute;
+  inset:0;
+  background:rgba(10,7,20,.96);
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+}
+
+.memoryCard{
+  width:min(650px,90%);
+  text-align:center;
+}
+
+.memoryCard img{
+  max-width:100%;
+  max-height:380px;
+  object-fit:contain;
+  border-radius:18px;
+  box-shadow:0 0 30px rgba(255,100,170,.4);
+}
+
+.memoryCard p{
+  margin-top:20px;
+  font-size:18px;
+  line-height:1.6;
 }
 
 /* =========================================================
-   MEMORY
+   PHOTO BOOTH
 ========================================================= */
 
-.memory-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    max-width:650px;
-    margin:auto;
+.photoBoothStage{
+  text-align:center;
+  padding:30px;
 }
 
-.memory-card{
-    aspect-ratio:1;
-    perspective:600px;
-    cursor:pointer;
+.boothCamera{
+  font-size:90px;
+  margin:20px;
 }
 
-.memory-inner{
-    width:100%;
-    height:100%;
-    transition:transform .35s;
-    transform-style:preserve-3d;
-    position:relative;
+.countdown{
+  font-family:'Press Start 2P';
+  font-size:90px;
+  color:var(--yellow);
+  text-shadow:0 0 30px var(--yellow);
 }
 
-.memory-card.flipped .memory-inner,
-.memory-card.matched .memory-inner{
-    transform:rotateY(180deg);
+.flash{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:white;
+  opacity:0;
+  pointer-events:none;
 }
 
-.memory-front,
-.memory-back{
-    position:absolute;
-    inset:0;
-    backface-visibility:hidden;
-    border-radius:12px;
-    overflow:hidden;
+.flash.on{
+  animation:flash .6s;
 }
 
-.memory-front{
-    background:
-        linear-gradient(135deg,var(--pink),var(--purple));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:30px;
+@keyframes flash{
+  0%{opacity:0}
+  25%{opacity:1}
+  100%{opacity:0}
 }
 
-.memory-back{
-    transform:rotateY(180deg);
-    background:#080914;
-    border:2px solid rgba(255,255,255,.1);
+.photoStrip{
+  display:flex;
+  flex-direction:column;
+  width:210px;
+  margin:20px auto;
+  padding:10px;
+  gap:8px;
+  background:#fff;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+  transform:rotate(-2deg);
 }
 
-.memory-back img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.photoStrip img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+}
+
+.stripText{
+  color:#24192d;
+  font-family:'Press Start 2P';
+  font-size:7px;
+  text-align:center;
+  padding:7px 0;
+}
+
+/* =========================================================
+   JUKEBOX
+========================================================= */
+
+.jukebox{
+  margin:35px auto;
+  width:300px;
+  height:420px;
+  border-radius:80px 80px 25px 25px;
+  padding:25px;
+  background:linear-gradient(145deg,#8e4770,#291632);
+  border:5px solid #c995b2;
+  box-shadow:0 0 40px rgba(255,100,180,.35);
+  text-align:center;
+}
+
+.jukeTop{
+  font-size:70px;
+}
+
+.jukeScreen{
+  margin:20px auto;
+  padding:20px;
+  background:#110b20;
+  border-radius:15px;
+  color:var(--yellow);
+  font-family:'Press Start 2P';
+  font-size:9px;
+  line-height:2;
+}
+
+.musicNotes{
+  animation:notes 1.5s infinite alternate;
+}
+
+@keyframes notes{
+  from{transform:translateY(0)}
+  to{transform:translateY(-10px)}
+}
+
+/* =========================================================
+   MEMORY LANE
+========================================================= */
+
+#memoryGame{
+  background:#080b14;
+}
+
+.driveRoad{
+  position:relative;
+  height:520px;
+  margin-top:20px;
+  overflow:hidden;
+  border-radius:25px;
+  background:
+    linear-gradient(90deg,#4b7050,#77a268 20%,#4d754f 80%,#406747);
+}
+
+.road{
+  position:absolute;
+  width:50%;
+  left:25%;
+  height:120%;
+  top:-10%;
+  background:#3d3d45;
+  clip-path:polygon(28% 0,72% 0,100% 100%,0 100%);
+}
+
+.roadLine{
+  position:absolute;
+  left:49%;
+  top:0;
+  width:2%;
+  height:100%;
+  background:repeating-linear-gradient(
+    to bottom,
+    #f8e9a9 0 35px,
+    transparent 35px 70px
+  );
+}
+
+.car{
+  position:absolute;
+  width:85px;
+  left:calc(50% - 42px);
+  bottom:35px;
+  font-size:70px;
+  z-index:5;
+  transition:bottom .7s;
+}
+
+.milestone{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:150px;
+  padding:10px;
+  border-radius:15px;
+  background:rgba(20,15,25,.9);
+  border:2px solid var(--yellow);
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+  z-index:6;
+}
+
+.milestone:nth-child(1){top:8%}
+.milestone:nth-child(2){top:27%}
+.milestone:nth-child(3){top:46%}
+.milestone:nth-child(4){top:65%}
+.milestone:nth-child(5){top:82%}
+
+.memoryRoadCard{
+  margin-top:20px;
+  display:flex;
+  gap:20px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.memoryRoadCard img{
+  width:min(300px,90%);
+  max-height:260px;
+  object-fit:contain;
+  border-radius:18px;
 }
 
 /* =========================================================
    BASKETBALL
 ========================================================= */
 
-.basket-area{
-    height:380px;
-    position:relative;
-    overflow:hidden;
-    background:
-        linear-gradient(to bottom,rgba(66,232,255,.03),rgba(255,79,163,.03));
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,.08);
+.basketCourt{
+  margin-top:25px;
+  background:
+    linear-gradient(90deg,#9e653e,#d29a5e,#9e653e);
+  border-radius:25px;
+  min-height:450px;
+  position:relative;
+  overflow:hidden;
 }
 
 .hoop{
-    position:absolute;
-    top:50px;
-    right:100px;
-    width:100px;
-    height:80px;
-    border:5px solid var(--yellow);
-    border-radius:0 0 50px 50px;
+  position:absolute;
+  right:12%;
+  top:70px;
+  font-size:100px;
 }
 
 .ball{
-    position:absolute;
-    bottom:35px;
-    left:50%;
-    width:65px;
-    height:65px;
-    border-radius:50%;
-    background:#ff9b45;
-    border:4px solid #30190c;
-    cursor:pointer;
-    transform:translateX(-50%);
-    transition:.3s;
+  position:absolute;
+  bottom:55px;
+  left:18%;
+  font-size:70px;
+  transition:.7s;
 }
 
-.ball:before{
-    content:"";
-    position:absolute;
-    width:100%;
-    height:5px;
-    background:#30190c;
-    top:27px;
-    transform:rotate(45deg);
+.ball.shoot{
+  animation:ballShot .9s ease-in forwards;
 }
 
-.basket-score{
-    position:absolute;
-    top:15px;
-    left:20px;
-    font-weight:1000;
-    color:var(--yellow);
+@keyframes ballShot{
+  0%{left:18%;bottom:55px}
+  50%{left:55%;bottom:300px}
+  100%{left:77%;bottom:240px}
+}
+
+.questionBox{
+  position:absolute;
+  left:50%;
+  top:35px;
+  transform:translateX(-50%);
+  width:min(650px,90%);
+  background:rgba(25,16,25,.93);
+  border-radius:20px;
+  padding:25px;
+  text-align:center;
+}
+
+.answerGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:20px;
+}
+
+.answerBtn{
+  background:#fff;
+  color:#291a2b;
+  border-radius:15px;
+  padding:14px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.answerBtn:hover{
+  background:var(--pink);
+  color:white;
+  transform:scale(1.03);
+}
+
+.quizResult{
+  margin-top:15px;
+  font-weight:900;
+  min-height:25px;
 }
 
 /* =========================================================
-   CATCH MEMORIES
+   WHACK A MOLE
 ========================================================= */
 
-.catch-area{
-    position:relative;
-    height:430px;
-    overflow:hidden;
-    border-radius:16px;
-    background:rgba(5,6,17,.7);
-    border:1px solid rgba(255,255,255,.08);
+.moleBoard{
+  margin-top:25px;
+  background:#4d2d26;
+  border-radius:25px;
+  padding:35px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
 }
 
-.memory-heart{
-    position:absolute;
-    font-size:38px;
-    color:var(--pink);
-    cursor:pointer;
-    filter:drop-shadow(0 0 10px var(--pink));
-    animation:floatHeart 2s infinite alternate ease-in-out;
+.hole{
+  height:130px;
+  background:#241718;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  border:5px solid #744b3e;
 }
 
-@keyframes floatHeart{
-    from{transform:translateY(0) rotate(-5deg)}
-    to{transform:translateY(-12px) rotate(5deg)}
+.mole{
+  position:absolute;
+  width:90px;
+  height:90px;
+  left:50%;
+  bottom:-95px;
+  transform:translateX(-50%);
+  background:#9b5c45;
+  border-radius:50% 50% 35% 35%;
+  transition:.15s;
+}
+
+.mole.up{
+  bottom:8px;
+}
+
+.moleFace{
+  font-size:48px;
+  text-align:center;
+  padding-top:12px;
+}
+
+.problemText{
+  text-align:center;
+  margin:20px;
+  color:var(--yellow);
+  font-weight:900;
+  min-height:25px;
 }
 
 /* =========================================================
-   MUSIC GAME
+   HIGH STRIKER
 ========================================================= */
 
-.music-game{
-    text-align:center;
+.striker{
+  text-align:center;
+  margin-top:20px;
 }
 
-.beat{
-    width:180px;
-    height:180px;
-    margin:25px auto;
-    border-radius:50%;
-    border:5px solid var(--cyan);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:70px;
-    cursor:pointer;
-    box-shadow:0 0 25px rgba(66,232,255,.2);
-    transition:.1s;
+.strikerMachine{
+  width:230px;
+  height:440px;
+  margin:0 auto;
+  background:linear-gradient(145deg,#502e69,#21152e);
+  border:5px solid #b58aca;
+  border-radius:25px;
+  position:relative;
 }
 
-.beat.active{
-    transform:scale(1.12);
-    box-shadow:0 0 60px rgba(66,232,255,.7);
+.meter{
+  position:absolute;
+  width:55px;
+  height:300px;
+  bottom:45px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#110d17;
+  border-radius:30px;
+  border:4px solid #ddd;
+  overflow:hidden;
 }
 
-.music-score{
-    font-size:18px;
-    color:var(--cyan);
-    font-weight:1000;
+.meterFill{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:0;
+  background:linear-gradient(to top,var(--pink),var(--yellow),white);
+  transition:.5s;
+}
+
+.bell{
+  position:absolute;
+  top:30px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:55px;
+}
+
+.hammer{
+  margin:20px;
+  font-size:80px;
+  transition:.1s;
+}
+
+.hammer.smash{
+  animation:smash .35s;
+}
+
+@keyframes smash{
+  0%{transform:rotate(0)}
+  50%{transform:rotate(-35deg) translateY(20px)}
+  100%{transform:rotate(0)}
+}
+
+.strikerPrize{
+  margin-top:20px;
+  min-height:50px;
+  font-size:22px;
+  font-weight:900;
+}
+
+/* =========================================================
+   SHOOTING GALLERY
+========================================================= */
+
+.shootingRange{
+  margin-top:25px;
+  min-height:450px;
+  background:
+    linear-gradient(#49334f,#20172b);
+  border-radius:25px;
+  position:relative;
+  overflow:hidden;
+}
+
+.target{
+  position:absolute;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,
+      white 0 15%,
+      var(--hot) 15% 35%,
+      white 35% 55%,
+      var(--hot) 55% 75%,
+      white 75%
+    );
+  border:4px solid white;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(255,100,170,.4);
+  transition:.15s;
+}
+
+.target:hover{
+  transform:scale(1.1);
+}
+
+.target span{
+  position:absolute;
+  top:100%;
+  width:180px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:11px;
+  color:white;
+  font-weight:900;
+  margin-top:5px;
+}
+
+#t1{left:10%;top:20%}
+#t2{left:42%;top:15%}
+#t3{right:10%;top:22%}
+#t4{left:20%;bottom:20%}
+#t5{left:48%;bottom:15%}
+#t6{right:10%;bottom:20%}
+
+.gun{
+  position:absolute;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:70px;
+}
+
+.shootingMessage{
+  text-align:center;
+  margin-top:15px;
+  min-height:30px;
+  font-weight:900;
 }
 
 /* =========================================================
    WHEEL
 ========================================================= */
 
-.wheel-wrap{
-    text-align:center;
+.wheelWrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:30px;
 }
 
 .wheel{
-    width:280px;
-    height:280px;
-    border-radius:50%;
-    margin:20px auto;
-    border:7px solid white;
-    position:relative;
-    overflow:hidden;
-    background:conic-gradient(
-        var(--pink) 0deg 60deg,
-        var(--cyan) 60deg 120deg,
-        var(--yellow) 120deg 180deg,
-        var(--purple) 180deg 240deg,
-        var(--green) 240deg 300deg,
-        #ff8b8b 300deg 360deg
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  background:
+    conic-gradient(
+      var(--pink) 0 60deg,
+      var(--purple) 60deg 120deg,
+      var(--yellow) 120deg 180deg,
+      var(--blue) 180deg 240deg,
+      var(--green) 240deg 300deg,
+      var(--pink) 300deg 360deg
     );
-    transition:transform 3s cubic-bezier(.1,.7,.1,1);
-    box-shadow:0 0 35px rgba(255,79,163,.35);
+  border:10px solid white;
+  box-shadow:0 0 35px rgba(255,100,180,.45);
+  position:relative;
+  transition:transform 4s cubic-bezier(.15,.75,.2,1);
 }
 
-.wheel:after{
-    content:"US";
-    position:absolute;
-    width:70px;
-    height:70px;
-    background:#090a18;
-    border:3px solid white;
-    border-radius:50%;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:1000;
+.wheel::after{
+  content:'💌';
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:65px;
 }
 
 .pointer{
-    width:0;
-    height:0;
-    border-left:12px solid transparent;
-    border-right:12px solid transparent;
-    border-top:30px solid var(--pink);
-    margin:auto;
+  font-size:40px;
+  margin-bottom:-15px;
+  z-index:2;
+}
+
+.letter{
+  margin-top:25px;
+  background:#fff5e8;
+  color:#3d2733;
+  padding:35px;
+  border-radius:20px;
+  max-height:480px;
+  overflow:auto;
+  line-height:1.8;
+  font-size:16px;
+  white-space:pre-line;
+}
+
+.letter strong{
+  color:#c63e75;
+}
+
+/* =========================================================
+   TICKET COUNTER
+========================================================= */
+
+.counterGame{
+  text-align:center;
+}
+
+.counterAvatar{
+  width:170px;
+  height:170px;
+  object-fit:contain;
+  margin:20px;
+}
+
+.finalButton{
+  margin:25px auto;
+  display:block;
+  font-family:'Press Start 2P';
+  padding:20px 30px;
+  font-size:14px;
+  color:white;
+  background:linear-gradient(135deg,#ff4f9c,#b75cff);
+  border-radius:18px;
+  box-shadow:
+    0 0 15px var(--pink),
+    0 0 35px rgba(180,90,255,.7);
+  animation:pulseButton 1.3s infinite;
+}
+
+@keyframes pulseButton{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
 }
 
 /* =========================================================
    FINAL
 ========================================================= */
 
-.final-message{
-    text-align:center;
-    padding:30px;
+#finalScreen{
+  background:
+    radial-gradient(circle at center,#5e315e,#160e27 55%,#080611);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
 }
 
-.final-message h1{
-    font-size:clamp(50px,10vw,100px);
-    color:white;
-    text-shadow:
-        0 0 10px var(--pink),
-        0 0 35px var(--pink);
+.finalContent{
+  position:relative;
+  z-index:20;
+  width:min(900px,90vw);
 }
 
-.final-message h2{
-    color:var(--cyan);
-    margin:12px 0 25px;
+.finalHeart{
+  font-size:90px;
+  animation:heartBeat 1s infinite;
 }
 
-.final-message img{
-    width:min(420px,90%);
-    max-height:280px;
-    object-fit:cover;
-    border-radius:18px;
-    border:2px solid rgba(255,255,255,.15);
-    box-shadow:0 0 35px rgba(255,79,163,.25);
+@keyframes heartBeat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.18)}
+}
+
+.finalTitle{
+  font-family:'Press Start 2P';
+  font-size:clamp(22px,5vw,52px);
+  line-height:1.6;
+  color:white;
+  text-shadow:
+    0 0 8px var(--pink),
+    0 0 25px var(--pink),
+    0 0 45px var(--purple);
+}
+
+.finalSub{
+  margin-top:20px;
+  font-size:24px;
+  font-weight:900;
+}
+
+.confetti{
+  position:absolute;
+  width:10px;
+  height:16px;
+  top:-30px;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+  }
+}
+
+.flyingHeart{
+  position:absolute;
+  font-size:25px;
+  animation:heartFly 4s linear forwards;
+}
+
+@keyframes heartFly{
+  0%{
+    transform:translateY(100vh) scale(.5);
+    opacity:0;
+  }
+  15%{opacity:1}
+  100%{
+    transform:translateY(-20vh) translateX(var(--x)) scale(1.5);
+    opacity:0;
+  }
 }
 
 /* =========================================================
-   RESPONSIVE
+   TICKET ANIMATION
 ========================================================= */
 
-@media(max-width:800px){
+.ticketFly{
+  position:fixed;
+  z-index:9999;
+  font-size:28px;
+  pointer-events:none;
+  animation:ticketFly .9s forwards;
+}
 
-    .topbar{
-        padding:0 14px;
-    }
+@keyframes ticketFly{
+  to{
+    left:50%;
+    top:20px;
+    transform:scale(.3) rotate(360deg);
+    opacity:0;
+  }
+}
 
-    .stats{
-        display:none;
-    }
+/* =========================================================
+   MOBILE
+========================================================= */
 
-    .machine{
-        width:145px;
-        height:200px;
-    }
+@media(max-width:700px){
 
-    .machine-screen{
-        height:100px;
-    }
+  .machine{
+    transform:scale(.75);
+    transform-origin:center;
+  }
 
-    .machine-panel{
-        height:48px;
-    }
+  #mClaw{left:2%;top:18%}
+  #mPhoto{left:27%;top:14%}
+  #mJuke{right:0;top:17%}
+  #mMemory{left:0;bottom:17%}
+  #mBasket{left:32%;bottom:15%}
+  #mMole{right:20%;top:42%}
+  #mHigh{right:0;bottom:18%}
+  #mShoot{left:45%;top:18%}
+  #mWheel{right:27%;bottom:11%}
+  #mCounter{right:-5%;bottom:3%}
 
-    .game-window{
-        padding:17px;
-    }
+  #player{
+    width:58px;
+    height:58px;
+  }
 
-    .answers{
-        grid-template-columns:1fr;
-    }
+  .gamePanel{
+    padding:24px 16px;
+  }
 
-    .memory-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
+  .answerGrid{
+    grid-template-columns:1fr;
+  }
 
-    .m3,.m6{
-        right:2%;
-    }
+  .moleBoard{
+    grid-template-columns:1fr 1fr;
+    padding:15px;
+    gap:10px;
+  }
 
-    .m1{
-        left:2%;
-    }
+  .wheel{
+    width:250px;
+    height:250px;
+  }
 
-    .m4{
-        left:4%;
-    }
-
-    .m5{
-        left:38%;
-    }
-
-    .sign1{
-        display:none;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+<div id="app">
 
-<button class="music-control" id="musicButton">MUSIC OFF</button>
-
-<!-- =====================================================
+<!-- ======================================================
      ENTRANCE
-===================================================== -->
+====================================================== -->
 
-<section id="entrance">
+<section id="entrance" class="screen">
 
-    <div class="intro-box">
+  <div class="entranceStars">
+    <span class="star" style="left:8%;top:14%">✦</span>
+    <span class="star" style="left:20%;top:70%">✧</span>
+    <span class="star" style="left:80%;top:20%">✦</span>
+    <span class="star" style="left:90%;top:75%">✧</span>
+    <span class="star" style="left:65%;top:10%">✦</span>
+    <span class="star" style="left:45%;top:80%">✧</span>
+  </div>
 
-        <div class="intro-small">INSERT COIN</div>
+  <div class="entranceBox">
 
-        <div class="intro-title">
-            THE US<br>
-            ARCADE
-        </div>
+    <div class="arcadeLogo">
+      THE US<br>
+      ARCADE
+    </div>
 
-        <div id="typedMessage"></div>
+    <img
+      src="bitmoji.png"
+      class="entranceAvatar"
+      alt="Bitmoji"
+      data-img="bitmoji.png"
+    >
 
-        <button class="enter-btn" id="enterButton">
-            ENTER OUR ARCADE
-        </button>
+    <div class="entranceMessage">
+      Hey Dumbo. ❤️<br><br>
+
+      Welcome to your very own little arcade.
+
+      <br><br>
+
+      Except this one is slightly different...
+
+      <br><br>
+
+      Every game here is about <b>us</b>.
+
+      <br><br>
+
+      So go explore, collect your tickets,
+      discover our memories and try not to embarrass
+      yourself too badly. 😂
+
+      <br><br>
+
+      Ready?
 
     </div>
+
+    <button class="btn" onclick="enterArcade()">
+      ENTER THE ARCADE ❤️
+    </button>
+
+  </div>
 
 </section>
 
 
-<!-- =====================================================
-     ARCADE
-===================================================== -->
+<!-- ======================================================
+     ARCADE WORLD
+====================================================== -->
 
-<section id="arcade" class="hidden">
+<section id="arcade" class="screen hidden">
 
-    <div class="topbar">
+  <img id="arcadeBg" src="bg.png" alt="Arcade">
 
-        <div class="logo">
-            THE <span>US</span> ARCADE
-        </div>
+  <div class="arcadeShade"></div>
 
-        <div class="stats">
-            <div class="stat">730 DAYS</div>
-            <div class="stat">2 YEARS</div>
-            <div class="stat" id="gameCounter">0 / 6 GAMES</div>
-        </div>
-
+  <div id="hud">
+    <div class="hudPill">
+      🎟️ <span id="ticketCount">0</span>
     </div>
 
-    <div id="floor">
-
-        <div class="arcade-overlay"></div>
-
-        <div class="floor-line one"></div>
-        <div class="floor-line two"></div>
-        <div class="floor-line three"></div>
-
-        <div class="neon-sign sign1">LOVE LEVEL</div>
-        <div class="neon-sign sign2">PLAYER 2</div>
-
-        <div class="arcade-table table1"></div>
-        <div class="arcade-table table2"></div>
-
-
-        <!-- WHEEL -->
-
-        <div class="machine m1"
-             data-game="wheel"
-             data-x="7"
-             data-y="8">
-
-            <div class="machine-body">
-
-                <div class="machine-screen">
-
-                    <div class="game-art wheel-art"></div>
-
-                </div>
-
-                <div class="machine-panel"></div>
-
-                <div class="machine-lights">
-                    <i></i><i></i><i></i>
-                </div>
-
-                <div class="machine-button"></div>
-
-            </div>
-
-            <div class="machine-near">
-                PRESS ENTER TO PLAY
-            </div>
-
-        </div>
-
-
-        <!-- MUSIC -->
-
-        <div class="machine m2"
-             data-game="music">
-
-            <div class="machine-body">
-
-                <div class="machine-screen">
-
-                    <div class="game-art music-art"></div>
-
-                </div>
-
-                <div class="machine-panel"></div>
-
-                <div class="machine-lights">
-                    <i></i><i></i><i></i>
-                </div>
-
-                <div class="machine-button"></div>
-
-            </div>
-
-            <div class="machine-near">
-                PRESS ENTER TO PLAY
-            </div>
-
-        </div>
-
-
-        <!-- MEMORY -->
-
-        <div class="machine m3"
-             data-game="memory">
-
-            <div class="machine-body">
-
-                <div class="machine-screen">
-
-                    <div class="game-art memory-art">
-                        <i></i><i></i><i></i><i></i>
-                    </div>
-
-                </div>
-
-                <div class="machine-panel"></div>
-
-                <div class="machine-lights">
-                    <i></i><i></i><i></i>
-                </div>
-
-                <div class="machine-button"></div>
-
-            </div>
-
-            <div class="machine-near">
-                PRESS ENTER TO PLAY
-            </div>
-
-        </div>
-
-
-        <!-- BASKETBALL -->
-
-        <div class="machine m4"
-             data-game="basketball">
-
-            <div class="machine-body">
-
-                <div class="machine-screen">
-
-                    <div class="game-art ball-art"></div>
-
-                </div>
-
-                <div class="machine-panel"></div>
-
-                <div class="machine-lights">
-                    <i></i><i></i><i></i>
-                </div>
-
-                <div class="machine-button"></div>
-
-            </div>
-
-            <div class="machine-near">
-                PRESS ENTER TO PLAY
-            </div>
-
-        </div>
-
-
-        <!-- MEMORIES -->
-
-        <div class="machine m5"
-             data-game="memories">
-
-            <div class="machine-body">
-
-                <div class="machine-screen">
-
-                    <div class="game-art heart-art"></div>
-
-                </div>
-
-                <div class="machine-panel"></div>
-
-                <div class="machine-lights">
-                    <i></i><i></i><i></i>
-                </div>
-
-                <div class="machine-button"></div>
-
-            </div>
-
-            <div class="machine-near">
-                PRESS ENTER TO PLAY
-            </div>
-
-        </div>
-
-
-        <!-- TRIVIA -->
-
-        <div class="machine m6"
-             data-game="trivia">
-
-            <div class="machine-body">
-
-                <div class="machine-screen">
-
-                    <div class="game-art trivia-art"></div>
-
-                </div>
-
-                <div class="machine-panel"></div>
-
-                <div class="machine-lights">
-                    <i></i><i></i><i></i>
-                </div>
-
-                <div class="machine-button"></div>
-
-            </div>
-
-            <div class="machine-near">
-                PRESS ENTER TO PLAY
-            </div>
-
-        </div>
-
-
-        <!-- PLAYER -->
-
-        <div id="player">
-
-            <img src="bitmoji.png" alt="Player">
-
-            <div class="player-shadow"></div>
-
-        </div>
-
-
-        <!-- MOBILE CONTROLS -->
-
-        <div class="controls">
-
-            <button class="control up" data-dir="up">↑</button>
-            <button class="control left" data-dir="left">←</button>
-            <button class="control down" data-dir="down">↓</button>
-            <button class="control right" data-dir="right">→</button>
-
-        </div>
-
-        <div class="interact">
-            ENTER = PLAY
-        </div>
-
+    <div class="hudPill pixel" style="font-size:9px">
+      THE US ARCADE
     </div>
+  </div>
+
+  <button id="soundButton" onclick="toggleSound()">🔊</button>
+
+  <!-- PLAYER -->
+
+  <img
+    id="player"
+    src="bitmoji.png"
+    alt="Player"
+    data-img="bitmoji.png"
+  >
+
+  <!-- MACHINES -->
+
+  <div class="machine" id="mClaw" data-game="claw">
+    <div class="machineVisual">
+      🧸
+      <small>CLAW</small>
+    </div>
+    <div class="machineLabel">CLAW MACHINE</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mPhoto" data-game="photo">
+    <div class="machineVisual">
+      📸
+      <small>PHOTO BOOTH</small>
+    </div>
+    <div class="machineLabel">PHOTO BOOTH</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mJuke" data-game="juke">
+    <div class="machineVisual">
+      🎵
+      <small>JUKEBOX</small>
+    </div>
+    <div class="machineLabel">JUKEBOX</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mMemory" data-game="memory">
+    <div class="machineVisual">
+      🚗
+      <small>MEMORY LANE</small>
+    </div>
+    <div class="machineLabel">MEMORY LANE</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mBasket" data-game="basket">
+    <div class="machineVisual">
+      🏀
+      <small>HOW WELL DO YOU KNOW US?</small>
+    </div>
+    <div class="machineLabel">BASKETBALL</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mMole" data-game="mole">
+    <div class="machineVisual">
+      🐹
+      <small>WHACK-A-MOLE</small>
+    </div>
+    <div class="machineLabel">WHACK-A-MOLE</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mHigh" data-game="high">
+    <div class="machineVisual">
+      🔨
+      <small>HIGH STRIKER</small>
+    </div>
+    <div class="machineLabel">HIGH STRIKER</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mShoot" data-game="shoot">
+    <div class="machineVisual">
+      🎯
+      <small>SHOOTING GALLERY</small>
+    </div>
+    <div class="machineLabel">SHOOTING GALLERY</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mWheel" data-game="wheel">
+    <div class="machineVisual">
+      🎡
+      <small>SPIN THE WHEEL</small>
+    </div>
+    <div class="machineLabel">SPIN THE WHEEL</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+  <div class="machine" id="mCounter" data-game="counter">
+    <div class="machineVisual counterVisual">
+      🎟️
+      <img
+        src="bitmoji.png"
+        style="width:65px;height:65px;object-fit:contain"
+        data-img="bitmoji.png"
+      >
+      <small>TICKET COUNTER</small>
+    </div>
+    <div class="machineLabel">TICKET COUNTER</div>
+    <div class="machineHint">ENTER TO PLAY</div>
+  </div>
+
+
+  <div id="interactionHint">
+    PRESS ENTER TO PLAY
+  </div>
+
+
+  <div id="controls">
+    <button class="arrow" onclick="movePlayer(0,-1)">▲</button>
+    <button class="arrow" onclick="movePlayer(-1,0)">◀</button>
+    <button class="arrow" onclick="movePlayer(0,1)">▼</button>
+    <button class="arrow" onclick="movePlayer(1,0)">▶</button>
+  </div>
 
 </section>
 
 
-<!-- =====================================================
-     GAME WINDOW
-===================================================== -->
+<!-- ======================================================
+     CLAW MACHINE
+====================================================== -->
 
-<section id="gameOverlay">
+<div id="clawGame" class="gameOverlay hidden">
 
-    <div class="game-window">
+  <div class="gamePanel">
 
-        <div class="game-header">
+    <button class="backBtn" onclick="closeGame('clawGame')">
+      ← BACK
+    </button>
 
-            <div class="game-title">
+    <div class="gameTitle">🧸 CLAW MACHINE</div>
+    <div class="gameSubtitle">
+      Pick a capsule and discover one of our memories.
+    </div>
 
-                <div class="game-title-art" id="gameIcon">
-                    <span>♥</span>
-                </div>
+    <div class="clawArea">
 
-                <div>
-                    <h2 id="gameTitle">GAME</h2>
-                </div>
+      <div class="clawGlass"></div>
 
-            </div>
+      <div class="clawRail"></div>
 
-            <button class="back-btn" id="backButton">
-                BACK TO ARCADE
-            </button>
+      <div class="clawArm" id="clawArm">
+        <div class="clawHead"></div>
+      </div>
+
+      <div class="capsules">
+
+        <div class="capsule" id="cap1"></div>
+        <div class="capsule" id="cap2"></div>
+        <div class="capsule" id="cap3"></div>
+        <div class="capsule" id="cap4"></div>
+        <div class="capsule" id="cap5"></div>
+        <div class="capsule" id="cap6"></div>
+        <div class="capsule" id="cap7"></div>
+
+      </div>
+
+      <div
+        id="clawReveal"
+        class="memoryReveal hidden"
+      >
+
+        <div class="memoryCard">
+
+          <img id="clawMemoryImage">
+
+          <p id="clawMemoryText"></p>
+
+          <button
+            class="btn"
+            onclick="closeClawReveal()"
+            style="margin-top:20px"
+          >
+            KEEP EXPLORING ❤️
+          </button>
 
         </div>
 
-        <div id="gameContent"></div>
+      </div>
 
     </div>
 
+    <div class="clawControls">
+
+      <button class="btn" onclick="clawMove(-1)">
+        ◀
+      </button>
+
+      <div class="clawPosition">
+        POSITION <span id="clawPos">4</span>
+      </div>
+
+      <button class="btn" onclick="clawMove(1)">
+        ▶
+      </button>
+
+      <button
+        class="btn"
+        onclick="dropClaw()"
+        style="background:linear-gradient(135deg,#7c65ff,#b34cff)"
+      >
+        DROP
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     PHOTO BOOTH
+====================================================== -->
+
+<div id="photoGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('photoGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">📸 PHOTO BOOTH</div>
+
+    <div class="photoBoothStage">
+
+      <div class="boothCamera">📸</div>
+
+      <div id="photoInstruction">
+        Step inside, Dumbo.
+      </div>
+
+      <div
+        id="countdown"
+        class="countdown hidden"
+      >
+        3
+      </div>
+
+      <div id="photoResult" class="hidden">
+
+        <div class="photoStrip">
+
+          <img src="photo_booth1.jpeg">
+
+          <img
+            src="photo_booth2.heic"
+            data-img="photo_booth2.heic"
+          >
+
+          <img
+            src="photo_booth.heic"
+            data-img="photo_booth.heic"
+          >
+
+          <img
+            src="phbooth.heic"
+            data-img="phbooth.heic"
+          >
+
+          <div class="stripText">
+            THE US ❤️
+          </div>
+
+        </div>
+
+        <div style="margin:20px">
+          🎟️ +25 TICKETS
+        </div>
+
+      </div>
+
+      <button
+        id="photoStart"
+        class="btn"
+        onclick="startPhotoBooth()"
+      >
+        TAKE OUR PHOTO 📸
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     JUKEBOX
+====================================================== -->
+
+<div id="jukeGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('jukeGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">🎵 JUKEBOX</div>
+
+    <div class="jukebox">
+
+      <div class="jukeTop musicNotes">
+        🎵
+      </div>
+
+      <div class="jukeScreen">
+        OUR SONGS<br>
+        OUR MEMORIES<br>
+        OUR LITTLE WORLD
+      </div>
+
+      <div style="font-size:45px">
+        💿
+      </div>
+
+      <p style="margin:20px 0">
+        Press play and enter<br>
+        our soundtrack.
+      </p>
+
+      <button
+        class="btn"
+        onclick="openSpotify()"
+      >
+        PLAY OUR PLAYLIST
+      </button>
+
+    </div>
+
+    <div style="text-align:center">
+      🎟️ +15 TICKETS
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     MEMORY LANE
+====================================================== -->
+
+<div id="memoryGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('memoryGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">🚗 MEMORY LANE</div>
+
+    <div class="gameSubtitle">
+      Drive through us.
+    </div>
+
+    <div class="driveRoad">
+
+      <div class="road"></div>
+      <div class="roadLine"></div>
+
+      <div class="milestone" onclick="showRoadMemory(0)">
+        💕 FIRST CHAPTER
+      </div>
+
+      <div class="milestone" onclick="showRoadMemory(1)">
+        🌳 CUBBON
+      </div>
+
+      <div class="milestone" onclick="showRoadMemory(2)">
+        🎉 THAT NIGHT
+      </div>
+
+      <div class="milestone" onclick="showRoadMemory(3)">
+        ❤️ US
+      </div>
+
+      <div class="milestone" onclick="showRoadMemory(4)">
+        🎓 ALL THE WAY HERE
+      </div>
+
+      <div class="car" id="car">
+        🚗
+      </div>
+
+    </div>
+
+    <div id="roadMemory"
+         class="memoryRoadCard hidden">
+
+      <img id="roadMemoryImg">
+
+      <div style="max-width:400px">
+        <p id="roadMemoryText"
+           style="font-size:18px;line-height:1.7">
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     BASKETBALL
+====================================================== -->
+
+<div id="basketGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('basketGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">
+      🏀 HOW WELL DO YOU KNOW US?
+    </div>
+
+    <div class="gameSubtitle">
+      Answer correctly and sink the shot.
+    </div>
+
+    <div class="basketCourt">
+
+      <div class="hoop">
+        🏀
+      </div>
+
+      <div class="ball" id="basketBall">
+        🏀
+      </div>
+
+      <div class="questionBox">
+
+        <div id="questionNumber">
+          QUESTION 1
+        </div>
+
+        <div
+          id="questionText"
+          style="margin-top:15px;font-size:19px;font-weight:900;line-height:1.5"
+        ></div>
+
+        <div
+          id="answerGrid"
+          class="answerGrid"
+        ></div>
+
+        <div
+          id="quizResult"
+          class="quizResult"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     WHACK A MOLE
+====================================================== -->
+
+<div id="moleGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('moleGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">
+      🐹 WHACK-A-MOLE
+    </div>
+
+    <div class="gameSubtitle">
+      Whack our problems before they become bigger problems.
+    </div>
+
+    <div
+      id="problemText"
+      class="problemText"
+    >
+      GET READY...
+    </div>
+
+    <div class="moleBoard">
+
+      <div class="hole" onclick="hitMole(0)">
+        <div class="mole" id="mole0">
+          <div class="moleFace">😤</div>
+        </div>
+      </div>
+
+      <div class="hole" onclick="hitMole(1)">
+        <div class="mole" id="mole1">
+          <div class="moleFace">🫠</div>
+        </div>
+      </div>
+
+      <div class="hole" onclick="hitMole(2)">
+        <div class="mole" id="mole2">
+          <div class="moleFace">⏰</div>
+        </div>
+      </div>
+
+      <div class="hole" onclick="hitMole(3)">
+        <div class="mole" id="mole3">
+          <div class="moleFace">🚪</div>
+        </div>
+      </div>
+
+      <div class="hole" onclick="hitMole(4)">
+        <div class="mole" id="mole4">
+          <div class="moleFace">🛑</div>
+        </div>
+      </div>
+
+      <div class="hole" onclick="hitMole(5)">
+        <div class="mole" id="mole5">
+          <div class="moleFace">📢</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:15px">
+      Moles Whacked:
+      <b id="moleScore">0</b> / 7
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     HIGH STRIKER
+====================================================== -->
+
+<div id="highGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('highGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">
+      🔨 HIGH STRIKER
+    </div>
+
+    <div class="gameSubtitle">
+      HIT IT HARD.
+    </div>
+
+    <div class="striker">
+
+      <div class="strikerMachine">
+
+        <div class="bell">
+          🔔
+        </div>
+
+        <div class="meter">
+          <div
+            id="meterFill"
+            class="meterFill"
+          ></div>
+        </div>
+
+      </div>
+
+      <div
+        id="hammer"
+        class="hammer"
+      >
+        🔨
+      </div>
+
+      <button
+        class="btn"
+        onclick="smashHighStriker()"
+      >
+        SMASH!
+      </button>
+
+      <div
+        id="strikerPrize"
+        class="strikerPrize"
+      >
+        Ready?
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     SHOOTING GALLERY
+====================================================== -->
+
+<div id="shootGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('shootGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">
+      🎯 SHOOTING GALLERY
+    </div>
+
+    <div class="gameSubtitle">
+      Aim carefully. Wherever you shoot, that's what you get.
+    </div>
+
+    <div class="shootingRange">
+
+      <button class="target"
+              id="t1"
+              onclick="shootTarget('1')">
+        <span>💋 1 KISS</span>
+      </button>
+
+      <button class="target"
+              id="t2"
+              onclick="shootTarget('2')">
+        <span>💋 5 KISSES</span>
+      </button>
+
+      <button class="target"
+              id="t3"
+              onclick="shootTarget('3')">
+        <span>🫂 10 MINUTES OF CUDDLES</span>
+      </button>
+
+      <button class="target"
+              id="t4"
+              onclick="shootTarget('4')">
+        <span>💋 20 KISSES</span>
+      </button>
+
+      <button class="target"
+              id="t5"
+              onclick="shootTarget('5')">
+        <span>💋 KISS ATTACK</span>
+      </button>
+
+      <button class="target"
+              id="t6"
+              onclick="shootTarget('6')">
+        <span>🫂 CUDDLE ATTACK</span>
+      </button>
+
+      <div class="gun">
+        🔫
+      </div>
+
+    </div>
+
+    <div
+      id="shootingMessage"
+      class="shootingMessage"
+    >
+      Choose your target.
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     SPIN WHEEL
+====================================================== -->
+
+<div id="wheelGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('wheelGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">
+      🎡 SPIN THE WHEEL
+    </div>
+
+    <div class="gameSubtitle">
+      There is only one thing waiting for you.
+    </div>
+
+    <div class="wheelWrap">
+
+      <div class="pointer">
+        ▼
+      </div>
+
+      <div
+        id="wheel"
+        class="wheel"
+      ></div>
+
+      <button
+        id="spinButton"
+        class="btn"
+        onclick="spinWheel()"
+        style="margin-top:25px"
+      >
+        SPIN
+      </button>
+
+      <div
+        id="letter"
+        class="letter hidden"
+      >
+To my dearest Dumbo, ❤️
+
+I genuinely don’t know how these two years passed by so quickly. It feels like just yesterday that we were two people who liked each other but didn’t have the courage to actually say it. And somehow, here we are, two whole years of us. 🥹
+
+We’ve fought, we’ve cried, we’ve laughed until our stomachs hurt, we’ve annoyed each other, forgiven each other, grown together, and made so many memories that I don’t even know where to begin. We’ve had our good days and our really, really difficult ones. But through all of it, I’m so incredibly grateful that you chose to stay.
+
+Even when I didn’t want you to. Even when I pushed you away. Even when I thought walking away was easier than talking things through. You somehow put your head to it and never left my side. You’ve been there when I’ve been at my absolute worst, at my best, when I’m annoyed, emotional, happy, stupid, dramatic, literally every version of me. 😂 And you never made me feel like I had to be someone else to deserve your love.
+
+You’re my cute little sunshine boy. ☀️ Every single time I see you, somehow my day just gets brighter. You have this way of making everything feel a little lighter just by being there.
+
+I love that I can be completely myself with you. You don’t judge me. You listen to me. You let me be weird and annoying and emotional and silly. You always put me before yourself, and you’re always there when I need you. And I know there are times when I say that I don’t feel your love, but please know that I do. I feel it in so many little things you do, even when I don’t say it enough.
+
+We’ve made SO many memories in these two years. From the beginning, to all our firsts, our dates, our stupid fights, our little adventures, our celebrations, our cuddles, our chaos, everything. And looking back at all of it makes me realise just how much life we’ve already lived together.
+
+But more than anything, I think about what’s still ahead of us.
+
+Because when I imagine my future, I only see you in it. There genuinely isn’t anyone else in this world I’d rather choose. You make me the happiest, and I hope you always know how much of a home you’ve become for me.
+
+And your arms… 🥹
+Your arms are my safe place.
+
+There is genuinely no fucking place on earth where I feel the way I feel when I’m in your arms. I feel safe. I feel comfortable. I feel happy. I feel loved. I feel like I can finally switch everything off for a while and just exist. And I hope you know how special that is to me.
+
+I want you to know that I’ll always have your back too. No matter what happens, no matter how difficult things get, I’ll be there. If you ever fall, I’ll be right there to pick up the pieces with you. I’ll help you find your way again, I’ll support you, I’ll cheer for you, and I’ll remind you of who you are when you forget.
+
+I hope you always know that you never have to do life alone.
+
+And your dad is also very proud of you because he really did raise a fine man. A kind, respectful, loving, hardworking man who has such a beautiful heart. I’m genuinely so grateful to your parents, your mom and dad, for bringing you into this world and raising the person you are today. I don’t think I’ll ever be able to explain how grateful I am that you exist.
+
+Two years feels like such a big number, but somehow, when I think about spending the rest of my life with you, it also feels like we’ve barely begun.
+
+I want the years ahead.
+
+I want more stupid fights that we’ll eventually laugh about.
+More dates.
+More random drives.
+More celebrations.
+More cuddles.
+More photos.
+More adventures.
+More ordinary days that somehow become our favourite memories.
+
+I want to grow old with you and still look at you the same way I do now. I want us to keep choosing each other, even when things aren’t easy. I want us to keep growing, learning, annoying each other, laughing together, and finding our way back to each other every single time.
+
+And most importantly, I want us to never lose the little things that make us us.
+
+Two years down, and I still choose you.
+
+And I’ll keep choosing you.
+
+Today, tomorrow, and in all the years that are waiting for us.
+
+Happy 2 years, my Dumbo. ❤️
+
+Here’s to us, to everything we’ve already been through, and to everything we haven’t even experienced yet.
+
+I love you. More than you probably realise. And I can’t wait to grow old with you.
+
+Forever your Gube,
+Cement ❤️
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     TICKET COUNTER
+====================================================== -->
+
+<div id="counterGame" class="gameOverlay hidden">
+
+  <div class="gamePanel">
+
+    <button class="backBtn" onclick="closeGame('counterGame')">
+      ← BACK
+    </button>
+
+    <div class="gameTitle">
+      🎟️ TICKET COUNTER
+    </div>
+
+    <div class="counterGame">
+
+      <img
+        src="bitmoji.png"
+        class="counterAvatar"
+        data-img="bitmoji.png"
+      >
+
+      <h2>
+        Welcome back, Dumbo. ❤️
+      </h2>
+
+      <p style="margin-top:15px;color:var(--muted)">
+        You made it through the arcade.
+      </p>
+
+      <p style="margin-top:8px;color:var(--yellow)">
+        You collected
+        <b id="finalTicketAmount">0</b>
+        tickets.
+      </p>
+
+      <button
+        class="finalButton"
+        onclick="finalReveal()"
+      >
+        CLICK ME ❤️
+      </button>
+
+      <p style="color:#cfc4d7">
+        I saved one last thing for you.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     FINAL SCREEN
+====================================================== -->
+
+<section
+  id="finalScreen"
+  class="screen hidden"
+>
+
+  <div id="finalEffects"></div>
+
+  <div class="finalContent">
+
+    <div class="finalHeart">
+      ❤️
+    </div>
+
+    <div class="finalTitle">
+      HAPPY TWO-YEAR<br>
+      ANNIVERSARY TO US!
+    </div>
+
+    <div class="finalSub">
+      Two years down, so many more to go. ❤️
+    </div>
+
+    <div
+      style="
+        margin-top:35px;
+        font-size:18px;
+        line-height:1.7;
+        color:#eadfea;
+      "
+    >
+      You didn't just play an arcade game.<br>
+      You played through our relationship. ❤️
+    </div>
+
+  </div>
+
 </section>
+
+
+<div id="flash" class="flash"></div>
 
 
 <script>
 
 /* =========================================================
-   GLOBAL STATE
+   STATE
 ========================================================= */
 
-const entrance = document.getElementById("entrance");
-const arcade = document.getElementById("arcade");
-const gameOverlay = document.getElementById("gameOverlay");
-const gameContent = document.getElementById("gameContent");
-const gameTitle = document.getElementById("gameTitle");
-const gameIcon = document.getElementById("gameIcon");
-const player = document.getElementById("player");
-const music = document.getElementById("music");
-const musicButton = document.getElementById("musicButton");
-const gameCounter = document.getElementById("gameCounter");
+let tickets = 0;
 
-let musicPlaying = false;
+let soundOn = true;
 
-const completedGames = new Set();
+let playerX = window.innerWidth * .48;
+let playerY = window.innerHeight * .55;
 
-let playerX = window.innerWidth * .5;
-let playerY = window.innerHeight * .70;
+let currentMachine = null;
 
-const speed = 8;
+const playerSpeed = 8;
 
-let currentGame = null;
+let clawPosition = 4;
+let clawBusy = false;
+
+let moleScore = 0;
+let activeMole = -1;
+let moleTimer = null;
+
+let highPlayed = false;
+
+let photoDone = false;
+
+let quizIndex = 0;
+let quizScore = 0;
+
+let wheelSpun = false;
 
 
 /* =========================================================
-   ENTRANCE TYPEWRITER
+   SOUND ENGINE
 ========================================================= */
 
-const introText =
-`Two years.
+const AudioContextClass =
+  window.AudioContext ||
+  window.webkitAudioContext;
 
-730 days.
+let audioCtx = null;
 
-A ridiculous amount of memories,
-inside jokes, chaos, dates, fights,
-food, surprises and way too many pictures.
+function initAudio(){
 
-So I made us our own arcade.
+  if(!audioCtx){
+    audioCtx = new AudioContextClass();
+  }
 
-Every machine has a little piece of us inside.
-
-Ready, Player 2?`;
-
-const typedMessage = document.getElementById("typedMessage");
-
-let typeIndex = 0;
-
-function typeIntro(){
-
-    if(typeIndex < introText.length){
-
-        typedMessage.innerHTML =
-            introText.slice(0,typeIndex + 1)
-            .replace(/\n/g,"<br>")
-            + '<span class="cursor"></span>';
-
-        typeIndex++;
-
-        setTimeout(typeIntro,18);
-
-    }else{
-
-        typedMessage.innerHTML =
-            introText.replace(/\n/g,"<br>")
-            + '<span class="cursor"></span>';
-
-    }
 }
 
-typeIntro();
+function beep(
+  frequency=440,
+  duration=.1,
+  type='square',
+  volume=.04
+){
+
+  if(!soundOn) return;
+
+  initAudio();
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc.type = type;
+  osc.frequency.value = frequency;
+
+  gain.gain.setValueAtTime(
+    volume,
+    audioCtx.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .001,
+    audioCtx.currentTime + duration
+  );
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start();
+
+  osc.stop(
+    audioCtx.currentTime + duration
+  );
+
+}
+
+function winSound(){
+
+  beep(523,.1,'square',.06);
+
+  setTimeout(
+    ()=>beep(659,.1,'square',.06),
+    100
+  );
+
+  setTimeout(
+    ()=>beep(784,.18,'square',.06),
+    200
+  );
+
+}
 
 
 /* =========================================================
-   MUSIC
+   SOUND TOGGLE
 ========================================================= */
 
-function startMusic(){
+function toggleSound(){
 
-    music.volume = .45;
+  soundOn = !soundOn;
 
-    const promise = music.play();
+  document.getElementById(
+    'soundButton'
+  ).textContent = soundOn ? '🔊' : '🔇';
 
-    if(promise){
+  if(soundOn){
+    beep(660,.1);
+  }
 
-        promise.then(()=>{
-
-            musicPlaying = true;
-            musicButton.textContent = "MUSIC ON";
-
-        }).catch(()=>{
-
-            musicPlaying = false;
-            musicButton.textContent = "MUSIC OFF";
-
-        });
-
-    }
 }
 
-document.getElementById("enterButton").addEventListener("click",()=>{
 
-    entrance.classList.add("hidden");
-    arcade.classList.remove("hidden");
+/* =========================================================
+   TICKETS
+========================================================= */
 
-    startMusic();
+function addTickets(amount){
 
-});
+  tickets += amount;
 
-musicButton.addEventListener("click",()=>{
+  document.getElementById(
+    'ticketCount'
+  ).textContent = tickets;
 
-    if(music.paused){
+  document.getElementById(
+    'finalTicketAmount'
+  ).textContent = tickets;
 
-        music.play().then(()=>{
+  for(let i=0;i<Math.min(amount,12);i++){
+    createTicket();
+  }
 
-            musicPlaying = true;
-            musicButton.textContent = "MUSIC ON";
+  winSound();
 
-        });
+}
 
-    }else{
+function createTicket(){
 
-        music.pause();
+  const t = document.createElement('div');
 
-        musicPlaying = false;
+  t.className='ticketFly';
 
-        musicButton.textContent = "MUSIC OFF";
+  t.textContent='🎟️';
 
-    }
+  t.style.left =
+    Math.random()*80+10+'%';
 
-});
+  t.style.top =
+    Math.random()*70+20+'%';
+
+  document.body.appendChild(t);
+
+  setTimeout(
+    ()=>t.remove(),
+    1000
+  );
+
+}
+
+
+/* =========================================================
+   ENTER ARCADE
+========================================================= */
+
+function enterArcade(){
+
+  initAudio();
+
+  document.getElementById(
+    'entrance'
+  ).classList.add('hidden');
+
+  document.getElementById(
+    'arcade'
+  ).classList.remove('hidden');
+
+  positionPlayer();
+
+  beep(523,.12);
+
+  setTimeout(
+    ()=>beep(659,.12),
+    100
+  );
+
+}
 
 
 /* =========================================================
    PLAYER MOVEMENT
 ========================================================= */
 
-function clampPlayer(){
+function positionPlayer(){
 
-    const floor = document.getElementById("floor");
+  const player =
+    document.getElementById('player');
 
-    const rect = floor.getBoundingClientRect();
+  player.style.left =
+    playerX+'px';
 
-    const halfW = 38;
-    const halfH = 45;
+  player.style.top =
+    playerY+'px';
 
-    playerX = Math.max(
-        rect.left + halfW,
-        Math.min(rect.right - halfW,playerX)
-    );
-
-    playerY = Math.max(
-        rect.top + halfH,
-        Math.min(rect.bottom - halfH,playerY)
-    );
-}
-
-function updatePlayer(){
-
-    clampPlayer();
-
-    player.style.left = playerX + "px";
-    player.style.top = playerY + "px";
-
-    checkMachineDistance();
 }
 
 function movePlayer(dx,dy){
 
-    playerX += dx;
-    playerY += dy;
+  if(
+    document
+      .getElementById('arcade')
+      .classList
+      .contains('hidden')
+  ) return;
 
-    updatePlayer();
+  playerX += dx * playerSpeed;
+  playerY += dy * playerSpeed;
+
+  const maxX =
+    window.innerWidth - 80;
+
+  const maxY =
+    window.innerHeight - 90;
+
+  playerX =
+    Math.max(10,Math.min(maxX,playerX));
+
+  playerY =
+    Math.max(70,Math.min(maxY,playerY));
+
+  positionPlayer();
+
+  checkMachineProximity();
+
+  beep(
+    220 + Math.random()*60,
+    .035,
+    'square',
+    .015
+  );
+
 }
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener(
+  'keydown',
+  function(e){
 
-    if(gameOverlay.style.display === "flex"){
+    const tag =
+      document.activeElement?.tagName;
 
-        if(e.key === "Escape"){
-            closeGame();
-        }
+    if(
+      tag === 'INPUT' ||
+      tag === 'TEXTAREA'
+    ) return;
 
-        return;
-    }
+    if(
+      !document
+        .getElementById('arcade')
+        .classList
+        .contains('hidden')
+    ){
 
-    if(entrance.classList.contains("hidden") === false){
-
-        return;
-    }
-
-    let dx = 0;
-    let dy = 0;
-
-    if(e.key === "ArrowUp" || e.key.toLowerCase()==="w"){
-        dy = -speed;
-    }
-
-    if(e.key === "ArrowDown" || e.key.toLowerCase()==="s"){
-        dy = speed;
-    }
-
-    if(e.key === "ArrowLeft" || e.key.toLowerCase()==="a"){
-        dx = -speed;
-    }
-
-    if(e.key === "ArrowRight" || e.key.toLowerCase()==="d"){
-        dx = speed;
-    }
-
-    if(dx || dy){
-
+      if(e.key === 'ArrowUp'){
         e.preventDefault();
-        movePlayer(dx,dy);
+        movePlayer(0,-1);
+      }
 
-    }
+      if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        movePlayer(0,1);
+      }
 
-    if(e.key === "Enter"){
+      if(e.key === 'ArrowLeft'){
+        e.preventDefault();
+        movePlayer(-1,0);
+      }
 
-        const machine = nearestMachine();
+      if(e.key === 'ArrowRight'){
+        e.preventDefault();
+        movePlayer(1,0);
+      }
 
-        if(machine){
-            openGame(machine.dataset.game);
-        }
-
-    }
-
-});
-
-
-/* =========================================================
-   MOBILE BUTTONS
-========================================================= */
-
-document.querySelectorAll(".control").forEach(button=>{
-
-    button.addEventListener("pointerdown",(e)=>{
-
+      if(e.key === 'Enter'){
         e.preventDefault();
 
-        const dir = button.dataset.dir;
+        if(currentMachine){
+          openGame(currentMachine);
+        }
+      }
 
-        if(dir==="up") movePlayer(0,-speed);
-        if(dir==="down") movePlayer(0,speed);
-        if(dir==="left") movePlayer(-speed,0);
-        if(dir==="right") movePlayer(speed,0);
+    }
 
-    });
-
-});
+  }
+);
 
 
 /* =========================================================
    MACHINE DETECTION
 ========================================================= */
 
-const machines = [...document.querySelectorAll(".machine")];
+const machineElements =
+  document.querySelectorAll('.machine');
 
-function getMachineCenter(machine){
+function checkMachineProximity(){
 
-    const r = machine.getBoundingClientRect();
+  currentMachine = null;
 
-    return {
-        x:r.left + r.width/2,
-        y:r.top + r.height/2
-    };
-}
+  machineElements.forEach(
+    machine=>{
 
-function distanceToMachine(machine){
+      machine.classList.remove('near');
 
-    const c = getMachineCenter(machine);
+      const rect =
+        machine.getBoundingClientRect();
 
-    return Math.hypot(
-        playerX-c.x,
-        playerY-c.y
-    );
+      const centerX =
+        rect.left + rect.width/2;
 
-}
+      const centerY =
+        rect.top + rect.height/2;
 
-function nearestMachine(){
+      const px =
+        playerX + 36;
 
-    let nearest = null;
-    let best = Infinity;
+      const py =
+        playerY + 36;
 
-    machines.forEach(machine=>{
+      const distance =
+        Math.sqrt(
+          Math.pow(centerX-px,2) +
+          Math.pow(centerY-py,2)
+        );
 
-        const d = distanceToMachine(machine);
+      if(distance < 125){
 
-        if(d < best){
+        machine.classList.add('near');
 
-            best = d;
-            nearest = machine;
+        currentMachine =
+          machine.dataset.game;
 
-        }
+        document
+          .getElementById('interactionHint')
+          .classList
+          .add('show');
 
-    });
+      }
 
-    return best < 190 ? nearest : null;
-}
-
-function checkMachineDistance(){
-
-    machines.forEach(machine=>{
-        machine.classList.remove("active");
-    });
-
-    const nearest = nearestMachine();
-
-    if(nearest){
-        nearest.classList.add("active");
     }
+  );
+
+  if(!currentMachine){
+
+    document
+      .getElementById('interactionHint')
+      .classList
+      .remove('show');
+
+  }
 
 }
 
 
 /* =========================================================
-   CLICK MACHINE
-========================================================= */
-
-machines.forEach(machine=>{
-
-    machine.addEventListener("click",()=>{
-
-        if(nearestMachine() === machine){
-
-            openGame(machine.dataset.game);
-
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   GAME OPENING
+   GAME OPEN/CLOSE
 ========================================================= */
 
 function openGame(game){
 
-    currentGame = game;
+  beep(660,.08);
 
-    gameOverlay.style.display = "flex";
+  const ids = {
+    claw:'clawGame',
+    photo:'photoGame',
+    juke:'jukeGame',
+    memory:'memoryGame',
+    basket:'basketGame',
+    mole:'moleGame',
+    high:'highGame',
+    shoot:'shootGame',
+    wheel:'wheelGame',
+    counter:'counterGame'
+  };
 
-    const info = {
-        wheel:{
-            title:"THE US WHEEL",
-            icon:"◎"
-        },
-        music:{
-            title:"OUR MUSIC",
-            icon:"♫"
-        },
-        memory:{
-            title:"MEMORY MATCH",
-            icon:"▦"
-        },
-        basketball:{
-            title:"DATE NIGHT HOOPS",
-            icon:"●"
-        },
-        memories:{
-            title:"CATCH OUR MEMORIES",
-            icon:"♥"
-        },
-        trivia:{
-            title:"HOW WELL DO YOU KNOW US?",
-            icon:"?"
-        }
-    };
+  const id = ids[game];
 
-    gameTitle.textContent = info[game].title;
-    gameIcon.innerHTML = "<span>"+info[game].icon+"</span>";
+  if(!id) return;
 
-    if(game==="wheel") startWheel();
-    if(game==="music") startMusicGame();
-    if(game==="memory") startMemory();
-    if(game==="basketball") startBasketball();
-    if(game==="memories") startMemories();
-    if(game==="trivia") startTrivia();
+  document
+    .getElementById(id)
+    .classList
+    .remove('hidden');
+
+  if(game==='basket'){
+    initQuiz();
+  }
+
+  if(game==='mole'){
+    initMoles();
+  }
+
+  if(game==='counter'){
+    document.getElementById(
+      'finalTicketAmount'
+    ).textContent=tickets;
+  }
+
+}
+
+function closeGame(id){
+
+  document
+    .getElementById(id)
+    .classList
+    .add('hidden');
+
+  currentMachine=null;
+
+  beep(300,.08);
 
 }
 
 
 /* =========================================================
-   BACK TO ARCADE
+   CLAW MACHINE
 ========================================================= */
 
-document.getElementById("backButton").addEventListener("click",closeGame);
+const clawMemories = [
 
-function closeGame(){
+  {
+    img:'20.heic',
+    text:'My 20th birthday, when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday.'
+  },
 
-    gameOverlay.style.display = "none";
+  {
+    img:'claw2.heic',
+    text:'My first time watching Spider-Man movie in a theatre and ofc with you.'
+  },
 
-    gameContent.innerHTML = "";
+  {
+    img:'claw3.jpeg',
+    text:'My gift to you after my first salary as a full-timer.'
+  },
 
-    currentGame = null;
+  {
+    img:'lastethnic.heic',
+    text:'Last ethnic day together and yeah, one of my favorite picture.'
+  },
 
-    updatePlayer();
+  {
+    img:'saree.heic',
+    text:'Yay Valentine’s Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day.'
+  },
+
+  {
+    img:'claw6.heic',
+    text:'The memory from the very night you left for Kolkata, when you were riding beside me while I was going...'
+  },
+
+  {
+    img:'bappa.heic',
+    text:'Got Bappa home and we were matching outfits. Hehe.'
+  }
+
+];
+
+function clawMove(direction){
+
+  if(clawBusy) return;
+
+  clawPosition += direction;
+
+  clawPosition =
+    Math.max(
+      1,
+      Math.min(7,clawPosition)
+    );
+
+  document.getElementById(
+    'clawPos'
+  ).textContent = clawPosition;
+
+  const arm =
+    document.getElementById('clawArm');
+
+  const positions =
+    [70,105,140,175,210,245,280];
+
+  arm.style.left =
+    positions[clawPosition-1]+'px';
+
+  beep(330,.08);
+
+}
+
+function dropClaw(){
+
+  if(clawBusy) return;
+
+  const capsule =
+    document.getElementById(
+      'cap'+clawPosition
+    );
+
+  if(capsule.classList.contains('won')){
+    return;
+  }
+
+  clawBusy=true;
+
+  const arm =
+    document.getElementById('clawArm');
+
+  arm.classList.add('drop');
+
+  beep(160,.4);
+
+  setTimeout(
+    ()=>{
+
+      capsule.classList.add('won');
+
+      beep(700,.15);
+
+    },
+    850
+  );
+
+  setTimeout(
+    ()=>{
+
+      arm.classList.remove('drop');
+
+      showClawMemory(
+        clawPosition-1
+      );
+
+      clawBusy=false;
+
+    },
+    1450
+  );
+
+}
+
+function showClawMemory(index){
+
+  const memory =
+    clawMemories[index];
+
+  const image =
+    document.getElementById(
+      'clawMemoryImage'
+    );
+
+  image.src = memory.img;
+
+  document.getElementById(
+    'clawMemoryText'
+  ).textContent = memory.text;
+
+  document
+    .getElementById('clawReveal')
+    .classList
+    .remove('hidden');
+
+  addTickets(20);
+
+}
+
+function closeClawReveal(){
+
+  document
+    .getElementById('clawReveal')
+    .classList
+    .add('hidden');
 
 }
 
 
 /* =========================================================
-   COMPLETE GAME
+   PHOTO BOOTH
 ========================================================= */
 
-function completeGame(name){
+function startPhotoBooth(){
 
-    completedGames.add(name);
+  document.getElementById(
+    'photoStart'
+  ).classList.add('hidden');
 
-    gameCounter.textContent =
-        completedGames.size + " / 6 GAMES";
+  document.getElementById(
+    'photoInstruction'
+  ).textContent =
+    'GET READY...';
 
-}
+  const countdown =
+    document.getElementById('countdown');
 
+  countdown.classList.remove('hidden');
 
-/* =========================================================
-   WHEEL GAME
-========================================================= */
+  let n=3;
 
-function startWheel(){
+  countdown.textContent=n;
 
-    gameContent.innerHTML = `
+  beep(500,.1);
 
-        <div class="game-card wheel-wrap">
+  const timer =
+    setInterval(
+      ()=>{
 
-            <p class="game-message">
-                Spin the wheel and let fate decide what happens next.
-            </p>
+        n--;
 
-            <div class="pointer"></div>
+        if(n>0){
 
-            <div class="wheel" id="wheel"></div>
+          countdown.textContent=n;
 
-            <button class="primary" id="spinWheel">
-                SPIN THE WHEEL
-            </button>
-
-            <div id="wheelResult" style="margin-top:20px;font-weight:900;"></div>
-
-        </div>
-
-    `;
-
-    let spinning = false;
-    let rotation = 0;
-
-    const results = [
-        "You owe me a date.",
-        "Cuddle attack.",
-        "Pick our next food adventure.",
-        "One embarrassing memory.",
-        "Kiss tax.",
-        "We look at old pictures."
-    ];
-
-    document.getElementById("spinWheel").onclick = ()=>{
-
-        if(spinning) return;
-
-        spinning = true;
-
-        const extra =
-            1440 +
-            Math.floor(Math.random()*360);
-
-        rotation += extra;
-
-        document.getElementById("wheel").style.transform =
-            `rotate(${rotation}deg)`;
-
-        setTimeout(()=>{
-
-            const result =
-                results[Math.floor(Math.random()*results.length)];
-
-            document.getElementById("wheelResult").textContent =
-                result;
-
-            completeGame("wheel");
-
-            spinning = false;
-
-        },3100);
-
-    };
-
-}
-
-
-/* =========================================================
-   MUSIC GAME
-========================================================= */
-
-function startMusicGame(){
-
-    gameContent.innerHTML = `
-
-        <div class="game-card music-game">
-
-            <p class="game-message">
-                Test your reaction time.
-                Click the glowing note whenever it lights up.
-            </p>
-
-            <div class="music-score">
-                SCORE: <span id="musicScore">0</span> / 8
-            </div>
-
-            <div class="beat" id="beat">
-                ♫
-            </div>
-
-            <div id="musicGameMessage">
-                Wait for it...
-            </div>
-
-        </div>
-
-    `;
-
-    let score = 0;
-    let active = false;
-    let finished = false;
-
-    const beat = document.getElementById("beat");
-
-    function light(){
-
-        if(finished) return;
-
-        active = true;
-
-        beat.classList.add("active");
-
-    }
-
-    function next(){
-
-        if(finished) return;
-
-        setTimeout(light,700 + Math.random()*1200);
-
-    }
-
-    beat.onclick = ()=>{
-
-        if(!active) return;
-
-        active = false;
-
-        beat.classList.remove("active");
-
-        score++;
-
-        document.getElementById("musicScore").textContent = score;
-
-        if(score>=8){
-
-            finished = true;
-
-            document.getElementById("musicGameMessage").textContent =
-                "Perfect. You still know the rhythm of us.";
-
-            completeGame("music");
+          beep(500,.1);
 
         }else{
 
-            next();
+          clearInterval(timer);
+
+          countdown.classList.add('hidden');
+
+          document
+            .getElementById('flash')
+            .classList
+            .add('on');
+
+          beep(1000,.2);
+
+          setTimeout(
+            ()=>{
+
+              document
+                .getElementById('flash')
+                .classList
+                .remove('on');
+
+              document
+                .getElementById('photoResult')
+                .classList
+                .remove('hidden');
+
+              document.getElementById(
+                'photoInstruction'
+              ).textContent =
+                'OUR LITTLE PHOTO STRIP ❤️';
+
+              if(!photoDone){
+
+                photoDone=true;
+
+                addTickets(25);
+
+              }
+
+            },
+            600
+          );
 
         }
 
-    };
-
-    next();
+      },
+      900
+    );
 
 }
 
 
 /* =========================================================
-   MEMORY GAME
+   JUKEBOX
 ========================================================= */
 
-function startMemory(){
+function openSpotify(){
 
-    const images = [
-        "ethnic_day_1.png",
-        "ganesh_chaturthi_1.png",
-        "first_date_flowers.png",
-        "gourmet_family.png",
-        "birthday_night_surprise.png",
-        "birthday_dinner_color_match.png"
-    ];
+  window.open(
+    'https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9',
+    '_blank'
+  );
 
-    const cards = [...images,...images]
-        .sort(()=>Math.random()-.5);
+  addTickets(15);
 
-    gameContent.innerHTML = `
+}
 
-        <div class="game-card">
 
-            <p class="game-message">
-                Match every memory with its twin.
-            </p>
+/* =========================================================
+   MEMORY LANE
+========================================================= */
 
-            <div class="memory-grid" id="memoryGrid"></div>
+const roadMemories=[
 
-            <p id="memoryStatus"
-               style="text-align:center;margin-top:15px;color:var(--muted)">
-                Matches: 0 / 6
-            </p>
+  {
+    img:'Met in Csa and i found you cutee 🥰 - csa.jpg',
+    text:'Met in Csa and i found you cutee 🥰'
+  },
 
-        </div>
+  {
+    img:'Cubbon park where we hung out so much and that day i liked you a little more🥹 - cubbon.png',
+    text:'Cubbon park where we hung out so much and that day i liked you a little more🥹'
+  },
 
-    `;
+  {
+    img:'Bhaang day\nI drunk called you and cried cause u went without saying bye - bhang.jpg',
+    text:'Bhaang day. I drunk called you and cried cause u went without saying bye.'
+  },
 
-    const grid = document.getElementById("memoryGrid");
+  {
+    img:'Our first photo after officially becoming a couple - off.jpeg',
+    text:'Our first photo after officially becoming a couple.'
+  },
 
-    let first = null;
-    let second = null;
-    let locked = false;
-    let matches = 0;
+  {
+    img:'Yayyy grad day - grad.jpeg',
+    text:'Yayyy grad day. Look how far we came. ❤️'
+  }
 
-    cards.forEach(src=>{
+];
 
-        const card = document.createElement("div");
+let roadTicketsGiven = {};
 
-        card.className = "memory-card";
+function showRoadMemory(index){
 
-        card.innerHTML = `
+  const memory =
+    roadMemories[index];
 
-            <div class="memory-inner">
+  const img =
+    document.getElementById(
+      'roadMemoryImg'
+    );
 
-                <div class="memory-front">
-                    ♥
-                </div>
+  img.src = memory.img;
 
-                <div class="memory-back">
-                    <img src="${src}" alt="">
-                </div>
+  document.getElementById(
+    'roadMemoryText'
+  ).textContent =
+    memory.text;
 
-            </div>
+  document
+    .getElementById('roadMemory')
+    .classList
+    .remove('hidden');
 
-        `;
+  document.getElementById(
+    'car'
+  ).style.bottom =
+    (100 + index*55)+'px';
 
-        card.addEventListener("click",()=>{
+  if(!roadTicketsGiven[index]){
 
-            if(locked ||
-               card===first ||
-               card.classList.contains("matched")) return;
+    roadTicketsGiven[index]=true;
 
-            card.classList.add("flipped");
+    addTickets(10);
 
-            if(!first){
+  }
 
-                first = card;
+}
 
-                return;
 
-            }
+/* =========================================================
+   BASKETBALL QUIZ
+========================================================= */
 
-            second = card;
-            locked = true;
+const questions=[
 
-            const img1 = first.querySelector("img").src;
-            const img2 = second.querySelector("img").src;
+  {
+    q:'Where did we go on our first date?',
+    answers:[
+      'Uru Brew Park',
+      'Glens',
+      'Hakuna',
+      'Cubbon Park'
+    ],
+    correct:0
+  },
 
-            if(img1 === img2){
+  {
+    q:'What colour dress did I wear on our first date?',
+    answers:[
+      'A small white dress with pink flowers + cute clips in my hair',
+      'A black dress',
+      'A blue dress',
+      'A red saree'
+    ],
+    correct:0
+  },
 
-                first.classList.add("matched");
-                second.classList.add("matched");
+  {
+    q:'Where did we have our first kiss?',
+    answers:[
+      'Hakuna',
+      'Uru Brew Park',
+      'Glens',
+      'A concert'
+    ],
+    correct:0
+  },
 
-                matches++;
+  {
+    q:'Where did we go after our first date?',
+    answers:[
+      'Glens for dessert',
+      'Hakuna',
+      'Gourmet',
+      'Caliburrito'
+    ],
+    correct:0
+  },
 
-                document.getElementById("memoryStatus").textContent =
-                    "Matches: " + matches + " / 6";
+  {
+    q:'What was the first nail design I got when you painted my nails?',
+    answers:[
+      'White nails with butterflies on two fingers that join together to form one butterfly',
+      'Pink hearts',
+      'Blue flowers',
+      'French tips'
+    ],
+    correct:0
+  },
 
-                first = null;
-                second = null;
-                locked = false;
+  {
+    q:'For what occasion did we first go out as a couple?',
+    answers:[
+      'Ganesh Chaturthi',
+      'Valentine’s Day',
+      'Diwali',
+      'Christmas'
+    ],
+    correct:0
+  },
 
-                if(matches===6){
+  {
+    q:'What was I wearing that day?',
+    answers:[
+      'A black crop top with a black-and-white wrap-around skirt',
+      'A white dress',
+      'A saree',
+      'A blue crop top'
+    ],
+    correct:0
+  },
 
-                    completeGame("memory");
+  {
+    q:'When and where did we first properly cuddle?',
+    answers:[
+      'October, at your sister’s house',
+      'August, at my house',
+      'September, at Hakuna',
+      'November, at Gourmet'
+    ],
+    correct:0
+  },
 
-                    document.getElementById("memoryStatus").textContent =
-                        "You remembered all of us.";
+  {
+    q:'What movie did we watch that day?',
+    answers:[
+      'Yeh Jawaani Hai Deewani',
+      'Spider-Man',
+      '3 Idiots',
+      'Zindagi Na Milegi Dobara'
+    ],
+    correct:0
+  },
 
-                }
+  {
+    q:'What shows did you make me watch that became my absolute favourites?',
+    answers:[
+      'Brooklyn Nine-Nine',
+      'Modern Family',
+      'Both Brooklyn Nine-Nine OR Modern Family',
+      'Friends'
+    ],
+    correct:2
+  },
 
-            }else{
+  {
+    q:'What are my favourite colours?',
+    answers:[
+      'Blue',
+      'Pink',
+      'Maroon',
+      'Blue, pink OR maroon'
+    ],
+    correct:3
+  },
 
-                setTimeout(()=>{
+  {
+    q:'What’s one silly thing I love spending money on?',
+    answers:[
+      'Bed sheets',
+      'Shoes',
+      'Makeup',
+      'Plants'
+    ],
+    correct:0
+  }
 
-                    first.classList.remove("flipped");
-                    second.classList.remove("flipped");
+];
 
-                    first = null;
-                    second = null;
-                    locked = false;
+function initQuiz(){
 
-                },800);
+  quizIndex=0;
+  quizScore=0;
 
-            }
+  renderQuestion();
 
+}
+
+function renderQuestion(){
+
+  if(quizIndex>=questions.length){
+
+    document.getElementById(
+      'questionText'
+    ).textContent =
+      `GAME COMPLETE ❤️ You scored ${quizScore}/${questions.length}!`;
+
+    document.getElementById(
+      'answerGrid'
+    ).innerHTML='';
+
+    document.getElementById(
+      'quizResult'
+    ).textContent =
+      'You survived the relationship quiz. 🎟️ +50 tickets';
+
+    addTickets(50);
+
+    return;
+
+  }
+
+  const q =
+    questions[quizIndex];
+
+  document.getElementById(
+    'questionNumber'
+  ).textContent =
+    `QUESTION ${quizIndex+1}`;
+
+  document.getElementById(
+    'questionText'
+  ).textContent=q.q;
+
+  const grid =
+    document.getElementById(
+      'answerGrid'
+    );
+
+  grid.innerHTML='';
+
+  q.answers.forEach(
+    (answer,index)=>{
+
+      const btn =
+        document.createElement('button');
+
+      btn.className='answerBtn';
+
+      btn.textContent=answer;
+
+      btn.onclick =
+        ()=>answerQuestion(index);
+
+      grid.appendChild(btn);
+
+    }
+  );
+
+  document.getElementById(
+    'quizResult'
+  ).textContent='';
+
+}
+
+function answerQuestion(index){
+
+  const q =
+    questions[quizIndex];
+
+  const ball =
+    document.getElementById(
+      'basketBall'
+    );
+
+  ball.classList.remove('shoot');
+
+  void ball.offsetWidth;
+
+  ball.classList.add('shoot');
+
+  beep(420,.1);
+
+  setTimeout(
+    ()=>{
+
+      if(index===q.correct){
+
+        quizScore++;
+
+        document.getElementById(
+          'quizResult'
+        ).textContent =
+          '🏀 SWISH! Correct!';
+
+        beep(780,.18);
+
+      }else{
+
+        document.getElementById(
+          'quizResult'
+        ).textContent =
+          '🏀 MISS! Nice try. ❤️';
+
+        beep(180,.18);
+
+      }
+
+      quizIndex++;
+
+      setTimeout(
+        renderQuestion,
+        850
+      );
+
+    },
+    700
+  );
+
+}
+
+
+/* =========================================================
+   WHACK A MOLE
+========================================================= */
+
+const problems=[
+
+  'TAKE ME FOR GRANTED',
+
+  'ZONING OUT',
+
+  'FORGETTING TO INFORM',
+
+  'WALKING AWAY',
+
+  'ASKING FOR A BREAK/ BREAKUP',
+
+  'RAISING OUR VOICES',
+
+  'REACTING BEFORE THINKING'
+
+];
+
+const fullProblems=[
+
+  'Sometimes I feel like you take me for granted.',
+
+  'Sometimes I zone out and don’t listen to you. And yes, I’m very sorry about it.',
+
+  'Sometimes you forget to tell me you’re going to be late.',
+
+  'Walking away from a conversation instead of talking it out.',
+
+  'Asking for a break or a breakup instead of talking it out.',
+
+  'Raising our voices at each other.',
+
+  'Reacting before thinking and accidentally hurting each other.'
+
+];
+
+function initMoles(){
+
+  moleScore=0;
+
+  activeMole=-1;
+
+  document.getElementById(
+    'moleScore'
+  ).textContent='0';
+
+  document.getElementById(
+    'problemText'
+  ).textContent='GET READY...';
+
+  document
+    .querySelectorAll('.mole')
+    .forEach(m=>m.classList.remove('up'));
+
+  setTimeout(
+    popNextMole,
+    700
+  );
+
+}
+
+function popNextMole(){
+
+  if(moleScore>=7){
+
+    document.getElementById(
+      'problemText'
+    ).textContent =
+      'YOU DEFEATED ALL OUR PROBLEMS ❤️';
+
+    addTickets(50);
+
+    return;
+
+  }
+
+  document
+    .querySelectorAll('.mole')
+    .forEach(
+      m=>m.classList.remove('up')
+    );
+
+  activeMole =
+    Math.floor(
+      Math.random()*6
+    );
+
+  const mole =
+    document.getElementById(
+      'mole'+activeMole
+    );
+
+  mole.classList.add('up');
+
+  document.getElementById(
+    'problemText'
+  ).textContent =
+    problems[moleScore];
+
+  clearTimeout(moleTimer);
+
+  moleTimer =
+    setTimeout(
+      popNextMole,
+      1300
+    );
+
+}
+
+function hitMole(index){
+
+  if(index!==activeMole) return;
+
+  const mole =
+    document.getElementById(
+      'mole'+index
+    );
+
+  if(!mole.classList.contains('up')){
+    return;
+  }
+
+  mole.classList.remove('up');
+
+  beep(180,.12);
+
+  document.getElementById(
+    'problemText'
+  ).textContent =
+    fullProblems[moleScore];
+
+  moleScore++;
+
+  document.getElementById(
+    'moleScore'
+  ).textContent =
+    moleScore;
+
+  setTimeout(
+    popNextMole,
+    400
+  );
+
+}
+
+
+/* =========================================================
+   HIGH STRIKER
+========================================================= */
+
+function smashHighStriker(){
+
+  const hammer =
+    document.getElementById(
+      'hammer'
+    );
+
+  hammer.classList.remove('smash');
+
+  void hammer.offsetWidth;
+
+  hammer.classList.add('smash');
+
+  beep(120,.2);
+
+  const power =
+    Math.floor(
+      70 + Math.random()*31
+    );
+
+  const fill =
+    document.getElementById(
+      'meterFill'
+    );
+
+  fill.style.height =
+    power+'%';
+
+  setTimeout(
+    ()=>{
+
+      beep(850,.2);
+
+      const prizes=[
+        '💋 KISS',
+        '🫂 CUDDLE',
+        '💨',
+        '😈 ANYTHING YOU SAY'
+      ];
+
+      const prize =
+        prizes[
+          Math.floor(
+            Math.random()*prizes.length
+          )
+        ];
+
+      document.getElementById(
+        'strikerPrize'
+      ).textContent =
+        `DING! ${prize}`;
+
+      if(!highPlayed){
+
+        highPlayed=true;
+
+        addTickets(30);
+
+      }
+
+    },
+    500
+  );
+
+}
+
+
+/* =========================================================
+   SHOOTING GALLERY
+========================================================= */
+
+let shootingDone=false;
+
+function shootTarget(number){
+
+  const target =
+    document.getElementById(
+      't'+number
+    );
+
+  target.style.transform =
+    'scale(.7)';
+
+  beep(150,.1);
+
+  setTimeout(
+    ()=>{
+
+      const prizes={
+
+        1:'💋 1 KISS',
+
+        2:'💋 5 KISSES',
+
+        3:'🫂 10 MINUTES OF CUDDLES',
+
+        4:'💋 20 KISSES',
+
+        5:'💋 KISS ATTACK',
+
+        6:'🫂 CUDDLE ATTACK'
+
+      };
+
+      document.getElementById(
+        'shootingMessage'
+      ).textContent =
+        `🎯 BULLSEYE! You won ${prizes[number]}!`;
+
+      target.style.transform =
+        'scale(1)';
+
+      if(!shootingDone){
+
+        shootingDone=true;
+
+        addTickets(30);
+
+      }
+
+    },
+    250
+  );
+
+}
+
+
+/* =========================================================
+   WHEEL
+========================================================= */
+
+function spinWheel(){
+
+  if(wheelSpun) return;
+
+  wheelSpun=true;
+
+  const wheel =
+    document.getElementById(
+      'wheel'
+    );
+
+  const rotations =
+    1440 + Math.floor(
+      Math.random()*720
+    );
+
+  wheel.style.transform =
+    `rotate(${rotations}deg)`;
+
+  document.getElementById(
+    'spinButton'
+  ).disabled=true;
+
+  beep(300,.08);
+
+  setTimeout(
+    ()=>{
+      beep(900,.3);
+
+      document.getElementById(
+        'letter'
+      ).classList
+      .remove('hidden');
+
+      addTickets(50);
+
+      document.getElementById(
+        'spinButton'
+      ).textContent =
+        '💌 THE LETTER';
+
+    },
+    4300
+  );
+
+}
+
+
+/* =========================================================
+   FINAL REVEAL
+========================================================= */
+
+function finalReveal(){
+
+  beep(523,.1);
+
+  setTimeout(
+    ()=>beep(659,.1),
+    120
+  );
+
+  setTimeout(
+    ()=>beep(784,.15),
+    240
+  );
+
+  document
+    .querySelectorAll('.gameOverlay')
+    .forEach(
+      el=>el.classList.add('hidden')
+    );
+
+  document
+    .getElementById('arcade')
+    .classList
+    .add('hidden');
+
+  document
+    .getElementById('finalScreen')
+    .classList
+    .remove('hidden');
+
+  createConfetti();
+
+  createHearts();
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+function createConfetti(){
+
+  const container =
+    document.getElementById(
+      'finalEffects'
+    );
+
+  container.innerHTML='';
+
+  for(let i=0;i<150;i++){
+
+    const c =
+      document.createElement('div');
+
+    c.className='confetti';
+
+    c.style.left =
+      Math.random()*100+'%';
+
+    c.style.animationDuration =
+      (2+Math.random()*4)+'s';
+
+    c.style.animationDelay =
+      Math.random()*2+'s';
+
+    c.style.background =
+      [
+        '#ff6fae',
+        '#ffe477',
+        '#7ddcff',
+        '#b59aff',
+        '#83e6a8',
+        '#ffffff'
+      ][
+        Math.floor(Math.random()*6)
+      ];
+
+    c.style.transform =
+      `rotate(${Math.random()*360}deg)`;
+
+    container.appendChild(c);
+
+  }
+
+}
+
+function createHearts(){
+
+  const container =
+    document.getElementById(
+      'finalEffects'
+    );
+
+  for(let i=0;i<35;i++){
+
+    const h =
+      document.createElement('div');
+
+    h.className='flyingHeart';
+
+    h.textContent =
+      Math.random()>.3
+      ? '❤️'
+      : '✨';
+
+    h.style.left =
+      Math.random()*100+'%';
+
+    h.style.setProperty(
+      '--x',
+      (Math.random()*300-150)+'px'
+    );
+
+    h.style.animationDelay =
+      Math.random()*3+'s';
+
+    container.appendChild(h);
+
+  }
+
+}
+
+
+/* =========================================================
+   HEIC IMAGE HANDLING
+========================================================= */
+
+async function convertHeicImages(){
+
+  const images =
+    document.querySelectorAll(
+      'img[data-img]'
+    );
+
+  for(const img of images){
+
+    const filename =
+      img.getAttribute('data-img');
+
+    if(!filename.toLowerCase().endsWith('.heic')){
+      continue;
+    }
+
+    try{
+
+      const response =
+        await fetch(filename);
+
+      const blob =
+        await response.blob();
+
+      const converted =
+        await heic2any({
+          blob:blob,
+          toType:'image/jpeg',
+          quality:.9
         });
 
-        grid.appendChild(card);
+      const finalBlob =
+        Array.isArray(converted)
+        ? converted[0]
+        : converted;
 
-    });
+      img.src =
+        URL.createObjectURL(finalBlob);
+
+    }catch(error){
+
+      console.warn(
+        'Could not convert HEIC:',
+        filename,
+        error
+      );
+
+    }
+
+  }
 
 }
 
 
 /* =========================================================
-   BASKETBALL
+   INITIALIZE
 ========================================================= */
 
-function startBasketball(){
-
-    gameContent.innerHTML = `
-
-        <div class="game-card">
-
-            <p class="game-message">
-                Score 5 baskets before the clock runs out.
-                Click the basketball when it appears.
-            </p>
-
-            <div class="basket-area">
-
-                <div class="basket-score">
-                    SCORE: <span id="basketScore">0</span> / 5
-                </div>
-
-                <div class="hoop"></div>
-
-                <div class="ball" id="ball"></div>
-
-            </div>
-
-            <p id="basketMessage"
-               style="text-align:center;margin-top:15px;">
-                Shoot!
-            </p>
-
-        </div>
-
-    `;
-
-    const ball = document.getElementById("ball");
-
-    let score = 0;
-    let shots = 0;
-    let finished = false;
-
-    ball.onclick = ()=>{
-
-        if(finished) return;
-
-        score++;
-        shots++;
-
-        document.getElementById("basketScore").textContent =
-            score;
-
-        ball.style.left =
-            (20 + Math.random()*60) + "%";
-
-        ball.style.bottom =
-            (20 + Math.random()*60) + "px";
-
-        if(score>=5){
-
-            finished = true;
-
-            document.getElementById("basketMessage").textContent =
-                "Nothing but net. Player 2 wins.";
-
-            completeGame("basketball");
-
-        }
-
-    };
-
-}
-
-
-/* =========================================================
-   CATCH MEMORIES
-========================================================= */
-
-function startMemories(){
-
-    gameContent.innerHTML = `
-
-        <div class="game-card">
-
-            <p class="game-message">
-                Catch 10 hearts before they disappear.
-                Every heart represents one tiny piece of us.
-            </p>
-
-            <div class="catch-area" id="catchArea"></div>
-
-            <p style="text-align:center;margin-top:12px;">
-                CAUGHT: <span id="heartScore">0</span> / 10
-            </p>
-
-        </div>
-
-    `;
-
-    const area = document.getElementById("catchArea");
-
-    let score = 0;
-
-    function spawn(){
-
-        if(score>=10) return;
-
-        const heart = document.createElement("div");
-
-        heart.className = "memory-heart";
-        heart.textContent = "♥";
-
-        heart.style.left =
-            (5 + Math.random()*85) + "%";
-
-        heart.style.top =
-            (5 + Math.random()*80) + "%";
-
-        area.appendChild(heart);
-
-        heart.onclick = ()=>{
-
-            score++;
-
-            document.getElementById("heartScore").textContent =
-                score;
-
-            heart.remove();
-
-            if(score>=10){
-
-                completeGame("memories");
-
-                area.innerHTML =
-                    '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:25px;font-weight:1000;color:var(--pink)">YOU CAUGHT ALL OUR LOVE</div>';
-
-            }else{
-
-                spawn();
-
-            }
-
-        };
-
-    }
-
-    for(let i=0;i<4;i++){
-        spawn();
-    }
-
-}
-
-
-/* =========================================================
-   TRIVIA
-========================================================= */
-
-function startTrivia(){
-
-    const questions = [
-
-        {
-            q:"What was our first Valentine's Day destination?",
-            a:[
-                "Caliburrito",
-                "Gourmet",
-                "The movies",
-                "Home"
-            ],
-            correct:0
-        },
-
-        {
-            q:"What was one of our earliest big couple firsts?",
-            a:[
-                "First concert",
-                "First ethnic day together",
-                "Graduation",
-                "New house"
-            ],
-            correct:1
-        },
-
-        {
-            q:"What did you bring when you came for the housewarming?",
-            a:[
-                "Cake",
-                "Pizza",
-                "A big bouquet of flowers",
-                "Nothing"
-            ],
-            correct:2
-        },
-
-        {
-            q:"What happened on the birthday dinner night?",
-            a:[
-                "You bought an outfit to color match",
-                "You forgot the dinner",
-                "We went bowling",
-                "We stayed home"
-            ],
-            correct:0
-        },
-
-        {
-            q:"How long are we celebrating?",
-            a:[
-                "One year",
-                "Six months",
-                "Two years",
-                "Ten years"
-            ],
-            correct:2
-        }
-
-    ];
-
-    let index = 0;
-    let score = 0;
-
-    function render(){
-
-        if(index>=questions.length){
-
-            gameContent.innerHTML = `
-
-                <div class="game-card final-message">
-
-                    <h1>${score}/${questions.length}</h1>
-
-                    <h2>
-                        ${
-                            score===questions.length
-                            ? "YOU ACTUALLY KNOW US."
-                            : "OKAY, WE NEED TO MAKE MORE MEMORIES."
-                        }
-                    </h2>
-
-                    <p class="game-message">
-                        Either way, you're stuck with me.
-                    </p>
-
-                    <button class="primary" id="finishTrivia">
-                        FINISH
-                    </button>
-
-                </div>
-
-            `;
-
-            completeGame("trivia");
-
-            document.getElementById("finishTrivia").onclick =
-                ()=>{
-
-                    gameContent.innerHTML = `
-
-                        <div class="game-card final-message">
-
-                            <h1>US</h1>
-
-                            <h2>730 DAYS</h2>
-
-                            <img src="two_years.png">
-
-                            <p class="game-message">
-                                Happy two years to us.
-                                Here's to every memory we've already made
-                                and every ridiculous one still waiting for us.
-                            </p>
-
-                        </div>
-
-                    `;
-
-                };
-
-            return;
-        }
-
-        const question = questions[index];
-
-        gameContent.innerHTML = `
-
-            <div class="game-card">
-
-                <div class="progress">
-                    <div style="width:${(index/questions.length)*100}%"></div>
-                </div>
-
-                <p style="color:var(--cyan);font-weight:900;margin-bottom:10px;">
-                    QUESTION ${index+1} / ${questions.length}
-                </p>
-
-                <div class="question">
-                    ${question.q}
-                </div>
-
-                <div class="answers">
-
-                    ${question.a.map((answer,i)=>`
-
-                        <button class="answer" data-index="${i}">
-                            ${answer}
-                        </button>
-
-                    `).join("")}
-
-                </div>
-
-            </div>
-
-        `;
-
-        document.querySelectorAll(".answer").forEach(button=>{
-
-            button.onclick = ()=>{
-
-                const selected =
-                    Number(button.dataset.index);
-
-                document.querySelectorAll(".answer")
-                    .forEach(b=>b.disabled=true);
-
-                if(selected===question.correct){
-
-                    button.classList.add("correct");
-                    score++;
-
-                }else{
-
-                    button.classList.add("wrong");
-
-                    document.querySelectorAll(".answer")
-                        [question.correct]
-                        .classList.add("correct");
-
-                }
-
-                setTimeout(()=>{
-
-                    index++;
-                    render();
-
-                },800);
-
-            };
-
-        });
-
-    }
-
-    render();
-
-}
-
-
-/* =========================================================
-   INITIAL PLAYER POSITION
-========================================================= */
-
-window.addEventListener("resize",()=>{
-
-    updatePlayer();
-
-});
-
-setTimeout(updatePlayer,100);
-
-
-/* =========================================================
-   FINAL MESSAGE WHEN ALL GAMES COMPLETE
-========================================================= */
-
-setInterval(()=>{
-
-    if(completedGames.size===6){
-
-        gameCounter.textContent =
-            "ALL 6 GAMES COMPLETE";
-
-    }
-
-},500);
+window.addEventListener(
+  'resize',
+  ()=>{
+    playerX =
+      Math.min(
+        playerX,
+        window.innerWidth-80
+      );
+
+    playerY =
+      Math.min(
+        playerY,
+        window.innerHeight-90
+      );
+
+    positionPlayer();
+  }
+);
+
+window.addEventListener(
+  'load',
+  ()=>{
+    positionPlayer();
+
+    setTimeout(
+      convertHeicImages,
+      500
+    );
+  }
+);
 
 </script>
 
