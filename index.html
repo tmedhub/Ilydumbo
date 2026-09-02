@@ -686,7 +686,7 @@ button {
 }
 
 .photo-frame {
-    width: min(330px, 80%);
+    width: min(760px, 94%);
     margin: auto;
     background: white;
     padding: 12px 12px 18px;
@@ -694,11 +694,28 @@ button {
     box-shadow: 0 10px 30px rgba(0,0,0,.4);
 }
 
+.photo-strip-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+.photo-strip-row::-webkit-scrollbar {
+    display: none;
+}
+
 .photo-frame img,
 .photo-frame .camera-photo {
     display: block;
-    width: 100%;
-    height: 82px;
+    flex: 0 0 150px;
+    width: 150px;
+    height: 105px;
     object-fit: cover;
     margin-bottom: 7px;
 }
@@ -712,8 +729,9 @@ button {
 }
 
 .camera-strip-button {
-    width: 100%;
-    height: 82px;
+    flex: 0 0 150px;
+    width: 150px;
+    height: 105px;
     margin-bottom: 7px;
     background: linear-gradient(135deg, #fff, #ffe9f3);
     border: 3px dashed #ff6fae;
@@ -859,7 +877,7 @@ button {
     position: absolute;
     top: 50%;
     left: 0;
-    width: 1900px;
+    width: 4600px;
     height: 8px;
     transform: translateY(-50%);
     background: repeating-linear-gradient(
@@ -877,24 +895,101 @@ button {
     width: 1900px;
 }
 
-.milestone {
+ .milestone {
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 90px;
-    height: 90px;
+    width: 92px;
+    height: 92px;
     border-radius: 50%;
     border: 4px solid var(--yellow);
     background: var(--pink);
     color: white;
-    font-size: 12px;
+    font-size: 34px;
     font-weight: bold;
     box-shadow: 0 0 20px rgba(255,228,122,.6);
+    padding: 0;
+    cursor: default;
 }
 
 .milestone.reached {
     animation: milestonePulse .5s ease;
 }
+
+.milestone.visited {
+    padding: 0;
+    overflow: hidden;
+    background: #0b0814;
+    border-color: var(--yellow);
+}
+
+.milestone.visited img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.fuel-station {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    text-align: center;
+    z-index: 4;
+}
+.fuel-pump {
+    font-size: 72px;
+    line-height: 1;
+    filter: drop-shadow(0 0 12px rgba(255,228,122,.65));
+}
+.fuel-text {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--cream);
+    text-shadow: 0 0 8px rgba(255,111,174,.8);
+    line-height: 1.45;
+}
+
+/* Heart sits ON each unopened memory circle */
+.milestone:not(.visited)::before {
+    content: "❤️";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 34px;
+    line-height: 1;
+    z-index: 3;
+    filter: drop-shadow(0 0 8px rgba(255,111,174,.75));
+    pointer-events: none;
+}
+
+.memory-bike {
+    position: absolute;
+    top: calc(50% + 48px);
+    left: 20px;
+    width: auto;
+    height: auto;
+    transition: left .15s ease, transform .15s ease;
+    z-index: 5;
+    font-size: 70px;
+    user-select: none;
+    overflow: visible;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,.45));
+}
+
+.memory-bike svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.memory-bike.jump {
+    animation: bikeJump .45s ease;
+}
+
 
 @keyframes milestonePulse {
     0% { transform: translate(-50%, -50%) scale(1); }
@@ -902,26 +997,7 @@ button {
     100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-.car {
-    position: absolute;
-    top: calc(50% + 60px);
-    left: 20px;
-    font-size: 70px;
-    transition: left .15s ease, transform .15s ease;
-    z-index: 5;
-    user-select: none;
-}
 
-.car.jump {
-    animation: carJump .45s ease;
-}
-
-@keyframes carJump {
-    0% { transform: translateY(0) rotate(0); }
-    35% { transform: translateY(-35px) rotate(-4deg); }
-    65% { transform: translateY(-20px) rotate(4deg); }
-    100% { transform: translateY(0) rotate(0); }
-}
 
 .memory-lane-info {
     position: absolute;
@@ -1384,7 +1460,8 @@ button {
     padding: clamp(15px, 3vw, 30px);
     border-radius: 15px;
     line-height: 1.45;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     box-shadow: 0 15px 40px rgba(0,0,0,.4);
     font-size: clamp(10px, 1.25vw, 14px);
 }
@@ -1542,6 +1619,18 @@ button {
         font-size: 12px;
     }
 
+    .photo-frame {
+        width: 96%;
+    }
+
+    .photo-frame img,
+    .photo-frame .camera-photo,
+    .camera-strip-button {
+        flex-basis: 125px;
+        width: 125px;
+        height: 95px;
+    }
+
     .machine {
         width: 105px;
         min-height: 125px;
@@ -1611,8 +1700,9 @@ button {
         min-width: 0;
     }
 
-    .car {
-        font-size: 55px;
+    .memory-bike {
+        width: 90px;
+        height: 58px;
     }
 
     .game-window {
@@ -1821,7 +1911,7 @@ button {
 
         <div class="machine" id="m-memory" data-game="memory">
             <div class="machine-body">
-                <div class="machine-screen">🚗</div>
+                <div class="machine-screen">🏍️</div>
                 <div class="machine-name">Memory Lane</div>
                 <div class="machine-sub">Our journey</div>
             </div>
@@ -2067,6 +2157,8 @@ function startBackgroundMusic() {
     if (!soundOn) return;
 
     bgMusic.volume = 0.35;
+    bgMusic.muted = false;
+    if (bgMusic.readyState === 0) bgMusic.load();
 
     const playPromise = bgMusic.play();
 
@@ -2950,23 +3042,24 @@ function showPhotoStrip() {
 
             <div class="photo-frame">
 
-                <img
-                    src="photo_booth1.jpeg"
-                    alt="Photo 1"
-                    loading="eager"
-                >
+                <div class="photo-strip-row">
+                    <img
+                        src="photo_booth1.jpeg"
+                        alt="Photo 1"
+                        loading="eager"
+                    >
 
-                <img
-                    src="photo_booth2.jpg"
-                    alt="Photo 2"
-                    loading="eager"
-                >
+                    <img
+                        src="photo_booth2.jpg"
+                        alt="Photo 2"
+                        loading="eager"
+                    >
 
-                <img
-                    src="photo_booth3.jpg"
-                    alt="Photo 3"
-                    loading="eager"
-                >
+                    <img
+                        src="photo_booth3.jpg"
+                        alt="Photo 3"
+                        loading="eager"
+                    >
 
                 ${
                     capturedPhoto
@@ -2992,6 +3085,7 @@ function showPhotoStrip() {
                     </button>
                     `
                 }
+                </div>
 
                 <div class="strip-text">
                     THE US ❤️
@@ -3386,418 +3480,144 @@ const roadMemories = [
 
 ];
 
-let memoryCarPosition = 20;
-let memoryRoadWidth = 1900;
+let memoryBikePosition = 20;
+const memoryMilestoneGap = 150;
+let memoryRoadWidth = 70 + (roadMemories.length - 1) * memoryMilestoneGap + 420;
 let memoryMilestonePositions = [];
 let memoryReached = new Set();
 
-
-/* =========================================================
-   MEMORY LANE LAZY IMAGE LOADING
-========================================================= */
-
 function lazyLoadMemoryImages() {
-
-    const road =
-        document.getElementById("road");
-
+    const road = document.getElementById("road");
     if(!road) return;
-
-    const images =
-        [...road.querySelectorAll(".memory-lazy-image")];
-
-    /*
-       Only load images close to the visible part
-       of the horizontal road.
-    */
-
+    const images = [...road.querySelectorAll(".memory-lazy-image")];
     if("IntersectionObserver" in window) {
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if(entry.isIntersecting) {
-
-                            const img =
-                                entry.target;
-
-                            if(img.dataset.src) {
-
-                                img.src =
-                                    img.dataset.src;
-
-                                img.removeAttribute(
-                                    "data-src"
-                                );
-
-                                img.classList.add(
-                                    "memory-image-loaded"
-                                );
-
-                            }
-
-                            observer.unobserve(img);
-
-                        }
-
-                    });
-
-                },
-                {
-                    root:road,
-                    rootMargin:"600px 600px"
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const img = entry.target;
+                    if(img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute("data-src");
+                        img.classList.add("memory-image-loaded");
+                    }
+                    observer.unobserve(img);
                 }
-            );
-
-        images.forEach(img =>
-            observer.observe(img)
-        );
-
+            });
+        }, {root:road, rootMargin:"600px 600px"});
+        images.forEach(img => observer.observe(img));
     } else {
-
-        /*
-           Fallback for browsers without
-           IntersectionObserver.
-        */
-
-        images.forEach(img => {
-
-            img.src =
-                img.dataset.src;
-
-            img.removeAttribute(
-                "data-src"
-            );
-
-        });
-
+        images.forEach(img => { img.src = img.dataset.src; img.removeAttribute("data-src"); });
     }
-
 }
-
 
 function renderMemoryLane() {
-
-    gameTitle.textContent =
-        "🚗 MEMORY LANE";
-
+    gameTitle.textContent = "🏍️ MEMORY LANE";
     gameContent.innerHTML = `
-
         <div style="height:100%;">
-
             <div class="memory-lane-info">
-
                 <b>Drive through our memories ❤️</b><br>
-
                 Use the LEFT and RIGHT arrows to drive.<br>
-
                 Reach a milestone to discover it.
-
             </div>
-
-            <div class="road" id="road">
-
+            <div class="road" id="road" style="min-width:100%;">
                 <div class="road-line"></div>
-
                 <div class="milestones">
-
-                    ${roadMemories.map((m,i)=>`
-
+                    ${roadMemories.map((m,i)=> {
+                        const visited = memoryReached.has(i);
+                        return `
                         <button
-                            class="milestone"
+                            class="milestone ${visited ? "visited" : ""}"
                             id="milestone-${i}"
-                            style="
-                                left:${70 + i*58}px;
-                            "
-                            onclick="openRoadMemory(${i})">
-
-                            ❤️
-
-                        </button>
-
-                    `).join("")}
-
+                            style="left:${70 + i*memoryMilestoneGap}px;"
+                            ${visited ? "" : "aria-label=\"Memory milestone ${i+1}\""}>
+                            ${visited ? `<img src="${m[1]}" alt="Visited memory ${i+1}" loading="lazy" decoding="async">` : ""}
+                        </button>`;
+                    }).join("")}
                 </div>
-
-                <div class="car" id="memoryCar">
-                    🚗
+                <div class="fuel-station" style="left:${70 + (roadMemories.length - 1)*memoryMilestoneGap + 180}px;">
+                    <div class="fuel-pump">⛽</div>
+                    <div class="fuel-text">FUEL UP<br>Its a long journey ahead.</div>
                 </div>
-
+                <div class="memory-bike" id="memoryBike" aria-hidden="true">🏍️</div>
             </div>
-
         </div>
     `;
 
-    const road =
-        document.getElementById("road");
+    const road = document.getElementById("road");
+    const bike = document.getElementById("memoryBike");
+    memoryMilestonePositions = roadMemories.map((_,i) => 70 + i*memoryMilestoneGap);
 
-    const car =
-        document.getElementById("memoryCar");
-
-    memoryCarPosition = 20;
-
-    memoryMilestonePositions =
-        roadMemories.map(
-            (_,i) => 70 + i*58
-        );
-
+    bike.style.left = memoryBikePosition + "px";
+    const visibleWidth = road.clientWidth;
+    const targetScroll = memoryBikePosition - visibleWidth / 2;
+    road.scrollLeft = Math.max(0, Math.min(memoryRoadWidth - visibleWidth, targetScroll));
+    lazyLoadMemoryImages();
 
     function driveMemory(direction) {
-
-        memoryCarPosition +=
-            direction * 18;
-
-        memoryCarPosition =
-            Math.max(
-                20,
-                Math.min(
-                    memoryRoadWidth - 80,
-                    memoryCarPosition
-                )
-            );
-
-        car.style.left =
-            memoryCarPosition + "px";
-
-        const visibleWidth =
-            road.clientWidth;
-
-        const targetScroll =
-            memoryCarPosition -
-            visibleWidth / 2;
-
-        road.scrollLeft =
-            Math.max(
-                0,
-                Math.min(
-                    memoryRoadWidth - visibleWidth,
-                    targetScroll
-                )
-            );
-
+        memoryBikePosition += direction * 18;
+        memoryBikePosition = Math.max(20, Math.min(memoryRoadWidth - 80, memoryBikePosition));
+        bike.style.left = memoryBikePosition + "px";
+        const visibleWidth = road.clientWidth;
+        const targetScroll = memoryBikePosition - visibleWidth / 2;
+        road.scrollLeft = Math.max(0, Math.min(memoryRoadWidth - visibleWidth, targetScroll));
         checkMemoryMilestone();
-
     }
 
-
+    if(window.memoryKeyHandler) window.removeEventListener("keydown", window.memoryKeyHandler);
     window.memoryKeyHandler = e => {
-
-        if(
-            gameOverlay.classList.contains("hidden") ||
-            currentGame !== "memory"
-        ) return;
-
-        if(e.key === "ArrowRight") {
-
-            e.preventDefault();
-
-            driveMemory(1);
-
-        }
-
-        if(e.key === "ArrowLeft") {
-
-            e.preventDefault();
-
-            driveMemory(-1);
-
-        }
-
+        if(gameOverlay.classList.contains("hidden") || currentGame !== "memory") return;
+        if(e.key === "ArrowRight") { e.preventDefault(); driveMemory(1); }
+        if(e.key === "ArrowLeft") { e.preventDefault(); driveMemory(-1); }
     };
+    window.addEventListener("keydown", window.memoryKeyHandler);
 
-
-    window.addEventListener(
-        "keydown",
-        window.memoryKeyHandler
-    );
-
-
-    road.addEventListener(
-        "wheel",
-        e => {
-
-            if(Math.abs(e.deltaY) > 0) {
-
-                e.preventDefault();
-
-                road.scrollLeft +=
-                    e.deltaY;
-
-                /*
-                   Make nearby images load after
-                   the user moves around the road.
-                */
-
-            }
-
-        },
-        {passive:false}
-    );
-
+    road.addEventListener("wheel", e => {
+        if(Math.abs(e.deltaY) > 0) {
+            e.preventDefault();
+            road.scrollLeft += e.deltaY;
+            lazyLoadMemoryImages();
+        }
+    }, {passive:false});
 }
-
-
-/* =========================================================
-   MEMORY MILESTONE
-========================================================= */
 
 function checkMemoryMilestone() {
-
     let closestIndex = -1;
     let closestDistance = Infinity;
+    memoryMilestonePositions.forEach((position,index) => {
+        const distance = Math.abs(memoryBikePosition - position);
+        if(distance < 35 && distance < closestDistance) { closestDistance = distance; closestIndex = index; }
+    });
+    if(closestIndex === -1 || memoryReached.has(closestIndex)) return;
 
-    memoryMilestonePositions.forEach(
-        (position,index) => {
-
-            const distance =
-                Math.abs(
-                    memoryCarPosition -
-                    position
-                );
-
-            if(
-                distance < 35 &&
-                distance < closestDistance
-            ) {
-
-                closestDistance =
-                    distance;
-
-                closestIndex =
-                    index;
-
-            }
-
-        }
-    );
-
-
-    if(closestIndex !== -1) {
-
-        const milestone =
-            document.getElementById(
-                `milestone-${closestIndex}`
-            );
-
-        if(milestone) {
-
-            milestone.classList.remove(
-                "reached"
-            );
-
-            void milestone.offsetWidth;
-
-            milestone.classList.add(
-                "reached"
-            );
-
-        }
-
-
-        const car =
-            document.getElementById(
-                "memoryCar"
-            );
-
-        if(car) {
-
-            car.classList.remove(
-                "jump"
-            );
-
-            void car.offsetWidth;
-
-            car.classList.add(
-                "jump"
-            );
-
-        }
-
-
-        if(
-            !memoryReached.has(
-                closestIndex
-            )
-        ) {
-
-            memoryReached.add(
-                closestIndex
-            );
-
-            setTimeout(() => {
-
-                if(
-                    currentGame === "memory"
-                ) {
-
-                    openRoadMemory(
-                        closestIndex
-                    );
-
-                }
-
-            },250);
-
-        }
-
+    const milestone = document.getElementById(`milestone-${closestIndex}`);
+    if(milestone) {
+        milestone.classList.remove("reached");
+        void milestone.offsetWidth;
+        milestone.classList.add("reached", "visited");
+        milestone.innerHTML = `<img src="${roadMemories[closestIndex][1]}" alt="Visited memory ${closestIndex+1}" loading="eager" decoding="async">`;
     }
+    const bike = document.getElementById("memoryBike");
+    if(bike) { bike.classList.remove("jump"); void bike.offsetWidth; bike.classList.add("jump"); }
 
+    memoryReached.add(closestIndex);
+    setTimeout(() => { if(currentGame === "memory") openRoadMemory(closestIndex); }, 250);
 }
-
-
-/* =========================================================
-   OPEN MEMORY
-========================================================= */
 
 function openRoadMemory(index) {
-
-    const [text,image] =
-        roadMemories[index];
-
-    gameTitle.textContent =
-        "❤️ A MEMORY";
-
+    const [text,image] = roadMemories[index];
+    gameTitle.textContent = "❤️ A MEMORY";
     gameContent.innerHTML = `
-
         <div class="memory-reveal">
-
-            <img
-                src="${image}"
-                alt="Memory"
-                loading="eager"
-                decoding="async"
-            >
-
-            <div class="memory-text">
-                ${text.replace(/\n/g,"<br>")}
-            </div>
-
-            <div class="reward">
-                MEMORY DISCOVERED +10 TICKETS 🎟️
-            </div>
-
+            <img src="${image}" alt="Memory" loading="eager" decoding="async">
+            <div class="memory-text">${text.replace(/\n/g,"<br>")}</div>
+            <div class="reward">MEMORY DISCOVERED +10 TICKETS 🎟️</div>
             <br>
-
-            <button
-                class="big-btn"
-                onclick="renderMemoryLane()">
-
-                CONTINUE DRIVING 🚗
-
-            </button>
-
+            <button class="big-btn" onclick="renderMemoryLane()">CONTINUE RIDING 🏍️</button>
         </div>
     `;
-
     addTickets(10);
-
     celebrationBurst();
-
 }
-
 
 /* =========================================================
    BASKETBALL
@@ -3958,209 +3778,74 @@ function renderBasketball() {
 }
 
 
+function normalizeAnswer(value) {
+    return value.toLowerCase().trim().replace(/\s+/g," ").replace(/[.!?,]+$/g,"");
+}
+
 function renderBasketballQuestion() {
-
-    if(
-        basketballIndex >=
-        basketballQuestions.length
-    ) {
-
+    if(basketballIndex >= basketballQuestions.length) {
         gameContent.innerHTML = `
-
-            <div class="center"
-                 style="
-                    height:100%;
-                    display:flex;
-                    flex-direction:column;
-                    justify-content:center;
-                    align-items:center;
-                 ">
-
-                <div style="font-size:70px">
-                    🏀❤️
-                </div>
-
-                <h2>
-                    YOU MADE IT!
-                </h2>
-
-                <p style="margin:12px">
-                    You survived the ultimate us quiz.
-                </p>
-
-                <div class="scoreboard">
-                    SCORE:
-                    ${basketballScore}
-                    /
-                    ${basketballQuestions.length}
-                </div>
-
-                <div class="reward">
-                    +60 TICKETS 🎟️
-                </div>
-
+            <div class="center" style="height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                <div style="font-size:70px">🏀❤️</div>
+                <h2>YOU MADE IT!</h2>
+                <p style="margin:12px">You survived the ultimate us quiz.</p>
+                <div class="scoreboard">SCORE: ${basketballScore} / ${basketballQuestions.length}</div>
+                <div class="reward">+${basketballScore * 10} TICKETS 🎟️</div>
                 <br>
-
-                <button
-                    class="big-btn"
-                    onclick="renderBasketball()">
-
-                    PLAY AGAIN
-
-                </button>
-
-            </div>
-        `;
-
-        addTickets(60);
+                <button class="big-btn" onclick="renderBasketball()">PLAY AGAIN</button>
+            </div>`;
+        addTickets(basketballScore * 10);
         successSound();
-
         return;
-
     }
 
-
+    const current = basketballQuestions[basketballIndex];
     basketballAnswered = false;
-
-    const q =
-        basketballQuestions[
-            basketballIndex
-        ];
-
     gameContent.innerHTML = `
-
         <div class="question-card">
-
-            <div class="scoreboard">
-
-                <span>
-                    SCORE: ${basketballScore}
-                </span>
-
-                <span>
-                    ${basketballIndex + 1}/${basketballQuestions.length}
-                </span>
-
-            </div>
-
-            <div class="question">
-                ${q.q}
-            </div>
-
+            <div class="scoreboard">QUESTION ${basketballIndex + 1} / ${basketballQuestions.length} &nbsp; SCORE: ${basketballScore}</div>
             <div class="basketball-court">
-
                 <div class="hoop-backboard"></div>
                 <div class="hoop-rim"></div>
                 <div class="hoop-net"></div>
-
-                <div
-                    class="ball"
-                    id="basketballBall">
-                </div>
-
+                <div class="ball" id="quizBall"></div>
             </div>
+            <div class="question">${current.q}</div>
+            <form id="answerForm" style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;">
+                <input id="answerInput" autocomplete="off" placeholder="Type your answer..." style="flex:1;max-width:560px;padding:13px 16px;border-radius:14px;border:2px solid var(--purple);background:#0d0a18;color:white;font:inherit;outline:none;">
+                <button class="big-btn" type="submit">SUBMIT</button>
+            </form>
+            <div id="answerFeedback" class="reward" style="min-height:25px"></div>
+        </div>`;
 
-            <div class="answers">
-
-                ${q.answers.map((a,i)=>`
-
-                    <button
-                        class="answer-btn"
-                        data-answer-index="${i}">
-
-                        ${a}
-
-                    </button>
-
-                `).join("")}
-
-            </div>
-
-            <div
-                id="basketResult"
-                style="margin-top:10px">
-            </div>
-
-        </div>
-    `;
-
-
-    document.querySelectorAll(".answer-btn")
-        .forEach((btn,index) => {
-
-            btn.onclick = () => {
-
-                if(basketballAnswered)
-                    return;
-
-                basketballAnswered = true;
-
-                const answer =
-                    q.answers[index];
-
-                const result =
-                    document.getElementById(
-                        "basketResult"
-                    );
-
-                const ball =
-                    document.getElementById(
-                        "basketballBall"
-                    );
-
-                document.querySelectorAll(
-                    ".answer-btn"
-                ).forEach(
-                    b => b.disabled = true
-                );
-
-
-                if(answer === q.correct) {
-
-                    basketballScore++;
-
-                    result.innerHTML =
-                        `<b style="color:#67f7a8">
-                            SWISH! 🏀❤️
-                         </b>`;
-
-                    ball.classList.add(
-                        "shoot-in"
-                    );
-
-                    successSound();
-                    addTickets(10);
-
-                } else {
-
-                    result.innerHTML =
-                        `<b style="color:#ff7c9f">
-                            MISSED! The ball didn't make it in. 🏀
-                         </b>`;
-
-                    ball.classList.add(
-                        "shoot-miss"
-                    );
-
-                    failSound();
-
-                }
-
-
-                setTimeout(() => {
-
-                    basketballIndex++;
-
-                    renderBasketballQuestion();
-
-                },1200);
-
-            };
-
-        });
-
+    const form = document.getElementById("answerForm");
+    const input = document.getElementById("answerInput");
+    input.focus();
+    form.onsubmit = e => {
+        e.preventDefault();
+        if(basketballAnswered) return;
+        basketballAnswered = true;
+        const typed = normalizeAnswer(input.value);
+        const correct = normalizeAnswer(current.correct);
+        const accepted = typed === correct || (current.correct.includes("OR") && current.correct.split(" OR ").some(a => normalizeAnswer(a) === typed));
+        const feedback = document.getElementById("answerFeedback");
+        const ball = document.getElementById("quizBall");
+        if(accepted) {
+            basketballScore++;
+            input.disabled = true;
+            feedback.textContent = "CORRECT! 🏀❤️";
+            feedback.style.color = "var(--green, #67f7a8)";
+            if(ball) ball.classList.add("shoot-in");
+            successSound();
+        } else {
+            feedback.innerHTML = `Not quite! The answer was <b>${current.correct}</b>`;
+            feedback.style.color = "var(--pink2)";
+            if(ball) ball.classList.add("shoot-miss");
+            failSound();
+        }
+        setTimeout(() => { basketballIndex++; renderBasketballQuestion(); }, 1100);
+    };
 }
-
 
 /* =========================================================
    WHACK A MOLE
