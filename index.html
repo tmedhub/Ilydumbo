@@ -3,1288 +3,1895 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>The Us Arcade</title>
+<title>THE US ARCADE</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+:root{
+    --pink:#ff4fa3;
+    --pink2:#ff86c8;
+    --cyan:#42e8ff;
+    --yellow:#ffe36e;
+    --purple:#9d7cff;
+    --green:#67f7a8;
+    --red:#ff526b;
+    --white:#f7f7ff;
+    --muted:#aeb3d1;
+    --dark:#080914;
+    --panel:#101326;
+    --panel2:#171a34;
 }
 
-:root {
-    --pink: #ff6fae;
-    --pink2: #ffb7d5;
-    --purple: #a98cff;
-    --blue: #72d9ff;
-    --yellow: #ffe47a;
-    --cream: #fff8ee;
-    --dark: #171325;
-    --dark2: #241b38;
-    --panel: rgba(27, 21, 48, .94);
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #090711;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    color: white;
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:var(--dark);
 }
 
-button {
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-}
-
-.hidden {
-    display: none !important;
+body{
+    font-family:'VT323',monospace;
+    color:var(--white);
 }
 
 /* =========================================================
-   LOADING / ENTRANCE
+   GENERAL
 ========================================================= */
 
-#entrance {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background:
-        radial-gradient(circle at 50% 35%, rgba(255,111,174,.2), transparent 35%),
-        linear-gradient(135deg, #120d22, #090711 70%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+button{
+    font-family:'Press Start 2P',monospace;
+    cursor:pointer;
+    border:none;
 }
 
-.entrance-card {
-    width: min(900px, 94vw);
-    height: min(650px, 90vh);
-    border: 3px solid var(--pink);
-    border-radius: 30px;
-    background:
-        linear-gradient(rgba(20,15,35,.88), rgba(20,15,35,.94)),
-        url("bg.png") center/cover;
-    box-shadow:
-        0 0 20px rgba(255,111,174,.6),
-        0 0 80px rgba(169,140,255,.2),
-        inset 0 0 60px rgba(255,111,174,.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+.hidden{
+    display:none !important;
 }
 
-.entrance-title {
-    font-size: clamp(32px, 6vw, 72px);
-    color: white;
-    text-align: center;
-    letter-spacing: 5px;
+.screen{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+/* =========================================================
+   FIRST PAGE
+========================================================= */
+
+#entrance{
+    background:
+        radial-gradient(circle at 50% 15%,rgba(255,79,163,.18),transparent 30%),
+        radial-gradient(circle at 15% 80%,rgba(66,232,255,.12),transparent 30%),
+        radial-gradient(circle at 85% 80%,rgba(157,124,255,.12),transparent 30%),
+        #070811;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.entrance-inner{
+    width:min(1100px,96vw);
+    height:min(700px,94vh);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.arcade-sign{
+    font-family:'Press Start 2P',monospace;
+    font-size:clamp(22px,4vw,52px);
+    color:var(--pink);
+    text-align:center;
     text-shadow:
-        0 0 5px white,
+        0 0 5px var(--pink),
         0 0 15px var(--pink),
-        0 0 30px var(--pink);
-    margin-bottom: 35px;
+        0 0 35px var(--pink);
+    margin-bottom:20px;
+    animation:signPulse 1.8s infinite alternate;
 }
 
-.entrance-player {
-    position: relative;
-    width: 150px;
-    height: 210px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+.arcade-subtitle{
+    color:var(--cyan);
+    font-family:'Press Start 2P',monospace;
+    font-size:clamp(9px,1.2vw,15px);
+    text-align:center;
+    margin-bottom:30px;
 }
 
-.entrance-player img {
-    width: 130px;
-    max-height: 190px;
-    object-fit: contain;
-    animation: floatPlayer 2s ease-in-out infinite;
+.entrance-character{
+    position:relative;
+    width:min(700px,80vw);
+    height:330px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-@keyframes floatPlayer {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-7px); }
+.entrance-character img{
+    width:min(300px,35vw);
+    max-height:310px;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 8px rgba(255,79,163,.8))
+        drop-shadow(0 0 22px rgba(66,232,255,.45));
+    animation:floatBitmoji 2.5s ease-in-out infinite;
+    z-index:2;
 }
 
-/* Speech bubble */
-
-.speech-bubble {
-    position: absolute;
-    left: calc(50% + 65px);
-    top: 15px;
-    width: min(390px, 55vw);
-    min-width: 230px;
-    padding: 18px 22px;
-    background: white;
-    color: #34233e;
-    border-radius: 22px;
-    font-size: clamp(13px, 1.6vw, 18px);
-    line-height: 1.45;
-    box-shadow: 0 8px 25px rgba(0,0,0,.3);
-    animation: bubbleIn .8s ease forwards;
+.speech-bubble{
+    position:absolute;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    width:min(410px,38vw);
+    min-height:130px;
+    background:white;
+    color:#171327;
+    border:5px solid #171327;
+    border-radius:25px;
+    padding:24px;
+    font-size:clamp(20px,2vw,30px);
+    line-height:1.05;
+    box-shadow:
+        8px 8px 0 #171327,
+        0 0 25px rgba(255,255,255,.15);
+    z-index:3;
 }
 
-.speech-bubble:before {
-    content: "";
-    position: absolute;
-    left: -18px;
-    top: 38px;
-    border-width: 10px 20px 10px 0;
-    border-style: solid;
-    border-color: transparent white transparent transparent;
+.speech-bubble:before{
+    content:"";
+    position:absolute;
+    left:-28px;
+    top:50%;
+    transform:translateY(-50%);
+    width:0;
+    height:0;
+    border-top:18px solid transparent;
+    border-bottom:18px solid transparent;
+    border-right:30px solid #171327;
 }
 
-@keyframes bubbleIn {
-    from {
-        opacity: 0;
-        transform: scale(.8) translateX(-15px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateX(0);
-    }
+.speech-bubble:after{
+    content:"";
+    position:absolute;
+    left:-19px;
+    top:50%;
+    transform:translateY(-50%);
+    width:0;
+    height:0;
+    border-top:12px solid transparent;
+    border-bottom:12px solid transparent;
+    border-right:21px solid white;
 }
 
-.start-button {
-    margin-top: 35px;
-    padding: 15px 38px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--pink), #ff438f);
-    color: white;
-    font-weight: bold;
-    font-size: 17px;
-    box-shadow: 0 0 20px rgba(255,111,174,.6);
-    transition: .2s;
+#entranceText{
+    min-height:70px;
 }
 
-.start-button:hover {
-    transform: translateY(-3px) scale(1.04);
+.start-wrap{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+}
+
+#startBtn{
+    background:var(--pink);
+    color:white;
+    padding:19px 30px;
+    font-size:14px;
+    box-shadow:
+        0 0 10px var(--pink),
+        0 0 30px rgba(255,79,163,.6),
+        7px 7px 0 #7b174e;
+    transition:.15s;
+}
+
+#startBtn:hover{
+    transform:translateY(-3px) scale(1.03);
+}
+
+#startBtn:active{
+    transform:translate(4px,4px);
+    box-shadow:0 0 10px var(--pink);
+}
+
+@keyframes signPulse{
+    from{filter:brightness(.9)}
+    to{filter:brightness(1.35)}
+}
+
+@keyframes floatBitmoji{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-14px)}
 }
 
 /* =========================================================
    ARCADE
 ========================================================= */
 
-#arcade {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    background: #090711;
+#arcade{
+    background:#05060c;
+    display:flex;
+    flex-direction:column;
 }
 
-#arcadeWorld {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
+.topbar{
+    height:64px;
+    min-height:64px;
+    background:rgba(8,9,20,.95);
+    border-bottom:2px solid rgba(255,79,163,.55);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    position:relative;
+    z-index:100;
 }
 
-#background {
-    position: absolute;
-    inset: 0;
+.logo{
+    font-family:'Press Start 2P',monospace;
+    color:var(--pink);
+    font-size:clamp(10px,1.5vw,18px);
+    text-shadow:0 0 12px var(--pink);
+}
+
+.ticket-display{
+    font-family:'Press Start 2P',monospace;
+    color:var(--yellow);
+    font-size:clamp(9px,1.3vw,15px);
+    text-shadow:0 0 10px var(--yellow);
+}
+
+.sound-btn{
+    background:var(--panel2);
+    border:2px solid var(--cyan);
+    color:var(--cyan);
+    padding:9px 12px;
+    font-size:9px;
+}
+
+#arcadeArea{
+    flex:1;
+    min-height:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+}
+
+#world{
+    width:min(1400px,98vw);
+    height:min(760px,calc(100vh - 90px));
+    position:relative;
+    overflow:hidden;
+    border:4px solid var(--pink);
+    box-shadow:
+        0 0 15px var(--pink),
+        inset 0 0 30px rgba(255,79,163,.15);
     background-image:
-        linear-gradient(rgba(10,7,20,.12), rgba(10,7,20,.12)),
+        linear-gradient(
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.07)
+        ),
         url("bg.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-size:cover;
+    background-position:center;
 }
 
-/* slight arcade overlay */
+/* subtle blur layer over bg */
+#world:before{
+    content:"";
+    position:absolute;
+    inset:-15px;
+    background-image:url("bg.png");
+    background-size:cover;
+    background-position:center;
+    filter:blur(2.2px);
+    opacity:.35;
+    z-index:0;
+}
 
-#background:after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+#world:after{
+    content:"";
+    position:absolute;
+    inset:0;
     background:
-        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.38)),
-        linear-gradient(transparent 96%, rgba(255,255,255,.025) 100%);
+        radial-gradient(circle at center,transparent 30%,rgba(0,0,0,.18)),
+        linear-gradient(rgba(5,6,12,.08),rgba(5,6,12,.18));
+    z-index:1;
+    pointer-events:none;
 }
 
 /* =========================================================
-   HUD
+   MACHINES
 ========================================================= */
 
-#hud {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    z-index: 200;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-}
-
-.logo {
-    pointer-events: auto;
-    background: rgba(20,15,35,.86);
-    border: 2px solid var(--pink);
-    padding: 8px 15px;
-    border-radius: 14px;
-    font-size: clamp(13px, 1.5vw, 18px);
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(255,111,174,.35);
-}
-
-.hud-right {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.tickets {
-    pointer-events: auto;
-    background: rgba(20,15,35,.9);
-    border: 2px solid var(--yellow);
-    border-radius: 14px;
-    padding: 8px 15px;
-    color: var(--yellow);
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(255,228,122,.25);
-}
-
-.sound-btn {
-    pointer-events: auto;
-    background: rgba(20,15,35,.9);
-    border: 2px solid var(--blue);
-    color: white;
-    border-radius: 14px;
-    padding: 8px 12px;
-}
-
-/* =========================================================
-   ARCADE MACHINES
-========================================================= */
-
-.machine {
-    position: absolute;
-    width: clamp(100px, 11vw, 165px);
-    min-height: 125px;
-    z-index: 20;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    transition: transform .2s, filter .2s;
-}
-
-.machine:hover {
-    transform: translate(-50%, -50%) scale(1.05);
-    filter: brightness(1.15);
-}
-
-.machine-body {
-    width: 100%;
-    height: 100%;
-    min-height: 125px;
-    border-radius: 18px 18px 10px 10px;
-    background: linear-gradient(145deg, #342653, #171127);
-    border: 3px solid var(--purple);
+.machine{
+    position:absolute;
+    width:clamp(120px,10vw,175px);
+    min-height:125px;
+    padding:9px;
+    transform:translate(-50%,-50%);
+    background:linear-gradient(145deg,#25294e,#0c0e1e);
+    border:3px solid var(--cyan);
     box-shadow:
-        0 0 12px rgba(169,140,255,.55),
-        inset 0 0 20px rgba(255,255,255,.04);
-    padding: 9px;
-    text-align: center;
-    position: relative;
+        0 0 8px var(--cyan),
+        inset 0 0 15px rgba(66,232,255,.12);
+    z-index:5;
+    transition:.18s;
+    user-select:none;
 }
 
-.machine-screen {
-    height: 55px;
-    border-radius: 9px;
-    background: #0b0814;
-    border: 2px solid var(--blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: clamp(20px, 2.5vw, 32px);
-    margin-bottom: 7px;
-    box-shadow: inset 0 0 15px rgba(114,217,255,.18);
+.machine:hover{
+    transform:translate(-50%,-50%) scale(1.08);
+    border-color:var(--pink);
+    box-shadow:0 0 15px var(--pink),0 0 35px rgba(255,79,163,.45);
 }
 
-.machine-name {
-    font-size: clamp(9px, 1vw, 13px);
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    line-height: 1.15;
+.machine-top{
+    height:75px;
+    background:#080a14;
+    border:2px solid var(--pink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
 }
 
-.machine-sub {
-    margin-top: 4px;
-    color: var(--pink2);
-    font-size: 9px;
+.machine-top:before,
+.machine-top:after{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--yellow);
+    box-shadow:0 0 8px var(--yellow);
 }
 
-.machine.near {
-    transform: translate(-50%, -50%) scale(1.08);
-    filter: brightness(1.3);
+.machine-top:before{top:6px;left:7px}
+.machine-top:after{top:6px;right:7px}
+
+.machine-icon{
+    font-size:34px;
+    filter:drop-shadow(0 0 7px currentColor);
 }
 
-.machine.near .machine-body {
-    border-color: var(--yellow);
-    box-shadow:
-        0 0 12px var(--yellow),
-        0 0 35px rgba(255,228,122,.35);
+.machine-name{
+    font-family:'Press Start 2P',monospace;
+    font-size:8px;
+    text-align:center;
+    color:white;
+    margin-top:7px;
+    line-height:1.35;
 }
 
-/* scattered layout */
-
-#m-claw       { left: 14%; top: 29%; }
-#m-photo      { left: 35%; top: 24%; }
-#m-jukebox    { left: 65%; top: 24%; }
-#m-memory     { left: 87%; top: 31%; }
-
-#m-basketball { left: 19%; top: 67%; }
-#m-mole       { left: 43%; top: 72%; }
-#m-striker    { left: 65%; top: 69%; }
-#m-shooting   { left: 87%; top: 65%; }
-#m-wheel      { left: 78%; top: 47%; }
-
-#ticketMachine {
-    left: 50%;
-    top: 88%;
+.machine.completed{
+    opacity:.55;
+    filter:saturate(.55);
 }
+
+.machine.completed:after{
+    content:"PLAYED";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(8,9,20,.7);
+    color:var(--green);
+    font-family:'Press Start 2P',monospace;
+    font-size:9px;
+}
+
+/* scattered positions */
+#m-claw{left:13%;top:24%}
+#m-photo{left:32%;top:20%}
+#m-jukebox{left:52%;top:19%}
+#m-memory{left:73%;top:25%}
+#m-basket{left:88%;top:45%}
+#m-whack{left:15%;top:58%}
+#m-high{left:37%;top:55%}
+#m-shoot{left:59%;top:59%}
+#m-wheel{left:79%;top:68%}
 
 /* =========================================================
    PLAYER
 ========================================================= */
 
-#player {
-    position: absolute;
-    width: clamp(58px, 7vw, 90px);
-    height: clamp(80px, 10vw, 120px);
-    z-index: 100;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: left .08s linear, top .08s linear;
+#player{
+    position:absolute;
+    width:clamp(80px,7vw,115px);
+    height:clamp(90px,8vw,125px);
+    transform:translate(-50%,-50%);
+    z-index:20;
+    pointer-events:none;
+    transition:left .07s linear,top .07s linear;
 }
 
-#player img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 5px 5px rgba(0,0,0,.35));
+#player img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 0 8px var(--pink))
+        drop-shadow(0 0 15px rgba(66,232,255,.5));
 }
 
-#playerBubble {
-    position: absolute;
-    width: 190px;
-    right: calc(100% + 12px);
-    top: -30px;
-    background: white;
-    color: #30213d;
-    border-radius: 17px;
-    padding: 10px 13px;
-    font-size: 12px;
-    line-height: 1.35;
-    box-shadow: 0 5px 20px rgba(0,0,0,.25);
-    opacity: 0;
-    transition: .3s;
-}
-
-#playerBubble.show {
-    opacity: 1;
-}
-
-#playerBubble:after {
-    content: "";
-    position: absolute;
-    right: -12px;
-    bottom: 18px;
-    border-width: 8px 0 8px 13px;
-    border-style: solid;
-    border-color: transparent transparent transparent white;
+.player-ring{
+    position:absolute;
+    left:50%;
+    bottom:2px;
+    transform:translateX(-50%);
+    width:60%;
+    height:12px;
+    border-radius:50%;
+    background:rgba(255,79,163,.35);
+    filter:blur(5px);
 }
 
 /* =========================================================
-   ENTER PROMPT
+   CONTROLS / INSTRUCTIONS
 ========================================================= */
 
-#enterPrompt {
-    position: absolute;
-    left: 50%;
-    bottom: 18px;
-    transform: translateX(-50%);
-    z-index: 300;
-    padding: 9px 20px;
-    border-radius: 999px;
-    background: rgba(15,11,27,.9);
-    border: 2px solid var(--pink);
-    color: white;
-    font-size: clamp(11px, 1.4vw, 15px);
-    box-shadow: 0 0 15px rgba(255,111,174,.4);
-    transition: .2s;
+.arcade-hint{
+    position:absolute;
+    bottom:10px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:30;
+    padding:8px 14px;
+    background:rgba(8,9,20,.85);
+    border:2px solid var(--yellow);
+    color:var(--yellow);
+    font-family:'Press Start 2P',monospace;
+    font-size:8px;
+    text-align:center;
 }
 
-#enterPrompt.active {
-    border-color: var(--yellow);
-    color: var(--yellow);
-    box-shadow: 0 0 20px rgba(255,228,122,.6);
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%);
+    z-index:500;
+    background:#11142a;
+    border:3px solid var(--pink);
+    padding:12px 18px;
+    font-family:'Press Start 2P',monospace;
+    font-size:10px;
+    box-shadow:0 0 20px rgba(255,79,163,.5);
+    opacity:0;
+    pointer-events:none;
+    transition:.2s;
+}
+
+.toast.show{
+    opacity:1;
 }
 
 /* =========================================================
    GAME MODAL
 ========================================================= */
 
-#gameOverlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: rgba(6,4,12,.78);
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
+#gameModal{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:rgba(3,4,10,.82);
+    backdrop-filter:blur(5px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
 }
 
-.game-window {
-    width: min(900px, 96vw);
-    height: min(650px, 90vh);
-    max-height: 90vh;
-    overflow: hidden;
-    background: linear-gradient(145deg, #241a39, #100c1e);
-    border: 3px solid var(--pink);
-    border-radius: 25px;
+.game-window{
+    width:min(1050px,96vw);
+    height:min(720px,92vh);
+    background:
+        linear-gradient(145deg,rgba(23,26,52,.98),rgba(7,8,18,.98));
+    border:4px solid var(--pink);
     box-shadow:
-        0 0 30px rgba(255,111,174,.4),
-        0 0 100px rgba(169,140,255,.15);
-    position: relative;
-    display: flex;
-    flex-direction: column;
+        0 0 15px var(--pink),
+        0 0 60px rgba(255,79,163,.25);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
 }
 
-.game-header {
-    flex: 0 0 auto;
-    padding: 12px 18px;
-    border-bottom: 1px solid rgba(255,255,255,.12);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.game-header{
+    height:65px;
+    min-height:65px;
+    background:#090b18;
+    border-bottom:3px solid var(--cyan);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 15px;
 }
 
-.game-title {
-    font-size: clamp(17px, 2.5vw, 28px);
-    color: white;
+.game-title{
+    font-family:'Press Start 2P',monospace;
+    color:var(--cyan);
+    font-size:clamp(10px,1.6vw,18px);
+    text-shadow:0 0 10px var(--cyan);
 }
 
-.back-btn {
-    background: #39284f;
-    color: white;
-    border: 2px solid var(--pink2);
-    padding: 7px 14px;
-    border-radius: 12px;
-    font-weight: bold;
+.back-game{
+    background:var(--pink);
+    color:white;
+    padding:10px 13px;
+    font-size:8px;
+    box-shadow:4px 4px 0 #79174c;
 }
 
-.game-content {
-    flex: 1;
-    min-height: 0;
-    overflow: auto;
-    padding: 18px;
+.game-body{
+    flex:1;
+    min-height:0;
+    overflow:auto;
+    padding:18px;
 }
 
 /* =========================================================
-   GENERAL GAME UI
+   COMMON GAME ELEMENTS
 ========================================================= */
 
-.big-btn {
-    background: linear-gradient(135deg, var(--pink), #ff408d);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 999px;
-    font-size: 15px;
-    font-weight: bold;
-    box-shadow: 0 0 18px rgba(255,111,174,.4);
-    transition: .2s;
+.game-btn{
+    background:var(--pink);
+    color:white;
+    padding:13px 17px;
+    margin:5px;
+    font-size:9px;
+    box-shadow:5px 5px 0 #77164a;
 }
 
-.big-btn:hover {
-    transform: scale(1.04);
+.game-btn:hover{
+    filter:brightness(1.2);
+    transform:translateY(-2px);
 }
 
-.center {
-    text-align: center;
+.secondary-btn{
+    background:var(--cyan);
+    color:#071018;
+    box-shadow:5px 5px 0 #167d8a;
 }
 
-.reward {
-    margin-top: 12px;
-    color: var(--yellow);
-    font-weight: bold;
+.game-center{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:15px;
+}
+
+.game-description{
+    color:var(--muted);
+    font-size:22px;
+    line-height:1.1;
+    max-width:850px;
+}
+
+.game-result{
+    padding:15px;
+    border:3px solid var(--green);
+    background:rgba(103,247,168,.08);
+    color:var(--green);
+    font-size:24px;
+    text-align:center;
+}
+
+.ticket-pop{
+    position:fixed;
+    z-index:1000;
+    color:var(--yellow);
+    font-family:'Press Start 2P',monospace;
+    font-size:14px;
+    animation:ticketFloat 1.1s forwards;
+    pointer-events:none;
+}
+
+@keyframes ticketFloat{
+    from{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    to{
+        opacity:0;
+        transform:translateY(-70px) scale(1.4);
+    }
 }
 
 /* =========================================================
    CLAW MACHINE
 ========================================================= */
 
-.claw-game {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.claw-game{
+    width:100%;
+    max-width:850px;
+    margin:auto;
 }
 
-.claw-stage {
-    position: relative;
-    width: min(600px, 90%);
-    height: min(370px, 55vh);
-    border: 3px solid var(--purple);
-    border-radius: 20px;
-    background: linear-gradient(#161126, #0d0a18);
-    overflow: hidden;
+.claw-cabinet{
+    height:390px;
+    position:relative;
+    background:linear-gradient(#1b2140,#080a16);
+    border:5px solid var(--cyan);
+    box-shadow:inset 0 0 30px rgba(66,232,255,.15);
+    overflow:hidden;
 }
 
-.claw-rail {
-    position: absolute;
-    top: 25px;
-    left: 30px;
-    right: 30px;
-    height: 9px;
-    background: #8e76ba;
-    border-radius: 10px;
+.claw-rail{
+    position:absolute;
+    left:7%;
+    right:7%;
+    top:32px;
+    height:9px;
+    background:#cbd1e7;
+    box-shadow:0 0 10px white;
 }
 
-.claw {
-    position: absolute;
-    top: 27px;
-    left: 50%;
-    width: 45px;
-    height: 115px;
-    transform: translateX(-50%);
-    transition: left .2s ease;
-    z-index: 5;
+.claw{
+    position:absolute;
+    top:32px;
+    width:55px;
+    height:230px;
+    transform:translateX(-50%);
+    transition:left .1s linear;
+    z-index:10;
 }
 
-.claw-cable {
-    width: 5px;
-    height: 70px;
-    margin: auto;
-    background: #bbb;
+.claw-string{
+    width:4px;
+    height:185px;
+    background:#dce3ff;
+    margin:auto;
 }
 
-.claw-hand {
-    position: relative;
-    width: 42px;
-    height: 35px;
-    border: 5px solid #ddd;
-    border-top: 0;
-    border-radius: 0 0 20px 20px;
+.claw-hand{
+    width:55px;
+    height:55px;
+    border:5px solid var(--yellow);
+    border-top:none;
+    border-radius:0 0 28px 28px;
+    box-shadow:0 0 10px var(--yellow);
 }
 
-.claw-hand:before,
-.claw-hand:after {
-    content: "";
-    position: absolute;
-    bottom: -18px;
-    width: 8px;
-    height: 24px;
-    background: #ddd;
-    border-radius: 10px;
+.claw.open .claw-hand{
+    border-radius:0;
 }
 
-.claw-hand:before {
-    left: 2px;
-    transform: rotate(25deg);
+.capsules{
+    position:absolute;
+    left:5%;
+    right:5%;
+    bottom:30px;
+    height:110px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-around;
 }
 
-.claw-hand:after {
-    right: 2px;
-    transform: rotate(-25deg);
+.capsule{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:linear-gradient(145deg,var(--pink2),var(--pink));
+    border:3px solid white;
+    box-shadow:0 0 12px var(--pink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-family:'Press Start 2P',monospace;
+    font-size:10px;
+    transition:.3s;
 }
 
-.claw-capsules {
-    position: absolute;
-    bottom: 20px;
-    left: 8%;
-    right: 8%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 8px;
+.capsule.collected{
+    opacity:.15;
+    transform:scale(.5);
 }
 
-.capsule {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--pink), var(--purple));
-    border: 3px solid white;
-    box-shadow: 0 0 12px rgba(255,111,174,.5);
-    transition: .2s;
+.claw-controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
 }
 
-.capsule:hover {
-    transform: translateY(-5px);
+.claw-position{
+    color:var(--cyan);
+    font-size:22px;
 }
 
-.claw-dropping {
-    animation: clawDrop .8s ease forwards;
+/* memory reveal */
+
+.memory-reveal{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:15px;
+    max-width:700px;
+    margin:auto;
+    text-align:center;
 }
 
-@keyframes clawDrop {
-    0% { transform: translateX(-50%) translateY(0); }
-    100% { transform: translateX(-50%) translateY(185px); }
+.memory-reveal img{
+    max-width:100%;
+    max-height:340px;
+    object-fit:contain;
+    border:5px solid white;
+    box-shadow:0 0 25px var(--pink);
 }
 
-/* =========================================================
-   MEMORY REVEAL
-========================================================= */
-
-.memory-reveal {
-    text-align: center;
-    max-width: 700px;
-    margin: auto;
-}
-
-.memory-reveal img {
-    max-width: min(500px, 90%);
-    max-height: 42vh;
-    object-fit: contain;
-    border-radius: 15px;
-    border: 3px solid var(--pink2);
-    box-shadow: 0 0 25px rgba(255,111,174,.3);
-}
-
-.memory-text {
-    margin-top: 15px;
-    font-size: clamp(14px, 1.8vw, 19px);
-    line-height: 1.5;
-    color: #fff6fc;
+.memory-caption{
+    font-size:27px;
+    line-height:1.05;
+    color:white;
 }
 
 /* =========================================================
    PHOTO BOOTH
 ========================================================= */
 
-.photo-booth {
-    text-align: center;
+.photo-booth{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100%;
+    gap:18px;
 }
 
-.photo-frame {
-    width: min(330px, 80%);
-    margin: auto;
-    background: white;
-    padding: 12px 12px 18px;
-    border-radius: 5px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.4);
+.booth-screen{
+    width:min(500px,85vw);
+    height:340px;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.03) 0,
+            rgba(255,255,255,.03) 2px,
+            transparent 2px,
+            transparent 5px
+        ),
+        #090a15;
+    border:5px solid var(--pink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
 }
 
-.photo-frame img {
-    display: block;
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    margin-bottom: 7px;
+.countdown{
+    font-family:'Press Start 2P',monospace;
+    font-size:80px;
+    color:var(--yellow);
+    text-shadow:0 0 20px var(--yellow);
 }
 
-.photo-frame .strip-text {
-    color: #30213d;
-    font-weight: bold;
-    font-size: 12px;
-    letter-spacing: 2px;
+.photo-strip{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width:850px;
 }
 
-.booth-stage {
-    min-height: 270px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.photo-frame{
+    width:135px;
+    height:170px;
+    background:white;
+    padding:6px;
+    box-shadow:0 0 12px rgba(255,255,255,.5);
 }
 
-.countdown {
-    font-size: clamp(60px, 12vw, 120px);
-    font-weight: bold;
-    text-shadow: 0 0 30px var(--pink);
-    animation: countPulse .8s infinite;
+.photo-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-@keyframes countPulse {
-    50% { transform: scale(1.12); }
+.today-frame{
+    background:#fff;
+    color:#111;
+    padding:10px;
+    width:145px;
+    min-height:170px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    font-family:'Press Start 2P',monospace;
+    font-size:9px;
+    line-height:1.5;
 }
 
-.flash {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: white;
-    animation: flash .4s ease forwards;
-    pointer-events: none;
+.camera-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
 }
 
-@keyframes flash {
-    0% { opacity: 0; }
-    20% { opacity: 1; }
-    100% { opacity: 0; }
+#cameraVideo{
+    width:min(600px,85vw);
+    max-height:420px;
+    object-fit:cover;
+    transform:scaleX(-1);
+    border:4px solid var(--cyan);
+}
+
+#cameraCanvas{
+    display:none;
 }
 
 /* =========================================================
    JUKEBOX
 ========================================================= */
 
-.jukebox {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.jukebox{
+    width:330px;
+    height:440px;
+    max-width:75vw;
+    position:relative;
+    background:linear-gradient(145deg,#ff4fa3,#8d2f88,#21144e);
+    border:8px solid #f5d5ff;
+    border-radius:130px 130px 25px 25px;
+    box-shadow:
+        0 0 20px var(--pink),
+        inset 0 0 35px rgba(255,255,255,.2);
 }
 
-.jukebox-body {
-    width: min(360px, 80%);
-    padding: 25px;
-    border-radius: 40px 40px 20px 20px;
-    background: linear-gradient(145deg, #472b65, #171026);
-    border: 4px solid var(--purple);
-    box-shadow: 0 0 30px rgba(169,140,255,.4);
+.jukebox-glass{
+    position:absolute;
+    left:35px;
+    right:35px;
+    top:45px;
+    height:200px;
+    border-radius:100px 100px 20px 20px;
+    background:#08101d;
+    border:5px solid var(--cyan);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
 }
 
-.jukebox-screen {
-    height: 130px;
-    background: #080711;
-    border: 3px solid var(--blue);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 60px;
-    margin-bottom: 20px;
-    animation: jukeboxGlow 1.5s infinite alternate;
+.music-note{
+    position:absolute;
+    font-size:35px;
+    animation:noteFloat 2s infinite ease-in-out;
 }
 
-@keyframes jukeboxGlow {
-    from { box-shadow: 0 0 10px var(--blue); }
-    to { box-shadow: 0 0 30px var(--pink); }
+.note1{left:40px;top:40px;color:var(--pink)}
+.note2{right:45px;top:70px;color:var(--yellow);animation-delay:.5s}
+.note3{left:120px;bottom:30px;color:var(--cyan);animation-delay:1s}
+
+.juke-label{
+    font-family:'Press Start 2P',monospace;
+    color:var(--yellow);
+    font-size:15px;
+    text-shadow:0 0 10px var(--yellow);
+}
+
+.juke-button{
+    position:absolute;
+    bottom:45px;
+    left:50%;
+    transform:translateX(-50%);
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:var(--yellow);
+    border:6px solid white;
+    box-shadow:0 0 15px var(--yellow);
+}
+
+@keyframes noteFloat{
+    0%,100%{transform:translateY(10px) rotate(-8deg)}
+    50%{transform:translateY(-15px) rotate(8deg)}
 }
 
 /* =========================================================
    MEMORY LANE
 ========================================================= */
 
-.road {
-    position: relative;
-    height: 100%;
-    min-height: 450px;
-    border-radius: 25px;
-    overflow-x: auto;
-    overflow-y: hidden;
+.memory-game{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.road-wrapper{
+    flex:1;
+    min-height:380px;
+    background:#071018;
+    border:4px solid var(--green);
+    position:relative;
+    overflow:hidden;
+}
+
+.road{
+    position:absolute;
+    inset:0;
     background:
-        repeating-linear-gradient(
+        linear-gradient(
             90deg,
-            #2b2a32 0px,
-            #2b2a32 100px,
-            #32313a 100px,
-            #32313a 200px
+            #121722 0 8%,
+            #252b35 8% 92%,
+            #121722 92%
         );
 }
 
-.road-line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 1800px;
-    height: 8px;
-    transform: translateY(-50%);
-    background: repeating-linear-gradient(
+.road-line{
+    position:absolute;
+    top:52%;
+    width:100%;
+    height:7px;
+    background:repeating-linear-gradient(
         90deg,
-        #fff 0 60px,
-        transparent 60px 120px
+        #ffe36e 0 65px,
+        transparent 65px 120px
     );
 }
 
-.milestones {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 1800px;
+.car{
+    position:absolute;
+    width:100px;
+    height:55px;
+    left:8%;
+    top:45%;
+    z-index:5;
+    transition:left .15s ease;
 }
 
-.milestone {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    border: 4px solid var(--yellow);
-    background: var(--pink);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0 0 20px rgba(255,228,122,.6);
+.car-body{
+    position:absolute;
+    left:8px;
+    bottom:8px;
+    width:85px;
+    height:35px;
+    background:var(--pink);
+    border:4px solid white;
+    border-radius:18px 18px 8px 8px;
+    box-shadow:0 0 15px var(--pink);
 }
 
-.car {
-    position: absolute;
-    top: calc(50% + 60px);
-    left: 20px;
-    font-size: 55px;
-    transition: left .3s ease;
-    z-index: 5;
+.car-roof{
+    position:absolute;
+    left:25px;
+    top:2px;
+    width:48px;
+    height:30px;
+    background:var(--cyan);
+    border:4px solid white;
+    border-radius:18px 18px 0 0;
 }
 
-.memory-lane-info {
-    position: absolute;
-    left: 15px;
-    top: 15px;
-    z-index: 20;
-    background: rgba(15,10,25,.88);
-    padding: 12px;
-    border-radius: 15px;
-    max-width: 330px;
+.car-wheel{
+    position:absolute;
+    width:22px;
+    height:22px;
+    background:#050509;
+    border:4px solid white;
+    border-radius:50%;
+    bottom:0;
+}
+
+.car-wheel.one{left:15px}
+.car-wheel.two{right:4px}
+
+.milestone{
+    position:absolute;
+    top:12%;
+    transform:translateX(-50%);
+    width:115px;
+    text-align:center;
+    z-index:4;
+}
+
+.milestone-sign{
+    background:#fff;
+    color:#111;
+    border:4px solid #111;
+    padding:10px 5px;
+    font-family:'Press Start 2P',monospace;
+    font-size:7px;
+    line-height:1.5;
+    box-shadow:5px 5px 0 rgba(0,0,0,.5);
+}
+
+.milestone-pole{
+    width:7px;
+    height:130px;
+    background:#999;
+    margin:auto;
+}
+
+.milestone.reached .milestone-sign{
+    background:var(--yellow);
+    box-shadow:0 0 18px var(--yellow);
+}
+
+.memory-jump{
+    animation:carJump .45s ease;
+}
+
+@keyframes carJump{
+    0%{transform:translateY(0)}
+    40%{transform:translateY(-40px) rotate(-4deg)}
+    75%{transform:translateY(-15px) rotate(4deg)}
+    100%{transform:translateY(0)}
+}
+
+.memory-popup{
+    position:absolute;
+    inset:15px;
+    background:rgba(7,8,18,.97);
+    border:4px solid var(--pink);
+    z-index:30;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.memory-popup.active{
+    display:flex;
+}
+
+.memory-card{
+    max-width:760px;
+    max-height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    text-align:center;
+}
+
+.memory-card img{
+    max-width:100%;
+    max-height:310px;
+    object-fit:contain;
+    border:4px solid white;
+}
+
+.memory-card h3{
+    font-family:'Press Start 2P',monospace;
+    color:var(--yellow);
+    font-size:12px;
+}
+
+.memory-card p{
+    font-size:25px;
+    line-height:1.05;
 }
 
 /* =========================================================
    BASKETBALL
 ========================================================= */
 
-.question-card {
-    max-width: 700px;
-    margin: 10px auto;
-    background: rgba(255,255,255,.07);
-    border: 2px solid var(--purple);
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
+.basket-game{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.question {
-    font-size: clamp(17px, 2.5vw, 25px);
-    line-height: 1.35;
-    margin-bottom: 20px;
+.scoreboard{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#05060d;
+    border:4px solid var(--yellow);
+    padding:12px 18px;
+    font-family:'Press Start 2P',monospace;
+    color:var(--yellow);
 }
 
-.answers {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+.basket-court{
+    flex:1;
+    min-height:390px;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(#2d2d3a 0 72%,#9c5635 72% 100%);
+    border:4px solid white;
 }
 
-.answer-btn {
-    padding: 13px;
-    border-radius: 14px;
-    background: #35264b;
-    color: white;
-    border: 2px solid #6d558d;
-    transition: .2s;
+.hoop{
+    position:absolute;
+    right:12%;
+    top:15%;
+    width:160px;
+    height:180px;
 }
 
-.answer-btn:hover {
-    border-color: var(--pink);
-    transform: translateY(-2px);
+.backboard{
+    position:absolute;
+    right:0;
+    top:0;
+    width:100px;
+    height:75px;
+    border:5px solid white;
+    background:rgba(255,255,255,.15);
 }
 
-.basketball {
-    font-size: 65px;
-    margin: 10px;
-    animation: ballBounce .5s ease;
+.rim{
+    position:absolute;
+    right:0;
+    top:73px;
+    width:110px;
+    height:18px;
+    border:6px solid #ff5b30;
+    border-radius:50%;
+    box-shadow:0 0 12px #ff5b30;
 }
 
-@keyframes ballBounce {
-    0% { transform: translateY(-100px); }
-    60% { transform: translateY(10px); }
-    100% { transform: translateY(0); }
+.net{
+    position:absolute;
+    right:8px;
+    top:87px;
+    width:94px;
+    height:80px;
+    border-left:3px solid rgba(255,255,255,.7);
+    border-right:3px solid rgba(255,255,255,.7);
+    border-bottom:3px solid rgba(255,255,255,.7);
+    clip-path:polygon(0 0,100% 0,82% 100%,18% 100%);
+}
+
+.basket-ball{
+    position:absolute;
+    left:14%;
+    bottom:12%;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#f47721;
+    border:4px solid #642b0a;
+    box-shadow:0 0 12px #f47721;
+    z-index:10;
+}
+
+.basket-ball:before{
+    content:"";
+    position:absolute;
+    left:25px;
+    top:-4px;
+    width:4px;
+    height:58px;
+    background:#642b0a;
+    transform:rotate(25deg);
+}
+
+.basket-ball:after{
+    content:"";
+    position:absolute;
+    left:-3px;
+    top:25px;
+    width:58px;
+    height:4px;
+    background:#642b0a;
+    transform:rotate(-20deg);
+}
+
+.ball-correct{
+    animation:ballScore 1s ease forwards;
+}
+
+.ball-wrong{
+    animation:ballMiss .9s ease forwards;
+}
+
+@keyframes ballScore{
+    0%{left:14%;bottom:12%;transform:scale(1)}
+    55%{left:66%;bottom:55%;transform:scale(.8)}
+    100%{left:80%;bottom:56%;transform:scale(.55)}
+}
+
+@keyframes ballMiss{
+    0%{left:14%;bottom:12%}
+    45%{left:43%;bottom:65%}
+    100%{left:35%;bottom:4%;transform:rotate(420deg)}
+}
+
+.question-box{
+    background:rgba(8,9,20,.9);
+    border:4px solid var(--cyan);
+    padding:15px;
+    text-align:center;
+    font-size:27px;
+}
+
+.answers{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.answer{
+    background:#151933;
+    color:white;
+    border:3px solid var(--purple);
+    padding:12px;
+    font-family:'VT323',monospace;
+    font-size:21px;
+    line-height:1;
+}
+
+.answer:hover{
+    background:var(--purple);
 }
 
 /* =========================================================
    WHACK A MOLE
 ========================================================= */
 
-.mole-game {
-    max-width: 650px;
-    margin: auto;
-    text-align: center;
+.whack-game{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.mole-grid {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+.whack-header{
+    display:flex;
+    justify-content:space-between;
+    background:#090a13;
+    border:3px solid var(--green);
+    padding:10px 15px;
+    font-family:'Press Start 2P',monospace;
+    color:var(--green);
+    font-size:10px;
 }
 
-.hole {
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: #0b0813;
-    border: 4px solid #49385d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
+.hole-grid{
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(2,1fr);
+    gap:14px;
+    min-height:390px;
+    padding:10px;
 }
 
-.mole {
-    width: 85%;
-    height: 85%;
-    border-radius: 50%;
-    background: linear-gradient(#9b674f, #593628);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    color: white;
-    font-weight: bold;
-    font-size: clamp(8px, 1.2vw, 13px);
-    cursor: pointer;
-    animation: molePop .18s ease;
+.hole{
+    position:relative;
+    background:
+        radial-gradient(
+            ellipse at center,
+            #020208 0 35%,
+            #21132c 36% 60%,
+            #100b18 61%
+        );
+    border:4px solid #4d285b;
+    border-radius:50%;
+    overflow:hidden;
+    cursor:pointer;
 }
 
-@keyframes molePop {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
+.mole{
+    position:absolute;
+    left:50%;
+    bottom:-5px;
+    transform:translateX(-50%);
+    width:80%;
+    height:80%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Press Start 2P',monospace;
+    font-size:8px;
+    color:white;
+    text-align:center;
+    padding:8px;
+    background:var(--pink);
+    border:4px solid white;
+    border-radius:50% 50% 25% 25%;
+    box-shadow:0 0 15px var(--pink);
+    animation:molePop .18s ease;
+    z-index:4;
+}
+
+.mole.bitmoji-mole{
+    background:#090a13;
+    border-color:var(--yellow);
+}
+
+.mole.bitmoji-mole img{
+    width:85%;
+    height:85%;
+    object-fit:contain;
+}
+
+@keyframes molePop{
+    from{transform:translate(-50%,30%)}
+    to{transform:translate(-50%,0)}
+}
+
+.whack-message{
+    min-height:45px;
+    text-align:center;
+    color:var(--yellow);
+    font-size:25px;
 }
 
 /* =========================================================
    HIGH STRIKER
 ========================================================= */
 
-.striker {
-    max-width: 500px;
-    margin: auto;
-    text-align: center;
+.striker-game{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
 }
 
-.striker-machine {
-    width: 110px;
-    height: 310px;
-    border: 4px solid var(--purple);
-    margin: 15px auto;
-    border-radius: 20px;
-    position: relative;
-    background: #100c19;
+.striker{
+    height:440px;
+    width:170px;
+    position:relative;
+    background:linear-gradient(90deg,#25263e,#090a14);
+    border:5px solid var(--yellow);
+    box-shadow:0 0 25px rgba(255,227,110,.3);
 }
 
-.striker-meter {
-    position: absolute;
-    bottom: 15px;
-    left: 20px;
-    right: 20px;
-    top: 20px;
-    border: 3px solid white;
-    border-radius: 12px;
-    display: flex;
-    align-items: flex-end;
-    padding: 5px;
+.striker-track{
+    position:absolute;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%);
+    width:60px;
+    height:340px;
+    background:#111;
+    border:4px solid white;
 }
 
-.striker-fill {
-    width: 100%;
-    height: 5%;
-    background: linear-gradient(var(--pink), var(--yellow));
-    border-radius: 8px;
-    transition: height .15s;
+.striker-meter{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:0%;
+    background:linear-gradient(#ff526b,#ffe36e,#67f7a8);
+    transition:height .8s cubic-bezier(.2,.8,.3,1);
 }
 
-.hammer {
-    font-size: 55px;
-    margin: 5px;
-    transition: .15s;
+.bell{
+    position:absolute;
+    top:8px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:32px;
 }
 
-.hammer.hit {
-    transform: rotate(-30deg) scale(1.2);
+.striker-score{
+    font-family:'Press Start 2P',monospace;
+    color:var(--yellow);
+    font-size:11px;
+    text-align:center;
+}
+
+.prize{
+    font-family:'Press Start 2P',monospace;
+    font-size:35px;
+    color:var(--pink);
+    text-shadow:0 0 20px var(--pink);
 }
 
 /* =========================================================
    SHOOTING GALLERY
 ========================================================= */
 
-.shooting {
-    max-width: 700px;
-    margin: auto;
-    text-align: center;
+.shooting-game{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.target-field {
-    position: relative;
-    height: min(350px, 50vh);
-    margin-top: 15px;
-    background: #0b0814;
-    border: 3px solid var(--purple);
-    border-radius: 20px;
-    overflow: hidden;
+.shooting-range{
+    flex:1;
+    min-height:400px;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(#07101d 0 72%,#291e1b 72%);
+    border:4px solid var(--cyan);
 }
 
-.target {
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    background: radial-gradient(circle, white 0 15%, var(--pink) 16% 35%, white 36% 50%, var(--purple) 51%);
-    border: 3px solid white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 9px;
-    color: #24162f;
-    font-weight: bold;
-    text-align: center;
-    cursor: crosshair;
-    transition: .15s;
+.target{
+    position:absolute;
+    width:76px;
+    height:76px;
+    border-radius:50%;
+    border:5px solid white;
+    background:
+        radial-gradient(
+            circle,
+            #fff 0 14%,
+            #ff526b 15% 30%,
+            #fff 31% 46%,
+            #ff526b 47% 64%,
+            #fff 65%
+        );
+    box-shadow:0 0 12px var(--red);
+    cursor:pointer;
+    transition:left .15s linear;
 }
 
-.target:hover {
-    transform: scale(1.1);
+.target.hit{
+    animation:targetHit .4s forwards;
+}
+
+@keyframes targetHit{
+    to{transform:scale(1.6);opacity:0}
+}
+
+.crosshair{
+    position:absolute;
+    width:50px;
+    height:50px;
+    border:4px solid var(--green);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+    z-index:20;
+    box-shadow:0 0 15px var(--green);
+}
+
+.crosshair:before,
+.crosshair:after{
+    content:"";
+    position:absolute;
+    background:var(--green);
+}
+
+.crosshair:before{
+    width:4px;
+    height:70px;
+    left:19px;
+    top:-14px;
+}
+
+.crosshair:after{
+    width:70px;
+    height:4px;
+    left:-14px;
+    top:19px;
+}
+
+.shooting-info{
+    text-align:center;
+    color:var(--yellow);
+    font-size:22px;
 }
 
 /* =========================================================
-   WHEEL
+   SPIN WHEEL
 ========================================================= */
 
-.wheel-wrap {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
+.wheel-game{
+    min-height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:18px;
 }
 
-.wheel {
-    width: min(330px, 65vw);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 8px solid white;
+.wheel{
+    width:min(400px,65vw);
+    aspect-ratio:1;
+    border-radius:50%;
+    border:12px solid white;
     background:
         conic-gradient(
             var(--pink) 0deg 45deg,
-            var(--purple) 45deg 90deg,
-            var(--blue) 90deg 135deg,
-            var(--yellow) 135deg 180deg,
-            var(--pink) 180deg 225deg,
-            var(--purple) 225deg 270deg,
-            var(--blue) 270deg 315deg,
-            var(--yellow) 315deg 360deg
+            var(--cyan) 45deg 90deg,
+            var(--yellow) 90deg 135deg,
+            var(--purple) 135deg 180deg,
+            var(--green) 180deg 225deg,
+            var(--pink2) 225deg 270deg,
+            #5b67ff 270deg 315deg,
+            #ff526b 315deg 360deg
         );
-    box-shadow: 0 0 30px rgba(255,111,174,.5);
-    transition: transform 3s cubic-bezier(.15,.8,.2,1);
-    position: relative;
+    position:relative;
+    box-shadow:0 0 35px rgba(255,79,163,.5);
+    transition:transform 5s cubic-bezier(.1,.7,.1,1);
 }
 
-.wheel:after {
-    content: "💌";
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
+.wheel:after{
+    content:"❤️";
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:75px;
+    height:75px;
+    border-radius:50%;
+    background:#11142a;
+    border:5px solid white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
 }
 
-.pointer {
-    font-size: 35px;
-    transform: rotate(180deg);
+.pointer{
+    width:0;
+    height:0;
+    border-left:20px solid transparent;
+    border-right:20px solid transparent;
+    border-top:45px solid var(--yellow);
+    filter:drop-shadow(0 0 8px var(--yellow));
 }
 
 /* =========================================================
    LETTER
 ========================================================= */
 
-.letter {
-    max-width: 700px;
-    margin: auto;
-    background: #fff8ee;
-    color: #38243b;
-    padding: clamp(20px, 4vw, 40px);
-    border-radius: 15px;
-    line-height: 1.7;
-    max-height: 65vh;
-    overflow-y: auto;
-    box-shadow: 0 15px 40px rgba(0,0,0,.4);
+.letter{
+    max-width:800px;
+    margin:auto;
+    background:#fff9ec;
+    color:#292132;
+    padding:30px;
+    border:6px solid var(--pink);
+    box-shadow:0 0 25px rgba(255,79,163,.4);
+    font-family:'VT323',monospace;
+    font-size:23px;
+    line-height:1.12;
+    white-space:pre-line;
 }
 
-.letter h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #c53d72;
-}
-
-.letter p {
-    margin-bottom: 15px;
+.letter-title{
+    font-family:'Press Start 2P',monospace;
+    color:var(--pink);
+    text-align:center;
+    margin-bottom:20px;
+    font-size:15px;
 }
 
 /* =========================================================
    TICKET COUNTER
 ========================================================= */
 
-.counter {
-    text-align: center;
-    max-width: 650px;
-    margin: auto;
+.counter-game{
+    min-height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.counter-avatar {
-    height: 180px;
-    margin: 10px auto;
+.counter{
+    width:min(650px,90vw);
+    background:linear-gradient(145deg,#20143a,#0b0c18);
+    border:6px solid var(--yellow);
+    box-shadow:0 0 30px rgba(255,227,110,.35);
+    padding:30px;
+    text-align:center;
 }
 
-.counter-avatar img {
-    height: 100%;
-    max-width: 180px;
-    object-fit: contain;
+.counter-window{
+    width:220px;
+    height:140px;
+    margin:0 auto 20px;
+    background:#080a13;
+    border:5px solid var(--cyan);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.counter-window img{
+    width:130px;
+    height:130px;
+    object-fit:contain;
+}
+
+.counter h2{
+    font-family:'Press Start 2P',monospace;
+    color:var(--yellow);
+    font-size:17px;
+    line-height:1.5;
+}
+
+.counter p{
+    font-size:26px;
+    margin:12px 0;
 }
 
 /* =========================================================
    FINAL
 ========================================================= */
 
-#finalCelebration {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
+#finalScreen{
     background:
-        radial-gradient(circle at center, rgba(255,111,174,.3), transparent 40%),
-        rgba(8,5,16,.96);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    text-align: center;
+        radial-gradient(circle at center,rgba(255,79,163,.25),transparent 45%),
+        #05060d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    z-index:800;
 }
 
-.final-content {
-    position: relative;
-    z-index: 5;
-    padding: 20px;
-    animation: finalIn 1s ease;
+.final-content{
+    text-align:center;
+    z-index:5;
+    padding:20px;
 }
 
-@keyframes finalIn {
-    from {
-        opacity: 0;
-        transform: scale(.5);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.final-title {
-    font-size: clamp(32px, 7vw, 78px);
-    line-height: 1.05;
-    color: white;
+.final-title{
+    font-family:'Press Start 2P',monospace;
+    font-size:clamp(20px,4vw,48px);
+    color:var(--pink);
     text-shadow:
-        0 0 10px var(--pink),
-        0 0 30px var(--pink),
-        0 0 60px var(--purple);
+        0 0 8px var(--pink),
+        0 0 20px var(--pink),
+        0 0 45px var(--pink);
+    line-height:1.5;
+    animation:finalPulse 1.2s infinite alternate;
 }
 
-.final-sub {
-    margin-top: 25px;
-    font-size: clamp(17px, 3vw, 28px);
-    color: var(--pink2);
+.final-sub{
+    margin-top:30px;
+    font-size:35px;
+    color:var(--yellow);
 }
 
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 16px;
-    top: -30px;
-    animation: confettiFall linear forwards;
+.final-love{
+    margin-top:25px;
+    font-size:30px;
+    color:white;
 }
 
-@keyframes confettiFall {
-    to {
-        transform: translateY(110vh) rotate(900deg);
+@keyframes finalPulse{
+    from{transform:scale(1)}
+    to{transform:scale(1.04)}
+}
+
+.confetti{
+    position:absolute;
+    width:12px;
+    height:18px;
+    top:-30px;
+    animation:confettiFall linear forwards;
+}
+
+.heart-particle{
+    position:absolute;
+    font-size:30px;
+    animation:heartRise linear forwards;
+}
+
+@keyframes confettiFall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
     }
 }
 
-.heart {
-    position: absolute;
-    font-size: 25px;
-    animation: heartFloat 4s linear forwards;
+@keyframes heartRise{
+    from{
+        opacity:1;
+        transform:translateY(0) scale(.7);
+    }
+    to{
+        opacity:0;
+        transform:translateY(-100vh) scale(1.4) rotate(25deg);
+    }
 }
 
-@keyframes heartFloat {
-    from {
-        transform: translateY(110vh) scale(.5);
-        opacity: 0;
-    }
-    20% { opacity: 1; }
-    to {
-        transform: translateY(-20vh) scale(1.3) rotate(20deg);
-        opacity: 0;
-    }
+/* =========================================================
+   CAMERA
+========================================================= */
+
+.camera-error{
+    color:var(--red);
+    font-size:22px;
+    max-width:700px;
+    text-align:center;
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 700px) {
+@media(max-width:850px){
 
-    .machine {
-        width: 90px;
-        min-height: 105px;
+    .speech-bubble{
+        right:-5%;
+        width:45%;
+        font-size:19px;
     }
 
-    .machine-body {
-        min-height: 105px;
-        padding: 6px;
+    .entrance-character img{
+        width:270px;
     }
 
-    .machine-screen {
-        height: 42px;
+    .machine{
+        width:115px;
+        min-height:110px;
     }
 
-    #m-claw       { left: 12%; top: 27%; }
-    #m-photo      { left: 34%; top: 23%; }
-    #m-jukebox    { left: 67%; top: 24%; }
-    #m-memory     { left: 88%; top: 30%; }
-
-    #m-basketball { left: 17%; top: 65%; }
-    #m-mole       { left: 42%; top: 71%; }
-    #m-striker    { left: 65%; top: 67%; }
-    #m-shooting   { left: 88%; top: 62%; }
-    #m-wheel      { left: 78%; top: 45%; }
-
-    #ticketMachine {
-        left: 50%;
-        top: 87%;
+    .machine-top{
+        height:60px;
     }
 
-    .answers {
-        grid-template-columns: 1fr;
+    .machine-icon{
+        font-size:27px;
     }
 
-    .speech-bubble {
-        left: 110%;
-        width: 190px;
-        min-width: 0;
+    .machine-name{
+        font-size:7px;
+    }
+
+    .arcade-hint{
+        font-size:6px;
+    }
+
+    .game-window{
+        height:94vh;
+    }
+
+    .game-body{
+        padding:10px;
+    }
+
+    .answers{
+        grid-template-columns:1fr;
+    }
+
+    .hole-grid{
+        gap:7px;
+        min-height:330px;
+    }
+
+    .mole{
+        font-size:6px;
     }
 }
 
-@media (max-height: 600px) {
+@media(max-width:600px){
 
-    .machine {
-        min-height: 85px;
+    .topbar{
+        height:54px;
+        min-height:54px;
     }
 
-    .machine-body {
-        min-height: 85px;
+    #arcadeArea{
+        padding:5px;
     }
 
-    .machine-screen {
-        height: 32px;
+    #world{
+        height:calc(100vh - 70px);
     }
 
-    #enterPrompt {
-        bottom: 7px;
+    .machine{
+        width:90px;
+        min-height:88px;
+        padding:5px;
+        border-width:2px;
     }
 
-    #hud {
-        top: 5px;
+    .machine-top{
+        height:45px;
+    }
+
+    .machine-icon{
+        font-size:20px;
+    }
+
+    .machine-name{
+        font-size:5px;
+    }
+
+    #player{
+        width:65px;
+        height:75px;
+    }
+
+    .arcade-hint{
+        display:none;
+    }
+
+    .speech-bubble{
+        width:48%;
+        font-size:15px;
+        padding:14px;
+        border-width:3px;
+    }
+
+    .speech-bubble:before{
+        left:-20px;
+        border-top-width:12px;
+        border-bottom-width:12px;
+        border-right-width:20px;
+    }
+
+    .speech-bubble:after{
+        left:-14px;
+        border-top-width:8px;
+        border-bottom-width:8px;
+        border-right-width:14px;
+    }
+
+    .entrance-character{
+        height:260px;
+    }
+
+    .entrance-character img{
+        width:220px;
+    }
+
+    .arcade-sign{
+        font-size:20px;
+    }
+
+    .arcade-subtitle{
+        font-size:7px;
+    }
+
+    .game-header{
+        height:52px;
+        min-height:52px;
+    }
+
+    .game-title{
+        font-size:8px;
+    }
+
+    .back-game{
+        font-size:6px;
+        padding:8px;
+    }
+
+    .game-description{
+        font-size:19px;
+    }
+
+    .hole-grid{
+        min-height:300px;
+        gap:5px;
+    }
+
+    .question-box{
+        font-size:21px;
+    }
+
+    .scoreboard{
+        font-size:7px;
+    }
+
+    .letter{
+        padding:18px;
+        font-size:19px;
     }
 }
 </style>
@@ -1292,175 +1899,146 @@ button {
 
 <body>
 
-<!-- =======================================================
+<!-- =========================================================
      ENTRANCE
-======================================================= -->
+========================================================= -->
 
-<section id="entrance">
+<section id="entrance" class="screen">
 
-    <div class="entrance-card">
+    <div class="entrance-inner">
 
-        <div class="entrance-title">
+        <div class="arcade-sign">
             THE US ARCADE
         </div>
 
-        <div class="entrance-player">
+        <div class="arcade-subtitle">
+            INSERT TWO YEARS OF LOVE
+        </div>
 
-            <img src="bitmoji.png" alt="Player">
+        <div class="entrance-character">
+
+            <img src="bitmoji.png" alt="Bitmoji">
 
             <div class="speech-bubble">
-                Hey Dumbo... ❤️<br><br>
-                Welcome to our little arcade.
-                I made this place just for you.
-                Every game has a little piece of us hidden inside.
-                <br><br>
-                Come on... let's play. 🥹
+                <div id="entranceText"></div>
             </div>
 
         </div>
 
-        <button class="start-button" id="startButton">
-            ENTER THE ARCADE
+        <div class="start-wrap">
+            <button id="startBtn">
+                ENTER TO PLAY
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ARCADE
+========================================================= -->
+
+<section id="arcade" class="screen hidden">
+
+    <div class="topbar">
+
+        <div class="logo">
+            THE US ARCADE
+        </div>
+
+        <div class="ticket-display">
+            TICKETS: <span id="ticketCount">0</span>
+        </div>
+
+        <button class="sound-btn" id="soundBtn">
+            SOUND ON
         </button>
 
     </div>
 
-</section>
+    <div id="arcadeArea">
 
+        <div id="world">
 
-<!-- =======================================================
-     ARCADE
-======================================================= -->
+            <!-- MACHINES -->
 
-<section id="arcade" class="hidden">
-
-    <div id="arcadeWorld">
-
-        <div id="background"></div>
-
-        <!-- HUD -->
-
-        <div id="hud">
-
-            <div class="logo">
-                THE US ❤️
-            </div>
-
-            <div class="hud-right">
-
-                <div class="tickets">
-                    🎟️ <span id="ticketCount">0</span>
+            <div class="machine" id="m-claw" data-game="claw">
+                <div class="machine-top">
+                    <div class="machine-icon">🕹️</div>
                 </div>
-
-                <button class="sound-btn" id="soundButton">
-                    🔊
-                </button>
-
+                <div class="machine-name">CLAW<br>MEMORIES</div>
             </div>
 
-        </div>
-
-
-        <!-- MACHINES -->
-
-        <div class="machine" id="m-claw" data-game="claw">
-            <div class="machine-body">
-                <div class="machine-screen">🧸</div>
-                <div class="machine-name">Claw Machine</div>
-                <div class="machine-sub">Memories</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-photo" data-game="photo">
-            <div class="machine-body">
-                <div class="machine-screen">📸</div>
-                <div class="machine-name">Photo Booth</div>
-                <div class="machine-sub">Say cheese!</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-jukebox" data-game="jukebox">
-            <div class="machine-body">
-                <div class="machine-screen">🎵</div>
-                <div class="machine-name">Jukebox</div>
-                <div class="machine-sub">Our songs</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-memory" data-game="memory">
-            <div class="machine-body">
-                <div class="machine-screen">🚗</div>
-                <div class="machine-name">Memory Lane</div>
-                <div class="machine-sub">Our journey</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-basketball" data-game="basketball">
-            <div class="machine-body">
-                <div class="machine-screen">🏀</div>
-                <div class="machine-name">Basketball</div>
-                <div class="machine-sub">How well do you know us?</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-mole" data-game="mole">
-            <div class="machine-body">
-                <div class="machine-screen">🐹</div>
-                <div class="machine-name">Whack-A-Mole</div>
-                <div class="machine-sub">Our little fights</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-striker" data-game="striker">
-            <div class="machine-body">
-                <div class="machine-screen">🔨</div>
-                <div class="machine-name">High Striker</div>
-                <div class="machine-sub">Test your strength</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-shooting" data-game="shooting">
-            <div class="machine-body">
-                <div class="machine-screen">🎯</div>
-                <div class="machine-name">Shooting Gallery</div>
-                <div class="machine-sub">Aim carefully</div>
-            </div>
-        </div>
-
-        <div class="machine" id="m-wheel" data-game="wheel">
-            <div class="machine-body">
-                <div class="machine-screen">🎡</div>
-                <div class="machine-name">Spin The Wheel</div>
-                <div class="machine-sub">One surprise</div>
-            </div>
-        </div>
-
-        <div class="machine" id="ticketMachine" data-game="counter">
-            <div class="machine-body">
-                <div class="machine-screen">🎟️</div>
-                <div class="machine-name">Ticket Counter</div>
-                <div class="machine-sub">Come back here ❤️</div>
-            </div>
-        </div>
-
-
-        <!-- PLAYER -->
-
-        <div id="player">
-
-            <img src="bitmoji.png" alt="Player">
-
-            <div id="playerBubble">
-                Use the arrow keys to move me around!
+            <div class="machine" id="m-photo" data-game="photo">
+                <div class="machine-top">
+                    <div class="machine-icon">📸</div>
+                </div>
+                <div class="machine-name">PHOTO<br>BOOTH</div>
             </div>
 
-        </div>
+            <div class="machine" id="m-jukebox" data-game="jukebox">
+                <div class="machine-top">
+                    <div class="machine-icon">🎵</div>
+                </div>
+                <div class="machine-name">JUKEBOX</div>
+            </div>
+
+            <div class="machine" id="m-memory" data-game="memory">
+                <div class="machine-top">
+                    <div class="machine-icon">🚗</div>
+                </div>
+                <div class="machine-name">MEMORY<br>LANE</div>
+            </div>
+
+            <div class="machine" id="m-basket" data-game="basket">
+                <div class="machine-top">
+                    <div class="machine-icon">🏀</div>
+                </div>
+                <div class="machine-name">HOW WELL<br>DO YOU KNOW US?</div>
+            </div>
+
+            <div class="machine" id="m-whack" data-game="whack">
+                <div class="machine-top">
+                    <div class="machine-icon">🔨</div>
+                </div>
+                <div class="machine-name">WHACK<br>A MOLE</div>
+            </div>
+
+            <div class="machine" id="m-high" data-game="high">
+                <div class="machine-top">
+                    <div class="machine-icon">🔔</div>
+                </div>
+                <div class="machine-name">HIGH<br>STRIKER</div>
+            </div>
+
+            <div class="machine" id="m-shoot" data-game="shoot">
+                <div class="machine-top">
+                    <div class="machine-icon">🎯</div>
+                </div>
+                <div class="machine-name">SHOOTING<br>GALLERY</div>
+            </div>
+
+            <div class="machine" id="m-wheel" data-game="wheel">
+                <div class="machine-top">
+                    <div class="machine-icon">🎡</div>
+                </div>
+                <div class="machine-name">SPIN<br>THE WHEEL</div>
+            </div>
 
 
-        <!-- ONLY ONE ENTER PROMPT -->
+            <!-- PLAYER -->
 
-        <div id="enterPrompt">
-            Walk to a machine and press <b>ENTER</b>
+            <div id="player">
+                <img src="bitmoji.png" alt="Player">
+                <div class="player-ring"></div>
+            </div>
+
+            <div class="arcade-hint">
+                ARROW KEYS = MOVE &nbsp; | &nbsp; ENTER = PLAY
+            </div>
+
         </div>
 
     </div>
@@ -1468,146 +2046,678 @@ button {
 </section>
 
 
-<!-- =======================================================
-     GAME OVERLAY
-======================================================= -->
+<!-- =========================================================
+     GAME MODAL
+========================================================= -->
 
-<div id="gameOverlay" class="hidden">
+<div id="gameModal" class="hidden">
 
     <div class="game-window">
 
         <div class="game-header">
 
             <div class="game-title" id="gameTitle">
-                Game
+                GAME
             </div>
 
-            <button class="back-btn" id="backButton">
-                ← BACK
+            <button class="back-game" id="backGame">
+                BACK
             </button>
 
         </div>
 
-        <div class="game-content" id="gameContent"></div>
+        <div class="game-body" id="gameBody"></div>
 
     </div>
 
 </div>
 
 
-<!-- =======================================================
+<!-- =========================================================
      FINAL
-======================================================= -->
+========================================================= -->
 
-<div id="finalCelebration" class="hidden">
+<section id="finalScreen" class="screen hidden">
 
     <div class="final-content">
 
         <div class="final-title">
             HAPPY TWO-YEAR<br>
-            ANNIVERSARY TO US! ❤️
+            ANNIVERSARY TO US!
         </div>
 
         <div class="final-sub">
-            Two years down, so many more to go. ❤️
+            Two years down, so many more to go.
+        </div>
+
+        <div class="final-love">
+            You completed THE US ARCADE.
         </div>
 
     </div>
 
-</div>
+</section>
+
+
+<div class="toast" id="toast"></div>
 
 
 <script>
 
 /* =========================================================
-   GLOBAL STATE
+   GAME DATA
+========================================================= */
+
+const clawMemories = [
+
+    {
+        image:"claw1.heic",
+        caption:"My first time watching Spider-Man movie in a theatre and ofc with you."
+    },
+
+    {
+        image:"claw2.heic",
+        caption:"🎁 My gift to you after my first salary as a full-timer."
+    },
+
+    {
+        image:"claw3.jpeg",
+        caption:"My 20th birthday, when you came to surprise me."
+    },
+
+    {
+        image:"claw4.png",
+        caption:"Last ethnic day together, one of my favourite pictures."
+    },
+
+    {
+        image:"claw5.heic",
+        caption:"Valentine’s Day, you got me this pretty saree and we went all desi."
+    },
+
+    {
+        image:"claw6.heic",
+        caption:"When you were riding beside me while I was leaving to Kolkata."
+    },
+
+    {
+        image:"claw7.heic",
+        caption:"Getting Bappa home for the first time and wearing matching outfits."
+    }
+
+];
+
+
+/* =========================================================
+   MEMORY LANE DATA
+========================================================= */
+
+const memories = [
+
+    {
+        image:"Met in Csa and i found you cutee 🥰 - csa.jpg",
+        caption:"Met in Csa and i found you cutee 🥰"
+    },
+
+    {
+        image:"Cubbon park where we hung out so much and that day i liked you a little more🥹 - cubbon.png",
+        caption:"Cubbon park where we hung out so much and that day i liked you a little more🥹"
+    },
+
+    {
+        image:"Bhaang day I drunk called you and cried cause u went without saying bye - bhang.jpg",
+        caption:"Bhaang day. I drunk called you and cried cause u went without saying bye."
+    },
+
+    {
+        image:"You got me lunaaaaa - luna.heic",
+        caption:"You got me lunaaaaa."
+    },
+
+    {
+        image:"The house party that changed everything - houseparty.jpeg",
+        caption:"The house party that changed everything."
+    },
+
+    {
+        image:"Our first photo after officially becoming a couple - off.jpeg",
+        caption:"Our first photo after officially becoming a couple."
+    },
+
+    {
+        image:"Our first ethnic day together - ethnic.heic",
+        caption:"Our first ethnic day together."
+    },
+
+    {
+        image:"First Ganesh Chaturthi and first time we went out as a coupleeee - ganesh.png",
+        caption:"First Ganesh Chaturthi and first time we went out as a coupleeee."
+    },
+
+    {
+        image:"First date and the first time you got me flowers - date.jpg",
+        caption:"First date and the first time you got me flowers."
+    },
+
+    {
+        image:"Cute family photo and how Gourmet used to be our second home. - fam.jpg",
+        caption:"Cute family photo and how Gourmet used to be our second home."
+    },
+
+    {
+        image:"When you came to surprise me on my birthday in my night, it was fun. - bday.jpg",
+        caption:"When you came to surprise me on my birthday in my night, it was fun."
+    },
+
+    {
+        image:"Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match. - dinner.jpeg",
+        caption:"Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match."
+    },
+
+    {
+        image:"First photo booth experience - phbooth.heic",
+        caption:"First photo booth experience."
+    },
+
+    {
+        image:"First 👀 - first.heic",
+        caption:"First 👀"
+    },
+
+    {
+        image:"Our first concert together - concert.heic",
+        caption:"Our first concert together."
+    },
+
+    {
+        image:"First Valentine's Day together and we went to Caliburrito.- vd.heic",
+        caption:"First Valentine's Day together and we went to Caliburrito."
+    },
+
+    {
+        image:"Six month anniversary yayyyy - 6.heic",
+        caption:"Six month anniversary yayyyy."
+    },
+
+    {
+        image:"That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun. - summer.heic",
+        caption:"That summer break, in my first apt when we spent our weekends together, going on dates, cuddling, and just had so much fun."
+    },
+
+    {
+        image:"The big fat family dinner where you met all the boyfriends and we hung out with my friend group. - fatfam.heic",
+        caption:"The big fat family dinner where you met all the boyfriends and we hung out with my friend group."
+    },
+
+    {
+        image:"Got Bappa home and we were matching outfits. Hehe. - bappa.heic",
+        caption:"Got Bappa home and we were matching outfits. Hehe."
+    },
+
+    {
+        image:"Last ethnic day together and yeah, one of my favorite picture. - lastethnic.heic",
+        caption:"Last ethnic day together and yeah, one of my favorite picture."
+    },
+
+    {
+        image:"My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday. - 20.heic",
+        caption:"My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday."
+    },
+
+    {
+        image:"Miss our little cookie. - cookie.heic",
+        caption:"Miss our little cookie."
+    },
+
+    {
+        image:"Our last Christmas lights together as college students. - christmas.heic",
+        caption:"Our last Christmas lights together as college students."
+    },
+
+    {
+        image:"Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day. - saree.heic",
+        caption:"Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day."
+    },
+
+    {
+        image:"Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together. - farewell.heic",
+        caption:"Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together."
+    },
+
+    {
+        image:"New house and you came with a big bouquet of flowers as housewarming. - newh.heic",
+        caption:"New house and you came with a big bouquet of flowers as housewarming."
+    },
+
+    {
+        image:"Yayyy grad day - grad.jpeg",
+        caption:"Yayyy grad day."
+    },
+
+    {
+        image:"Happy two years to us ❤️ - 2.heic",
+        caption:"Happy two years to us ❤️"
+    }
+
+];
+
+
+/* =========================================================
+   PHOTO BOOTH
+========================================================= */
+
+const photoBoothImages = [
+    "photo_booth1.jpeg",
+    "photo_booth2.heic",
+    "photo_booth.heic"
+];
+
+
+/* =========================================================
+   BASKETBALL QUESTIONS
+========================================================= */
+
+const basketballQuestions = [
+
+    {
+        q:"Where did we go on our first date?",
+        answers:[
+            "Uru Brew Park",
+            "Cubbon Park",
+            "Hakuna",
+            "Glens"
+        ],
+        correct:"Uru Brew Park"
+    },
+
+    {
+        q:"What colour dress did I wear on our first date?",
+        answers:[
+            "A small white dress with pink flowers + cute clips in my hair",
+            "A black crop top with a black-and-white wrap-around skirt",
+            "A red dress with white flowers",
+            "A blue dress with white sneakers"
+        ],
+        correct:"A small white dress with pink flowers + cute clips in my hair"
+    },
+
+    {
+        q:"Where did we have our first kiss?",
+        answers:[
+            "Hakuna",
+            "Uru Brew Park",
+            "Glens",
+            "Cubbon Park"
+        ],
+        correct:"Hakuna"
+    },
+
+    {
+        q:"Where did we go after our first date?",
+        answers:[
+            "Glens for dessert",
+            "Hakuna",
+            "Gourmet",
+            "Caliburrito"
+        ],
+        correct:"Glens for dessert"
+    },
+
+    {
+        q:"What was the first nail design I got when you painted my nails?",
+        answers:[
+            "White nails with butterflies on two fingers that join together to form one butterfly",
+            "Pink nails with little hearts",
+            "Blue nails with stars",
+            "French tips with flowers"
+        ],
+        correct:"White nails with butterflies on two fingers that join together to form one butterfly"
+    },
+
+    {
+        q:"For what occasion did we first go out as a couple?",
+        answers:[
+            "Ganesh Chaturthi",
+            "Valentine's Day",
+            "Christmas",
+            "My birthday"
+        ],
+        correct:"Ganesh Chaturthi"
+    },
+
+    {
+        q:"What was I wearing that day?",
+        answers:[
+            "A black crop top with a black-and-white wrap-around skirt",
+            "A small white dress with pink flowers",
+            "A red saree",
+            "A blue top with jeans"
+        ],
+        correct:"A black crop top with a black-and-white wrap-around skirt"
+    },
+
+    {
+        q:"When and where did we first properly cuddle?",
+        answers:[
+            "October, at your sister’s house",
+            "August, at my house",
+            "December, at Gourmet",
+            "September, at Hakuna"
+        ],
+        correct:"October, at your sister’s house"
+    },
+
+    {
+        q:"What movie did we watch that day?",
+        answers:[
+            "Yeh Jawaani Hai Deewani",
+            "Spider-Man",
+            "Zindagi Na Milegi Dobara",
+            "3 Idiots"
+        ],
+        correct:"Yeh Jawaani Hai Deewani"
+    },
+
+    {
+        q:"What shows did you make me watch that became my absolute favourites?",
+        answers:[
+            "Brooklyn Nine-Nine OR Modern Family",
+            "Friends OR The Office",
+            "Breaking Bad OR Friends",
+            "How I Met Your Mother OR Suits"
+        ],
+        correct:"Brooklyn Nine-Nine OR Modern Family"
+    },
+
+    {
+        q:"What are my favourite colours?",
+        answers:[
+            "Blue, pink OR maroon",
+            "Black, white OR grey",
+            "Purple, yellow OR green",
+            "Red, orange OR blue"
+        ],
+        correct:"Blue, pink OR maroon"
+    },
+
+    {
+        q:"What’s one silly thing I love spending money on?",
+        answers:[
+            "Bed sheets",
+            "Socks",
+            "Phone cases",
+            "Candles"
+        ],
+        correct:"Bed sheets"
+    }
+
+];
+
+
+/* =========================================================
+   WHACK A MOLE
+========================================================= */
+
+const whackProblems = [
+
+    {
+        label:"TAKE ME FOR GRANTED",
+        text:"Sometimes I feel like you take me for granted."
+    },
+
+    {
+        label:"ZONING OUT",
+        text:"Sometimes I zone out and don’t listen to you. And yes, I’m very sorry about it."
+    },
+
+    {
+        label:"FORGETTING TO INFORM",
+        text:"Sometimes you forget to tell me you’re going to be late."
+    },
+
+    {
+        label:"WALKING AWAY",
+        text:"Walking away from a conversation instead of talking it out."
+    },
+
+    {
+        label:"ASKING FOR A BREAK / BREAKUP",
+        text:"Asking for a break or a breakup instead of talking it out."
+    },
+
+    {
+        label:"RAISING OUR VOICES",
+        text:"Raising our voices at each other."
+    },
+
+    {
+        label:"REACTING BEFORE THINKING",
+        text:"Reacting before thinking and accidentally hurting each other."
+    }
+
+];
+
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+const anniversaryLetter = `To my dearest Dumbo, ❤️
+
+I genuinely don’t know how these two years passed by so quickly. It feels like just yesterday that we were two people who liked each other but didn’t have the courage to actually say it. And somehow, here we are, two whole years of us. 🥹
+
+We’ve fought, we’ve cried, we’ve laughed until our stomachs hurt, we’ve annoyed each other, forgiven each other, grown together, and made so many memories that I don’t even know where to begin. We’ve had our good days and our really, really difficult ones. But through all of it, I’m so incredibly grateful that you chose to stay.
+
+Even when I didn’t want you to. Even when I pushed you away. Even when I thought walking away was easier than talking things through. You somehow put your head to it and never left my side. You’ve been there when I’ve been at my absolute worst, at my best, when I’m annoyed, emotional, happy, stupid, dramatic, literally every version of me. 😂 And you never made me feel like I had to be someone else to deserve your love.
+
+You’re my cute little sunshine boy. ☀️ Every single time I see you, somehow my day just gets brighter. You have this way of making everything feel a little lighter just by being there.
+
+I love that I can be completely myself with you. You don’t judge me. You listen to me. You let me be weird and annoying and emotional and silly. You always put me before yourself, and you’re always there when I need you. And I know there are times when I say that I don’t feel your love, but please know that I do. I feel it in so many little things you do, even when I don’t say it enough.
+
+We’ve made SO many memories in these two years. From the beginning, to all our firsts, our dates, our stupid fights, our little adventures, our celebrations, our cuddles, our chaos, everything. And looking back at all of it makes me realise just how much life we’ve already lived together.
+
+But more than anything, I think about what’s still ahead of us.
+
+Because when I imagine my future, I only see you in it. There genuinely isn’t anyone else in this world I’d rather choose. You make me the happiest, and I hope you always know how much of a home you’ve become for me.
+
+And your arms… 🥹
+Your arms are my safe place.
+
+There is genuinely no fucking place on earth where I feel the way I feel when I’m in your arms. I feel safe. I feel comfortable. I feel happy. I feel loved. I feel like I can finally switch everything off for a while and just exist. And I hope you know how special that is to me.
+
+I want you to know that I’ll always have your back too. No matter what happens, no matter how difficult things get, I’ll be there. If you ever fall, I’ll be right there to pick up the pieces with you. I’ll help you find your way again, I’ll support you, I’ll cheer for you, and I’ll remind you of who you are when you forget.
+
+I hope you always know that you never have to do life alone.
+
+And your dad is also very proud of you because he really did raise a fine man. A kind, respectful, loving, hardworking man who has such a beautiful heart. I’m genuinely so grateful to your parents, your mom and dad, for bringing you into this world and raising the person you are today. I don’t think I’ll ever be able to explain how grateful I am that you exist.
+
+Two years feels like such a big number, but somehow, when I think about spending the rest of my life with you, it also feels like we’ve barely begun.
+
+I want the years ahead.
+
+I want more stupid fights that we’ll eventually laugh about.
+More dates.
+More random drives.
+More celebrations.
+More cuddles.
+More photos.
+More adventures.
+More ordinary days that somehow become our favourite memories.
+
+I want to grow old with you and still look at you the same way I do now. I want us to keep choosing each other, even when things aren’t easy. I want us to keep growing, learning, annoying each other, laughing together, and finding our way back to each other every single time.
+
+And most importantly, I want us to never lose the little things that make us us.
+
+Two years down, and I still choose you.
+
+And I’ll keep choosing you.
+
+Today, tomorrow, and in all the years that are waiting for us.
+
+Happy 2 years, my Dumbo. ❤️
+
+Here’s to us, to everything we’ve already been through, and to everything we haven’t even experienced yet.
+
+I love you. More than you probably realise. And I can’t wait to grow old with you.
+
+Forever your Gube,
+Cement ❤️`;
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let tickets = 0;
+
+let completedGames = new Set();
+
+const requiredGames = [
+    "claw",
+    "photo",
+    "jukebox",
+    "memory",
+    "basket",
+    "whack",
+    "high",
+    "shoot",
+    "wheel"
+];
+
+let currentGame = null;
+
+let audioCtx = null;
+let musicOn = true;
+let musicTimer = null;
+
+
+/* =========================================================
+   DOM
 ========================================================= */
 
 const entrance = document.getElementById("entrance");
 const arcade = document.getElementById("arcade");
-const startButton = document.getElementById("startButton");
+const gameModal = document.getElementById("gameModal");
+const finalScreen = document.getElementById("finalScreen");
+
+const startBtn = document.getElementById("startBtn");
+const backGame = document.getElementById("backGame");
+const gameTitle = document.getElementById("gameTitle");
+const gameBody = document.getElementById("gameBody");
 
 const player = document.getElementById("player");
-const playerBubble = document.getElementById("playerBubble");
-const enterPrompt = document.getElementById("enterPrompt");
+const ticketCount = document.getElementById("ticketCount");
+const toast = document.getElementById("toast");
 
-const gameOverlay = document.getElementById("gameOverlay");
-const gameTitle = document.getElementById("gameTitle");
-const gameContent = document.getElementById("gameContent");
-const backButton = document.getElementById("backButton");
 
-const ticketCountElement = document.getElementById("ticketCount");
+/* =========================================================
+   ENTRANCE TEXT
+========================================================= */
 
-let tickets = 0;
-let currentGame = null;
-let soundOn = true;
+const entranceMessage =
+    "Hey Dumbo... I made you something. " +
+    "A tiny little arcade containing two years of us. " +
+    "Go on. Explore. Play every game. ❤️";
 
-let playerX = window.innerWidth / 2;
-let playerY = window.innerHeight * .52;
+let entranceIndex = 0;
 
-const speed = 4;
+function typeEntranceText(){
 
-const keys = {
-    ArrowUp: false,
-    ArrowDown: false,
-    ArrowLeft: false,
-    ArrowRight: false
-};
+    const text = entranceMessage;
 
-let nearMachine = null;
+    const interval = setInterval(()=>{
 
-const machines = [...document.querySelectorAll(".machine")];
+        document.getElementById("entranceText").textContent =
+            text.slice(0,entranceIndex);
+
+        entranceIndex++;
+
+        if(entranceIndex > text.length){
+            clearInterval(interval);
+        }
+
+    },24);
+}
+
+typeEntranceText();
 
 
 /* =========================================================
    AUDIO
 ========================================================= */
 
-let audioContext = null;
+function initAudio(){
 
-function audio() {
-
-    if (!soundOn) return;
-
-    if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    if(!audioCtx){
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
 
-    return audioContext;
+    if(audioCtx.state === "suspended"){
+        audioCtx.resume();
+    }
 }
 
-function beep(freq = 500, duration = .1, type = "sine") {
+function beep(freq=440,duration=.08,type="square",volume=.04){
 
-    if (!soundOn) return;
+    if(!musicOn && type==="music") return;
 
-    const ctx = audio();
+    initAudio();
 
-    if (!ctx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
 
-    const oscillator = ctx.createOscillator();
-    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
 
-    oscillator.type = type;
-    oscillator.frequency.value = freq;
+    gain.gain.setValueAtTime(volume,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        audioCtx.currentTime + duration
+    );
 
-    gain.gain.setValueAtTime(.06, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
 
-    oscillator.connect(gain);
-    gain.connect(ctx.destination);
-
-    oscillator.start();
-    oscillator.stop(ctx.currentTime + duration);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
 }
 
-function successSound() {
-    beep(600,.08);
-    setTimeout(() => beep(850,.1),80);
-    setTimeout(() => beep(1100,.15),170);
+function buttonSound(){
+    beep(620,.07,"square",.045);
 }
 
-function failSound() {
-    beep(180,.15,"square");
+function successSound(){
+    beep(660,.1,"square",.05);
+    setTimeout(()=>beep(880,.13,"square",.05),100);
+}
+
+function errorSound(){
+    beep(180,.18,"sawtooth",.04);
+}
+
+function ticketSound(){
+    beep(1000,.05,"square",.035);
+    setTimeout(()=>beep(1300,.05,"square",.035),65);
+}
+
+function startMusic(){
+
+    if(!musicOn) return;
+
+    clearInterval(musicTimer);
+
+    const notes = [220,277,330,440,330,277];
+
+    let i=0;
+
+    musicTimer = setInterval(()=>{
+
+        if(musicOn){
+            beep(notes[i%notes.length],.16,"triangle",.012);
+            i++;
+        }
+
+    },360);
 }
 
 
@@ -1615,53 +2725,66 @@ function failSound() {
    TICKETS
 ========================================================= */
 
-function addTickets(amount) {
+function addTickets(amount){
 
     tickets += amount;
 
-    ticketCountElement.textContent = tickets;
+    ticketCount.textContent = tickets;
 
-    beep(800,.07);
-    setTimeout(() => beep(1100,.1),80);
+    ticketSound();
 
-    createTicketParticles();
+    const pop = document.createElement("div");
+
+    pop.className = "ticket-pop";
+    pop.textContent = "+" + amount + " TICKETS";
+
+    pop.style.left = "50%";
+    pop.style.top = "70%";
+
+    document.body.appendChild(pop);
+
+    setTimeout(()=>pop.remove(),1100);
 }
 
-function createTicketParticles() {
+function completeGame(id){
 
-    for(let i=0;i<6;i++) {
+    completedGames.add(id);
 
-        const t = document.createElement("div");
+    const machine = document.querySelector(
+        `.machine[data-game="${id}"]`
+    );
 
-        t.textContent = "🎟️";
-
-        t.style.position = "fixed";
-        t.style.left = "50%";
-        t.style.top = "50%";
-        t.style.zIndex = "9999";
-        t.style.pointerEvents = "none";
-        t.style.fontSize = "20px";
-
-        document.body.appendChild(t);
-
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 80 + Math.random()*100;
-
-        t.animate([
-            {
-                transform:"translate(-50%,-50%) scale(.5)",
-                opacity:1
-            },
-            {
-                transform:
-                    `translate(calc(-50% + ${Math.cos(angle)*distance}px), calc(-50% + ${Math.sin(angle)*distance}px)) scale(1.2)`,
-                opacity:0
-            }
-        ],{
-            duration:700,
-            easing:"ease-out"
-        }).onfinish = () => t.remove();
+    if(machine){
+        machine.classList.add("completed");
     }
+
+    checkCounterUnlock();
+}
+
+function checkCounterUnlock(){
+
+    if(requiredGames.every(g=>completedGames.has(g))){
+        showToast("ALL GAMES COMPLETE. TICKET COUNTER UNLOCKED.");
+    }
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(message){
+
+    clearTimeout(toastTimer);
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    toastTimer = setTimeout(()=>{
+        toast.classList.remove("show");
+    },2200);
 }
 
 
@@ -1669,25 +2792,30 @@ function createTicketParticles() {
    START
 ========================================================= */
 
-startButton.addEventListener("click", () => {
+function startArcade(){
 
-    beep(600,.1);
+    initAudio();
+
+    buttonSound();
+
     entrance.classList.add("hidden");
     arcade.classList.remove("hidden");
 
-    playerX = window.innerWidth / 2;
-    playerY = window.innerHeight * .52;
+    startMusic();
 
-    updatePlayer();
+}
 
-    setTimeout(() => {
-        playerBubble.classList.add("show");
+startBtn.addEventListener("click",startArcade);
 
-        setTimeout(() => {
-            playerBubble.classList.remove("show");
-        },4000);
+document.addEventListener("keydown",(e)=>{
 
-    },500);
+    if(
+        e.key === "Enter" &&
+        !entrance.classList.contains("hidden")
+    ){
+        startArcade();
+    }
+
 });
 
 
@@ -1695,127 +2823,68 @@ startButton.addEventListener("click", () => {
    PLAYER MOVEMENT
 ========================================================= */
 
-window.addEventListener("keydown", e => {
+let playerX = 50;
+let playerY = 83;
 
-    if (e.key in keys) {
+const movementSpeed = 2.5;
 
-        e.preventDefault();
+function updatePlayer(){
 
-        keys[e.key] = true;
+    playerX = Math.max(5,Math.min(95,playerX));
+    playerY = Math.max(8,Math.min(90,playerY));
 
-    }
-
-    if (e.key === "Enter") {
-
-        e.preventDefault();
-
-        if (!gameOverlay.classList.contains("hidden")) return;
-
-        if (nearMachine) {
-
-            openGame(nearMachine.dataset.game);
-
-        }
-
-    }
-
-});
-
-window.addEventListener("keyup", e => {
-
-    if (e.key in keys) {
-        keys[e.key] = false;
-    }
-
-});
-
-
-function movementLoop() {
-
-    if (gameOverlay.classList.contains("hidden") &&
-        !arcade.classList.contains("hidden")) {
-
-        if (keys.ArrowUp) playerY -= speed;
-        if (keys.ArrowDown) playerY += speed;
-        if (keys.ArrowLeft) playerX -= speed;
-        if (keys.ArrowRight) playerX += speed;
-
-        const playerWidth = player.offsetWidth;
-        const playerHeight = player.offsetHeight;
-
-        playerX = Math.max(playerWidth / 2, Math.min(window.innerWidth - playerWidth / 2, playerX));
-        playerY = Math.max(80, Math.min(window.innerHeight - 60, playerY));
-
-        updatePlayer();
-        checkNearbyMachine();
-    }
-
-    requestAnimationFrame(movementLoop);
+    player.style.left = playerX + "%";
+    player.style.top = playerY + "%";
 }
 
-movementLoop();
+updatePlayer();
 
 
-function updatePlayer() {
+function distanceToMachine(machine){
 
-    player.style.left = playerX + "px";
-    player.style.top = playerY + "px";
+    const rect = machine.getBoundingClientRect();
+    const worldRect = document
+        .getElementById("world")
+        .getBoundingClientRect();
 
+    const x =
+        ((rect.left + rect.width/2 - worldRect.left) /
+        worldRect.width) * 100;
+
+    const y =
+        ((rect.top + rect.height/2 - worldRect.top) /
+        worldRect.height) * 100;
+
+    return Math.sqrt(
+        Math.pow(playerX-x,2) +
+        Math.pow(playerY-y,2)
+    );
 }
 
 
-/* =========================================================
-   MACHINE DETECTION
-========================================================= */
-
-function checkNearbyMachine() {
+function interactNearest(){
 
     let closest = null;
     let closestDistance = Infinity;
 
-    machines.forEach(machine => {
+    document.querySelectorAll(".machine").forEach(machine=>{
 
-        const rect = machine.getBoundingClientRect();
+        const d = distanceToMachine(machine);
 
-        const mx = rect.left + rect.width/2;
-        const my = rect.top + rect.height/2;
-
-        const distance = Math.hypot(
-            playerX - mx,
-            playerY - my
-        );
-
-        if (distance < 145 && distance < closestDistance) {
-
+        if(d < closestDistance){
+            closestDistance = d;
             closest = machine;
-            closestDistance = distance;
-
         }
 
     });
 
-    machines.forEach(m => m.classList.remove("near"));
+    if(closest && closestDistance < 14){
 
-    nearMachine = closest;
+        openGame(closest.dataset.game);
 
-    if (closest) {
+    }else{
 
-        closest.classList.add("near");
-
-        const name =
-            closest.querySelector(".machine-name").textContent;
-
-        enterPrompt.innerHTML =
-            `Press <b>ENTER</b> to play ${name}`;
-
-        enterPrompt.classList.add("active");
-
-    } else {
-
-        enterPrompt.innerHTML =
-            `Walk to a machine and press <b>ENTER</b>`;
-
-        enterPrompt.classList.remove("active");
+        showToast("Move closer to a game!");
 
     }
 
@@ -1823,12 +2892,44 @@ function checkNearbyMachine() {
 
 
 /* =========================================================
-   MACHINE CLICK ALSO WORKS
+   GLOBAL KEYBOARD
 ========================================================= */
 
-machines.forEach(machine => {
+document.addEventListener("keydown",(e)=>{
 
-    machine.addEventListener("click", () => {
+    if(!arcade.classList.contains("hidden") &&
+       gameModal.classList.contains("hidden")){
+
+        if(
+            ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)
+        ){
+            e.preventDefault();
+
+            if(e.key==="ArrowUp") playerY -= movementSpeed;
+            if(e.key==="ArrowDown") playerY += movementSpeed;
+            if(e.key==="ArrowLeft") playerX -= movementSpeed;
+            if(e.key==="ArrowRight") playerX += movementSpeed;
+
+            updatePlayer();
+        }
+
+        if(e.key==="Enter"){
+            e.preventDefault();
+            interactNearest();
+        }
+
+    }
+
+});
+
+
+/* =========================================================
+   MACHINE CLICK
+========================================================= */
+
+document.querySelectorAll(".machine").forEach(machine=>{
+
+    machine.addEventListener("click",()=>{
 
         openGame(machine.dataset.game);
 
@@ -1841,15 +2942,43 @@ machines.forEach(machine => {
    OPEN GAME
 ========================================================= */
 
-function openGame(game) {
+function openGame(id){
 
-    currentGame = game;
+    initAudio();
 
-    gameOverlay.classList.remove("hidden");
+    buttonSound();
 
-    document.body.style.overflow = "hidden";
+    currentGame = id;
 
-    renderGame(game);
+    gameModal.classList.remove("hidden");
+
+    const titles = {
+        claw:"CLAW MEMORIES",
+        photo:"PHOTO BOOTH",
+        jukebox:"JUKEBOX",
+        memory:"MEMORY LANE",
+        basket:"HOW WELL DO YOU KNOW US?",
+        whack:"WHACK A MOLE",
+        high:"HIGH STRIKER",
+        shoot:"SHOOTING GALLERY",
+        wheel:"SPIN THE WHEEL",
+        counter:"TICKET COUNTER"
+    };
+
+    gameTitle.textContent = titles[id] || "GAME";
+
+    gameBody.innerHTML = "";
+
+    if(id==="claw") startClaw();
+    if(id==="photo") startPhotoBooth();
+    if(id==="jukebox") startJukebox();
+    if(id==="memory") startMemoryLane();
+    if(id==="basket") startBasketball();
+    if(id==="whack") startWhack();
+    if(id==="high") startHighStriker();
+    if(id==="shoot") startShooting();
+    if(id==="wheel") startWheel();
+    if(id==="counter") startCounter();
 
 }
 
@@ -1858,69 +2987,40 @@ function openGame(game) {
    BACK
 ========================================================= */
 
-backButton.onclick = () => {
+backGame.addEventListener("click",closeGame);
 
-    gameOverlay.classList.add("hidden");
+function closeGame(){
+
+    cleanupGame();
+
+    gameModal.classList.add("hidden");
+
+    gameBody.innerHTML = "";
 
     currentGame = null;
 
-    gameContent.innerHTML = "";
+    buttonSound();
 
-    document.body.style.overflow = "hidden";
+}
 
-};
+function cleanupGame(){
 
+    clearInterval(window.gameInterval);
+    clearTimeout(window.gameTimeout);
 
-/* =========================================================
-   GAME RENDERER
-========================================================= */
+    window.gameInterval = null;
+    window.gameTimeout = null;
 
-function renderGame(game) {
+    if(window.cameraStream){
 
-    switch(game) {
+        window.cameraStream
+            .getTracks()
+            .forEach(track=>track.stop());
 
-        case "claw":
-            renderClaw();
-            break;
-
-        case "photo":
-            renderPhotoBooth();
-            break;
-
-        case "jukebox":
-            renderJukebox();
-            break;
-
-        case "memory":
-            renderMemoryLane();
-            break;
-
-        case "basketball":
-            renderBasketball();
-            break;
-
-        case "mole":
-            renderMole();
-            break;
-
-        case "striker":
-            renderStriker();
-            break;
-
-        case "shooting":
-            renderShooting();
-            break;
-
-        case "wheel":
-            renderWheel();
-            break;
-
-        case "counter":
-            renderCounter();
-            break;
-
+        window.cameraStream = null;
     }
 
+    document.onmousemove = null;
 }
 
 
@@ -1928,205 +3028,254 @@ function renderGame(game) {
    CLAW MACHINE
 ========================================================= */
 
-const clawMemories = [
+let clawX = 50;
+let clawDropped = false;
+let collectedClaws = new Set();
 
-    {
-        image:"20.heic",
-        text:"My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday."
-    },
+function startClaw(){
 
-    {
-        image:"2.heic",
-        text:"Happy two years to us ❤️"
-    },
+    clawX = 50;
+    clawDropped = false;
 
-    {
-        image:"claw3.jpeg",
-        text:"My gift to you after my first salary as a full-timer."
-    },
-
-    {
-        image:"lastethnic.heic",
-        text:"Last ethnic day together and yeah, one of my favorite picture."
-    },
-
-    {
-        image:"saree.heic",
-        text:"Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day."
-    },
-
-    {
-        image:"claw6.heic",
-        text:"The memory from the very night you left for Kolkata, when you were riding beside me while I was going..."
-    },
-
-    {
-        image:"bappa.heic",
-        text:"Got Bappa home and we were matching outfits. Hehe."
-    }
-
-];
-
-let clawWon = new Set();
-let clawBusy = false;
-
-function renderClaw() {
-
-    gameTitle.textContent = "🧸 THE MEMORY CLAW";
-
-    gameContent.innerHTML = `
+    const html = `
 
         <div class="claw-game">
 
-            <p class="center">
-                Move the claw and grab a capsule.
-            </p>
+            <div class="game-description">
+                Move the claw. Drop it over a capsule.
+                Every capsule hides a memory.
+            </div>
 
-            <div class="claw-stage">
+            <div class="claw-cabinet">
 
                 <div class="claw-rail"></div>
 
                 <div class="claw" id="claw">
-
-                    <div class="claw-cable"></div>
-
+                    <div class="claw-string"></div>
                     <div class="claw-hand"></div>
-
                 </div>
 
-                <div class="claw-capsules">
+                <div class="capsules">
 
-                    ${clawMemories.map((m,i) => `
-                        <button
-                            class="capsule ${clawWon.has(i) ? "hidden" : ""}"
+                    ${clawMemories.map((_,i)=>`
+                        <div
+                            class="capsule"
+                            id="capsule-${i}"
                             data-index="${i}">
                             ${i+1}
-                        </button>
+                        </div>
                     `).join("")}
 
                 </div>
 
             </div>
 
-            <div style="margin-top:15px">
-                <button class="big-btn" id="dropClaw">
-                    DROP CLAW
+            <div class="claw-controls">
+
+                <button class="game-btn" id="clawLeft">
+                    LEFT
                 </button>
+
+                <div class="claw-position">
+                    CLAW
+                </div>
+
+                <button class="game-btn" id="clawDrop">
+                    DROP
+                </button>
+
+                <button class="game-btn" id="clawRight">
+                    RIGHT
+                </button>
+
             </div>
 
-            <div id="clawStatus" class="reward">
-                Choose a capsule.
+            <div id="clawStatus" class="whack-message">
+                Use LEFT / RIGHT and then DROP.
             </div>
 
         </div>
+
     `;
 
-    let clawPosition = 50;
+    gameBody.innerHTML = html;
 
-    const claw = document.getElementById("claw");
+    updateClaw();
 
-    window.clawKeyHandler = e => {
+    document.getElementById("clawLeft")
+        .addEventListener("click",()=>moveClaw(-7));
 
-        if (!gameOverlay.classList.contains("hidden") &&
-            currentGame === "claw") {
+    document.getElementById("clawRight")
+        .addEventListener("click",()=>moveClaw(7));
 
-            if(e.key === "ArrowLeft") {
-
-                clawPosition = Math.max(8,clawPosition-5);
-                claw.style.left = clawPosition + "%";
-
-            }
-
-            if(e.key === "ArrowRight") {
-
-                clawPosition = Math.min(92,clawPosition+5);
-                claw.style.left = clawPosition + "%";
-
-            }
-
-        }
-
-    };
-
-    window.addEventListener("keydown", window.clawKeyHandler);
-
-    document.getElementById("dropClaw").onclick = () => {
-
-        if(clawBusy) return;
-
-        const available = clawMemories
-            .map((_,i)=>i)
-            .filter(i=>!clawWon.has(i));
-
-        if(!available.length) {
-
-            document.getElementById("clawStatus").textContent =
-                "You found all seven memories. ❤️";
-
-            return;
-        }
-
-        clawBusy = true;
-
-        beep(350,.15);
-
-        claw.classList.add("claw-dropping");
-
-        setTimeout(() => {
-
-            const index =
-                available[Math.floor(Math.random()*available.length)];
-
-            clawWon.add(index);
-
-            claw.classList.remove("claw-dropping");
-
-            successSound();
-
-            addTickets(25);
-
-            showMemory(
-                clawMemories[index],
-                "MEMORY FOUND! ❤️",
-                25
-            );
-
-            clawBusy = false;
-
-        },900);
-
-    };
+    document.getElementById("clawDrop")
+        .addEventListener("click",dropClaw);
 
 }
 
-function showMemory(memory,title,reward) {
 
-    gameTitle.textContent = title;
+function updateClaw(){
 
-    gameContent.innerHTML = `
+    const claw = document.getElementById("claw");
+
+    if(claw){
+        claw.style.left = clawX + "%";
+    }
+
+}
+
+
+function moveClaw(amount){
+
+    if(clawDropped) return;
+
+    clawX = Math.max(7,Math.min(93,clawX+amount));
+
+    updateClaw();
+
+    beep(500,.05,"square",.025);
+
+}
+
+
+function dropClaw(){
+
+    if(clawDropped) return;
+
+    clawDropped = true;
+
+    const claw = document.getElementById("claw");
+
+    const hand = claw.querySelector(".claw-hand");
+
+    hand.style.borderRadius = "0 0 8px 8px";
+
+    claw.style.transition = "top .75s ease";
+    claw.style.top = "210px";
+
+    beep(260,.2,"square",.04);
+
+    setTimeout(()=>{
+
+        const index =
+            Math.round((clawX-7)/(86/(clawMemories.length-1)));
+
+        const safeIndex =
+            Math.max(0,Math.min(clawMemories.length-1,index));
+
+        if(!collectedClaws.has(safeIndex)){
+
+            collectedClaws.add(safeIndex);
+
+            document
+                .getElementById("capsule-"+safeIndex)
+                ?.classList.add("collected");
+
+            successSound();
+
+            claw.style.top = "32px";
+
+            setTimeout(()=>{
+
+                revealClawMemory(safeIndex);
+
+            },800);
+
+        }else{
+
+            claw.style.top = "32px";
+
+            document.getElementById("clawStatus")
+                .textContent =
+                "That memory is already gone! Try another capsule.";
+
+            errorSound();
+
+            setTimeout(()=>{
+                clawDropped = false;
+            },800);
+
+        }
+
+    },800);
+
+}
+
+
+function revealClawMemory(index){
+
+    const memory = clawMemories[index];
+
+    gameBody.innerHTML = `
 
         <div class="memory-reveal">
 
-            <img src="${memory.image}" alt="Our memory">
-
-            <div class="memory-text">
-                ${memory.text}
+            <div class="game-description">
+                CAPSULE OPENED!
             </div>
 
-            <div class="reward">
-                +${reward} TICKETS 🎟️
+            <img
+                src="${memory.image}"
+                alt="Memory"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            >
+
+            <div
+                style="
+                    display:none;
+                    border:3px solid #ff526b;
+                    padding:15px;
+                    color:#ff526b;
+                    font-size:20px;
+                "
+            >
+                This image format may not be supported by your browser.
             </div>
 
-            <br>
+            <div class="memory-caption">
+                ${memory.caption}
+            </div>
 
-            <button class="big-btn" onclick="renderClaw()">
+            <div class="game-result">
+                MEMORY COLLECTED<br>
+                +15 TICKETS
+            </div>
+
+            <button class="game-btn" id="clawContinue">
                 BACK TO CLAW
             </button>
 
         </div>
+
     `;
 
-    celebrationBurst();
+    addTickets(15);
+
+    document.getElementById("clawContinue")
+        .addEventListener("click",()=>{
+
+            if(collectedClaws.size >= clawMemories.length){
+
+                completeGame("claw");
+
+                gameBody.innerHTML = `
+                    <div class="game-center">
+                        <div class="game-result">
+                            ALL 7 MEMORIES COLLECTED!
+                        </div>
+                        <div class="game-description">
+                            You found every memory hidden inside the machine.
+                        </div>
+                    </div>
+                `;
+
+            }else{
+
+                startClaw();
+
+            }
+
+        });
 
 }
 
@@ -2135,120 +3284,278 @@ function showMemory(memory,title,reward) {
    PHOTO BOOTH
 ========================================================= */
 
-function renderPhotoBooth() {
+function startPhotoBooth(){
 
-    gameTitle.textContent = "📸 OUR PHOTO BOOTH";
-
-    gameContent.innerHTML = `
+    gameBody.innerHTML = `
 
         <div class="photo-booth">
 
-            <p>
-                Get ready for our little arcade photo strip.
-            </p>
+            <div class="game-description">
+                Get ready...
+            </div>
 
-            <div class="booth-stage" id="boothStage">
-
-                <button class="big-btn" id="takePhotos">
-                    TAKE OUR PHOTO
-                </button>
-
+            <div class="booth-screen">
+                <div class="countdown" id="photoCountdown">
+                    3
+                </div>
             </div>
 
         </div>
+
     `;
-
-    document.getElementById("takePhotos").onclick =
-        startPhotoCountdown;
-
-}
-
-
-function startPhotoCountdown() {
-
-    const stage = document.getElementById("boothStage");
 
     let number = 3;
 
-    stage.innerHTML =
-        `<div class="countdown">${number}</div>`;
+    const countdown = document.getElementById("photoCountdown");
 
-    const interval = setInterval(() => {
+    const interval = setInterval(()=>{
 
         number--;
 
-        if(number > 0) {
+        if(number > 0){
 
-            stage.innerHTML =
-                `<div class="countdown">${number}</div>`;
+            countdown.textContent = number;
 
-            beep(600,.1);
+            beep(
+                number===1 ? 900 : 600,
+                .12,
+                "square",
+                .05
+            );
 
-        } else {
+        }else{
 
             clearInterval(interval);
 
-            beep(1200,.25);
+            countdown.textContent = "FLASH!";
 
-            const flash = document.createElement("div");
+            beep(1300,.25,"square",.06);
 
-            flash.className = "flash";
-
-            document.body.appendChild(flash);
-
-            setTimeout(() => flash.remove(),400);
-
-            setTimeout(showPhotoStrip,450);
+            setTimeout(showPhotoStrip,500);
 
         }
 
     },900);
 
+    window.gameInterval = interval;
+
 }
 
 
-function showPhotoStrip() {
+function showPhotoStrip(){
 
-    addTickets(20);
-    successSound();
-
-    gameTitle.textContent = "📸 OUR PHOTO STRIP";
-
-    gameContent.innerHTML = `
+    gameBody.innerHTML = `
 
         <div class="photo-booth">
 
-            <div class="photo-frame">
+            <div class="game-description">
+                PHOTO BOOTH MEMORIES
+            </div>
 
-                <img src="photo_booth1.jpeg">
+            <div class="photo-strip">
 
-                <img src="photo_booth2.heic">
+                ${photoBoothImages.map(image=>`
 
-                <img src="photo_booth.heic">
+                    <div class="photo-frame">
 
-                <img src="photo_booth1.jpeg">
+                        <img
+                            src="${image}"
+                            alt="Photo booth memory"
+                            onerror="this.style.display='none'"
+                        >
 
-                <div class="strip-text">
-                    THE US ❤️
+                    </div>
+
+                `).join("")}
+
+                <div class="today-frame">
+
+                    AND ONE TO<br>
+                    COMMEMORATE<br>
+                    TODAY.<br><br>
+                    SAY CHEESE<br>
+                    CLICK ME
+
                 </div>
 
             </div>
 
-            <div class="reward">
-                +20 TICKETS 🎟️
-            </div>
-
-            <br>
-
-            <button class="big-btn"
-                onclick="renderPhotoBooth()">
-                TAKE ANOTHER
+            <button
+                class="game-btn"
+                id="cameraButton"
+            >
+                SAY CHEESE. CLICK ME.
             </button>
 
+            <div
+                id="cameraArea"
+                class="camera-box hidden"
+            >
+
+                <video
+                    id="cameraVideo"
+                    autoplay
+                    playsinline
+                ></video>
+
+                <canvas id="cameraCanvas"></canvas>
+
+                <button
+                    class="game-btn"
+                    id="captureButton"
+                >
+                    CLICK!
+                </button>
+
+                <div id="cameraStatus"></div>
+
+            </div>
+
         </div>
+
     `;
 
-    celebrationBurst();
+    document
+        .getElementById("cameraButton")
+        .addEventListener("click",openCamera);
+
+}
+
+
+async function openCamera(){
+
+    initAudio();
+
+    const cameraArea =
+        document.getElementById("cameraArea");
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    const status =
+        document.getElementById("cameraStatus");
+
+    cameraArea.classList.remove("hidden");
+
+    try{
+
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+                video:true,
+                audio:false
+            });
+
+        window.cameraStream = stream;
+
+        video.srcObject = stream;
+
+        successSound();
+
+        document
+            .getElementById("captureButton")
+            .addEventListener("click",capturePhoto);
+
+    }catch(error){
+
+        status.innerHTML = `
+            <div class="camera-error">
+                Camera access was blocked.
+                Allow camera permission in your browser
+                to take today's photo.
+            </div>
+        `;
+
+        errorSound();
+
+    }
+
+}
+
+
+function capturePhoto(){
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    const canvas =
+        document.getElementById("cameraCanvas");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.translate(canvas.width,0);
+    ctx.scale(-1,1);
+
+    ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    const image =
+        canvas.toDataURL("image/png");
+
+    video.style.display = "none";
+
+    document.getElementById("captureButton")
+        .style.display = "none";
+
+    document.getElementById("cameraStatus")
+        .innerHTML = `
+
+            <img
+                src="${image}"
+                style="
+                    width:min(600px,85vw);
+                    border:5px solid var(--pink);
+                    box-shadow:0 0 25px var(--pink);
+                "
+            >
+
+            <div class="game-result">
+                TODAY HAS BEEN COMMEMORATED.
+            </div>
+
+            <button
+                class="game-btn"
+                id="finishPhoto"
+            >
+                SAVE THIS MEMORY
+            </button>
+
+        `;
+
+    document
+        .getElementById("finishPhoto")
+        .addEventListener("click",()=>{
+
+            addTickets(20);
+
+            completeGame("photo");
+
+            gameBody.innerHTML = `
+
+                <div class="game-center">
+
+                    <div class="game-result">
+                        PHOTO BOOTH COMPLETE!
+                    </div>
+
+                    <div class="game-description">
+                        One more picture for the collection.
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    successSound();
 
 }
 
@@ -2257,52 +3564,82 @@ function showPhotoStrip() {
    JUKEBOX
 ========================================================= */
 
-function renderJukebox() {
+const spotifyPlaylist =
+"https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9";
 
-    gameTitle.textContent = "🎵 OUR JUKEBOX";
 
-    gameContent.innerHTML = `
+function startJukebox(){
 
-        <div class="jukebox">
+    gameBody.innerHTML = `
 
-            <div class="jukebox-body">
+        <div class="game-center">
 
-                <div class="jukebox-screen">
-                    🎵
+            <div class="jukebox">
+
+                <div class="jukebox-glass">
+
+                    <div class="music-note note1">♪</div>
+                    <div class="music-note note2">♫</div>
+                    <div class="music-note note3">♪</div>
+
+                    <div class="juke-label">
+                        OUR<br>
+                        SONGS
+                    </div>
+
                 </div>
 
-                <h2>
-                    OUR SOUNDTRACK
-                </h2>
-
-                <p style="margin:15px 0">
-                    Every relationship needs a soundtrack.
-                </p>
-
-                <button class="big-btn" id="spotifyBtn">
-                    OPEN OUR SPOTIFY
-                </button>
-
-                <div class="reward">
-                    +15 TICKETS 🎟️
-                </div>
+                <button
+                    class="juke-button"
+                    id="jukeButton"
+                ></button>
 
             </div>
 
+            <div class="game-description">
+                Every song has a little piece of us in it.
+            </div>
+
+            <button
+                class="game-btn"
+                id="spotifyButton"
+            >
+                PLAY OUR PLAYLIST
+            </button>
+
         </div>
+
     `;
 
-    document.getElementById("spotifyBtn").onclick = () => {
+    document
+        .getElementById("jukeButton")
+        .addEventListener("click",playSpotify);
 
-        window.open(
-            "https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9",
-            "_blank"
-        );
+    document
+        .getElementById("spotifyButton")
+        .addEventListener("click",playSpotify);
+
+}
+
+
+function playSpotify(){
+
+    initAudio();
+
+    buttonSound();
+
+    window.open(
+        spotifyPlaylist,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+    if(!completedGames.has("jukebox")){
 
         addTickets(15);
-        successSound();
+        completeGame("jukebox");
 
-    };
+    }
 
 }
 
@@ -2311,401 +3648,463 @@ function renderJukebox() {
    MEMORY LANE
 ========================================================= */
 
-const roadMemories = [
+let memoryPosition = 8;
+let currentMemory = 0;
+let memoryOpened = false;
 
-    ["Met in Csa and i found you cutee 🥰","csa.jpg"],
-    ["Cubbon park where we hung out so much and that day i liked you a little more🥹","cubbon.png"],
-    ["Bhaang day\nI drunk called you and cried cause u went without saying bye","bhang.jpg"],
-    ["You got me lunaaaaa","luna.heic"],
-    ["The house party that changed everything","houseparty.jpeg"],
-    ["Our first photo after officially becoming a couple","off.jpeg"],
-    ["Our first ethnic day together","ethnic.heic"],
-    ["First Ganesh Chaturthi and first time we went out as a coupleeee","ganesh.png"],
-    ["First date and the first time you got me flowers","date.jpg"],
-    ["Cute family photo and how Gourmet used to be our second home.","fam.jpg"],
-    ["When you came to surprise me on my birthday in my night, it was fun.","bday.jpg"],
-    ["Birthday dinner where my friends threatened you to go wear something to match and you went out of your way to buy yourself a new outfit so we could color match.","dinner.jpeg"],
-    ["First photo booth experience","phbooth.heic"],
-    ["First 👀","first.heic"],
-    ["Our first concert together","concert.heic"],
-    ["First Valentine's Day together and we went to Caliburrito.","vd.heic"],
-    ["Six month anniversary yayyyy","6.heic"],
-    ["That summer break, in my first apt when we spent our weekends together-going on dates, cuddling, and just had so much fun.","summer.heic"],
-    ["The big fat family dinner where you met all the boyfriends and we hung out with my friend group.","fatfam.heic"],
-    ["Got Bappa home and we were matching outfits. Hehe.","bappa.heic"],
-    ["Last ethnic day together and yeah, one of my favorite picture.","lastethnic.heic"],
-    ["My 20th birthday when you came to surprise me. Yeah. And I was mad that you forgot, that you were totally being so nonchalant about my birthday.","20.heic"],
-    ["Miss our little cookie.","cookie.heic"],
-    ["Our last Christmas lights together as college students.","christmas.heic"],
-    ["Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day.","saree.heic"],
-    ["Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together.","farewell.heic"],
-    ["New house and you came with a big bouquet of flowers as housewarming.","newh.heic"],
-    ["Yayyy grad day","grad.jpeg"],
-    ["Happy two years to us ❤️","2.heic"]
 
-];
+function startMemoryLane(){
 
-function renderMemoryLane() {
+    memoryPosition = 8;
+    currentMemory = 0;
+    memoryOpened = false;
 
-    gameTitle.textContent = "🚗 MEMORY LANE";
+    gameBody.innerHTML = `
 
-    gameContent.innerHTML = `
+        <div class="memory-game">
 
-        <div style="height:100%;">
-
-            <div class="memory-lane-info">
-                <b>Drive through our memories ❤️</b><br>
-                Stop at a milestone to discover it.
+            <div class="game-description">
+                Drive through our memories.
+                Use the LEFT and RIGHT arrows.
+                Stop at each memory.
             </div>
 
-            <div class="road" id="road">
+            <div class="road-wrapper">
 
-                <div class="road-line"></div>
+                <div class="road">
 
-                <div class="milestones">
+                    <div class="road-line"></div>
 
-                    ${roadMemories.map((m,i)=>`
+                    ${memories.map((memory,index)=>{
 
-                        <button
-                            class="milestone"
-                            style="
-                                left:${70 + i*58}px;
-                            "
-                            onclick="openRoadMemory(${i})">
+                        const left =
+                            8 +
+                            (index *
+                            (84 / Math.max(1,memories.length-1)));
 
-                            ❤️
+                        return `
 
-                        </button>
+                            <div
+                                class="milestone"
+                                id="milestone-${index}"
+                                style="left:${left}%"
+                            >
 
-                    `).join("")}
+                                <div class="milestone-sign">
+                                    MEMORY<br>
+                                    ${index+1}
+                                </div>
+
+                                <div class="milestone-pole"></div>
+
+                            </div>
+
+                        `;
+
+                    }).join("")}
+
+                    <div
+                        class="car"
+                        id="memoryCar"
+                    >
+
+                        <div class="car-roof"></div>
+                        <div class="car-body"></div>
+                        <div class="car-wheel one"></div>
+                        <div class="car-wheel two"></div>
+
+                    </div>
+
+                    <div
+                        class="memory-popup"
+                        id="memoryPopup"
+                    >
+
+                        <div class="memory-card">
+
+                            <h3 id="memoryTitle">
+                                MEMORY
+                            </h3>
+
+                            <img
+                                id="memoryImage"
+                                src=""
+                                alt="Memory"
+                            >
+
+                            <p id="memoryCaption"></p>
+
+                            <button
+                                class="game-btn"
+                                id="continueMemory"
+                            >
+                                CONTINUE DRIVING
+                            </button>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-                <div class="car" id="memoryCar">
-                    🚗
-                </div>
+            </div>
 
+            <div
+                id="memoryStatus"
+                class="whack-message"
+            >
+                MEMORY 1
             </div>
 
         </div>
+
     `;
 
-    const road = document.getElementById("road");
+    updateMemoryCar();
 
-    road.addEventListener("wheel", e => {
+}
 
-        if(Math.abs(e.deltaY) > 0) {
 
-            e.preventDefault();
+function updateMemoryCar(){
 
-            road.scrollLeft += e.deltaY;
+    const car =
+        document.getElementById("memoryCar");
 
+    if(!car) return;
+
+    car.style.left = memoryPosition + "%";
+
+    const target =
+        8 +
+        (currentMemory *
+        (84 / Math.max(1,memories.length-1)));
+
+    if(
+        Math.abs(memoryPosition-target) < 3 &&
+        !memoryOpened
+    ){
+
+        reachMemory();
+
+    }
+
+}
+
+
+function reachMemory(){
+
+    memoryOpened = true;
+
+    const milestone =
+        document.getElementById(
+            "milestone-"+currentMemory
+        );
+
+    if(milestone){
+        milestone.classList.add("reached");
+    }
+
+    const car =
+        document.getElementById("memoryCar");
+
+    car.classList.remove("memory-jump");
+
+    void car.offsetWidth;
+
+    car.classList.add("memory-jump");
+
+    beep(750,.1,"square",.05);
+
+    const memory =
+        memories[currentMemory];
+
+    document.getElementById("memoryTitle")
+        .textContent =
+        "MEMORY " + (currentMemory+1);
+
+    const image =
+        document.getElementById("memoryImage");
+
+    image.src = memory.image;
+
+    image.onerror = function(){
+        this.style.display = "none";
+    };
+
+    document.getElementById("memoryCaption")
+        .textContent =
+        memory.caption;
+
+    document.getElementById("memoryPopup")
+        .classList.add("active");
+
+    document.getElementById("memoryStatus")
+        .textContent =
+        "STOP! MEMORY FOUND.";
+
+}
+
+
+document.addEventListener("keydown",(e)=>{
+
+    if(currentGame !== "memory") return;
+
+    if(gameModal.classList.contains("hidden")) return;
+
+    if(memoryOpened) return;
+
+    if(e.key==="ArrowLeft"){
+
+        e.preventDefault();
+
+        memoryPosition -= 3;
+
+        if(memoryPosition<5)
+            memoryPosition=5;
+
+        updateMemoryCar();
+
+    }
+
+    if(e.key==="ArrowRight"){
+
+        e.preventDefault();
+
+        memoryPosition += 3;
+
+        if(memoryPosition>91)
+            memoryPosition=91;
+
+        updateMemoryCar();
+
+    }
+
+});
+
+
+document.addEventListener("click",(e)=>{
+
+    if(e.target.id==="continueMemory"){
+
+        document
+            .getElementById("memoryPopup")
+            .classList.remove("active");
+
+        currentMemory++;
+
+        if(currentMemory >= memories.length){
+
+            addTickets(40);
+
+            completeGame("memory");
+
+            gameBody.innerHTML = `
+
+                <div class="game-center">
+
+                    <div class="game-result">
+                        YOU DROVE THROUGH EVERY MEMORY.
+                    </div>
+
+                    <div class="game-description">
+                        ${memories.length} memories.
+                        One very long road.
+                        One very cute us.
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
         }
 
-    },{passive:false});
+        memoryOpened = false;
 
-}
+        document.getElementById("memoryStatus")
+            .textContent =
+            "MEMORY " + (currentMemory+1);
 
+    }
 
-function openRoadMemory(index) {
-
-    const [text,image] = roadMemories[index];
-
-    gameTitle.textContent = "❤️ A MEMORY";
-
-    gameContent.innerHTML = `
-
-        <div class="memory-reveal">
-
-            <img src="${image}" alt="Memory">
-
-            <div class="memory-text">
-                ${text.replace(/\n/g,"<br>")}
-            </div>
-
-            <div class="reward">
-                MEMORY DISCOVERED +10 TICKETS 🎟️
-            </div>
-
-            <br>
-
-            <button
-                class="big-btn"
-                onclick="renderMemoryLane()">
-
-                CONTINUE DRIVING 🚗
-
-            </button>
-
-        </div>
-    `;
-
-    addTickets(10);
-
-    celebrationBurst();
-
-}
+});
 
 
 /* =========================================================
    BASKETBALL
 ========================================================= */
 
-const basketballQuestions = [
-
-    {
-        q:"Where did we go on our first date?",
-        answers:["Uru Brew Park","Cubbon Park","Hakuna","Glens"],
-        correct:"Uru Brew Park"
-    },
-
-    {
-        q:"What colour dress did I wear on our first date?",
-        answers:[
-            "A small white dress with pink flowers + cute clips in my hair",
-            "A black crop top",
-            "A red saree",
-            "A blue dress"
-        ],
-        correct:"A small white dress with pink flowers + cute clips in my hair"
-    },
-
-    {
-        q:"Where did we have our first kiss?",
-        answers:["Hakuna","Uru Brew Park","Glens","Cubbon Park"],
-        correct:"Hakuna"
-    },
-
-    {
-        q:"Where did we go after our first date?",
-        answers:["Glens","Hakuna","Gourmet","Cubbon Park"],
-        correct:"Glens"
-    },
-
-    {
-        q:"What was the first nail design I got when you painted my nails?",
-        answers:[
-            "White nails with butterflies on two fingers that join together to form one butterfly",
-            "Pink hearts",
-            "Blue flowers",
-            "Red glitter"
-        ],
-        correct:"White nails with butterflies on two fingers that join together to form one butterfly"
-    },
-
-    {
-        q:"For what occasion did we first go out as a couple?",
-        answers:["Ganesh Chaturthi","Valentine's Day","Christmas","Our anniversary"],
-        correct:"Ganesh Chaturthi"
-    },
-
-    {
-        q:"What was I wearing that day?",
-        answers:[
-            "A black crop top with a black-and-white wrap-around skirt",
-            "A white dress",
-            "A pink saree",
-            "A blue top and jeans"
-        ],
-        correct:"A black crop top with a black-and-white wrap-around skirt"
-    },
-
-    {
-        q:"When and where did we first properly cuddle?",
-        answers:[
-            "October, at your sister's house",
-            "December, at my house",
-            "October, at Hakuna",
-            "November, at your house"
-        ],
-        correct:"October, at your sister's house"
-    },
-
-    {
-        q:"What movie did we watch that day?",
-        answers:[
-            "Yeh Jawaani Hai Deewani",
-            "Spider-Man",
-            "3 Idiots",
-            "Zindagi Na Milegi Dobara"
-        ],
-        correct:"Yeh Jawaani Hai Deewani"
-    },
-
-    {
-        q:"What shows did you make me watch that became my absolute favourites?",
-        answers:[
-            "Brooklyn Nine-Nine OR Modern Family",
-            "Friends",
-            "The Office",
-            "How I Met Your Mother"
-        ],
-        correct:"Brooklyn Nine-Nine OR Modern Family"
-    },
-
-    {
-        q:"What are my favourite colours?",
-        answers:[
-            "Blue, pink OR maroon",
-            "Black and white",
-            "Green and yellow",
-            "Purple and orange"
-        ],
-        correct:"Blue, pink OR maroon"
-    },
-
-    {
-        q:"What's one silly thing I love spending money on?",
-        answers:[
-            "Bed sheets",
-            "Shoes",
-            "Makeup",
-            "Plants"
-        ],
-        correct:"Bed sheets"
-    }
-
-];
-
 let basketballIndex = 0;
+let basketballScore = 0;
 
-function renderBasketball() {
 
-    gameTitle.textContent = "🏀 HOW WELL DO YOU KNOW US?";
+function startBasketball(){
 
     basketballIndex = 0;
+    basketballScore = 0;
 
-    renderBasketballQuestion();
+    renderBasketQuestion();
 
 }
 
 
-function renderBasketballQuestion() {
+function renderBasketQuestion(){
 
-    if(basketballIndex >= basketballQuestions.length) {
+    if(basketballIndex >= basketballQuestions.length){
 
-        gameContent.innerHTML = `
+        completeGame("basket");
 
-            <div class="center">
+        addTickets(30);
 
-                <div style="font-size:80px">
-                    🏀❤️
+        gameBody.innerHTML = `
+
+            <div class="game-center">
+
+                <div class="game-result">
+                    FINAL SCORE<br><br>
+                    ${basketballScore} / ${basketballQuestions.length}
                 </div>
 
-                <h2>
-                    YOU MADE IT!
-                </h2>
-
-                <p style="margin:15px">
-                    You survived the ultimate us quiz.
-                </p>
-
-                <div class="reward">
-                    +60 TICKETS 🎟️
+                <div class="game-description">
+                    You survived the ultimate test of how well
+                    you know us.
                 </div>
-
-                <br>
-
-                <button
-                    class="big-btn"
-                    onclick="renderBasketball()">
-
-                    PLAY AGAIN
-
-                </button>
 
             </div>
+
         `;
 
-        addTickets(60);
-        successSound();
-
         return;
-
     }
 
-    const q = basketballQuestions[basketballIndex];
+    const q =
+        basketballQuestions[basketballIndex];
 
-    gameContent.innerHTML = `
+    gameBody.innerHTML = `
 
-        <div class="question-card">
+        <div class="basket-game">
 
-            <div class="question">
-                ${q.q}
+            <div class="scoreboard">
+
+                <span>
+                    QUESTION ${basketballIndex+1}/${basketballQuestions.length}
+                </span>
+
+                <span>
+                    SCORE: ${basketballScore}
+                </span>
+
             </div>
 
-            <div class="basketball">
-                🏀
+            <div class="basket-court">
+
+                <div class="hoop">
+
+                    <div class="backboard"></div>
+                    <div class="rim"></div>
+                    <div class="net"></div>
+
+                </div>
+
+                <div
+                    class="basket-ball"
+                    id="basketBall"
+                ></div>
+
+            </div>
+
+            <div class="question-box">
+                ${q.q}
             </div>
 
             <div class="answers">
 
-                ${q.answers.map(a=>`
+                ${q.answers.map((answer,i)=>`
 
                     <button
-                        class="answer-btn"
-                        data-answer="${a.replace(/"/g,"&quot;")}">
-
-                        ${a}
-
+                        class="answer"
+                        data-answer-index="${i}"
+                    >
+                        ${answer}
                     </button>
 
                 `).join("")}
 
             </div>
 
-            <div id="basketResult"
-                 style="margin-top:15px">
-            </div>
+            <div id="basketResult"></div>
 
         </div>
+
     `;
 
-    document.querySelectorAll(".answer-btn")
-        .forEach(btn => {
+    document.querySelectorAll(".answer")
+        .forEach(button=>{
 
-            btn.onclick = () => {
+            button.addEventListener("click",()=>{
 
-                const answer = btn.dataset.answer;
+                answerBasket(
+                    q,
+                    button.textContent.trim()
+                );
 
-                const result =
-                    document.getElementById("basketResult");
-
-                if(answer === q.correct) {
-
-                    result.innerHTML =
-                        `<b style="color:#67f7a8">
-                            SWISH! 🏀❤️
-                         </b>`;
-
-                    successSound();
-                    addTickets(10);
-
-                } else {
-
-                    result.innerHTML =
-                        `<b style="color:#ff7c9f">
-                            OOPS! MISSED! 🏀
-                         </b>`;
-
-                    failSound();
-
-                }
-
-                document.querySelectorAll(".answer-btn")
-                    .forEach(b => b.disabled = true);
-
-                setTimeout(() => {
-
-                    basketballIndex++;
-
-                    renderBasketballQuestion();
-
-                },1000);
-
-            };
+            });
 
         });
+
+}
+
+
+function answerBasket(question,answer){
+
+    document.querySelectorAll(".answer")
+        .forEach(btn=>btn.disabled=true);
+
+    const ball =
+        document.getElementById("basketBall");
+
+    const result =
+        document.getElementById("basketResult");
+
+    const correct =
+        answer === question.correct;
+
+    if(correct){
+
+        basketballScore++;
+
+        ball.classList.add("ball-correct");
+
+        result.innerHTML = `
+            <div class="game-result">
+                SWISH! CORRECT!
+            </div>
+        `;
+
+        successSound();
+
+    }else{
+
+        ball.classList.add("ball-wrong");
+
+        result.innerHTML = `
+            <div class="game-result"
+                 style="border-color:var(--red);color:var(--red)">
+                BRICK! NOT QUITE.
+            </div>
+        `;
+
+        errorSound();
+
+    }
+
+    setTimeout(()=>{
+
+        basketballIndex++;
+
+        renderBasketQuestion();
+
+    },1300);
 
 }
 
@@ -2714,109 +4113,104 @@ function renderBasketballQuestion() {
    WHACK A MOLE
 ========================================================= */
 
-const moleProblems = [
+let whackIndex = 0;
+let whackHits = 0;
+let whackActive = false;
+let whackTimer = null;
 
-    "TAKE ME FOR GRANTED",
-    "ZONING OUT",
-    "FORGETTING TO INFORM",
-    "WALKING AWAY",
-    "ASKING FOR A BREAK/ BREAKUP",
-    "RAISING OUR VOICES",
-    "REACTING BEFORE THINKING"
 
-];
+function startWhack(){
 
-let moleIndex = 0;
+    whackIndex = 0;
+    whackHits = 0;
 
-function renderMole() {
+    renderWhack();
 
-    gameTitle.textContent = "🐹 WHACK-A-MOLE";
+}
 
-    moleIndex = 0;
 
-    gameContent.innerHTML = `
+function renderWhack(){
 
-        <div class="mole-game">
+    gameBody.innerHTML = `
 
-            <p>
-                Our relationship problems have escaped.
-                WHACK THEM. 🔨
-            </p>
+        <div class="whack-game">
 
-            <div id="moleProgress"
-                 style="margin-top:8px">
+            <div class="whack-header">
+
+                <span>
+                    WHACKS: <span id="whackHits">0</span>
+                </span>
+
+                <span>
+                    ${whackProblems.length} PROBLEMS
+                </span>
+
             </div>
 
-            <div class="mole-grid" id="moleGrid">
+            <div
+                class="hole-grid"
+                id="holeGrid"
+            >
 
-                ${Array(9).fill(0).map((_,i)=>`
+                ${[0,1,2,3,4,5].map(i=>`
 
-                    <div class="hole"
-                         data-hole="${i}">
-                    </div>
+                    <div
+                        class="hole"
+                        data-hole="${i}"
+                    ></div>
 
                 `).join("")}
 
             </div>
 
+            <div
+                class="whack-message"
+                id="whackMessage"
+            >
+                Hit the mole. But don't hit US.
+            </div>
+
         </div>
+
     `;
 
-    spawnMole();
+    whackNext();
 
 }
 
 
-function spawnMole() {
+function whackNext(){
 
-    if(moleIndex >= moleProblems.length) {
+    if(whackIndex >= whackProblems.length){
 
-        gameContent.innerHTML = `
+        clearTimeout(whackTimer);
 
-            <div class="center">
+        completeGame("whack");
 
-                <div style="font-size:80px">
-                    🐹🔨❤️
+        addTickets(25);
+
+        gameBody.innerHTML = `
+
+            <div class="game-center">
+
+                <div class="game-result">
+                    ALL 7 PROBLEMS WHACKED!
                 </div>
 
-                <h2>
-                    ALL PROBLEMS WHACKED!
-                </h2>
-
-                <p style="margin:15px">
-                    Look at us solving things instead of running away.
-                </p>
-
-                <div class="reward">
-                    +50 TICKETS 🎟️
+                <div class="game-description">
+                    Relationship problems defeated.
                 </div>
-
-                <br>
-
-                <button class="big-btn"
-                        onclick="renderMole()">
-                    PLAY AGAIN
-                </button>
 
             </div>
-        `;
 
-        addTickets(50);
-        successSound();
+        `;
 
         return;
 
     }
 
-    const progress =
-        document.getElementById("moleProgress");
-
-    if(progress) {
-
-        progress.textContent =
-            `${moleIndex + 1} / ${moleProblems.length}`;
-
-    }
+    document.querySelectorAll(".hole")
+        .forEach(h=>h.innerHTML="");
 
     const holes =
         [...document.querySelectorAll(".hole")];
@@ -2824,35 +4218,155 @@ function spawnMole() {
     const randomHole =
         holes[Math.floor(Math.random()*holes.length)];
 
-    holes.forEach(h => h.innerHTML = "");
+    const isDanger =
+        Math.random() < .25;
 
     const mole =
         document.createElement("div");
 
     mole.className = "mole";
 
-    mole.textContent =
-        moleProblems[moleIndex];
+    if(isDanger){
 
-    mole.onclick = () => {
+        mole.classList.add("bitmoji-mole");
 
-        beep(220,.1,"square");
+        mole.innerHTML = `
+            <img
+                src="bitmoji.png"
+                alt="US"
+            >
+        `;
 
-        mole.style.transform = "scale(.7)";
+        mole.addEventListener("click",(e)=>{
 
-        setTimeout(() => {
+            e.stopPropagation();
 
-            moleIndex++;
+            gameOverWhack();
 
-            addTickets(5);
+        });
 
-            spawnMole();
+    }else{
 
-        },250);
+        mole.textContent =
+            whackProblems[whackIndex].label;
 
-    };
+        mole.addEventListener("click",(e)=>{
+
+            e.stopPropagation();
+
+            whackHit();
+
+        });
+
+    }
 
     randomHole.appendChild(mole);
+
+    whackActive = true;
+
+    clearTimeout(whackTimer);
+
+    whackTimer = setTimeout(()=>{
+
+        if(whackActive){
+
+            whackActive = false;
+
+            whackIndex++;
+
+            whackNext();
+
+        }
+
+    },1700);
+
+}
+
+
+function whackHit(){
+
+    if(!whackActive) return;
+
+    whackActive = false;
+
+    clearTimeout(whackTimer);
+
+    whackHits++;
+
+    document.getElementById("whackHits")
+        .textContent = whackHits;
+
+    const problem =
+        whackProblems[whackIndex];
+
+    document.getElementById("whackMessage")
+        .textContent =
+        problem.text;
+
+    successSound();
+
+    setTimeout(()=>{
+
+        whackIndex++;
+
+        whackNext();
+
+    },800);
+
+}
+
+
+function gameOverWhack(){
+
+    clearTimeout(whackTimer);
+
+    whackActive = false;
+
+    errorSound();
+
+    gameBody.innerHTML = `
+
+        <div class="game-center">
+
+            <div
+                style="
+                    font-family:'Press Start 2P';
+                    font-size:clamp(18px,4vw,40px);
+                    color:var(--red);
+                    text-shadow:0 0 20px var(--red);
+                "
+            >
+                GAME OVER
+            </div>
+
+            <div class="game-description">
+                HOW DARE YOU SMASH US?
+            </div>
+
+            <img
+                src="bitmoji.png"
+                style="
+                    width:180px;
+                    height:180px;
+                    object-fit:contain;
+                    filter:drop-shadow(0 0 20px var(--pink));
+                "
+            >
+
+            <button
+                class="game-btn"
+                id="restartWhack"
+            >
+                TRY AGAIN
+            </button>
+
+        </div>
+
+    `;
+
+    document
+        .getElementById("restartWhack")
+        .addEventListener("click",startWhack);
 
 }
 
@@ -2861,114 +4375,108 @@ function spawnMole() {
    HIGH STRIKER
 ========================================================= */
 
-function renderStriker() {
+function startHighStriker(){
 
-    gameTitle.textContent = "🔨 HIGH STRIKER";
+    gameBody.innerHTML = `
 
-    gameContent.innerHTML = `
+        <div class="striker-game">
 
-        <div class="striker">
+            <div class="striker">
 
-            <h3>
-                SMASH THE MACHINE!
-            </h3>
+                <div class="bell">
+                    🔔
+                </div>
 
-            <div class="striker-machine">
-
-                <div class="striker-meter">
+                <div class="striker-track">
 
                     <div
-                        id="strikerFill"
-                        class="striker-fill">
-                    </div>
+                        class="striker-meter"
+                        id="strikerMeter"
+                    ></div>
 
                 </div>
 
             </div>
 
-            <div
-                id="hammer"
-                class="hammer">
-
-                🔨
-
+            <div class="striker-score">
+                HIT THE BUTTON AS HARD AS YOU CAN
             </div>
 
             <button
-                class="big-btn"
-                id="smashButton">
-
+                class="game-btn"
+                id="smashButton"
+            >
                 SMASH!
-
             </button>
 
-            <div id="strikerResult"
-                 class="reward">
-            </div>
+            <div id="strikerResult"></div>
 
         </div>
+
     `;
 
-    let strength = 0;
+    document
+        .getElementById("smashButton")
+        .addEventListener("click",smashStriker);
 
-    document.getElementById("smashButton").onclick = () => {
+}
 
-        const hammer =
-            document.getElementById("hammer");
 
-        hammer.classList.add("hit");
+function smashStriker(){
 
-        setTimeout(() =>
-            hammer.classList.remove("hit"),150);
+    const meter =
+        document.getElementById("strikerMeter");
 
-        strength += 12 + Math.random()*18;
+    const result =
+        document.getElementById("strikerResult");
 
-        strength = Math.min(100,strength);
+    const power =
+        72 + Math.random()*28;
 
-        document.getElementById("strikerFill")
-            .style.height = strength + "%";
+    meter.style.height = power + "%";
 
-        beep(200 + strength*4,.08,"square");
+    beep(220,.12,"square",.05);
 
-        if(strength >= 100) {
+    setTimeout(()=>{
+        beep(900,.12,"square",.05);
+    },600);
 
-            const prizes = [
-                "💋",
-                "🫂",
-                "💨",
-                "😈"
-            ];
+    const prizes = [
+        "💋",
+        "🫂",
+        "💨",
+        "😈"
+    ];
 
-            const prize =
-                prizes[Math.floor(Math.random()*prizes.length)];
+    const prize =
+        prizes[Math.floor(Math.random()*prizes.length)];
 
-            document.getElementById("strikerResult").innerHTML = `
+    setTimeout(()=>{
 
-                <div style="font-size:70px">
+        result.innerHTML = `
+
+            <div class="game-result">
+                POWER: ${Math.round(power)}%
+                <br><br>
+                YOUR PRIZE
+                <br><br>
+                <div class="prize">
                     ${prize}
                 </div>
+            </div>
 
-                <div>
-                    DING DING DING!
-                </div>
+        `;
 
-                <p>
-                    YOUR PRIZE: ${prize}
-                </p>
-
-            `;
+        if(!completedGames.has("high")){
 
             addTickets(20);
-            successSound();
-
-            strength = 0;
-
-            document.getElementById("strikerFill")
-                .style.height = "0%";
+            completeGame("high");
 
         }
 
-    };
+        successSound();
+
+    },850);
 
 }
 
@@ -2978,96 +4486,330 @@ function renderStriker() {
 ========================================================= */
 
 const shootingPrizes = [
+
     "💋 1 Kiss",
     "💋 5 Kisses",
     "🫂 10 Minutes of Cuddles",
     "💋 20 Kisses",
     "💋 Kiss Attack",
     "🫂 Cuddle Attack"
+
 ];
 
-function renderShooting() {
+let crosshairX = 50;
+let crosshairY = 50;
+let shootingActive = true;
 
-    gameTitle.textContent = "🎯 SHOOTING GALLERY";
 
-    gameContent.innerHTML = `
+function startShooting(){
 
-        <div class="shooting">
+    crosshairX = 50;
+    crosshairY = 50;
+    shootingActive = true;
 
-            <p>
-                Aim carefully. You only need to hit ONE.
-            </p>
+    gameBody.innerHTML = `
 
-            <div class="target-field"
-                 id="targetField">
+        <div class="shooting-game">
+
+            <div class="shooting-info">
+                Move the crosshair with your mouse or arrow keys.
+                Click or press ENTER to shoot.
+            </div>
+
+            <div
+                class="shooting-range"
+                id="shootingRange"
+            >
+
+                ${shootingPrizes.map((_,i)=>{
+
+                    const top =
+                        15 + ((i%3)*28);
+
+                    return `
+
+                        <div
+                            class="target"
+                            data-target="${i}"
+                            style="
+                                left:${10+(i*14)}%;
+                                top:${top}%;
+                            "
+                        ></div>
+
+                    `;
+
+                }).join("")}
+
+                <div
+                    class="crosshair"
+                    id="crosshair"
+                ></div>
 
             </div>
 
-            <div id="shootResult"
-                 class="reward">
-                Hit a target to win its prize.
+            <div
+                class="game-result"
+                id="shootingResult"
+            >
+                AIM CAREFULLY.
             </div>
 
         </div>
+
     `;
 
-    const field =
-        document.getElementById("targetField");
+    updateCrosshair();
 
-    shootingPrizes.forEach((prize,i) => {
+    animateTargets();
 
-        const target =
-            document.createElement("button");
+    document
+        .getElementById("shootingRange")
+        .addEventListener("mousemove",(e)=>{
 
-        target.className = "target";
+            const rect =
+                e.currentTarget.getBoundingClientRect();
 
-        target.textContent = prize;
+            crosshairX =
+                ((e.clientX-rect.left)/rect.width)*100;
 
-        target.style.left =
-            (8 + Math.random()*78) + "%";
+            crosshairY =
+                ((e.clientY-rect.top)/rect.height)*100;
 
-        target.style.top =
-            (8 + Math.random()*72) + "%";
+            updateCrosshair();
 
-        target.onclick = () => {
+        });
 
-            const result =
-                document.getElementById("shootResult");
+    document
+        .getElementById("shootingRange")
+        .addEventListener("click",(e)=>{
 
-            result.innerHTML = `
-                <div style="font-size:45px">
-                    🎯
-                </div>
+            if(e.target.classList.contains("target")){
 
-                YOU HIT IT!
+                shootTarget(
+                    Number(e.target.dataset.target)
+                );
 
-                <div style="font-size:24px;margin-top:10px">
-                    ${prize}
-                </div>
-            `;
+            }else{
 
-            beep(900,.08);
-            setTimeout(()=>beep(1200,.12),100);
+                shootAtCrosshair();
 
-            addTickets(15);
+            }
 
-            [...field.children].forEach(t => {
-                t.disabled = true;
-                t.style.opacity = ".3";
-            });
+        });
 
-            target.style.opacity = "1";
-            target.style.transform = "scale(1.25)";
+}
 
-            celebrationBurst();
 
-        };
+function updateCrosshair(){
 
-        field.appendChild(target);
+    const crosshair =
+        document.getElementById("crosshair");
+
+    if(!crosshair) return;
+
+    crosshair.style.left =
+        crosshairX + "%";
+
+    crosshair.style.top =
+        crosshairY + "%";
+
+}
+
+
+function animateTargets(){
+
+    clearInterval(window.targetTimer);
+
+    let direction = 1;
+
+    window.targetTimer =
+        setInterval(()=>{
+
+            if(!shootingActive) return;
+
+            document.querySelectorAll(".target")
+                .forEach((target,index)=>{
+
+                    let left =
+                        parseFloat(target.style.left);
+
+                    left += direction *
+                        (0.7 + index*.04);
+
+                    if(left > 88){
+                        left=88;
+                    }
+
+                    if(left < 5){
+                        left=5;
+                    }
+
+                    target.style.left =
+                        left + "%";
+
+                });
+
+            const first =
+                document.querySelector(".target");
+
+            if(first){
+
+                const left =
+                    parseFloat(first.style.left);
+
+                if(left>=88 || left<=5){
+                    direction *= -1;
+                }
+
+            }
+
+        },100);
+
+}
+
+
+function shootAtCrosshair(){
+
+    if(!shootingActive) return;
+
+    const range =
+        document.getElementById("shootingRange");
+
+    const targets =
+        [...document.querySelectorAll(".target")];
+
+    let closest = null;
+    let closestDistance = Infinity;
+
+    targets.forEach(target=>{
+
+        const rect =
+            target.getBoundingClientRect();
+
+        const rangeRect =
+            range.getBoundingClientRect();
+
+        const x =
+            ((rect.left+rect.width/2-rangeRect.left)/
+            rangeRect.width)*100;
+
+        const y =
+            ((rect.top+rect.height/2-rangeRect.top)/
+            rangeRect.height)*100;
+
+        const distance =
+            Math.sqrt(
+                Math.pow(crosshairX-x,2)+
+                Math.pow(crosshairY-y,2)
+            );
+
+        if(distance < closestDistance){
+
+            closestDistance = distance;
+            closest = target;
+
+        }
 
     });
 
+    if(closest && closestDistance < 8){
+
+        shootTarget(
+            Number(closest.dataset.target)
+        );
+
+    }else{
+
+        document.getElementById("shootingResult")
+            .textContent =
+            "MISS! AIM AT A TARGET.";
+
+        errorSound();
+
+    }
+
 }
+
+
+function shootTarget(index){
+
+    if(!shootingActive) return;
+
+    shootingActive = false;
+
+    clearInterval(window.targetTimer);
+
+    const targets =
+        document.querySelectorAll(".target");
+
+    targets[index].classList.add("hit");
+
+    const prize =
+        shootingPrizes[index];
+
+    document.getElementById("shootingResult")
+        .innerHTML = `
+
+            <div class="game-result">
+                TARGET HIT!
+                <br><br>
+                PRIZE:
+                <br><br>
+                ${prize}
+            </div>
+
+        `;
+
+    successSound();
+
+    addTickets(20);
+
+    completeGame("shoot");
+
+}
+
+
+/* shooting keyboard */
+
+document.addEventListener("keydown",(e)=>{
+
+    if(currentGame !== "shoot") return;
+
+    if(gameModal.classList.contains("hidden")) return;
+
+    const step = 4;
+
+    if(e.key==="ArrowLeft"){
+        e.preventDefault();
+        crosshairX=Math.max(3,crosshairX-step);
+        updateCrosshair();
+    }
+
+    if(e.key==="ArrowRight"){
+        e.preventDefault();
+        crosshairX=Math.min(97,crosshairX+step);
+        updateCrosshair();
+    }
+
+    if(e.key==="ArrowUp"){
+        e.preventDefault();
+        crosshairY=Math.max(3,crosshairY-step);
+        updateCrosshair();
+    }
+
+    if(e.key==="ArrowDown"){
+        e.preventDefault();
+        crosshairY=Math.min(97,crosshairY+step);
+        updateCrosshair();
+    }
+
+    if(e.key==="Enter"){
+        e.preventDefault();
+        shootAtCrosshair();
+    }
+
+});
 
 
 /* =========================================================
@@ -3076,272 +4818,90 @@ function renderShooting() {
 
 let wheelSpun = false;
 
-function renderWheel() {
 
-    gameTitle.textContent = "🎡 SPIN THE WHEEL";
+function startWheel(){
 
     wheelSpun = false;
 
-    gameContent.innerHTML = `
+    gameBody.innerHTML = `
 
-        <div class="wheel-wrap">
+        <div class="wheel-game">
 
-            <div class="pointer">
-                🔻
-            </div>
+            <div class="pointer"></div>
 
             <div
                 class="wheel"
-                id="wheel">
-            </div>
+                id="wheel"
+            ></div>
 
             <button
-                class="big-btn"
-                id="spinButton">
-
+                class="game-btn"
+                id="spinButton"
+            >
                 SPIN
-
             </button>
 
-            <div id="wheelResult"
-                 class="reward">
-            </div>
+            <div id="wheelResult"></div>
 
         </div>
+
     `;
 
-    document.getElementById("spinButton").onclick = () => {
-
-        if(wheelSpun) return;
-
-        wheelSpun = true;
-
-        const wheel =
-            document.getElementById("wheel");
-
-        const rotations =
-            5 + Math.floor(Math.random()*3);
-
-        wheel.style.transform =
-            `rotate(${rotations*360 + 40}deg)`;
-
-        beep(300,.1);
-
-        setTimeout(() => {
-
-            beep(1000,.25);
-            addTickets(30);
-
-            document.getElementById("wheelResult").innerHTML = `
-
-                <div style="font-size:50px">
-                    💌
-                </div>
-
-                <h2>
-                    THE LETTER
-                </h2>
-
-                <p>
-                    Your anniversary letter is waiting.
-                </p>
-
-                <br>
-
-                <button
-                    class="big-btn"
-                    onclick="showLetter()">
-
-                    OPEN THE LETTER
-
-                </button>
-
-            `;
-
-            celebrationBurst();
-
-        },3200);
-
-    };
+    document
+        .getElementById("spinButton")
+        .addEventListener("click",spinWheel);
 
 }
 
 
-/* =========================================================
-   LETTER
-========================================================= */
+function spinWheel(){
 
-function showLetter() {
+    if(wheelSpun) return;
 
-    gameTitle.textContent = "💌 THE LETTER";
+    wheelSpun = true;
 
-    gameContent.innerHTML = `
+    const wheel =
+        document.getElementById("wheel");
 
-        <div class="letter">
+    const rotations =
+        5 + Math.floor(Math.random()*3);
 
-            <h2>
-                To my dearest Dumbo, ❤️
-            </h2>
+    const degrees =
+        rotations*360 + Math.floor(Math.random()*360);
 
-            <p>
-                I genuinely don’t know how these two years passed by so quickly.
-                It feels like just yesterday that we were two people who liked
-                each other but didn’t have the courage to actually say it.
-                And somehow, here we are, two whole years of us. 🥹
-            </p>
+    wheel.style.transform =
+        `rotate(${degrees}deg)`;
 
-            <p>
-                We’ve fought, we’ve cried, we’ve laughed until our stomachs
-                hurt, we’ve annoyed each other, forgiven each other, grown
-                together, and made so many memories that I don’t even know
-                where to begin. We’ve had our good days and our really,
-                really difficult ones. But through all of it, I’m so incredibly
-                grateful that you chose to stay.
-            </p>
+    beep(400,.08,"square",.03);
 
-            <p>
-                Even when I didn’t want you to. Even when I pushed you away.
-                Even when I thought walking away was easier than talking things
-                through. You somehow put your head to it and never left my side.
-                You’ve been there when I’ve been at my absolute worst, at my
-                best, when I’m annoyed, emotional, happy, stupid, dramatic,
-                literally every version of me. 😂 And you never made me feel
-                like I had to be someone else to deserve your love.
-            </p>
+    setTimeout(()=>{
+        beep(900,.2,"square",.05);
+    },5000);
 
-            <p>
-                You’re my cute little sunshine boy. ☀️ Every single time I see
-                you, somehow my day just gets brighter. You have this way of
-                making everything feel a little lighter just by being there.
-            </p>
+    setTimeout(()=>{
 
-            <p>
-                I love that I can be completely myself with you. You don’t
-                judge me. You listen to me. You let me be weird and annoying
-                and emotional and silly. You always put me before yourself,
-                and you’re always there when I need you. And I know there are
-                times when I say that I don’t feel your love, but please know
-                that I do. I feel it in so many little things you do, even when
-                I don’t say it enough.
-            </p>
+        document.getElementById("wheelResult")
+            .innerHTML = `
 
-            <p>
-                We’ve made SO many memories in these two years. From the
-                beginning, to all our firsts, our dates, our stupid fights,
-                our little adventures, our celebrations, our cuddles, our
-                chaos, everything. And looking back at all of it makes me
-                realise just how much life we’ve already lived together.
-            </p>
+                <div class="letter">
 
-            <p>
-                But more than anything, I think about what’s still ahead of us.
-            </p>
+                    <div class="letter-title">
+                        YOUR ANNIVERSARY LETTER
+                    </div>
 
-            <p>
-                Because when I imagine my future, I only see you in it.
-                There genuinely isn’t anyone else in this world I’d rather
-                choose. You make me the happiest, and I hope you always know
-                how much of a home you’ve become for me.
-            </p>
+                    ${anniversaryLetter}
 
-            <p>
-                And your arms… 🥹<br>
-                Your arms are my safe place.
-            </p>
+                </div>
 
-            <p>
-                There is genuinely no fucking place on earth where I feel the
-                way I feel when I’m in your arms. I feel safe. I feel
-                comfortable. I feel happy. I feel loved. I feel like I can
-                finally switch everything off for a while and just exist.
-                And I hope you know how special that is to me.
-            </p>
+            `;
 
-            <p>
-                I want you to know that I’ll always have your back too.
-                No matter what happens, no matter how difficult things get,
-                I’ll be there. If you ever fall, I’ll be right there to pick
-                up the pieces with you. I’ll help you find your way again,
-                I’ll support you, I’ll cheer for you, and I’ll remind you
-                of who you are when you forget.
-            </p>
+        addTickets(50);
 
-            <p>
-                I hope you always know that you never have to do life alone.
-            </p>
+        completeGame("wheel");
 
-            <p>
-                And your dad is also very proud of you because he really did
-                raise a fine man. A kind, respectful, loving, hardworking
-                man who has such a beautiful heart. I’m genuinely so grateful
-                to your parents, your mom and dad, for bringing you into this
-                world and raising the person you are today. I don’t think
-                I’ll ever be able to explain how grateful I am that you exist.
-            </p>
+        successSound();
 
-            <p>
-                Two years feels like such a big number, but somehow, when I
-                think about spending the rest of my life with you, it also
-                feels like we’ve barely begun.
-            </p>
-
-            <p>
-                I want the years ahead.
-            </p>
-
-            <p>
-                I want more stupid fights that we’ll eventually laugh about.
-                More dates. More random drives. More celebrations.
-                More cuddles. More photos. More adventures. More ordinary
-                days that somehow become our favourite memories.
-            </p>
-
-            <p>
-                I want to grow old with you and still look at you the same
-                way I do now. I want us to keep choosing each other, even
-                when things aren’t easy. I want us to keep growing, learning,
-                annoying each other, laughing together, and finding our way
-                back to each other every single time.
-            </p>
-
-            <p>
-                And most importantly, I want us to never lose the little
-                things that make us us.
-            </p>
-
-            <p>
-                Two years down, and I still choose you.
-            </p>
-
-            <p>
-                And I’ll keep choosing you.
-            </p>
-
-            <p>
-                Today, tomorrow, and in all the years that are waiting for us.
-            </p>
-
-            <p>
-                Happy 2 years, my Dumbo. ❤️
-            </p>
-
-            <p>
-                Here’s to us, to everything we’ve already been through,
-                and to everything we haven’t even experienced yet.
-            </p>
-
-            <p>
-                I love you. More than you probably realise. And I can’t wait
-                to grow old with you.
-            </p>
-
-            <p>
-                Forever your Gube,<br>
-                Cement ❤️
-            </p>
-
-        </div>
-    `;
+    },5200);
 
 }
 
@@ -3350,189 +4910,154 @@ function showLetter() {
    TICKET COUNTER
 ========================================================= */
 
-function renderCounter() {
+function openTicketCounter(){
 
-    gameTitle.textContent = "🎟️ TICKET COUNTER";
+    if(!requiredGames.every(g=>completedGames.has(g))){
 
-    gameContent.innerHTML = `
+        showToast("Finish every game first!");
 
-        <div class="counter">
+        return;
 
-            <div class="counter-avatar">
+    }
 
-                <img
-                    src="bitmoji.png"
-                    alt="Bitmoji">
+    openGame("counter");
+
+}
+
+
+function startCounter(){
+
+    gameBody.innerHTML = `
+
+        <div class="counter-game">
+
+            <div class="counter">
+
+                <div class="counter-window">
+
+                    <img
+                        src="bitmoji.png"
+                        alt="Bitmoji"
+                    >
+
+                </div>
+
+                <h2>
+                    TICKET COUNTER
+                </h2>
+
+                <p>
+                    You played every single game.
+                </p>
+
+                <p>
+                    TOTAL TICKETS:
+                    <strong>${tickets}</strong>
+                </p>
+
+                <button
+                    class="game-btn"
+                    id="finalButton"
+                >
+                    CLICK ME ❤️
+                </button>
 
             </div>
-
-            <h2>
-                Welcome back, Dumbo. ❤️
-            </h2>
-
-            <p style="margin:12px">
-                Look at all those tickets!
-            </p>
-
-            <div style="
-                font-size:42px;
-                color:#ffe47a;
-                margin:15px;
-            ">
-                🎟️ ${tickets}
-            </div>
-
-            <p>
-                Ready for your final reward?
-            </p>
-
-            <br>
-
-            <button
-                class="big-btn"
-                id="finalButton">
-
-                CLICK ME ❤️
-
-            </button>
 
         </div>
+
     `;
 
-    document.getElementById("finalButton").onclick =
-        finalCelebration;
+    document
+        .getElementById("finalButton")
+        .addEventListener("click",showFinal);
 
 }
 
 
 /* =========================================================
-   FINAL CELEBRATION
+   FINAL
 ========================================================= */
 
-function finalCelebration() {
+function showFinal(){
 
-    gameOverlay.classList.add("hidden");
-
-    const final =
-        document.getElementById("finalCelebration");
-
-    final.classList.remove("hidden");
+    initAudio();
 
     successSound();
 
-    createConfetti();
+    setTimeout(()=>successSound(),180);
 
+    gameModal.classList.add("hidden");
+    arcade.classList.add("hidden");
+    finalScreen.classList.remove("hidden");
+
+    createConfetti();
     createHearts();
 
 }
 
 
-function createConfetti() {
+function createConfetti(){
 
-    for(let i=0;i<150;i++) {
+    for(let i=0;i<130;i++){
 
-        const c =
+        const piece =
             document.createElement("div");
 
-        c.className = "confetti";
+        piece.className = "confetti";
 
-        c.style.left =
+        piece.style.left =
             Math.random()*100 + "%";
 
-        c.style.animationDuration =
-            (2 + Math.random()*4) + "s";
+        piece.style.animationDuration =
+            (2+Math.random()*4) + "s";
 
-        c.style.animationDelay =
+        piece.style.animationDelay =
             Math.random()*2 + "s";
 
-        c.style.transform =
+        piece.style.transform =
             `rotate(${Math.random()*360}deg)`;
 
-        c.style.background =
+        piece.style.background =
             [
-                "#ff6fae",
-                "#ffe47a",
-                "#72d9ff",
-                "#a98cff",
-                "#ffffff"
-            ][Math.floor(Math.random()*5)];
+                "#ff4fa3",
+                "#42e8ff",
+                "#ffe36e",
+                "#9d7cff",
+                "#67f7a8",
+                "#ff526b"
+            ][Math.floor(Math.random()*6)];
 
-        document.getElementById("finalCelebration")
-            .appendChild(c);
+        finalScreen.appendChild(piece);
 
     }
 
 }
 
 
-function createHearts() {
+function createHearts(){
 
-    for(let i=0;i<45;i++) {
+    for(let i=0;i<35;i++){
 
-        const h =
+        const heart =
             document.createElement("div");
 
-        h.className = "heart";
+        heart.className = "heart-particle";
+        heart.textContent = "❤️";
 
-        h.textContent =
-            Math.random() > .5 ? "❤️" : "💗";
-
-        h.style.left =
+        heart.style.left =
             Math.random()*100 + "%";
 
-        h.style.animationDuration =
-            (3 + Math.random()*4) + "s";
+        heart.style.top =
+            (50+Math.random()*50) + "%";
 
-        h.style.animationDelay =
+        heart.style.animationDuration =
+            (3+Math.random()*4) + "s";
+
+        heart.style.animationDelay =
             Math.random()*3 + "s";
 
-        document.getElementById("finalCelebration")
-            .appendChild(h);
-
-    }
-
-}
-
-
-function celebrationBurst() {
-
-    for(let i=0;i<20;i++) {
-
-        const h =
-            document.createElement("div");
-
-        h.textContent =
-            Math.random() > .5 ? "❤️" : "✨";
-
-        h.style.position = "fixed";
-        h.style.left = "50%";
-        h.style.top = "50%";
-        h.style.zIndex = "99999";
-        h.style.pointerEvents = "none";
-        h.style.fontSize = "20px";
-
-        document.body.appendChild(h);
-
-        const angle =
-            Math.random()*Math.PI*2;
-
-        const distance =
-            50 + Math.random()*150;
-
-        h.animate([
-            {
-                transform:"translate(-50%,-50%) scale(.2)",
-                opacity:1
-            },
-            {
-                transform:
-                    `translate(calc(-50% + ${Math.cos(angle)*distance}px), calc(-50% + ${Math.sin(angle)*distance}px)) scale(1.3)`,
-                opacity:0
-            }
-        ],{
-            duration:800,
-            easing:"ease-out"
-        }).onfinish = () => h.remove();
+        finalScreen.appendChild(heart);
 
     }
 
@@ -3540,34 +5065,146 @@ function celebrationBurst() {
 
 
 /* =========================================================
-   SOUND TOGGLE
+   SOUND BUTTON
 ========================================================= */
 
-document.getElementById("soundButton")
-    .addEventListener("click", () => {
+document
+    .getElementById("soundBtn")
+    .addEventListener("click",()=>{
 
-        soundOn = !soundOn;
+        musicOn = !musicOn;
 
-        document.getElementById("soundButton")
-            .textContent = soundOn ? "🔊" : "🔇";
+        document.getElementById("soundBtn")
+            .textContent =
+            musicOn ? "SOUND ON" : "SOUND OFF";
 
-        if(soundOn) beep(700,.1);
+        if(musicOn){
+
+            initAudio();
+            startMusic();
+
+        }else{
+
+            clearInterval(musicTimer);
+
+        }
 
     });
 
 
 /* =========================================================
-   CLEANUP CLAW LISTENER
+   TICKET COUNTER APPEARS ONLY AFTER ALL GAMES
 ========================================================= */
 
-backButton.addEventListener("click", () => {
+let counterMachine = null;
 
-    if(window.clawKeyHandler) {
+function createCounterMachine(){
 
-        window.removeEventListener(
-            "keydown",
-            window.clawKeyHandler
-        );
+    if(counterMachine) return;
+
+    counterMachine =
+        document.createElement("div");
+
+    counterMachine.className =
+        "machine";
+
+    counterMachine.id =
+        "ticket-counter-machine";
+
+    counterMachine.style.left = "50%";
+    counterMachine.style.top = "50%";
+    counterMachine.style.zIndex = "15";
+
+    counterMachine.innerHTML = `
+
+        <div class="machine-top">
+
+            <div class="machine-icon">
+                🎟️
+            </div>
+
+        </div>
+
+        <div class="machine-name">
+            TICKET<br>
+            COUNTER
+        </div>
+
+    `;
+
+    counterMachine.addEventListener(
+        "click",
+        openTicketCounter
+    );
+
+    document
+        .getElementById("world")
+        .appendChild(counterMachine);
+
+}
+
+
+/* watch completion */
+
+const originalCheckCounterUnlock =
+    checkCounterUnlock;
+
+
+/* =========================================================
+   OVERRIDE COUNTER UNLOCK
+========================================================= */
+
+function revealCounter(){
+
+    if(
+        requiredGames.every(
+            g=>completedGames.has(g)
+        )
+    ){
+
+        if(!counterMachine){
+
+            createCounterMachine();
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   PATCH COMPLETE GAME TO REVEAL COUNTER
+========================================================= */
+
+const originalCompleteGame = completeGame;
+
+completeGame = function(id){
+
+    originalCompleteGame(id);
+
+    setTimeout(revealCounter,50);
+
+};
+
+
+/* =========================================================
+   ENTER ON TICKET COUNTER
+========================================================= */
+
+document.addEventListener("keydown",(e)=>{
+
+    if(
+        currentGame === "counter" &&
+        e.key === "Enter"
+    ){
+
+        const button =
+            document.getElementById("finalButton");
+
+        if(button){
+            button.click();
+        }
 
     }
 
@@ -3575,75 +5212,134 @@ backButton.addEventListener("click", () => {
 
 
 /* =========================================================
-   RESIZE
+   CLAW KEYBOARD CONTROLS
 ========================================================= */
 
-window.addEventListener("resize", () => {
+document.addEventListener("keydown",(e)=>{
 
-    playerX =
-        Math.min(playerX, window.innerWidth - 50);
+    if(currentGame !== "claw") return;
 
-    playerY =
-        Math.min(playerY, window.innerHeight - 70);
+    if(gameModal.classList.contains("hidden")) return;
 
-    updatePlayer();
+    if(e.key==="ArrowLeft"){
+
+        e.preventDefault();
+        moveClaw(-7);
+
+    }
+
+    if(e.key==="ArrowRight"){
+
+        e.preventDefault();
+        moveClaw(7);
+
+    }
+
+    if(e.key==="Enter"){
+
+        e.preventDefault();
+        dropClaw();
+
+    }
 
 });
 
 
 /* =========================================================
-   MOBILE TOUCH MOVEMENT
+   HIGH STRIKER ENTER
 ========================================================= */
 
-let touchStartX = 0;
-let touchStartY = 0;
+document.addEventListener("keydown",(e)=>{
 
-window.addEventListener("touchstart", e => {
+    if(currentGame !== "high") return;
 
-    if(e.touches.length !== 1) return;
+    if(gameModal.classList.contains("hidden")) return;
 
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
+    if(
+        e.key==="Enter" ||
+        e.key===" "
+    ){
 
-});
+        e.preventDefault();
 
-window.addEventListener("touchmove", e => {
+        const button =
+            document.getElementById("smashButton");
 
-    if(e.touches.length !== 1) return;
+        if(button){
+            button.click();
+        }
 
-    if(!gameOverlay.classList.contains("hidden")) return;
-
-    const x = e.touches[0].clientX;
-    const y = e.touches[0].clientY;
-
-    const dx = x - touchStartX;
-    const dy = y - touchStartY;
-
-    playerX += dx;
-    playerY += dy;
-
-    playerX =
-        Math.max(40,
-        Math.min(window.innerWidth-40,playerX));
-
-    playerY =
-        Math.max(80,
-        Math.min(window.innerHeight-60,playerY));
-
-    updatePlayer();
-    checkNearbyMachine();
-
-    touchStartX = x;
-    touchStartY = y;
+    }
 
 });
 
 
 /* =========================================================
-   INITIAL PLAYER POSITION
+   WHACK KEYBOARD
 ========================================================= */
 
-updatePlayer();
+document.addEventListener("keydown",(e)=>{
+
+    if(currentGame !== "whack") return;
+
+    if(gameModal.classList.contains("hidden")) return;
+
+    if(e.key==="Enter" || e.key===" "){
+
+        e.preventDefault();
+
+        const active =
+            document.querySelector(".mole");
+
+        if(!active) return;
+
+        if(active.classList.contains("bitmoji-mole")){
+
+            gameOverWhack();
+
+        }else{
+
+            whackHit();
+
+        }
+
+    }
+
+});
+
+
+/* =========================================================
+   CLEANUP TARGET TIMER
+========================================================= */
+
+const originalCleanupGame = cleanupGame;
+
+cleanupGame = function(){
+
+    originalCleanupGame();
+
+    clearInterval(window.targetTimer);
+
+    window.targetTimer = null;
+
+};
+
+
+/* =========================================================
+   STOP CAMERA WHEN LEAVING
+========================================================= */
+
+window.addEventListener("beforeunload",()=>{
+
+    if(window.cameraStream){
+
+        window.cameraStream
+            .getTracks()
+            .forEach(track=>track.stop());
+
+    }
+
+});
 
 </script>
 
