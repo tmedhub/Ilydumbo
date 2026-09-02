@@ -27,13 +27,13 @@
 }
 
 html,body{
+  margin:0;
   width:100%;
   height:100%;
-  margin:0;
   overflow:hidden;
   background:var(--dark);
   color:var(--white);
-  font-family:"Press Start 2P","Courier New",monospace;
+  font-family:'Press Start 2P',monospace;
 }
 
 button{
@@ -41,7 +41,7 @@ button{
 }
 
 .hidden{
-  display:none!important;
+  display:none !important;
 }
 
 /* =========================================================
@@ -51,240 +51,199 @@ button{
 #entrance{
   position:fixed;
   inset:0;
-  width:100%;
-  height:100dvh;
+  width:100vw;
+  height:100vh;
   overflow:hidden;
   background:
-    radial-gradient(circle at 50% 38%,rgba(255,79,163,.16),transparent 30%),
-    radial-gradient(circle at 15% 80%,rgba(66,232,255,.10),transparent 25%),
-    linear-gradient(145deg,#090a17,#11132a 55%,#090a15);
+    radial-gradient(circle at 50% 25%,rgba(157,124,255,.25),transparent 35%),
+    radial-gradient(circle at 20% 80%,rgba(255,79,163,.20),transparent 35%),
+    linear-gradient(180deg,#090a18,#05050c);
+  z-index:1000;
 }
 
 .entrance-grid{
   position:absolute;
   inset:0;
-  opacity:.13;
+  opacity:.5;
   background-image:
-    linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px);
+    linear-gradient(rgba(66,232,255,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(66,232,255,.12) 1px,transparent 1px);
   background-size:55px 55px;
-  transform:perspective(450px) rotateX(55deg) scale(1.5);
-  transform-origin:bottom;
+  transform:perspective(450px) rotateX(58deg) scale(1.8);
+  transform-origin:center bottom;
+  top:38%;
 }
 
-.entrance-neon{
+.entrance-glow{
   position:absolute;
-  top:7%;
+  width:800px;
+  height:800px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,79,163,.18),transparent 65%);
   left:50%;
-  transform:translateX(-50%);
+  top:42%;
+  transform:translate(-50%,-50%);
+}
+
+.entrance-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding-top:8vh;
   text-align:center;
-  z-index:3;
+  z-index:5;
 }
 
-.entrance-neon .small{
-  font-size:clamp(8px,1vw,13px);
+.welcome{
+  font-size:clamp(20px,2.1vw,38px);
   color:var(--cyan);
-  letter-spacing:4px;
-  margin-bottom:14px;
-  text-shadow:0 0 15px var(--cyan);
+  text-shadow:
+    0 0 8px var(--cyan),
+    0 0 20px rgba(66,232,255,.7);
+  margin-bottom:25px;
 }
 
-.entrance-neon h1{
-  margin:0;
-  font-size:clamp(28px,6vw,75px);
-  line-height:1;
+.arcade-title{
+  font-size:clamp(42px,7vw,110px);
+  line-height:1.15;
   color:var(--pink);
   text-shadow:
-    4px 4px 0 #5c1740,
+    0 0 5px #fff,
     0 0 12px var(--pink),
-    0 0 35px rgba(255,79,163,.7);
+    0 0 30px var(--pink),
+    0 0 60px rgba(255,79,163,.65);
+  margin:0;
+  letter-spacing:2px;
 }
 
-.entrance-neon .subtitle{
-  margin-top:15px;
-  font-size:clamp(8px,1vw,13px);
+.subtitle{
+  margin-top:24px;
+  font-size:clamp(12px,1.25vw,20px);
   color:var(--yellow);
   text-shadow:0 0 12px rgba(255,227,110,.8);
 }
 
-.entrance-floor{
+.enter-button{
+  margin-top:42px;
+  padding:24px 42px;
+  min-width:330px;
+  border:3px solid var(--cyan);
+  background:rgba(8,9,20,.8);
+  color:var(--white);
+  font-size:17px;
+  cursor:pointer;
+  box-shadow:
+    0 0 10px var(--cyan),
+    inset 0 0 20px rgba(66,232,255,.12);
+  transition:.2s;
+  position:relative;
+  z-index:20;
+}
+
+.enter-button:hover{
+  transform:scale(1.06);
+  background:var(--cyan);
+  color:#05050c;
+  box-shadow:
+    0 0 20px var(--cyan),
+    0 0 45px var(--cyan);
+}
+
+.entrance-bitmoji{
   position:absolute;
   left:5%;
-  right:5%;
-  bottom:0;
-  height:28%;
-  border-top:3px solid rgba(66,232,255,.3);
-  background:
-    linear-gradient(rgba(66,232,255,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(66,232,255,.08) 1px,transparent 1px);
-  background-size:45px 45px;
-  transform:perspective(300px) rotateX(55deg);
-  transform-origin:bottom;
-}
-
-.entrance-machine{
-  position:absolute;
-  bottom:10%;
-  width:150px;
-  height:240px;
-  z-index:2;
-  filter:drop-shadow(0 0 12px rgba(255,79,163,.35));
-}
-
-.entrance-machine.left{
-  left:8%;
-}
-
-.entrance-machine.right{
-  right:8%;
-}
-
-.machine-top{
-  position:absolute;
-  top:0;
-  left:7%;
-  width:86%;
-  height:65%;
-  border:5px solid #282b4a;
-  border-radius:15px 15px 7px 7px;
-  background:#11142b;
-  box-shadow:
-    inset 0 0 0 4px #090a17,
-    0 0 0 2px var(--pink);
-}
-
-.machine-screen{
-  position:absolute;
-  top:12%;
-  left:10%;
-  right:10%;
-  height:48%;
-  border:4px solid #313654;
-  background:
-    radial-gradient(circle at center,rgba(66,232,255,.2),transparent 55%),
-    #070914;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--cyan);
-  font-size:10px;
-  text-align:center;
-  line-height:1.8;
-}
-
-.machine-buttons{
-  position:absolute;
-  bottom:10%;
-  left:18%;
-  right:18%;
-  display:flex;
-  justify-content:space-around;
-}
-
-.machine-buttons i{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:var(--pink);
-  box-shadow:0 0 10px var(--pink);
-}
-
-.machine-buttons i:nth-child(2){
-  background:var(--yellow);
-  box-shadow:0 0 10px var(--yellow);
-}
-
-.machine-base{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:39%;
-  background:#171a34;
-  clip-path:polygon(5% 0,95% 0,85% 100%,15% 100%);
-  border-top:5px solid #2b2f50;
-}
-
-.entrance-character{
-  position:absolute;
-  z-index:5;
-  left:8%;
-  bottom:16%;
-  width:clamp(100px,13vw,175px);
-  animation:float 2.5s ease-in-out infinite;
-}
-
-.entrance-character img{
-  display:block;
-  width:100%;
-  height:auto;
+  bottom:8%;
+  width:clamp(190px,20vw,310px);
+  max-height:48vh;
   object-fit:contain;
-  filter:drop-shadow(0 10px 12px rgba(0,0,0,.4));
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
+  filter:drop-shadow(0 0 18px rgba(255,79,163,.45));
+  z-index:8;
 }
 
 .speech{
   position:absolute;
-  z-index:6;
-  left:38%;
-  top:39%;
-  width:min(520px,42vw);
-  padding:22px 25px;
+  left:29%;
+  top:42%;
+  width:min(620px,42vw);
+  min-height:115px;
+  padding:25px 30px;
   background:#fff;
-  color:#16172a;
-  border:4px solid var(--pink);
+  color:#080914;
+  border-radius:18px;
+  font-family:Arial,sans-serif;
+  font-size:clamp(16px,1.5vw,25px);
+  line-height:1.4;
+  font-weight:bold;
+  text-align:left;
+  z-index:10;
   box-shadow:
-    8px 8px 0 rgba(255,79,163,.35),
-    0 0 30px rgba(255,79,163,.25);
-  line-height:1.8;
-  font-size:clamp(8px,1vw,12px);
+    0 0 20px rgba(255,255,255,.35),
+    0 0 45px rgba(255,79,163,.25);
 }
 
 .speech:before{
   content:"";
   position:absolute;
-  left:-23px;
-  top:35px;
-  width:20px;
-  height:20px;
-  background:white;
-  border-left:4px solid var(--pink);
-  border-bottom:4px solid var(--pink);
-  transform:rotate(45deg);
+  left:-30px;
+  bottom:28px;
+  border-width:18px 30px 18px 0;
+  border-style:solid;
+  border-color:transparent #fff transparent transparent;
 }
 
-.enter-button{
+/* decorative arcade cabinets */
+
+.entrance-cabinet{
   position:absolute;
-  z-index:10;
-  left:50%;
-  bottom:7%;
-  transform:translateX(-50%);
-  padding:18px 30px;
-  background:var(--pink);
-  color:white;
-  border:4px solid white;
+  width:150px;
+  height:290px;
+  bottom:4%;
+  border:5px solid var(--purple);
+  background:
+    linear-gradient(135deg,#22264d,#0d0e1c);
   box-shadow:
-    0 7px 0 #9c2e65,
-    0 0 25px rgba(255,79,163,.7);
-  cursor:pointer;
-  font-size:12px;
-  transition:.15s;
+    0 0 15px var(--purple),
+    inset 0 0 20px rgba(157,124,255,.3);
+  z-index:4;
 }
 
-.enter-button:hover{
-  transform:translateX(-50%) translateY(-3px);
-  box-shadow:
-    0 10px 0 #9c2e65,
-    0 0 35px rgba(255,79,163,.8);
+.entrance-cabinet:before{
+  content:"";
+  position:absolute;
+  left:12px;
+  right:12px;
+  top:18px;
+  height:125px;
+  border:4px solid var(--cyan);
+  background:
+    radial-gradient(circle at 40% 40%,var(--pink),transparent 8%),
+    radial-gradient(circle at 65% 55%,var(--yellow),transparent 8%),
+    #05050c;
+  box-shadow:0 0 12px var(--cyan);
 }
 
-.enter-button:active{
-  transform:translateX(-50%) translateY(4px);
-  box-shadow:0 3px 0 #9c2e65;
+.entrance-cabinet:after{
+  content:"●  ●  ●";
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:40px;
+  color:var(--pink);
+  letter-spacing:10px;
+}
+
+.cab-left{
+  left:18%;
+  transform:rotate(-5deg);
+}
+
+.cab-right{
+  right:7%;
+  transform:rotate(5deg);
+  border-color:var(--pink);
 }
 
 /* =========================================================
@@ -294,619 +253,524 @@ button{
 #arcade{
   position:fixed;
   inset:0;
-  width:100%;
-  height:100dvh;
+  width:100vw;
+  height:100vh;
   overflow:hidden;
-  background:#080914;
+  background:#070812;
 }
 
-.arcade-background{
+.arcade-bg{
   position:absolute;
-  inset:-5px;
+  inset:-3%;
   background-image:url("bg.jpg");
   background-size:cover;
   background-position:center;
-  filter:blur(2px);
-  transform:scale(1.03);
+  filter:blur(2.5px);
+  transform:scale(1.04);
 }
 
 .arcade-overlay{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(to bottom,rgba(5,6,15,.32),rgba(5,6,15,.12) 45%,rgba(5,6,15,.45)),
-    radial-gradient(circle at center,transparent 45%,rgba(0,0,0,.35));
+    linear-gradient(180deg,rgba(5,6,15,.55),rgba(5,6,15,.30) 35%,rgba(5,6,15,.62)),
+    radial-gradient(circle at center,transparent 35%,rgba(5,6,15,.45));
 }
 
 .topbar{
   position:absolute;
-  z-index:20;
-  top:14px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(1450px,calc(100% - 28px));
+  top:18px;
+  left:22px;
+  right:22px;
+  height:78px;
+  border:2px solid rgba(255,79,163,.75);
+  background:rgba(8,9,20,.83);
+  backdrop-filter:blur(8px);
+  box-shadow:
+    0 0 15px rgba(255,79,163,.3),
+    inset 0 0 20px rgba(255,79,163,.05);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
+  padding:0 28px;
+  z-index:50;
 }
 
 .logo{
-  padding:12px 16px;
-  background:rgba(8,9,20,.8);
-  border:2px solid var(--pink);
   color:var(--pink);
-  box-shadow:0 0 18px rgba(255,79,163,.3);
-  font-size:clamp(9px,1vw,13px);
+  font-size:clamp(15px,1.6vw,25px);
+  text-shadow:0 0 10px var(--pink);
 }
 
-.ticket-display{
-  padding:12px 16px;
+.hud{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+
+.hud-box{
+  border:2px solid var(--cyan);
+  padding:15px 18px;
+  color:var(--white);
   background:rgba(8,9,20,.8);
+  font-size:12px;
+  box-shadow:0 0 8px rgba(66,232,255,.4);
+}
+
+#muteBtn{
   border:2px solid var(--yellow);
   color:var(--yellow);
-  font-size:10px;
-}
-
-.mute{
-  width:42px;
-  height:42px;
-  background:rgba(8,9,20,.8);
-  color:white;
-  border:2px solid rgba(255,255,255,.5);
+  background:transparent;
+  padding:14px;
   cursor:pointer;
 }
 
 .arcade-stage{
   position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:min(1450px,calc(100% - 24px));
-  height:min(800px,calc(100dvh - 24px));
+  inset:105px 0 0 0;
+  overflow:hidden;
 }
 
-.arcade-title{
-  position:absolute;
-  z-index:4;
-  top:8%;
-  left:50%;
-  transform:translateX(-50%);
-  text-align:center;
-  font-size:clamp(15px,2vw,27px);
-  color:var(--yellow);
-  text-shadow:
-    3px 3px 0 #6e5620,
-    0 0 14px var(--yellow);
-  white-space:nowrap;
-}
+/* =========================================================
+   MACHINES
+========================================================= */
 
 .machine{
   position:absolute;
-  z-index:5;
-  width:145px;
-  height:185px;
+  width:clamp(125px,10vw,190px);
+  height:clamp(175px,14vw,250px);
+  transform:translate(-50%,-50%);
   cursor:pointer;
-  transition:.2s;
+  z-index:10;
+  transition:.15s;
 }
 
-.machine:hover,
-.machine.near{
-  transform:translateY(-7px) scale(1.04);
+.machine:hover{
+  transform:translate(-50%,-50%) scale(1.07);
+  z-index:30;
 }
 
-.machine.near .cabinet{
-  box-shadow:
-    0 0 0 3px var(--yellow),
-    0 0 25px rgba(255,227,110,.7);
-}
-
-.cabinet{
+.machine-body{
   position:absolute;
   inset:0;
-  background:#11142a;
-  border:4px solid #292d4d;
-  border-radius:13px;
+  border:5px solid var(--purple);
+  border-radius:12px 12px 8px 8px;
+  background:
+    linear-gradient(135deg,#292d58,#101126 55%,#070811);
   box-shadow:
-    inset 0 0 0 3px #080914,
-    0 12px 20px rgba(0,0,0,.35);
-  transition:.2s;
+    0 0 12px var(--purple),
+    0 0 30px rgba(157,124,255,.35),
+    inset 0 0 22px rgba(157,124,255,.18);
 }
 
-.cabinet-screen{
+.machine-screen{
   position:absolute;
-  top:12px;
-  left:11px;
-  right:11px;
-  height:92px;
-  border:4px solid #303553;
-  background:#080914;
+  left:12%;
+  right:12%;
+  top:10%;
+  height:43%;
+  border:4px solid var(--cyan);
+  background:#05060e;
+  box-shadow:
+    0 0 10px var(--cyan),
+    inset 0 0 20px rgba(66,232,255,.18);
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:7px;
-  color:var(--cyan);
-  font-size:8px;
-  line-height:1.7;
-  text-shadow:0 0 8px currentColor;
+  padding:8px;
+  color:var(--yellow);
+  font-size:10px;
+  line-height:1.6;
 }
 
-.cabinet-control{
+.machine-controls{
   position:absolute;
-  left:8px;
-  right:8px;
-  top:109px;
-  height:38px;
-  border-top:4px solid #303553;
-  background:#191d38;
+  left:15%;
+  right:15%;
+  bottom:18%;
+  height:18%;
+  border:3px solid var(--pink);
+  background:#080914;
+  box-shadow:0 0 8px var(--pink);
 }
 
-.joystick{
-  position:absolute;
-  left:20px;
-  top:5px;
-  width:8px;
-  height:22px;
-  background:#d8d9e7;
-}
-
-.joystick:before{
-  content:"";
-  position:absolute;
-  left:-6px;
-  top:-6px;
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:var(--pink);
-}
-
-.buttons{
+.machine-controls:before{
+  content:"●   ●";
   position:absolute;
   right:12px;
-  top:8px;
-  display:flex;
-  gap:6px;
+  top:9px;
+  color:var(--yellow);
+  letter-spacing:3px;
 }
 
-.buttons i{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:var(--pink);
-}
-
-.buttons i:nth-child(2){
-  background:var(--yellow);
-}
-
-.coin{
+.machine-controls:after{
+  content:"";
   position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:11px;
-  width:12px;
-  height:7px;
-  border-radius:5px;
-  background:#5b607c;
+  left:14px;
+  top:7px;
+  width:10px;
+  height:20px;
+  border-radius:6px;
+  background:var(--cyan);
+  box-shadow:0 0 8px var(--cyan);
 }
 
-.machine-name{
+.machine-label{
   position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:-30px;
-  width:170px;
+  bottom:5px;
+  left:8px;
+  right:8px;
   text-align:center;
   font-size:8px;
-  line-height:1.5;
-  color:white;
-  text-shadow:0 2px 3px #000;
+  line-height:1.35;
+  color:var(--white);
 }
 
-/* scattered positions */
-
-.m-claw{
-  left:5%;
-  top:21%;
+.machine.active{
+  animation:machineGlow .7s infinite alternate;
 }
 
-.m-photo{
-  left:23%;
-  top:13%;
+@keyframes machineGlow{
+  from{
+    filter:brightness(1);
+  }
+  to{
+    filter:brightness(1.5);
+  }
 }
 
-.m-jukebox{
-  left:42%;
-  top:12%;
-}
+/* scattered arcade positions */
 
-.m-memory{
-  right:5%;
-  top:21%;
-}
-
-.m-basket{
-  left:7%;
-  top:55%;
-}
-
-.m-whack{
-  left:28%;
-  top:59%;
-}
-
-.m-high{
-  left:52%;
-  top:56%;
-}
-
-.m-shoot{
-  right:23%;
-  top:57%;
-}
-
-.m-wheel{
-  right:5%;
-  top:63%;
-}
+.m1{left:13%;top:25%;}
+.m2{left:34%;top:20%;}
+.m3{left:57%;top:25%;}
+.m4{left:80%;top:22%;}
+.m5{left:23%;top:57%;}
+.m6{left:49%;top:62%;}
+.m7{left:76%;top:57%;}
+.m8{left:9%;top:80%;}
+.m9{left:89%;top:79%;}
 
 .player{
   position:absolute;
-  z-index:12;
-  width:clamp(70px,7vw,105px);
-  transition:left .12s linear,top .12s linear;
+  width:clamp(105px,8vw,155px);
+  height:clamp(145px,11vw,210px);
+  object-fit:contain;
+  transform:translate(-50%,-50%);
+  z-index:40;
   pointer-events:none;
-  filter:drop-shadow(0 7px 7px rgba(0,0,0,.5));
+  filter:
+    drop-shadow(0 0 12px rgba(255,79,163,.65))
+    drop-shadow(0 0 25px rgba(66,232,255,.3));
+  transition:left .08s linear,top .08s linear;
 }
 
-.player img{
-  display:block;
-  width:100%;
-}
-
-.interact-hint{
+.interaction-hint{
   position:absolute;
-  z-index:30;
-  pointer-events:none;
-  padding:9px 12px;
-  background:rgba(8,9,20,.9);
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  padding:14px 20px;
   border:2px solid var(--yellow);
+  background:rgba(8,9,20,.85);
   color:var(--yellow);
-  font-size:8px;
-  opacity:0;
-  transition:.2s;
+  font-size:11px;
+  z-index:50;
+  box-shadow:0 0 10px rgba(255,227,110,.35);
 }
 
 /* =========================================================
-   GAME MODAL
+   MODAL
 ========================================================= */
 
 #gameModal{
   position:fixed;
-  z-index:100;
   inset:0;
-  background:rgba(4,5,12,.78);
-  backdrop-filter:blur(7px);
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(5px);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  z-index:500;
+  padding:25px;
 }
 
 .game-window{
-  width:min(1000px,95vw);
-  height:min(700px,90dvh);
+  width:min(1050px,94vw);
+  height:min(750px,91vh);
   background:var(--panel);
-  border:3px solid var(--pink);
+  border:4px solid var(--pink);
   box-shadow:
-    0 0 0 4px rgba(255,79,163,.1),
-    0 0 50px rgba(255,79,163,.25);
-  position:relative;
+    0 0 15px var(--pink),
+    0 0 50px rgba(255,79,163,.3);
+  display:flex;
+  flex-direction:column;
   overflow:hidden;
 }
 
-.window-header{
-  height:54px;
-  padding:0 18px;
-  background:#171a34;
+.game-header{
+  min-height:70px;
   border-bottom:2px solid var(--line);
+  background:var(--panel2);
   display:flex;
   align-items:center;
   justify-content:space-between;
+  padding:0 20px;
+  flex-shrink:0;
 }
 
-.window-title{
-  color:var(--pink);
-  font-size:11px;
-}
-
-.back-button{
-  padding:10px 14px;
-  border:2px solid var(--cyan);
-  background:transparent;
+.game-title{
   color:var(--cyan);
+  font-size:clamp(13px,1.5vw,20px);
+  text-shadow:0 0 10px var(--cyan);
+}
+
+.back-btn{
+  border:2px solid var(--pink);
+  background:transparent;
+  color:var(--pink);
+  padding:12px 15px;
   cursor:pointer;
-  font-size:8px;
+  font-size:10px;
 }
 
-.back-button:hover{
-  background:var(--cyan);
-  color:#071018;
+.back-btn:hover{
+  background:var(--pink);
+  color:#080914;
 }
 
-.game-content{
-  height:calc(100% - 54px);
+#gameContent{
+  flex:1;
   overflow:auto;
   padding:25px;
 }
 
 /* =========================================================
-   GENERIC
+   GENERAL GAME STYLES
 ========================================================= */
 
-.game-intro{
+.game-center{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   text-align:center;
+}
+
+.game-instruction{
   color:var(--muted);
-  font-size:9px;
+  font-size:11px;
   line-height:1.8;
-  margin-bottom:20px;
+  max-width:750px;
+  margin:15px auto 25px;
 }
 
-.primary{
-  border:2px solid var(--pink);
-  background:var(--pink);
-  color:white;
-  padding:14px 20px;
-  cursor:pointer;
-  font-size:9px;
-  box-shadow:0 5px 0 #9c2e65;
-}
-
-.primary:active{
-  transform:translateY(3px);
-  box-shadow:0 2px 0 #9c2e65;
-}
-
-.secondary{
+.neon-button{
+  padding:15px 22px;
   border:2px solid var(--cyan);
-  background:transparent;
+  background:#080914;
   color:var(--cyan);
-  padding:12px 17px;
   cursor:pointer;
-  font-size:8px;
+  font-family:inherit;
+  font-size:10px;
+  box-shadow:0 0 10px rgba(66,232,255,.3);
+}
+
+.neon-button:hover{
+  background:var(--cyan);
+  color:#080914;
 }
 
 /* =========================================================
    CLAW
 ========================================================= */
 
-.claw-area{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+.claw-game{
+  position:relative;
+  width:min(700px,90%);
+  height:480px;
+  margin:auto;
+  border:5px solid var(--pink);
+  background:
+    linear-gradient(180deg,#191b3d,#080914);
+  box-shadow:
+    0 0 20px rgba(255,79,163,.35),
+    inset 0 0 40px rgba(157,124,255,.1);
+  overflow:hidden;
 }
 
-.claw-machine{
-  position:relative;
-  width:min(570px,90%);
-  height:390px;
-  border:7px solid #34395f;
-  background:#0a0b18;
-  box-shadow:inset 0 0 0 4px #05060d;
-  overflow:hidden;
+.claw-top{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:50px;
+  border-bottom:4px solid var(--cyan);
+  background:#11132b;
 }
 
 .claw-rail{
   position:absolute;
-  top:34px;
-  left:8%;
-  width:84%;
-  height:7px;
-  background:#555b82;
+  top:50px;
+  left:0;
+  right:0;
+  height:10px;
+  background:var(--cyan);
+  box-shadow:0 0 12px var(--cyan);
 }
 
 .claw-arm{
   position:absolute;
-  top:34px;
+  top:50px;
   left:50%;
-  width:8px;
-  height:135px;
-  background:#b8bad0;
+  width:6px;
+  height:250px;
+  background:#ddd;
   transform:translateX(-50%);
-  transition:left .1s linear;
+  transition:left .35s;
+  z-index:5;
 }
 
 .claw-head{
   position:absolute;
-  top:165px;
-  left:50%;
-  transform:translateX(-50%);
-  width:45px;
-  height:35px;
-  background:#c9cbd8;
+  bottom:-14px;
+  left:-22px;
+  width:48px;
+  height:30px;
+  border:4px solid var(--yellow);
+  border-radius:8px;
+  background:#15172b;
 }
 
-.claw-finger{
+.claw-head:before,
+.claw-head:after{
+  content:"";
   position:absolute;
-  top:27px;
-  width:7px;
-  height:35px;
-  background:#b6b8c9;
+  width:4px;
+  height:22px;
+  bottom:-17px;
+  background:var(--yellow);
 }
 
-.claw-finger.left{
-  left:3px;
+.claw-head:before{
+  left:6px;
   transform:rotate(25deg);
 }
 
-.claw-finger.right{
-  right:3px;
+.claw-head:after{
+  right:6px;
   transform:rotate(-25deg);
 }
 
-.capsules{
+.claw-items{
   position:absolute;
-  left:7%;
-  right:7%;
-  bottom:10px;
-  height:145px;
+  left:0;
+  right:0;
+  bottom:0;
+  height:220px;
   display:flex;
-  align-items:end;
+  align-items:flex-end;
   justify-content:space-around;
-}
-
-.capsule{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--pink),#6c204a);
-  border:3px solid white;
-  box-shadow:0 0 12px rgba(255,79,163,.5);
-}
-
-.capsule:nth-child(2n){
-  background:linear-gradient(135deg,var(--cyan),#225a6a);
-}
-
-.capsule:nth-child(3n){
-  background:linear-gradient(135deg,var(--yellow),#716329);
-}
-
-.claw-controls{
-  margin-top:17px;
-  display:flex;
-  gap:10px;
-}
-
-.claw-message{
-  margin-top:14px;
-  min-height:35px;
-  color:var(--yellow);
-  font-size:9px;
-  text-align:center;
-  line-height:1.7;
-}
-
-.reveal-card{
-  position:absolute;
-  inset:30px;
-  z-index:20;
-  background:#11142a;
-  border:3px solid var(--pink);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:15px;
   padding:20px;
+}
+
+.claw-item{
+  width:85px;
+  height:85px;
+  object-fit:cover;
+  border:3px solid var(--white);
+  box-shadow:0 0 10px rgba(255,255,255,.35);
+  transition:.25s;
+}
+
+.claw-item.won{
+  transform:translateY(-130px) scale(1.25);
+  border-color:var(--yellow);
+}
+
+.claw-result{
+  position:absolute;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%);
+  width:80%;
+  padding:12px;
   text-align:center;
-}
-
-.reveal-card img{
-  max-width:240px;
-  max-height:220px;
-  object-fit:contain;
-  border:3px solid white;
-}
-
-.reveal-card p{
-  max-width:600px;
-  font-size:9px;
-  line-height:1.8;
+  background:rgba(8,9,20,.9);
+  color:var(--yellow);
+  font-size:10px;
+  line-height:1.6;
 }
 
 /* =========================================================
    PHOTO BOOTH
 ========================================================= */
 
-.photobooth{
+.booth{
   display:flex;
   flex-direction:column;
   align-items:center;
-  text-align:center;
-  height:100%;
-}
-
-.booth-screen{
-  width:min(580px,90%);
-  height:340px;
-  background:#070812;
-  border:5px solid #373b60;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  position:relative;
-}
-
-.booth-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  width:80%;
-}
-
-.booth-grid img{
-  width:100%;
-  aspect-ratio:1;
-  object-fit:cover;
-  border:3px solid white;
-}
-
-.countdown{
-  position:absolute;
-  font-size:65px;
-  color:white;
-  text-shadow:0 0 25px var(--pink);
-}
-
-.flash{
-  position:absolute;
-  inset:0;
-  background:white;
-  opacity:0;
-  pointer-events:none;
-}
-
-.flash.active{
-  animation:cameraFlash .5s;
-}
-
-@keyframes cameraFlash{
-  0%{opacity:0}
-  30%{opacity:1}
-  100%{opacity:0}
-}
-
-.camera-preview{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.booth-buttons{
-  display:flex;
-  gap:12px;
-  margin-top:18px;
-  flex-wrap:wrap;
-  justify-content:center;
 }
 
 .photo-strip{
+  width:280px;
+  background:#f7f7f7;
+  padding:12px;
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
+  flex-direction:column;
+  gap:8px;
+  box-shadow:0 0 25px rgba(255,255,255,.2);
 }
 
 .photo-strip img{
-  width:120px;
-  height:150px;
+  width:100%;
+  height:125px;
   object-fit:cover;
-  border:4px solid white;
+  display:block;
+}
+
+.today-panel{
+  width:100%;
+  min-height:150px;
+  background:#fff;
+  color:#080914;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:14px;
+  cursor:pointer;
+  font-family:'Press Start 2P',monospace;
+  font-size:9px;
+  line-height:1.7;
+  padding:15px;
+  border:3px dashed var(--pink);
+  transition:.2s;
+}
+
+.today-panel:hover{
+  transform:scale(1.03);
+  box-shadow:0 0 18px var(--pink);
+}
+
+.today-panel strong{
+  color:#ff4fa3;
+}
+
+#cameraArea{
+  margin-top:20px;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+}
+
+#cameraVideo{
+  width:min(500px,80vw);
+  border:4px solid var(--cyan);
 }
 
 /* =========================================================
@@ -914,75 +778,22 @@ button{
 ========================================================= */
 
 .jukebox{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  width:300px;
+  padding:30px;
+  border:5px solid var(--purple);
+  border-radius:35px 35px 15px 15px;
+  background:linear-gradient(135deg,#24284d,#0a0b18);
+  box-shadow:0 0 25px rgba(157,124,255,.5);
   text-align:center;
 }
 
-.jukebox-body{
-  width:270px;
-  height:400px;
-  background:linear-gradient(90deg,#252a48,#101326,#252a48);
-  border:5px solid #4a5079;
-  border-radius:130px 130px 20px 20px;
-  padding:30px;
-  position:relative;
-  box-shadow:0 0 35px rgba(66,232,255,.2);
-}
-
-.jukebox-glow{
-  position:absolute;
-  top:55px;
-  left:40px;
-  right:40px;
-  height:160px;
-  border-radius:50%;
-  background:radial-gradient(circle,var(--pink),transparent 65%);
-  opacity:.55;
-  animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-  50%{opacity:.25}
-}
-
-.jukebox-record{
-  position:absolute;
-  top:80px;
-  left:50%;
-  transform:translateX(-50%);
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  border:10px solid #080914;
-  background:#24294a;
-  animation:spin 3s linear infinite paused;
-}
-
-.jukebox.playing .jukebox-record{
-  animation-play-state:running;
-}
-
-@keyframes spin{
-  to{transform:translateX(-50%) rotate(360deg)}
-}
-
-.music-notes{
-  position:absolute;
-  top:35px;
-  right:30px;
+.jukebox-screen{
+  padding:20px;
+  border:3px solid var(--cyan);
+  margin-bottom:25px;
   color:var(--yellow);
-  font-size:20px;
-  animation:notes 1.5s infinite;
-}
-
-@keyframes notes{
-  0%{transform:translateY(15px);opacity:0}
-  50%{opacity:1}
-  100%{transform:translateY(-20px);opacity:0}
+  line-height:1.7;
+  font-size:11px;
 }
 
 /* =========================================================
@@ -990,113 +801,161 @@ button{
 ========================================================= */
 
 .memory-game{
-  height:100%;
-  display:flex;
-  flex-direction:column;
+  position:relative;
+  width:100%;
+  height:540px;
+  overflow:hidden;
+  border:4px solid var(--cyan);
+  background:
+    linear-gradient(180deg,rgba(66,232,255,.07),rgba(255,79,163,.08));
 }
 
 .memory-road{
-  position:relative;
-  flex:1;
-  min-height:300px;
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:145px;
   background:
-    linear-gradient(90deg,#1a1b25 0 9%,#32323b 9% 91%,#1a1b25 91%);
-  overflow:hidden;
-  border:3px solid #454963;
+    repeating-linear-gradient(
+      90deg,
+      #25283e 0 70px,
+      #30344e 70px 140px
+    );
+  border-top:5px solid var(--yellow);
 }
 
-.road-lines{
+.memory-road:after{
+  content:"";
   position:absolute;
-  left:9%;
-  right:9%;
-  top:50%;
-  height:8px;
-  background:repeating-linear-gradient(
-    90deg,
-    var(--yellow) 0 50px,
-    transparent 50px 100px
-  );
+  left:0;
+  right:0;
+  top:66px;
+  border-top:7px dashed var(--yellow);
 }
 
 .memory-car{
   position:absolute;
-  z-index:5;
-  left:6%;
-  top:calc(50% - 55px);
+  left:5%;
+  bottom:95px;
   width:110px;
-  transition:left .18s ease;
-}
-
-.memory-car img{
-  width:100%;
-  display:block;
-}
-
-.memory-marker{
-  position:absolute;
-  z-index:3;
-  top:25%;
-  transform:translateX(-50%);
-  text-align:center;
-}
-
-.marker-stick{
-  width:4px;
   height:70px;
-  background:var(--cyan);
-  margin:auto;
+  z-index:20;
+  transition:left .08s linear,bottom .2s ease;
 }
 
-.marker-sign{
-  background:#11142a;
-  border:2px solid var(--cyan);
-  padding:9px;
-  width:100px;
-  font-size:7px;
-  line-height:1.5;
-  color:var(--cyan);
+.car-body{
+  position:absolute;
+  left:10px;
+  bottom:5px;
+  width:90px;
+  height:35px;
+  border:4px solid var(--pink);
+  background:#171a34;
+  box-shadow:0 0 12px var(--pink);
 }
 
-.memory-controls{
-  padding-top:15px;
+.car-top{
+  position:absolute;
+  left:28px;
+  bottom:35px;
+  width:55px;
+  height:28px;
+  border:4px solid var(--cyan);
+  border-bottom:0;
+  border-radius:15px 15px 0 0;
+}
+
+.wheel{
+  position:absolute;
+  width:23px;
+  height:23px;
+  border:5px solid #ddd;
+  border-radius:50%;
+  bottom:-6px;
+  background:#080914;
+}
+
+.wheel1{left:15px;}
+.wheel2{right:8px;}
+
+.memory-point{
+  position:absolute;
+  bottom:95px;
+  width:55px;
+  height:100px;
+  transform:translateX(-50%);
   display:flex;
-  justify-content:center;
-  gap:10px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  z-index:10;
 }
 
-.memory-info{
-  text-align:center;
-  padding:10px;
+.memory-point:before{
+  content:"";
+  width:20px;
+  height:75px;
+  border-left:4px solid var(--yellow);
+  border-right:4px solid var(--yellow);
+  background:rgba(255,227,110,.08);
+}
+
+.memory-number{
+  position:absolute;
+  top:0;
   color:var(--yellow);
   font-size:8px;
-  line-height:1.7;
 }
 
-.memory-popup{
+.memory-photo{
   position:absolute;
-  z-index:30;
-  inset:20px;
-  background:#11142a;
-  border:3px solid var(--pink);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:20px;
-  padding:20px;
+  bottom:175px;
+  left:50%;
+  transform:translateX(-50%);
+  width:170px;
+  height:125px;
+  object-fit:cover;
+  border:4px solid var(--pink);
+  box-shadow:0 0 15px rgba(255,79,163,.6);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
 }
 
-.memory-popup img{
-  max-width:48%;
-  max-height:80%;
-  object-fit:contain;
-  border:4px solid white;
+.memory-point.reached .memory-photo{
+  opacity:1;
+  animation:memoryPop .45s ease;
 }
 
-.memory-popup-text{
-  max-width:45%;
-  font-size:9px;
-  line-height:2;
+@keyframes memoryPop{
+  0%{transform:translateX(-50%) translateY(20px) scale(.8);}
+  60%{transform:translateX(-50%) translateY(-15px) scale(1.08);}
+  100%{transform:translateX(-50%) translateY(0) scale(1);}
+}
+
+.memory-caption{
+  position:absolute;
+  bottom:315px;
+  left:50%;
+  transform:translateX(-50%);
+  width:230px;
+  padding:12px;
+  background:rgba(8,9,20,.93);
+  border:2px solid var(--cyan);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  font-weight:bold;
+  font-size:13px;
+  line-height:1.35;
   text-align:center;
+  opacity:0;
+  transition:.2s;
+  z-index:30;
+}
+
+.memory-point.reached .memory-caption{
+  opacity:1;
 }
 
 /* =========================================================
@@ -1104,192 +963,216 @@ button{
 ========================================================= */
 
 .basketball-game{
-  height:100%;
   display:flex;
   flex-direction:column;
   align-items:center;
+  min-height:100%;
 }
 
 .scoreboard{
+  min-width:330px;
+  padding:15px 25px;
+  border:4px solid var(--yellow);
+  background:#080914;
   color:var(--yellow);
-  font-size:9px;
-  margin-bottom:15px;
-}
-
-.question{
-  width:min(720px,95%);
-  background:#171a34;
-  border:2px solid var(--cyan);
-  padding:18px;
   text-align:center;
-  font-size:10px;
-  line-height:1.8;
+  box-shadow:0 0 15px rgba(255,227,110,.4);
   margin-bottom:15px;
+  font-size:14px;
 }
 
-.answers{
-  width:min(720px,95%);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.answer{
-  padding:14px;
-  background:#101326;
-  border:2px solid #444967;
-  color:white;
-  cursor:pointer;
-  font-family:inherit;
-  font-size:7px;
-  line-height:1.7;
-}
-
-.answer:hover{
-  border-color:var(--pink);
-}
-
-.answer.correct{
-  border-color:var(--green);
-  background:rgba(103,247,168,.12);
-}
-
-.answer.wrong{
-  border-color:#ff6868;
-  background:rgba(255,104,104,.12);
-}
-
-.hoop-area{
+.basket-court{
   position:relative;
-  width:100%;
-  height:160px;
-  margin-top:auto;
+  width:min(800px,95%);
+  height:430px;
+  border:4px solid var(--cyan);
   overflow:hidden;
+  background:
+    linear-gradient(180deg,#14172c,#080914);
 }
 
 .hoop{
   position:absolute;
-  right:18%;
-  top:40px;
-  width:120px;
-  height:10px;
-  background:var(--pink);
-  box-shadow:0 0 15px var(--pink);
+  right:12%;
+  top:70px;
+  width:150px;
+  height:190px;
+}
+
+.backboard{
+  position:absolute;
+  right:0;
+  top:0;
+  width:100px;
+  height:85px;
+  border:6px solid #eee;
+  background:rgba(255,255,255,.05);
+}
+
+.backboard-square{
+  position:absolute;
+  left:20px;
+  bottom:12px;
+  width:60px;
+  height:45px;
+  border:5px solid var(--pink);
+}
+
+.rim{
+  position:absolute;
+  right:5px;
+  top:72px;
+  width:100px;
+  height:24px;
+  border:7px solid #ff6633;
+  border-radius:50%;
+  box-shadow:0 0 12px rgba(255,102,51,.8);
 }
 
 .net{
   position:absolute;
-  right:20%;
-  top:48px;
-  width:75px;
-  height:60px;
-  border:2px solid white;
-  border-top:0;
-  transform:perspective(100px) rotateX(-10deg);
+  right:12px;
+  top:90px;
+  width:86px;
+  height:75px;
+  border-left:3px dashed #ddd;
+  border-right:3px dashed #ddd;
+  border-bottom:3px dashed #ddd;
+  clip-path:polygon(0 0,100% 0,75% 100%,25% 100%);
 }
 
-.ball{
+.basket-ball{
   position:absolute;
-  left:20%;
-  bottom:20px;
-  width:35px;
-  height:35px;
+  left:100px;
+  bottom:30px;
+  width:55px;
+  height:55px;
   border-radius:50%;
-  background:#ff944d;
-  border:3px solid #662d14;
+  background:#e87522;
+  border:4px solid #171717;
+  box-shadow:0 0 10px rgba(255,150,50,.4);
+  z-index:20;
+  transition:none;
 }
 
-.ball.shoot{
-  animation:ballShoot .8s forwards;
+.basket-ball:before,
+.basket-ball:after{
+  content:"";
+  position:absolute;
+  background:#222;
 }
 
-@keyframes ballShoot{
-  0%{left:20%;bottom:20px}
-  100%{left:77%;bottom:100px}
+.basket-ball:before{
+  width:5px;
+  height:100%;
+  left:23px;
+}
+
+.basket-ball:after{
+  width:100%;
+  height:5px;
+  top:23px;
+}
+
+.answer-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  width:min(800px,95%);
+  margin-top:18px;
+}
+
+.answer{
+  padding:15px;
+  border:2px solid var(--purple);
+  background:#101326;
+  color:var(--white);
+  cursor:pointer;
+  font-family:inherit;
+  font-size:9px;
+  line-height:1.5;
+}
+
+.answer:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 10px var(--cyan);
+}
+
+.basket-result{
+  min-height:30px;
+  margin-top:12px;
+  color:var(--yellow);
+  font-size:10px;
 }
 
 /* =========================================================
-   WHACK
+   WHACK A MOLE
 ========================================================= */
 
 .whack-game{
-  height:100%;
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
-.whack-score{
+.mole-score{
+  padding:15px 25px;
+  border:3px solid var(--yellow);
   color:var(--yellow);
-  font-size:9px;
-  margin-bottom:15px;
+  margin-bottom:20px;
 }
 
-.holes{
-  width:min(700px,95%);
+.mole-board{
+  width:min(760px,95%);
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin:auto;
+  grid-template-rows:repeat(2,1fr);
+  gap:25px;
+  padding:25px;
 }
 
-.hole{
+.mole-hole{
   position:relative;
-  height:115px;
-  background:#080914;
-  border:3px solid #3b405f;
+  height:135px;
   border-radius:50%;
+  background:
+    radial-gradient(ellipse at center,#03040a 0 48%,#191b32 50% 62%,#080914 64%);
+  border:5px solid var(--purple);
+  box-shadow:
+    0 0 15px rgba(157,124,255,.35),
+    inset 0 10px 20px #000;
   overflow:hidden;
   cursor:pointer;
 }
 
-.hole:after{
-  content:"";
-  position:absolute;
-  left:10%;
-  right:10%;
-  bottom:12px;
-  height:32px;
-  background:#02030a;
-  border-radius:50%;
-}
-
 .mole{
   position:absolute;
-  z-index:2;
+  width:95px;
+  height:95px;
   left:50%;
-  bottom:-90px;
+  bottom:-100px;
   transform:translateX(-50%);
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#c87b55;
-  border:4px solid #713d2c;
-  transition:.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:6px;
-  line-height:1.5;
-  padding:10px;
-  color:white;
-}
-
-.mole.active{
-  bottom:3px;
-}
-
-.mole.bitmoji{
-  background:#171a34;
-  border-color:var(--pink);
-  padding:4px;
-}
-
-.mole.bitmoji img{
-  width:100%;
-  height:100%;
   object-fit:contain;
+  transition:bottom .15s;
+}
+
+.mole.up{
+  bottom:15px;
+}
+
+.danger{
+  position:absolute;
+  width:105px;
+  height:105px;
+  left:50%;
+  bottom:-110px;
+  transform:translateX(-50%);
+  object-fit:contain;
+  transition:bottom .15s;
+}
+
+.danger.up{
+  bottom:8px;
 }
 
 /* =========================================================
@@ -1297,143 +1180,179 @@ button{
 ========================================================= */
 
 .striker{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:20px;
-}
-
-.striker-meter{
-  width:90px;
-  height:350px;
-  border:5px solid #454b70;
-  background:#080914;
+  width:220px;
+  height:470px;
   position:relative;
-  display:flex;
-  align-items:end;
-  justify-content:center;
-  padding:7px;
+  border:5px solid var(--purple);
+  background:#101326;
+  margin:auto;
 }
 
-.striker-fill{
-  width:100%;
-  height:10%;
-  background:linear-gradient(to top,var(--pink),var(--yellow));
-  transition:.8s cubic-bezier(.17,.67,.3,1);
-}
-
-.striker-levels{
+.striker-pole{
   position:absolute;
-  inset:10px;
+  left:50%;
+  bottom:30px;
+  width:30px;
+  height:360px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,#aaa,#eee,#999);
+}
+
+.striker-lights{
+  position:absolute;
+  left:50%;
+  bottom:35px;
+  transform:translateX(-50%);
+  width:75px;
+  height:320px;
   display:flex;
-  flex-direction:column;
+  flex-direction:column-reverse;
   justify-content:space-between;
-  align-items:center;
-  pointer-events:none;
 }
 
-.striker-levels span{
-  font-size:7px;
-  color:white;
+.striker-light{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:3px solid #777;
+  background:#171a34;
 }
 
-.striker-prize{
-  min-height:25px;
-  color:var(--yellow);
-  font-size:11px;
-  text-align:center;
+.striker-light.on{
+  background:var(--yellow);
+  box-shadow:0 0 15px var(--yellow);
+}
+
+.striker-button{
+  position:absolute;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:130px;
+  height:50px;
+  border-radius:50%;
+  background:var(--pink);
+  border:5px solid #ff9acb;
+  cursor:pointer;
 }
 
 /* =========================================================
-   SHOOTING
+   SHOOTING GALLERY
 ========================================================= */
 
-.shooting{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-}
-
-.shooting-score{
-  text-align:center;
-  color:var(--yellow);
-  font-size:9px;
-  margin-bottom:12px;
-}
-
-.gallery{
+.shooting-range{
   position:relative;
-  flex:1;
-  background:#090a14;
-  border:3px solid #3b405f;
+  width:min(850px,95%);
+  height:450px;
+  margin:auto;
+  border:4px solid var(--cyan);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #101326 0 70px,
+      #171a34 70px 140px
+    );
   overflow:hidden;
 }
 
-.target{
+.shooting-target{
   position:absolute;
   width:80px;
   height:80px;
   border-radius:50%;
-  border:5px solid white;
-  background:var(--pink);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:6px;
-  line-height:1.5;
+  background:
+    radial-gradient(circle,#fff 0 12%,var(--pink) 13% 30%,#fff 31% 45%,var(--pink) 46% 65%,#fff 66%);
+  border:4px solid var(--yellow);
+  box-shadow:0 0 15px rgba(255,227,110,.6);
+  cursor:pointer;
 }
 
-.target:after{
-  content:"";
-  position:absolute;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  border:4px solid white;
+.shooting-target.t1{
+  top:80px;
+  animation:targetMove1 4s linear infinite alternate;
 }
 
-.crosshair{
-  position:absolute;
-  z-index:20;
-  width:40px;
-  height:40px;
-  border:3px solid var(--cyan);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-  box-shadow:0 0 12px var(--cyan);
+.shooting-target.t2{
+  top:220px;
+  animation:targetMove2 5s linear infinite alternate-reverse;
 }
 
-.crosshair:before,
-.crosshair:after{
-  content:"";
-  position:absolute;
-  background:var(--cyan);
+.shooting-target.t3{
+  top:330px;
+  animation:targetMove3 3.5s linear infinite alternate;
 }
 
-.crosshair:before{
-  left:50%;
-  top:-8px;
-  width:2px;
-  height:50px;
+@keyframes targetMove1{
+  from{left:3%;}
+  to{left:85%;}
 }
 
-.crosshair:after{
-  top:50%;
-  left:-8px;
-  width:50px;
-  height:2px;
+@keyframes targetMove2{
+  from{left:82%;}
+  to{left:8%;}
+}
+
+@keyframes targetMove3{
+  from{left:20%;}
+  to{left:75%;}
 }
 
 /* =========================================================
    SPIN WHEEL
 ========================================================= */
 
-.spin-game{
-  height:100%;
+.wheel-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+.wheel{
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  border:8px solid var(--white);
+  background:conic-gradient(
+    var(--pink) 0 60deg,
+    var(--cyan) 60deg 120deg,
+    var(--yellow) 120deg 180deg,
+    var(--purple) 180deg 240deg,
+    var(--green) 240deg 300deg,
+    #ff784f 300deg 360deg
+  );
+  box-shadow:0 0 25px rgba(255,255,255,.3);
+  position:relative;
+  transition:transform 3s cubic-bezier(.15,.75,.2,1);
+}
+
+.wheel:after{
+  content:"";
+  position:absolute;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:#080914;
+  border:4px solid white;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+
+.pointer{
+  width:0;
+  height:0;
+  border-left:15px solid transparent;
+  border-right:15px solid transparent;
+  border-top:35px solid var(--white);
+}
+
+/* =========================================================
+   TICKET COUNTER
+========================================================= */
+
+.counter-game{
+  min-height:100%;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -1441,234 +1360,107 @@ button{
   text-align:center;
 }
 
-.wheel{
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  border:9px solid white;
-  background:
-    conic-gradient(
-      var(--pink) 0deg 60deg,
-      var(--cyan) 60deg 120deg,
-      var(--purple) 120deg 180deg,
-      var(--yellow) 180deg 240deg,
-      var(--pink) 240deg 300deg,
-      var(--cyan) 300deg 360deg
-    );
-  box-shadow:0 0 35px rgba(255,79,163,.3);
-  transition:transform 4s cubic-bezier(.12,.7,.15,1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.ticket-machine{
+  width:390px;
+  padding:40px;
+  border:5px solid var(--yellow);
+  background:linear-gradient(135deg,#282b51,#080914);
+  box-shadow:
+    0 0 25px rgba(255,227,110,.4),
+    inset 0 0 30px rgba(255,227,110,.1);
 }
 
-.wheel-center{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#11142a;
-  border:4px solid white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:8px;
-}
-
-.wheel-arrow{
-  width:0;
-  height:0;
-  border-left:14px solid transparent;
-  border-right:14px solid transparent;
-  border-top:25px solid var(--yellow);
-  margin-bottom:-5px;
-}
-
-.letter{
-  max-width:750px;
-  margin:20px auto;
-  padding:25px;
-  background:#fff;
-  color:#191a2b;
-  line-height:2;
-  font-family:Georgia,serif;
-  font-size:15px;
-  text-align:left;
-  overflow:auto;
-  max-height:430px;
-  white-space:pre-line;
-}
-
-/* =========================================================
-   TICKET COUNTER
-========================================================= */
-
-.ticket-counter{
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.counter-card{
-  width:min(600px,95%);
-  text-align:center;
-  background:#171a34;
-  border:3px solid var(--yellow);
-  padding:45px 30px;
-  box-shadow:0 0 35px rgba(255,227,110,.2);
-}
-
-.counter-card h2{
+.ticket-number{
+  font-size:38px;
   color:var(--yellow);
-  font-size:18px;
-  line-height:1.6;
+  text-shadow:0 0 15px var(--yellow);
+  margin:25px 0;
 }
 
-.counter-card p{
-  color:var(--muted);
-  font-size:9px;
-  line-height:2;
-}
-
-.final{
-  animation:finalPop .6s ease;
-}
-
-@keyframes finalPop{
-  0%{transform:scale(.7);opacity:0}
-  100%{transform:scale(1);opacity:1}
-}
-
-.heart{
-  position:fixed;
-  z-index:300;
-  pointer-events:none;
-  font-size:25px;
-  animation:heartFall 2s forwards;
-}
-
-@keyframes heartFall{
-  0%{
-    transform:translateY(0) scale(.5);
-    opacity:1;
-  }
-  100%{
-    transform:translateY(100vh) rotate(360deg) scale(1.2);
-    opacity:0;
-  }
+.final-message{
+  max-width:760px;
+  margin:auto;
+  padding:35px;
+  border:3px solid var(--pink);
+  background:rgba(8,9,20,.8);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  font-size:17px;
+  line-height:1.8;
+  white-space:pre-line;
+  text-align:left;
 }
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:850px){
+@media(max-width:800px){
 
-  .entrance-machine{
-    transform:scale(.7);
-    transform-origin:bottom;
+  .topbar{
+    height:65px;
+    padding:0 12px;
   }
 
-  .entrance-machine.left{
-    left:-10px;
+  .hud-box{
+    padding:10px;
+    font-size:8px;
   }
 
-  .entrance-machine.right{
-    right:-10px;
+  .hud{
+    gap:7px;
   }
 
-  .entrance-character{
-    left:4%;
-    bottom:18%;
-    width:110px;
+  .entrance-content{
+    padding-top:11vh;
+  }
+
+  .entrance-bitmoji{
+    left:2%;
+    width:150px;
   }
 
   .speech{
-    left:auto;
-    right:4%;
-    top:37%;
-    width:58%;
-    font-size:7px;
-    padding:15px;
+    left:24%;
+    top:48%;
+    width:55vw;
+    font-size:13px;
   }
 
-  .speech:before{
+  .entrance-cabinet{
     display:none;
   }
 
   .machine{
-    width:110px;
-    height:145px;
+    width:105px;
+    height:150px;
   }
 
-  .cabinet-screen{
-    height:70px;
-    font-size:6px;
+  .player{
+    width:90px;
+    height:125px;
   }
 
-  .cabinet-control{
-    top:87px;
-  }
-
-  .machine-name{
-    width:130px;
-    font-size:6px;
-  }
-
-  .m-claw{left:2%;top:21%}
-  .m-photo{left:26%;top:17%}
-  .m-jukebox{left:44%;top:15%}
-  .m-memory{right:2%;top:22%}
-  .m-basket{left:3%;top:58%}
-  .m-whack{left:28%;top:62%}
-  .m-high{left:53%;top:59%}
-  .m-shoot{right:25%;top:62%}
-  .m-wheel{right:2%;top:67%}
-
-  .answers{
+  .answer-grid{
     grid-template-columns:1fr;
   }
 
-  .memory-popup{
-    flex-direction:column;
+  .mole-board{
+    gap:10px;
+    padding:10px;
   }
 
-  .memory-popup img{
-    max-width:80%;
-    max-height:45%;
+  .mole-hole{
+    height:105px;
   }
 
-  .memory-popup-text{
-    max-width:90%;
-  }
-}
-
-@media(max-height:650px){
-
-  .entrance-neon{
-    top:3%;
+  .mole,.danger{
+    width:75px;
+    height:75px;
   }
 
-  .entrance-character{
-    bottom:12%;
-  }
-
-  .speech{
-    top:31%;
-  }
-
-  .enter-button{
-    bottom:3%;
-  }
-
-  .machine{
-    transform:scale(.78);
-    transform-origin:center;
-  }
-
-  .arcade-title{
-    top:6%;
+  .game-window{
+    height:94vh;
   }
 }
 </style>
@@ -1683,53 +1475,38 @@ button{
 <section id="entrance">
 
   <div class="entrance-grid"></div>
+  <div class="entrance-glow"></div>
 
-  <div class="entrance-neon">
-    <div class="small">WELCOME TO</div>
-    <h1>THE US ARCADE</h1>
-    <div class="subtitle">ONE PLAYER. ONE LOVE STORY.</div>
-  </div>
+  <div class="entrance-cabinet cab-left"></div>
+  <div class="entrance-cabinet cab-right"></div>
 
-  <div class="entrance-machine left">
-    <div class="machine-top">
-      <div class="machine-screen">INSERT<br>LOVE<br>TO PLAY</div>
-      <div class="machine-buttons">
-        <i></i><i></i>
-      </div>
-    </div>
-    <div class="machine-base"></div>
-  </div>
-
-  <div class="entrance-machine right">
-    <div class="machine-top">
-      <div class="machine-screen">LEVEL<br>02<br>US</div>
-      <div class="machine-buttons">
-        <i></i><i></i>
-      </div>
-    </div>
-    <div class="machine-base"></div>
-  </div>
-
-  <div class="entrance-character">
-    <img src="bitmoji.jpg" alt="player">
-  </div>
+  <img
+    src="bitmoji.png"
+    class="entrance-bitmoji"
+    alt="Bitmoji"
+  >
 
   <div class="speech">
-    Hey you.<br><br>
-    Welcome to our very own little arcade.
-    Every game here is basically a tiny piece
-    of us, so play properly okay?
+    Welcome to our little arcade...
     <br><br>
-    Your mission is simple:
-    collect the memories, survive the games,
-    and make it to the end.
+    Every game here is a tiny piece of us.
   </div>
 
-  <div class="entrance-floor"></div>
+  <div class="entrance-content">
+    <div class="welcome">WELCOME TO</div>
 
-  <button class="enter-button" id="enterButton">
-    ENTER TO PLAY
-  </button>
+    <h1 class="arcade-title">
+      THE US<br>ARCADE
+    </h1>
+
+    <div class="subtitle">
+      ONE PLAYER. ONE LOVE STORY.
+    </div>
+
+    <button class="enter-button" id="enterButton">
+      ENTER TO PLAY
+    </button>
+  </div>
 
 </section>
 
@@ -1740,167 +1517,119 @@ button{
 
 <section id="arcade" class="hidden">
 
-  <div class="arcade-background"></div>
+  <div class="arcade-bg"></div>
   <div class="arcade-overlay"></div>
 
   <div class="topbar">
-    <div class="logo">THE US ARCADE</div>
 
-    <div class="ticket-display">
-      TICKETS: <span id="ticketCount">0</span>
+    <div class="logo">
+      THE US ARCADE
     </div>
 
-    <button class="mute" id="muteButton">♪</button>
+    <div class="hud">
+
+      <div class="hud-box">
+        TICKETS:
+        <span id="ticketCount">0</span>
+      </div>
+
+      <button id="muteBtn">
+        SOUND ON
+      </button>
+
+    </div>
+
   </div>
+
 
   <div class="arcade-stage">
 
-    <div class="arcade-title">
-      OUR LITTLE ARCADE
+    <!-- MACHINES -->
+
+    <div class="machine m1" data-game="claw" data-x="13" data-y="25">
+      <div class="machine-body">
+        <div class="machine-screen">CLAW<br>MACHINE</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">MEMORIES</div>
+      </div>
     </div>
 
-    <!-- CLAW -->
-    <div class="machine m-claw" data-game="claw" data-x="10" data-y="25">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          CLAW<br>MACHINE
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m2" data-game="booth" data-x="34" data-y="20">
+      <div class="machine-body">
+        <div class="machine-screen">PHOTO<br>BOOTH</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">SAY CHEESE</div>
       </div>
-      <div class="machine-name">CLAW MACHINE</div>
     </div>
 
-    <!-- PHOTO -->
-    <div class="machine m-photo" data-game="photo" data-x="29" data-y="22">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          PHOTO<br>BOOTH
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m3" data-game="jukebox" data-x="57" data-y="25">
+      <div class="machine-body">
+        <div class="machine-screen">JUKE<br>BOX</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">OUR SONGS</div>
       </div>
-      <div class="machine-name">PHOTO BOOTH</div>
     </div>
 
-    <!-- JUKEBOX -->
-    <div class="machine m-jukebox" data-game="jukebox" data-x="48" data-y="21">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          JUKE<br>BOX
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m4" data-game="memory" data-x="80" data-y="22">
+      <div class="machine-body">
+        <div class="machine-screen">MEMORY<br>LANE</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">DRIVE THROUGH US</div>
       </div>
-      <div class="machine-name">JUKEBOX</div>
     </div>
 
-    <!-- MEMORY -->
-    <div class="machine m-memory" data-game="memory" data-x="87" data-y="25">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          MEMORY<br>LANE
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m5" data-game="basketball" data-x="23" data-y="57">
+      <div class="machine-body">
+        <div class="machine-screen">HOW WELL<br>DO YOU KNOW US?</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">BASKETBALL</div>
       </div>
-      <div class="machine-name">MEMORY LANE</div>
     </div>
 
-    <!-- BASKETBALL -->
-    <div class="machine m-basket" data-game="basketball" data-x="12" data-y="69">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          HOW WELL<br>DO YOU<br>KNOW US?
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m6" data-game="mole" data-x="49" data-y="62">
+      <div class="machine-body">
+        <div class="machine-screen">WHACK<br>A MOLE</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">SMASH PROBLEMS</div>
       </div>
-      <div class="machine-name">BASKETBALL</div>
     </div>
 
-    <!-- WHACK -->
-    <div class="machine m-whack" data-game="whack" data-x="34" data-y="72">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          WHACK<br>A<br>MOLE
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m7" data-game="striker" data-x="76" data-y="57">
+      <div class="machine-body">
+        <div class="machine-screen">HIGH<br>STRIKER</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">HOW HARD CAN YOU HIT?</div>
       </div>
-      <div class="machine-name">WHACK-A-MOLE</div>
     </div>
 
-    <!-- HIGH STRIKER -->
-    <div class="machine m-high" data-game="high" data-x="58" data-y="69">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          HIGH<br>STRIKER
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m8" data-game="shooting" data-x="9" data-y="80">
+      <div class="machine-body">
+        <div class="machine-screen">SHOOTING<br>GALLERY</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">WIN A PRIZE</div>
       </div>
-      <div class="machine-name">HIGH STRIKER</div>
     </div>
 
-    <!-- SHOOT -->
-    <div class="machine m-shoot" data-game="shoot" data-x="76" data-y="72">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          SHOOTING<br>GALLERY
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
+    <div class="machine m9" data-game="wheel" data-x="89" data-y="79">
+      <div class="machine-body">
+        <div class="machine-screen">SPIN<br>WHEEL</div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">TAKE YOUR CHANCE</div>
       </div>
-      <div class="machine-name">SHOOTING GALLERY</div>
     </div>
 
-    <!-- WHEEL -->
-    <div class="machine m-wheel" data-game="wheel" data-x="89" data-y="76">
-      <div class="cabinet">
-        <div class="cabinet-screen">
-          SPIN<br>THE<br>WHEEL
-        </div>
-        <div class="cabinet-control">
-          <div class="joystick"></div>
-          <div class="buttons"><i></i><i></i></div>
-        </div>
-        <div class="coin"></div>
-      </div>
-      <div class="machine-name">SPIN WHEEL</div>
-    </div>
 
     <!-- PLAYER -->
-    <div class="player" id="player">
-      <img src="bitmoji.jpg" alt="player">
-    </div>
 
-    <div class="interact-hint" id="interactHint">
-      ENTER TO PLAY
+    <img
+      id="player"
+      class="player"
+      src="bitmoji.png"
+      alt="Player"
+    >
+
+    <div class="interaction-hint">
+      ARROWS TO MOVE &nbsp; | &nbsp; ENTER TO PLAY
     </div>
 
   </div>
@@ -1915,94 +1644,136 @@ button{
 
   <div class="game-window">
 
-    <div class="window-header">
-      <div class="window-title" id="windowTitle">
+    <div class="game-header">
+
+      <div class="game-title" id="gameTitle">
         GAME
       </div>
 
-      <button class="back-button" id="backButton">
+      <button class="back-btn" id="backBtn">
         BACK TO ARCADE
       </button>
+
     </div>
 
-    <div class="game-content" id="gameContent"></div>
+    <div id="gameContent"></div>
 
   </div>
+
 </div>
 
 
 <script>
+
 /* =========================================================
-   BASIC STATE
+   AUDIO
+========================================================= */
+
+let audioEnabled = true;
+let audioCtx = null;
+
+function sound(type="beep"){
+
+  if(!audioEnabled) return;
+
+  try{
+
+    if(!audioCtx){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if(type==="success"){
+      osc.frequency.value=700;
+    }else if(type==="wrong"){
+      osc.frequency.value=160;
+    }else{
+      osc.frequency.value=400;
+    }
+
+    gain.gain.value=.06;
+
+    osc.start();
+
+    setTimeout(()=>{
+      osc.stop();
+    },120);
+
+  }catch(e){}
+
+}
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let tickets = 0;
+
+let visitedGames = new Set();
+
+let currentGame = null;
+
+let playerX = 50;
+let playerY = 50;
+
+let gameRunning = false;
+
+
+/* =========================================================
+   ELEMENTS
 ========================================================= */
 
 const entrance = document.getElementById("entrance");
 const arcade = document.getElementById("arcade");
 const enterButton = document.getElementById("enterButton");
+
 const gameModal = document.getElementById("gameModal");
+const gameTitle = document.getElementById("gameTitle");
 const gameContent = document.getElementById("gameContent");
-const windowTitle = document.getElementById("windowTitle");
-const backButton = document.getElementById("backButton");
-
-let tickets = 0;
-let muted = false;
-let currentGame = null;
-
-const visitedGames = new Set();
+const backBtn = document.getElementById("backBtn");
 
 const player = document.getElementById("player");
 
-let playerX = 50;
-let playerY = 48;
-
-const machines = [...document.querySelectorAll(".machine")];
+const ticketCount = document.getElementById("ticketCount");
+const muteBtn = document.getElementById("muteBtn");
 
 
 /* =========================================================
-   SOUND
+   ENTRANCE
 ========================================================= */
 
-let audioContext = null;
+function enterArcade(){
 
-function initAudio(){
-  if(!audioContext){
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  entrance.classList.add("hidden");
+  arcade.classList.remove("hidden");
+
+  sound("success");
+
+  setTimeout(()=>{
+    positionPlayer();
+  },100);
+
+}
+
+enterButton.addEventListener("click",enterArcade);
+
+
+/* Enter also works on entrance */
+
+document.addEventListener("keydown",e=>{
+
+  if(!entrance.classList.contains("hidden") && e.key==="Enter"){
+    e.preventDefault();
+    enterArcade();
   }
-}
 
-function beep(freq=440,duration=.08,type="square",volume=.035){
-  if(muted) return;
-
-  initAudio();
-
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-
-  oscillator.type = type;
-  oscillator.frequency.value = freq;
-
-  gain.gain.setValueAtTime(volume,audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(
-    .001,
-    audioContext.currentTime + duration
-  );
-
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
-
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + duration);
-}
-
-function successSound(){
-  beep(523,.08);
-  setTimeout(()=>beep(659,.08),80);
-  setTimeout(()=>beep(784,.15),160);
-}
-
-function clickSound(){
-  beep(300,.05);
-}
+});
 
 
 /* =========================================================
@@ -2010,29 +1781,18 @@ function clickSound(){
 ========================================================= */
 
 function addTickets(amount){
+
   tickets += amount;
-  document.getElementById("ticketCount").textContent = tickets;
-  beep(880,.08);
-  setTimeout(()=>beep(1100,.1),80);
+
+  ticketCount.textContent=tickets;
+
 }
 
+function updateTickets(){
 
-/* =========================================================
-   ENTER ARCADE
-========================================================= */
+  ticketCount.textContent=tickets;
 
-function enterArcade(){
-  initAudio();
-  beep(330,.1);
-  setTimeout(()=>beep(440,.1),100);
-
-  entrance.classList.add("hidden");
-  arcade.classList.remove("hidden");
-
-  positionPlayer();
 }
-
-enterButton.addEventListener("click",enterArcade);
 
 
 /* =========================================================
@@ -2040,174 +1800,281 @@ enterButton.addEventListener("click",enterArcade);
 ========================================================= */
 
 function positionPlayer(){
-  playerX = Math.max(4,Math.min(94,playerX));
-  playerY = Math.max(14,Math.min(88,playerY));
 
-  player.style.left = playerX + "%";
-  player.style.top = playerY + "%";
+  player.style.left=playerX+"%";
+  player.style.top=playerY+"%";
 
-  updateNearestMachine();
+}
+
+function clamp(v,min,max){
+  return Math.max(min,Math.min(max,v));
 }
 
 function updateNearestMachine(){
 
-  let nearest = null;
-  let shortest = Infinity;
+  const machines = document.querySelectorAll(".machine");
+
+  let nearest=null;
+  let nearestDistance=999;
 
   machines.forEach(machine=>{
-    const mx = Number(machine.dataset.x);
-    const my = Number(machine.dataset.y);
 
-    const distance = Math.hypot(
-      playerX - mx,
-      playerY - my
-    );
+    const x=parseFloat(machine.dataset.x);
+    const y=parseFloat(machine.dataset.y);
 
-    machine.classList.remove("near");
+    if(Number.isNaN(x) || Number.isNaN(y)) return;
 
-    if(distance < shortest){
-      shortest = distance;
-      nearest = machine;
+    const dx=playerX-x;
+    const dy=playerY-y;
+
+    const distance=Math.sqrt(dx*dx+dy*dy);
+
+    machine.classList.remove("active");
+
+    if(distance<nearestDistance){
+      nearestDistance=distance;
+      nearest=machine;
     }
+
   });
 
-  const hint = document.getElementById("interactHint");
-
-  if(nearest && shortest < 13){
-    nearest.classList.add("near");
-
-    hint.style.opacity = "1";
-    hint.style.left = Math.min(playerX + 5,82) + "%";
-    hint.style.top = Math.max(playerY - 7,12) + "%";
-  }else{
-    hint.style.opacity = "0";
+  if(nearest && nearestDistance<12){
+    nearest.classList.add("active");
   }
+
+  return nearestDistance<12 ? nearest : null;
+
 }
+
 
 document.addEventListener("keydown",e=>{
 
-  if(
-    ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Enter"," "]
-    .includes(e.key)
-  ){
-    e.preventDefault();
-  }
-
-  if(arcade.classList.contains("hidden")){
-
-    if(e.key === "Enter"){
-      enterArcade();
-    }
-
-    return;
-  }
+  if(entrance && !entrance.classList.contains("hidden")) return;
 
   if(!gameModal.classList.contains("hidden")) return;
 
-  const step = 2.2;
+  let moved=false;
 
-  if(e.key === "ArrowLeft"){
-    playerX -= step;
-    beep(160,.025);
+  const speed=3;
+
+  if(e.key==="ArrowLeft"){
+    playerX-=speed;
+    moved=true;
   }
 
-  if(e.key === "ArrowRight"){
-    playerX += step;
-    beep(180,.025);
+  if(e.key==="ArrowRight"){
+    playerX+=speed;
+    moved=true;
   }
 
-  if(e.key === "ArrowUp"){
-    playerY -= step;
-    beep(200,.025);
+  if(e.key==="ArrowUp"){
+    playerY-=speed;
+    moved=true;
   }
 
-  if(e.key === "ArrowDown"){
-    playerY += step;
-    beep(150,.025);
+  if(e.key==="ArrowDown"){
+    playerY+=speed;
+    moved=true;
   }
 
-  if(e.key === "Enter"){
-    const nearby = machines.find(m=>m.classList.contains("near"));
+  if(moved){
 
-    if(nearby){
-      openGame(nearby.dataset.game);
+    e.preventDefault();
+
+    playerX=clamp(playerX,4,96);
+    playerY=clamp(playerY,8,92);
+
+    positionPlayer();
+    updateNearestMachine();
+
+    sound("beep");
+
+  }
+
+  if(e.key==="Enter"){
+
+    e.preventDefault();
+
+    const machine=updateNearestMachine();
+
+    if(machine){
+      openGame(machine.dataset.game);
     }
+
   }
 
-  positionPlayer();
 });
 
 
 /* =========================================================
-   OPEN GAMES
+   MACHINE CLICK
+========================================================= */
+
+document.querySelectorAll(".machine").forEach(machine=>{
+
+  machine.addEventListener("click",()=>{
+
+    openGame(machine.dataset.game);
+
+  });
+
+});
+
+
+/* =========================================================
+   GAME OPEN
 ========================================================= */
 
 function openGame(game){
 
-  currentGame = game;
+  currentGame=game;
+
   visitedGames.add(game);
 
   gameModal.classList.remove("hidden");
 
-  const gameNames = {
-    claw:"CLAW MACHINE",
-    photo:"PHOTO BOOTH",
-    jukebox:"JUKEBOX",
-    memory:"MEMORY LANE",
-    basketball:"BASKETBALL",
-    whack:"WHACK-A-MOLE",
-    high:"HIGH STRIKER",
-    shoot:"SHOOTING GALLERY",
-    wheel:"SPIN WHEEL",
-    counter:"TICKET COUNTER"
-  };
+  gameTitle.textContent=game.toUpperCase();
 
-  windowTitle.textContent = gameNames[game] || "GAME";
+  sound("success");
 
-  gameContent.innerHTML = "";
+  renderGame(game);
 
-  clickSound();
-
-  if(game === "claw") createClaw();
-  if(game === "photo") createPhotoBooth();
-  if(game === "jukebox") createJukebox();
-  if(game === "memory") createMemoryLane();
-  if(game === "basketball") createBasketball();
-  if(game === "whack") createWhack();
-  if(game === "high") createHighStriker();
-  if(game === "shoot") createShooting();
-  if(game === "wheel") createWheel();
-  if(game === "counter") createTicketCounter();
 }
-
-function closeGame(){
-
-  gameModal.classList.add("hidden");
-  gameContent.innerHTML = "";
-  currentGame = null;
-
-  positionPlayer();
-}
-
-backButton.addEventListener("click",closeGame);
 
 
 /* =========================================================
-   CLICK MACHINES
+   BACK
 ========================================================= */
 
-machines.forEach(machine=>{
-  machine.addEventListener("click",()=>{
-    openGame(machine.dataset.game);
-  });
-});
+backBtn.addEventListener("click",closeGame);
+
+function closeGame(){
+
+  stopCamera();
+
+  stopWhack();
+
+  gameRunning=false;
+
+  gameModal.classList.add("hidden");
+
+  gameContent.innerHTML="";
+
+  currentGame=null;
+
+  checkTicketCounter();
+
+}
+
+
+/* =========================================================
+   TICKET COUNTER UNLOCK
+========================================================= */
+
+function checkTicketCounter(){
+
+  const required=[
+    "claw",
+    "booth",
+    "jukebox",
+    "memory",
+    "basketball",
+    "mole",
+    "striker",
+    "shooting",
+    "wheel"
+  ];
+
+  const allVisited=required.every(g=>visitedGames.has(g));
+
+  if(allVisited && !document.getElementById("counterMachine")){
+
+    const counter=document.createElement("div");
+
+    counter.id="counterMachine";
+    counter.className="machine";
+
+    counter.style.left="50%";
+    counter.style.top="50%";
+
+    counter.innerHTML=`
+      <div class="machine-body">
+        <div class="machine-screen">
+          TICKET<br>
+          COUNTER
+        </div>
+        <div class="machine-controls"></div>
+        <div class="machine-label">FINAL STOP</div>
+      </div>
+    `;
+
+    counter.addEventListener("click",()=>openGame("counter"));
+
+    document.querySelector(".arcade-stage").appendChild(counter);
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER GAMES
+========================================================= */
+
+function renderGame(game){
+
+  switch(game){
+
+    case "claw":
+      renderClaw();
+      break;
+
+    case "booth":
+      renderPhotoBooth();
+      break;
+
+    case "jukebox":
+      renderJukebox();
+      break;
+
+    case "memory":
+      renderMemoryLane();
+      break;
+
+    case "basketball":
+      renderBasketball();
+      break;
+
+    case "mole":
+      renderWhack();
+      break;
+
+    case "striker":
+      renderStriker();
+      break;
+
+    case "shooting":
+      renderShooting();
+      break;
+
+    case "wheel":
+      renderWheel();
+      break;
+
+    case "counter":
+      renderCounter();
+      break;
+
+  }
+
+}
 
 
 /* =========================================================
    CLAW MACHINE
 ========================================================= */
 
-const clawMemories = [
+const clawMemories=[
 
   {
     image:"claw1.jpg",
@@ -2246,150 +2113,85 @@ const clawMemories = [
 
 ];
 
-let clawX = 50;
-let clawBusy = false;
 
-function createClaw(){
+function renderClaw(){
 
-  gameContent.innerHTML = `
-    <div class="claw-area">
+  gameContent.innerHTML=`
 
-      <div class="game-intro">
-        MOVE THE CLAW. DROP IT.<br>
-        MAYBE YOU'LL CATCH A MEMORY.
+    <div class="game-center">
+
+      <div class="game-instruction">
+        Move the claw and grab a memory.
       </div>
 
-      <div class="claw-machine">
+      <div class="claw-game">
 
+        <div class="claw-top"></div>
         <div class="claw-rail"></div>
 
         <div class="claw-arm" id="clawArm">
-          <div class="claw-head">
-            <div class="claw-finger left"></div>
-            <div class="claw-finger right"></div>
-          </div>
+          <div class="claw-head"></div>
         </div>
 
-        <div class="capsules">
-          ${clawMemories.map((_,i)=>`
-            <div class="capsule" data-index="${i}"></div>
+        <div class="claw-items">
+
+          ${clawMemories.map((m,i)=>`
+            <img
+              src="${m.image}"
+              class="claw-item"
+              data-index="${i}"
+            >
           `).join("")}
+
         </div>
 
-        <div class="reveal-card hidden" id="clawReveal"></div>
+        <div class="claw-result" id="clawResult">
+          PRESS GRAB
+        </div>
 
       </div>
 
-      <div class="claw-controls">
+      <br>
 
-        <button class="secondary" id="clawLeft">
-          LEFT
-        </button>
-
-        <button class="primary" id="clawDrop">
-          DROP
-        </button>
-
-        <button class="secondary" id="clawRight">
-          RIGHT
-        </button>
-
-      </div>
-
-      <div class="claw-message" id="clawMessage">
-        PICK A CAPSULE.
-      </div>
+      <button class="neon-button" id="grabClaw">
+        GRAB MEMORY
+      </button>
 
     </div>
   `;
 
-  document.getElementById("clawLeft").onclick=()=>{
-    if(!clawBusy){
-      clawX=Math.max(12,clawX-8);
-      updateClaw();
-    }
-  };
 
-  document.getElementById("clawRight").onclick=()=>{
-    if(!clawBusy){
-      clawX=Math.min(88,clawX+8);
-      updateClaw();
-    }
-  };
+  const arm=document.getElementById("clawArm");
+  const result=document.getElementById("clawResult");
 
-  document.getElementById("clawDrop").onclick=dropClaw;
+  document.getElementById("grabClaw").addEventListener("click",()=>{
 
-  updateClaw();
-}
+    const index=Math.floor(Math.random()*clawMemories.length);
 
-function updateClaw(){
-  document.getElementById("clawArm").style.left = clawX + "%";
-}
+    const target=document.querySelector(
+      `.claw-item[data-index="${index}"]`
+    );
 
-function dropClaw(){
+    const position=(index/(clawMemories.length-1))*82+9;
 
-  if(clawBusy) return;
+    arm.style.left=position+"%";
 
-  clawBusy=true;
-
-  const arm = document.getElementById("clawArm");
-  const message = document.getElementById("clawMessage");
-
-  message.textContent="DOWN WE GO...";
-  beep(220,.1);
-
-  arm.style.transition="top .7s ease";
-  arm.style.top="210px";
-
-  setTimeout(()=>{
-
-    beep(350,.1);
-
-    arm.style.top="34px";
+    sound("beep");
 
     setTimeout(()=>{
 
-      clawBusy=false;
+      target.classList.add("won");
 
-      const index =
-        Math.floor(
-          ((clawX-12)/(76)) * clawMemories.length
-        );
+      result.textContent=clawMemories[index].text;
 
-      const safeIndex =
-        Math.max(
-          0,
-          Math.min(clawMemories.length-1,index)
-        );
+      addTickets(10);
 
-      showClawMemory(safeIndex);
+      sound("success");
 
     },700);
 
-  },700);
-}
+  });
 
-function showClawMemory(index){
-
-  const memory=clawMemories[index];
-  const reveal=document.getElementById("clawReveal");
-
-  reveal.classList.remove("hidden");
-
-  reveal.innerHTML=`
-    <img src="${memory.image}" alt="memory">
-    <p>${memory.text}</p>
-    <button class="primary" id="clawClose">
-      KEEP THIS MEMORY
-    </button>
-  `;
-
-  successSound();
-  addTickets(15);
-
-  document.getElementById("clawClose").onclick=()=>{
-    reveal.classList.add("hidden");
-  };
 }
 
 
@@ -2397,197 +2199,124 @@ function showClawMemory(index){
    PHOTO BOOTH
 ========================================================= */
 
-const boothPhotos = [
+const boothPhotos=[
   "photo_booth1.jpg",
   "photo_booth2.jpg",
   "photo_booth.jpg",
   "phbooth.jpg"
 ];
 
-function createPhotoBooth(){
+let cameraStream=null;
+
+
+function renderPhotoBooth(){
 
   gameContent.innerHTML=`
-    <div class="photobooth">
 
-      <div class="game-intro">
-        FOUR LITTLE PHOTOS.<br>
-        ONE VERY CUTE PHOTO STRIP.
+    <div class="game-center">
+
+      <div class="game-instruction">
+        Our little photo booth.
       </div>
 
-      <div class="booth-screen" id="boothScreen">
+      <div class="booth">
 
-        <div class="booth-grid" id="boothGrid">
-          ${boothPhotos.map(img=>`
-            <img src="${img}">
+        <div class="photo-strip">
+
+          ${boothPhotos.map(photo=>`
+            <img src="${photo}" alt="Photo booth memory">
           `).join("")}
+
+          <div
+            class="today-panel"
+            id="todayPanel"
+          >
+            <strong>AND ONE TO COMMEMORATE TODAY</strong>
+            <div>SAY CHEESE</div>
+            <div>CLICK ME</div>
+          </div>
+
         </div>
 
-        <div class="countdown hidden" id="countdown"></div>
-        <div class="flash" id="flash"></div>
+        <div id="cameraArea">
+
+          <video
+            id="cameraVideo"
+            autoplay
+            playsinline
+          ></video>
+
+          <button
+            class="neon-button"
+            id="takePhoto"
+          >
+            TAKE PHOTO
+          </button>
+
+          <canvas
+            id="cameraCanvas"
+            class="hidden"
+          ></canvas>
+
+        </div>
 
       </div>
-
-      <div class="booth-buttons">
-
-        <button class="primary" id="takePhotos">
-          TAKE OUR PHOTOS
-        </button>
-
-        <button class="secondary" id="cameraButton">
-          SAY CHEESE. CLICK ME
-        </button>
-
-      </div>
-
-      <div id="cameraArea"></div>
 
     </div>
   `;
 
-  document.getElementById("takePhotos").onclick=startPhotoCountdown;
 
-  document.getElementById("cameraButton").onclick=startCamera;
+  document
+    .getElementById("todayPanel")
+    .addEventListener("click",startCamera);
+
 }
 
-function startPhotoCountdown(){
-
-  const countdown=document.getElementById("countdown");
-  const flash=document.getElementById("flash");
-
-  let count=3;
-
-  countdown.classList.remove("hidden");
-  countdown.textContent=count;
-
-  const timer=setInterval(()=>{
-
-    count--;
-
-    if(count>0){
-
-      countdown.textContent=count;
-      beep(500,.1);
-
-    }else{
-
-      clearInterval(timer);
-
-      countdown.classList.add("hidden");
-
-      flash.classList.remove("active");
-      void flash.offsetWidth;
-      flash.classList.add("active");
-
-      beep(900,.12);
-
-      addTickets(20);
-      successSound();
-
-    }
-
-  },800);
-}
 
 async function startCamera(){
 
-  const area=document.getElementById("cameraArea");
+  const cameraArea=document.getElementById("cameraArea");
+  const video=document.getElementById("cameraVideo");
 
   if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
 
-    area.innerHTML=`
-      <p style="color:#ffe36e;font-size:8px;line-height:2;margin-top:15px">
-        CAMERA ACCESS IS NOT AVAILABLE IN THIS BROWSER.
-      </p>
-    `;
+    alert("Camera access is not available in this browser.");
 
     return;
   }
 
   try{
 
-    const stream=
-      await navigator.mediaDevices.getUserMedia({
-        video:true,
-        audio:false
-      });
+    cameraStream=await navigator.mediaDevices.getUserMedia({
+      video:true,
+      audio:false
+    });
 
-    area.innerHTML=`
-      <div style="
-        margin-top:15px;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:10px;
-      ">
+    video.srcObject=cameraStream;
 
-        <video
-          id="cameraVideo"
-          autoplay
-          playsinline
-          style="
-            width:min(420px,90%);
-            border:3px solid white;
-          "
-        ></video>
+    cameraArea.style.display="flex";
 
-        <button class="primary" id="capturePhoto">
-          CAPTURE
-        </button>
-
-      </div>
-    `;
-
-    document.getElementById("cameraVideo").srcObject=stream;
-
-    document.getElementById("capturePhoto").onclick=()=>{
-
-      const video=document.getElementById("cameraVideo");
-
-      const canvas=document.createElement("canvas");
-
-      canvas.width=video.videoWidth;
-      canvas.height=video.videoHeight;
-
-      const ctx=canvas.getContext("2d");
-
-      ctx.drawImage(
-        video,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      const img=document.createElement("img");
-
-      img.src=canvas.toDataURL("image/jpeg");
-      img.style.width="min(420px,90%)";
-      img.style.border="4px solid white";
-
-      area.innerHTML="";
-
-      area.appendChild(img);
-
-      stream.getTracks().forEach(track=>track.stop());
-
-      addTickets(25);
-      successSound();
-    };
+    addTickets(5);
 
   }catch(error){
 
-    area.innerHTML=`
-      <p style="
-        color:#ffe36e;
-        font-size:8px;
-        line-height:2;
-        margin-top:15px;
-      ">
-        CAMERA ACCESS WAS BLOCKED.<br>
-        YOU CAN STILL USE OUR PHOTO STRIP.
-      </p>
-    `;
+    alert("Please allow camera access to use the photo booth.");
+
   }
+
+}
+
+
+function stopCamera(){
+
+  if(cameraStream){
+
+    cameraStream.getTracks().forEach(track=>track.stop());
+
+    cameraStream=null;
+
+  }
+
 }
 
 
@@ -2595,55 +2324,44 @@ async function startCamera(){
    JUKEBOX
 ========================================================= */
 
-const spotifyPlaylist =
-"https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9";
-
-function createJukebox(){
+function renderJukebox(){
 
   gameContent.innerHTML=`
-    <div class="jukebox">
 
-      <div class="game-intro">
-        PUT ON OUR SOUNDTRACK.
+    <div class="game-center">
+
+      <div class="jukebox">
+
+        <div class="jukebox-screen">
+          OUR SONGS<br><br>
+          PRESS PLAY
+        </div>
+
+        <button class="neon-button" id="playlistButton">
+          PLAY OUR PLAYLIST
+        </button>
+
       </div>
-
-      <div class="jukebox-body" id="jukeboxBody">
-
-        <div class="jukebox-glow"></div>
-        <div class="jukebox-record"></div>
-        <div class="music-notes">♪</div>
-
-      </div>
-
-      <button class="primary" id="musicButton" style="margin-top:20px">
-        PLAY OUR PLAYLIST
-      </button>
-
-      <p style="
-        color:var(--muted);
-        font-size:7px;
-        margin-top:15px;
-        line-height:1.8;
-      ">
-        THE ARCADE HAS A SOUNDTRACK NOW.
-      </p>
 
     </div>
+
   `;
 
-  document.getElementById("musicButton").onclick=()=>{
 
-    document.getElementById("jukeboxBody")
-      .classList.add("playing");
+  document
+    .getElementById("playlistButton")
+    .addEventListener("click",()=>{
 
-    window.open(
-      spotifyPlaylist,
-      "_blank"
-    );
+      window.open(
+        "https://open.spotify.com/playlist/5ADT9p9YaNTJaby9gqMyZB?si=adLmF6j7RH6G_I1Jn9_nSA&utm_source=copy-link&pi=9turWhBqSwWN9",
+        "_blank"
+      );
 
-    addTickets(15);
-    successSound();
-  };
+      addTickets(5);
+      sound("success");
+
+    });
+
 }
 
 
@@ -2651,20 +2369,20 @@ function createJukebox(){
    MEMORY LANE
 ========================================================= */
 
-const memories = [
+const memories=[
 
-  ["csa.jpg","Met in Csa and i found you cutee 🥰"],
-  ["cubbon.jpg","Cubbon park where we hung out so much and that day i liked you a little more🥹"],
+  ["csa.jpeg","Met in Csa and i found you cutee 🥰"],
+  ["cubbon.png","Cubbon park where we hung out so much and that day i liked you a little more🥹"],
   ["bhang.jpg","Bhaang day I drunk called you and cried cause u went without saying bye"],
   ["luna.jpg","You got me lunaaaaa"],
-  ["houseparty.jpg","The house party that changed everything"],
-  ["off.jpg","Our first photo after officially becoming a couple"],
+  ["houseparty.jpeg","The house party that changed everything"],
+  ["off.jpeg","Our first photo after officially becoming a couple"],
   ["ethnic.jpg","Our first ethnic day together"],
-  ["ganesh.jpg","First Ganesh Chaturthi and first time we went out as a coupleeee"],
+  ["ganesh.png","First Ganesh Chaturthi and first time we went out as a coupleeee"],
   ["date.jpg","First date and the first time you got me flowers"],
   ["fam.jpg","Cute family photo and how Gourmet used to be our second home."],
   ["bday.jpg","When you came to surprise me on my birthday in my night, it was fun."],
-  ["dinner.jpg","Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match."],
+  ["dinner.jpeg","Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match."],
   ["phbooth.jpg","First photo booth experience"],
   ["first.jpg","First 👀"],
   ["concert.jpg","Our first concert together"],
@@ -2680,91 +2398,90 @@ const memories = [
   ["saree.jpg","Yay Valentine's Day and we were color coordinating. You surprised me with the saree and we had Bengali food. I was so happy that day."],
   ["farewell.jpg","Our farewell, both of our class farewells. No, both of our department farewells were that day and we both looked so good together."],
   ["newh.jpg","New house and you came with a big bouquet of flowers as housewarming."],
-  ["grad.jpg","Yayyy grad day"],
+  ["grad.jpeg","Yayyy grad day"],
   ["2.jpg","Happy two years to us ❤️"]
 
 ];
 
-let memoryIndex=0;
-let memoryOpened=false;
-let memoryPosition=6;
 
-function createMemoryLane(){
+let memoryPosition=5;
+let memoryReached=new Set();
 
-  memoryIndex=0;
-  memoryOpened=false;
-  memoryPosition=6;
+
+function renderMemoryLane(){
+
+  memoryPosition=5;
+  memoryReached=new Set();
 
   gameContent.innerHTML=`
-    <div class="memory-game">
 
-      <div class="memory-info" id="memoryInfo">
-        DRIVE FORWARD TO THE FIRST MEMORY
+    <div class="game-center">
+
+      <div class="game-instruction">
+        Drive through our memories.
+        Use the left and right arrow keys.
+        When you reach a memory, the car jumps and the memory appears.
       </div>
 
-      <div class="memory-road" id="memoryRoad">
+      <div class="memory-game" id="memoryGame">
 
-        <div class="road-lines"></div>
+        <div class="memory-road"></div>
 
-        <div class="memory-car" id="memoryCar">
-          <img src="bitmoji.jpg" alt="car">
-        </div>
+        ${memories.map((m,i)=>{
 
-        <div id="memoryMarkers"></div>
+          const position=5+(i*(90/(memories.length-1)));
+
+          return `
+            <div
+              class="memory-point"
+              id="memoryPoint${i}"
+              style="left:${position}%"
+            >
+
+              <div class="memory-number">
+                ${i+1}
+              </div>
+
+              <img
+                src="${m[0]}"
+                class="memory-photo"
+                alt="Memory ${i+1}"
+              >
+
+              <div class="memory-caption">
+                ${m[1]}
+              </div>
+
+            </div>
+          `;
+
+        }).join("")}
 
         <div
-          class="memory-popup hidden"
-          id="memoryPopup"
-        ></div>
-
-      </div>
-
-      <div class="memory-controls">
-
-        <button class="secondary" id="memoryBack">
-          ◀ BACK
-        </button>
-
-        <button class="primary" id="memoryForward">
-          DRIVE ▶
-        </button>
+          class="memory-car"
+          id="memoryCar"
+        >
+          <div class="car-top"></div>
+          <div class="car-body"></div>
+          <div class="wheel wheel1"></div>
+          <div class="wheel wheel2"></div>
+        </div>
 
       </div>
 
     </div>
   `;
 
-  const markers=document.getElementById("memoryMarkers");
-
-  memories.forEach((memory,i)=>{
-
-    const marker=document.createElement("div");
-
-    marker.className="memory-marker";
-
-    marker.style.left =
-      (7 + i * (86/(memories.length-1))) + "%";
-
-    marker.innerHTML=`
-      <div class="marker-sign">
-        ${String(i+1).padStart(2,"0")}
-      </div>
-      <div class="marker-stick"></div>
-    `;
-
-    markers.appendChild(marker);
-  });
-
-  document.getElementById("memoryForward")
-    .onclick=moveMemoryForward;
-
-  document.getElementById("memoryBack")
-    .onclick=moveMemoryBack;
-
-  updateMemory();
 }
 
-function updateMemory(){
+
+function moveMemory(direction){
+
+  if(currentGame!=="memory") return;
+
+  memoryPosition += direction*2;
+
+  memoryPosition=clamp(memoryPosition,5,95);
 
   const car=document.getElementById("memoryCar");
 
@@ -2772,128 +2489,50 @@ function updateMemory(){
 
   car.style.left=memoryPosition+"%";
 
-  const info=document.getElementById("memoryInfo");
+  memories.forEach((memory,i)=>{
 
-  if(memoryIndex < memories.length){
+    const target=5+(i*(90/(memories.length-1)));
 
-    if(
-      memoryPosition >=
-      7 + memoryIndex*(86/(memories.length-1)) - 4
-    ){
+    if(Math.abs(memoryPosition-target)<3 && !memoryReached.has(i)){
 
-      info.textContent=
-        "MEMORY HERE. PRESS OPEN.";
+      memoryReached.add(i);
 
-      car.animate(
-        [
-          {transform:"translateY(0)"},
-          {transform:"translateY(-16px)"},
-          {transform:"translateY(0)"}
-        ],
-        {duration:450}
-      );
+      const point=document.getElementById("memoryPoint"+i);
 
-    }else{
+      point.classList.add("reached");
 
-      info.textContent=
-        `MEMORY ${memoryIndex+1} OF ${memories.length}`;
-    }
+      car.style.bottom="125px";
 
-  }
-}
+      sound("success");
 
-function moveMemoryForward(){
+      addTickets(5);
 
-  if(memoryIndex >= memories.length) return;
+      setTimeout(()=>{
 
-  const target=
-    7 + memoryIndex*(86/(memories.length-1));
+        car.style.bottom="95px";
 
-  if(memoryPosition < target - 3){
-
-    memoryPosition=Math.min(
-      target,
-      memoryPosition+7
-    );
-
-  }else{
-
-    openMemory(memoryIndex);
-  }
-
-  updateMemory();
-}
-
-function moveMemoryBack(){
-
-  memoryPosition=Math.max(
-    6,
-    memoryPosition-7
-  );
-
-  updateMemory();
-}
-
-function openMemory(index){
-
-  const popup=document.getElementById("memoryPopup");
-
-  const memory=memories[index];
-
-  popup.classList.remove("hidden");
-
-  popup.innerHTML=`
-    <img src="${memory[0]}" alt="memory">
-
-    <div class="memory-popup-text">
-      <div style="
-        color:var(--pink);
-        margin-bottom:15px;
-      ">
-        MEMORY ${index+1}
-      </div>
-
-      ${memory[1]}
-
-      <br><br>
-
-      <button
-        class="primary"
-        id="continueMemory"
-      >
-        CONTINUE
-      </button>
-    </div>
-  `;
-
-  memoryOpened=true;
-  addTickets(5);
-  successSound();
-
-  document.getElementById("continueMemory").onclick=()=>{
-
-    popup.classList.add("hidden");
-
-    if(memoryIndex < memories.length-1){
-
-      memoryIndex++;
-
-      memoryPosition=
-        7 + (memoryIndex-1)*(86/(memories.length-1));
-
-    }else{
-
-      document.getElementById("memoryInfo")
-        .textContent="YOU REACHED THE END OF OUR STORY. ❤️";
-
-      addTickets(50);
-      successSound();
+      },350);
 
     }
 
-    updateMemory();
-  };
+  });
+
 }
+
+
+document.addEventListener("keydown",e=>{
+
+  if(currentGame!=="memory") return;
+
+  if(e.key==="ArrowLeft" || e.key==="ArrowRight"){
+
+    e.preventDefault();
+
+    moveMemory(e.key==="ArrowRight" ? 1 : -1);
+
+  }
+
+});
 
 
 /* =========================================================
@@ -2904,12 +2543,7 @@ const questions=[
 
   {
     q:"Where did we go on our first date?",
-    a:[
-      "Uru Brew Park",
-      "Glens",
-      "Cubbon Park",
-      "Caliburrito"
-    ],
+    a:["Uru Brew Park","Glens","Cubbon Park","Caliburrito"],
     correct:"Uru Brew Park"
   },
 
@@ -2926,23 +2560,13 @@ const questions=[
 
   {
     q:"Where did we have our first kiss?",
-    a:[
-      "Hakuna",
-      "House party",
-      "Uru Brew Park",
-      "Glens"
-    ],
+    a:["Hakuna","House party","Uru Brew Park","Glens"],
     correct:"Hakuna"
   },
 
   {
     q:"Where did we go after our first date?",
-    a:[
-      "Glens for dessert",
-      "Cubbon Park",
-      "Hakuna",
-      "Caliburrito"
-    ],
+    a:["Glens for dessert","Cubbon Park","Hakuna","Caliburrito"],
     correct:"Glens for dessert"
   },
 
@@ -2959,12 +2583,7 @@ const questions=[
 
   {
     q:"For what occasion did we first go out as a couple?",
-    a:[
-      "Ganesh Chaturthi",
-      "Valentine's Day",
-      "Christmas",
-      "My birthday"
-    ],
+    a:["Ganesh Chaturthi","Valentine's Day","Christmas","My birthday"],
     correct:"Ganesh Chaturthi"
   },
 
@@ -2992,12 +2611,7 @@ const questions=[
 
   {
     q:"What movie did we watch that day?",
-    a:[
-      "Yeh Jawaani Hai Deewani",
-      "Spider-Man",
-      "3 Idiots",
-      "Zindagi Na Milegi Dobara"
-    ],
+    a:["Yeh Jawaani Hai Deewani","Spider-Man","3 Idiots","Zindagi Na Milegi Dobara"],
     correct:"Yeh Jawaani Hai Deewani"
   },
 
@@ -3009,188 +2623,257 @@ const questions=[
       "Friends",
       "Brooklyn Nine-Nine OR Modern Family"
     ],
-    correct:["Brooklyn Nine-Nine","Modern Family","Brooklyn Nine-Nine OR Modern Family"]
+    correct:"Brooklyn Nine-Nine OR Modern Family"
   },
 
   {
     q:"What are my favourite colours?",
-    a:[
-      "Blue, pink",
-      "Maroon",
-      "Black, white",
-      "Blue, pink OR maroon"
-    ],
-    correct:["Blue, pink","maroon","Blue, pink OR maroon"]
+    a:["Blue, pink","Maroon","Black, white","Blue, pink OR maroon"],
+    correct:"Blue, pink OR maroon"
   },
 
   {
     q:"What’s one silly thing I love spending money on?",
-    a:[
-      "Bed sheets",
-      "Shoes",
-      "Candles",
-      "Phone cases"
-    ],
+    a:["Bed sheets","Shoes","Candles","Phone cases"],
     correct:"Bed sheets"
   }
 
 ];
 
-let questionIndex=0;
-let correctAnswers=0;
-let wrongAnswers=0;
 
-function createBasketball(){
+let basketballIndex=0;
+let basketballScore=0;
 
-  questionIndex=0;
-  correctAnswers=0;
-  wrongAnswers=0;
 
-  renderQuestion();
+function renderBasketball(){
+
+  basketballIndex=0;
+  basketballScore=0;
+
+  showBasketballQuestion();
+
 }
 
-function renderQuestion(){
 
-  if(questionIndex >= questions.length){
+function showBasketballQuestion(){
+
+  if(basketballIndex>=questions.length){
 
     gameContent.innerHTML=`
-      <div style="
-        height:100%;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-      ">
 
-        <div style="
-          color:var(--yellow);
-          font-size:18px;
-          line-height:1.7;
-        ">
-          GAME OVER
+      <div class="game-center">
+
+        <div class="scoreboard">
+          FINAL SCORE<br><br>
+          ${basketballScore} / ${questions.length}
         </div>
 
-        <p style="
-          font-size:10px;
-          line-height:2;
-          color:var(--muted);
-        ">
-          ${correctAnswers} CORRECT<br>
-          ${wrongAnswers} WRONG
-        </p>
-
-        <p style="
-          font-size:10px;
-          color:var(--pink);
-        ">
-          YOU KNOW US PRETTY WELL.
-        </p>
+        <div class="game-instruction">
+          ${basketballScore===questions.length
+            ? "PERFECT SCORE. YOU ACTUALLY KNOW US."
+            : "Not bad. But you better study our lore."}
+        </div>
 
         <button
-          class="primary"
-          onclick="closeGame()"
+          class="neon-button"
+          onclick="renderBasketball()"
         >
-          BACK TO ARCADE
+          PLAY AGAIN
         </button>
 
       </div>
+
     `;
 
-    addTickets(correctAnswers*5 + 20);
-    successSound();
-
     return;
+
   }
 
-  const question=questions[questionIndex];
+
+  const q=questions[basketballIndex];
 
   gameContent.innerHTML=`
+
     <div class="basketball-game">
 
       <div class="scoreboard">
-        ${questionIndex+1} / ${questions.length}
-        &nbsp; | &nbsp;
-        ${correctAnswers} CORRECT
-        &nbsp; | &nbsp;
-        ${wrongAnswers} WRONG
+        SCORE:
+        <span id="basketScore">
+          ${basketballScore}
+        </span>
+        /
+        ${questions.length}
       </div>
 
-      <div class="question">
-        ${question.q}
+      <div class="basket-court">
+
+        <div class="hoop">
+
+          <div class="backboard">
+            <div class="backboard-square"></div>
+          </div>
+
+          <div class="rim"></div>
+          <div class="net"></div>
+
+        </div>
+
+        <div
+          class="basket-ball"
+          id="basketBall"
+        ></div>
+
       </div>
 
-      <div class="answers">
-        ${question.a.map(answer=>`
+      <div class="game-instruction">
+        ${q.q}
+      </div>
+
+      <div class="answer-grid">
+
+        ${q.a.map(answer=>`
+
           <button
             class="answer"
-            data-answer="${escapeHtml(answer)}"
+            data-answer="${answer.replace(/"/g,'&quot;')}"
           >
             ${answer}
           </button>
+
         `).join("")}
+
       </div>
 
-      <div class="hoop-area">
-        <div class="hoop"></div>
-        <div class="net"></div>
-        <div class="ball" id="basketBall"></div>
-      </div>
+      <div
+        class="basket-result"
+        id="basketResult"
+      ></div>
 
     </div>
+
   `;
 
-  document.querySelectorAll(".answer")
-    .forEach(button=>{
 
-      button.onclick=()=>{
+  document.querySelectorAll(".answer").forEach(button=>{
 
-        const selected=button.textContent.trim();
+    button.addEventListener("click",()=>{
 
-        const correct=
-          Array.isArray(question.correct)
-          ? question.correct.includes(selected)
-          : selected === question.correct;
+      const answer=button.dataset.answer;
 
-        document.querySelectorAll(".answer")
-          .forEach(b=>b.disabled=true);
-
-        if(correct){
-
-          button.classList.add("correct");
-
-          correctAnswers++;
-
-          const ball=
-            document.getElementById("basketBall");
-
-          ball.classList.add("shoot");
-
-          successSound();
-
-        }else{
-
-          button.classList.add("wrong");
-
-          wrongAnswers++;
-
-          beep(120,.15);
-
-        }
-
-        setTimeout(()=>{
-          questionIndex++;
-          renderQuestion();
-        },900);
-
-      };
+      shootBasketball(answer===q.correct);
 
     });
+
+  });
+
+}
+
+
+function shootBasketball(correct){
+
+  const ball=document.getElementById("basketBall");
+  const result=document.getElementById("basketResult");
+
+  if(!ball) return;
+
+  document.querySelectorAll(".answer").forEach(b=>{
+    b.disabled=true;
+  });
+
+  if(correct){
+
+    basketballScore++;
+
+    result.textContent="CORRECT. SWISH.";
+
+    sound("success");
+
+    ball.animate(
+
+      [
+        {
+          left:"100px",
+          bottom:"30px",
+          transform:"scale(1)"
+        },
+        {
+          left:"48%",
+          bottom:"72%",
+          transform:"scale(.75)"
+        },
+        {
+          left:"82%",
+          bottom:"62%",
+          transform:"scale(.55)"
+        },
+        {
+          left:"82%",
+          bottom:"48%",
+          transform:"scale(.45)"
+        }
+      ],
+
+      {
+        duration:1200,
+        easing:"ease-out",
+        fill:"forwards"
+      }
+
+    );
+
+    addTickets(10);
+
+  }else{
+
+    result.textContent="WRONG. THAT BALL IS NOT GOING IN.";
+
+    sound("wrong");
+
+    ball.animate(
+
+      [
+        {
+          left:"100px",
+          bottom:"30px"
+        },
+        {
+          left:"40%",
+          bottom:"55%"
+        },
+        {
+          left:"62%",
+          bottom:"30px"
+        },
+        {
+          left:"70%",
+          bottom:"5px"
+        }
+      ],
+
+      {
+        duration:900,
+        easing:"ease-out",
+        fill:"forwards"
+      }
+
+    );
+
+  }
+
+
+  setTimeout(()=>{
+
+    basketballIndex++;
+
+    showBasketballQuestion();
+
+  },1500);
+
 }
 
 
 /* =========================================================
-   WHACK-A-MOLE
+   WHACK A MOLE
 ========================================================= */
 
 const problems=[
@@ -3205,214 +2888,192 @@ const problems=[
 
 ];
 
-let whackHits=0;
-let whackTimer=null;
-let distractionUsed=false;
+let moleTimer=null;
+let moleScore=0;
 
-function createWhack(){
 
-  whackHits=0;
-  distractionUsed=false;
+function renderWhack(){
+
+  stopWhack();
+
+  moleScore=0;
 
   gameContent.innerHTML=`
+
     <div class="whack-game">
 
-      <div class="whack-score" id="whackScore">
-        0 / 7 PROBLEMS SMASHED
+      <div class="mole-score">
+        SMASHED:
+        <span id="moleScore">0</span>
       </div>
 
-      <div class="holes">
+      <div class="game-instruction">
+        Whack the problems.
+        DO NOT HIT US.
+      </div>
+
+      <div class="mole-board">
 
         ${[0,1,2,3,4,5].map(i=>`
-          <div class="hole" data-hole="${i}">
-            <div class="mole" data-mole="${i}"></div>
+
+          <div
+            class="mole-hole"
+            data-hole="${i}"
+          >
+
+            <img
+              src="bitmoji.png"
+              class="danger"
+              data-danger="${i}"
+              alt="Do not hit us"
+            >
+
+            <img
+              src="bitmoji.png"
+              class="mole"
+              data-mole="${i}"
+              alt="Problem"
+            >
+
           </div>
+
         `).join("")}
 
       </div>
 
-      <p style="
-        color:var(--muted);
-        font-size:7px;
-        line-height:1.8;
-        text-align:center;
-      ">
-        CLICK THE PROBLEM.<br>
-        BUT BE CAREFUL.
-      </p>
+      <div id="moleMessage"></div>
 
     </div>
+
   `;
 
-  document.querySelectorAll(".hole")
-    .forEach(hole=>{
-      hole.onclick=()=>{
-        const mole=hole.querySelector(".mole");
 
-        if(mole.classList.contains("active")){
-          hitMole(mole);
-        }
-      };
+  document.querySelectorAll(".mole-hole").forEach(hole=>{
+
+    hole.addEventListener("click",()=>{
+
+      const danger=hole.querySelector(".danger");
+
+      const mole=hole.querySelector(".mole");
+
+      if(danger.classList.contains("up")){
+
+        gameOverMole();
+
+        return;
+
+      }
+
+      if(mole.classList.contains("up")){
+
+        mole.classList.remove("up");
+
+        moleScore++;
+
+        document.getElementById("moleScore").textContent=moleScore;
+
+        addTickets(3);
+
+        sound("success");
+
+      }
+
     });
 
-  nextMole();
+  });
+
+
+  startMoleCycle();
+
 }
 
-function nextMole(){
 
-  if(whackHits>=7){
+function startMoleCycle(){
 
-    gameContent.innerHTML=`
-      <div style="
-        height:100%;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-      ">
+  moleTimer=setInterval(()=>{
 
-        <div style="
-          color:var(--green);
-          font-size:17px;
-          line-height:1.7;
-        ">
-          ALL SMASHED.
-        </div>
+    if(currentGame!=="mole") return;
 
-        <p style="
-          color:var(--muted);
-          font-size:9px;
-          line-height:2;
-        ">
-          We may have a few problems,<br>
-          but at least we're pretty good<br>
-          at fixing them.
-        </p>
-
-        <button
-          class="primary"
-          onclick="closeGame()"
-        >
-          BACK TO ARCADE
-        </button>
-
-      </div>
-    `;
-
-    addTickets(35);
-    successSound();
-
-    return;
-  }
-
-  document.querySelectorAll(".mole")
-    .forEach(m=>{
-      m.classList.remove("active","bitmoji");
-      m.innerHTML="";
+    document.querySelectorAll(".mole,.danger").forEach(el=>{
+      el.classList.remove("up");
     });
 
-  const holes=
-    [...document.querySelectorAll(".hole")];
+    const hole=Math.floor(Math.random()*6);
 
-  const randomHole=
-    holes[Math.floor(Math.random()*holes.length)];
+    const dangerous=Math.random()<.22;
 
-  const mole=randomHole.querySelector(".mole");
+    if(dangerous){
 
-  const useBitmoji =
-    whackHits===2 ||
-    whackHits===5;
+      document
+        .querySelector(`.danger[data-danger="${hole}"]`)
+        .classList.add("up");
 
-  if(useBitmoji){
+    }else{
 
-    mole.classList.add("bitmoji");
+      document
+        .querySelector(`.mole[data-mole="${hole}"]`)
+        .classList.add("up");
 
-    mole.innerHTML=`
-      <img src="bitmoji.jpg" alt="us">
-    `;
+    }
 
-  }else{
+  },900);
 
-    mole.textContent=
-      problems[whackHits];
+}
+
+
+function stopWhack(){
+
+  if(moleTimer){
+
+    clearInterval(moleTimer);
+    moleTimer=null;
 
   }
 
-  mole.classList.add("active");
-
-  clearTimeout(whackTimer);
-
-  whackTimer=setTimeout(()=>{
-
-    mole.classList.remove("active");
-    nextMole();
-
-  },1500);
 }
 
-function hitMole(mole){
 
-  if(mole.classList.contains("bitmoji")){
+function gameOverMole(){
 
-    clearTimeout(whackTimer);
+  stopWhack();
 
-    beep(80,.3);
+  sound("wrong");
 
-    gameContent.innerHTML=`
-      <div style="
-        height:100%;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-      ">
+  document.querySelectorAll(".mole-hole").forEach(hole=>{
+    hole.style.pointerEvents="none";
+  });
 
-        <img
-          src="bitmoji.jpg"
-          style="
-            width:180px;
-            max-height:230px;
-            object-fit:contain;
-          "
-        >
+  const message=document.getElementById("moleMessage");
 
-        <div style="
+  if(message){
+
+    message.innerHTML=`
+
+      <div
+        style="
           color:var(--pink);
-          font-size:17px;
-          line-height:1.7;
+          font-size:18px;
+          text-align:center;
           margin-top:15px;
-        ">
-          HOW DARE YOU<br>
-          SMASH US?
-        </div>
-
-        <button
-          class="primary"
-          style="margin-top:20px"
-          onclick="createWhack()"
-        >
-          TRY AGAIN
-        </button>
-
+          text-shadow:0 0 15px var(--pink);
+        "
+      >
+        HOW DARE YOU SMASH US?
       </div>
+
+      <br>
+
+      <button
+        class="neon-button"
+        onclick="renderWhack()"
+      >
+        TRY AGAIN
+      </button>
+
     `;
 
-    return;
   }
 
-  mole.classList.remove("active");
-
-  whackHits++;
-
-  document.getElementById("whackScore")
-    .textContent=
-      `${whackHits} / 7 PROBLEMS SMASHED`;
-
-  beep(600,.08);
-
-  setTimeout(nextMole,250);
 }
 
 
@@ -3420,94 +3081,73 @@ function hitMole(mole){
    HIGH STRIKER
 ========================================================= */
 
-function createHighStriker(){
+function renderStriker(){
 
   gameContent.innerHTML=`
-    <div class="striker">
 
-      <div class="game-intro">
-        HIT THE BUTTON.<br>
-        SEE HOW HIGH YOU CAN GO.
+    <div class="game-center">
+
+      <div class="game-instruction">
+        Hit the button and see how high you can go.
       </div>
 
-      <div class="striker-meter">
+      <div class="striker">
 
-        <div
-          class="striker-fill"
-          id="strikerFill"
-        ></div>
+        <div class="striker-pole"></div>
 
-        <div class="striker-levels">
-          <span>😈</span>
-          <span>💨</span>
-          <span>🫂</span>
-          <span>💋</span>
+        <div class="striker-lights">
+
+          ${[0,1,2,3,4,5,6,7].map(i=>`
+            <div class="striker-light"></div>
+          `).join("")}
+
         </div>
 
+        <button
+          class="striker-button"
+          id="strikerButton"
+        ></button>
+
       </div>
 
-      <button
-        class="primary"
-        id="smashButton"
-      >
-        SMASH
-      </button>
-
-      <div
-        class="striker-prize"
-        id="strikerPrize"
-      ></div>
+      <div id="strikerResult"></div>
 
     </div>
+
   `;
 
-  document.getElementById("smashButton")
-    .onclick=smashStriker;
-}
 
-function smashStriker(){
+  document
+    .getElementById("strikerButton")
+    .addEventListener("click",()=>{
 
-  const fill=
-    document.getElementById("strikerFill");
+      const lights=document.querySelectorAll(".striker-light");
 
-  const prize=
-    document.getElementById("strikerPrize");
+      const score=Math.floor(Math.random()*8)+1;
 
-  const height=
-    Math.floor(
-      55 + Math.random()*45
-    );
+      lights.forEach((light,i)=>{
 
-  fill.style.height=height+"%";
+        if(i<score){
+          setTimeout(()=>{
+            light.classList.add("on");
+          },i*100);
+        }
 
-  beep(250,.1);
+      });
 
-  setTimeout(()=>{
-    beep(500,.1);
-    setTimeout(()=>beep(900,.18),100);
-  },400);
+      document.getElementById("strikerResult").innerHTML=`
 
-  const prizes=[
-    "💋",
-    "🫂",
-    "💨",
-    "😈"
-  ];
+        <br>
+        POWER LEVEL: ${score}/8
 
-  const result=
-    prizes[
-      Math.floor(Math.random()*prizes.length)
-    ];
+      `;
 
-  setTimeout(()=>{
+      addTickets(score*2);
 
-    prize.textContent=
-      "YOU WON: " + result;
+      sound("success");
 
-    addTickets(20);
-    successSound();
+    });
 
-  },700);
 }
 
 
@@ -3516,177 +3156,77 @@ function smashStriker(){
 ========================================================= */
 
 const shootingPrizes=[
+
   "💋 1 Kiss",
   "💋 5 Kisses",
   "🫂 10 Minutes of Cuddles",
   "💋 20 Kisses",
   "💋 Kiss Attack",
   "🫂 Cuddle Attack"
+
 ];
 
-let targetInterval=null;
-let crossX=50;
-let crossY=50;
+let shootingScore=0;
 
-function createShooting(){
+
+function renderShooting(){
+
+  shootingScore=0;
 
   gameContent.innerHTML=`
-    <div class="shooting">
 
-      <div class="shooting-score">
-        AIM. SHOOT. WIN.
+    <div class="game-center">
+
+      <div class="game-instruction">
+        The targets move automatically.
+        Hit them before they get away.
       </div>
 
-      <div class="gallery" id="gallery">
+      <div class="shooting-range">
 
-        <div
-          class="crosshair"
-          id="crosshair"
-          style="left:50%;top:50%"
-        ></div>
-
-        ${shootingPrizes.map((prize,i)=>`
-          <div
-            class="target"
-            data-prize="${escapeHtml(prize)}"
-            data-index="${i}"
-            style="
-              top:${10+i*13}%;
-              left:${i%2===0 ? 5 : 70}%;
-            "
-          >
-            ${prize}
-          </div>
-        `).join("")}
+        <div class="shooting-target t1"></div>
+        <div class="shooting-target t2"></div>
+        <div class="shooting-target t3"></div>
 
       </div>
 
-      <p style="
-        text-align:center;
-        color:var(--muted);
-        font-size:7px;
-        line-height:1.8;
-        margin:12px;
-      ">
-        MOVE WITH ARROWS OR MOUSE.<br>
-        SHOOT WITH CLICK / ENTER.
-      </p>
+      <div
+        id="shootingResult"
+        style="margin-top:20px;color:var(--yellow);"
+      >
+        TARGETS HIT: 0
+      </div>
 
     </div>
+
   `;
 
-  const gallery=
-    document.getElementById("gallery");
 
-  const crosshair=
-    document.getElementById("crosshair");
+  document.querySelectorAll(".shooting-target").forEach(target=>{
 
-  gallery.addEventListener("mousemove",e=>{
+    target.addEventListener("click",()=>{
 
-    const rect=gallery.getBoundingClientRect();
+      shootingScore++;
 
-    crossX=
-      ((e.clientX-rect.left)/rect.width)*100;
+      target.style.visibility="hidden";
 
-    crossY=
-      ((e.clientY-rect.top)/rect.height)*100;
+      addTickets(5);
 
-    crosshair.style.left=crossX+"%";
-    crosshair.style.top=crossY+"%";
+      sound("success");
+
+      document.getElementById("shootingResult").textContent=
+        "TARGETS HIT: "+shootingScore;
+
+      setTimeout(()=>{
+
+        target.style.visibility="visible";
+
+      },500);
+
+    });
 
   });
 
-  gallery.addEventListener("click",shootTarget);
-
-  document.querySelectorAll(".target")
-    .forEach((target,i)=>{
-
-      target.animate(
-        [
-          {transform:"translateX(0)"},
-          {transform:`translateX(${i%2===0?650:-650}px)`},
-          {transform:"translateX(0)"}
-        ],
-        {
-          duration:3500+i*300,
-          iterations:Infinity,
-          easing:"linear"
-        }
-      );
-
-    });
-}
-
-function shootTarget(e){
-
-  const target=
-    e.target.closest(".target");
-
-  if(!target) return;
-
-  const rect=
-    target.getBoundingClientRect();
-
-  const cx=
-    rect.left + rect.width/2;
-
-  const cy=
-    rect.top + rect.height/2;
-
-  const distance=
-    Math.hypot(
-      e.clientX-cx,
-      e.clientY-cy
-    );
-
-  if(distance < 65){
-
-    const prize=
-      target.dataset.prize;
-
-    target.style.visibility="hidden";
-
-    beep(700,.08);
-    setTimeout(()=>beep(1000,.15),80);
-
-    gameContent.innerHTML=`
-      <div style="
-        height:100%;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-      ">
-
-        <div style="
-          color:var(--yellow);
-          font-size:11px;
-        ">
-          BULLSEYE.
-        </div>
-
-        <div style="
-          color:var(--pink);
-          font-size:22px;
-          margin:30px 0;
-        ">
-          ${prize}
-        </div>
-
-        <button
-          class="primary"
-          onclick="closeGame()"
-        >
-          BACK TO ARCADE
-        </button>
-
-      </div>
-    `;
-
-    addTickets(20);
-    successSound();
-  }
 }
 
 
@@ -3694,10 +3234,89 @@ function shootTarget(e){
    SPIN WHEEL
 ========================================================= */
 
-const anniversaryLetter=
-`To my dearest Dumbo, ❤️
+function renderWheel(){
 
-I genuinely don’t know how these two years passed by so quickly. It feels like just yesterday that we were two people who liked each other but didn’t have the courage to actually say it. And somehow, here we are, two whole years of us. 🥹
+  gameContent.innerHTML=`
+
+    <div class="game-center">
+
+      <div class="wheel-wrap">
+
+        <div class="pointer"></div>
+
+        <div
+          class="wheel"
+          id="wheel"
+        ></div>
+
+        <button
+          class="neon-button"
+          id="spinButton"
+        >
+          SPIN
+        </button>
+
+        <div
+          id="wheelResult"
+          style="color:var(--yellow);line-height:1.7;"
+        >
+          WHAT WILL YOU GET?
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  let rotation=0;
+
+  document
+    .getElementById("spinButton")
+    .addEventListener("click",()=>{
+
+      const prizes=[
+        "1 Kiss",
+        "5 Kisses",
+        "10 Minutes of Cuddles",
+        "20 Kisses",
+        "Kiss Attack",
+        "Cuddle Attack"
+      ];
+
+      const index=Math.floor(Math.random()*prizes.length);
+
+      rotation += 1440 + Math.floor(Math.random()*360);
+
+      document
+        .getElementById("wheel")
+        .style.transform=`rotate(${rotation}deg)`;
+
+      sound("success");
+
+      setTimeout(()=>{
+
+        document.getElementById("wheelResult").textContent=
+          prizes[index];
+
+        addTickets(5);
+
+      },3000);
+
+    });
+
+}
+
+
+/* =========================================================
+   TICKET COUNTER
+========================================================= */
+
+const anniversaryLetter=
+`To my dearest Dumbo,
+
+I genuinely don’t know how these two years passed by so quickly. It feels like just yesterday that we were two people who liked each other but didn’t have the courage to actually say it. And somehow, here we are, two whole years of us.
 
 Two years of memories, laughter, fights, random plans, food, dates, cuddles, chaos, and so many little moments that I never want to forget.
 
@@ -3707,369 +3326,142 @@ I don't know what the next few years are going to look like, but I know I want t
 
 Thank you for being my person, for all the memories we've made, and for all the ones we haven't made yet.
 
-Happy two years to us. ❤️
+Happy two years to us.
 
 Forever your Gube,
-Cement ❤️`;
-
-let wheelSpinning=false;
-
-function createWheel(){
-
-  gameContent.innerHTML=`
-    <div class="spin-game">
-
-      <div class="game-intro">
-        THERE'S ONLY ONE THING<br>
-        WAITING AT THE END.
-      </div>
-
-      <div class="wheel-arrow"></div>
-
-      <div class="wheel" id="wheel">
-        <div class="wheel-center">
-          US
-        </div>
-      </div>
-
-      <button
-        class="primary"
-        id="spinButton"
-        style="margin-top:25px"
-      >
-        SPIN
-      </button>
-
-      <div id="letterArea"></div>
-
-    </div>
-  `;
-
-  document.getElementById("spinButton")
-    .onclick=spinWheel;
-}
-
-function spinWheel(){
-
-  if(wheelSpinning) return;
-
-  wheelSpinning=true;
-
-  const wheel=document.getElementById("wheel");
-
-  const rotation=
-    1800 + Math.floor(Math.random()*720);
-
-  wheel.style.transform=
-    `rotate(${rotation}deg)`;
-
-  beep(200,.1);
-
-  let pulses=0;
-
-  const pulse=setInterval(()=>{
-
-    beep(
-      250 + pulses*35,
-      .035
-    );
-
-    pulses++;
-
-    if(pulses>15){
-      clearInterval(pulse);
-    }
-
-  },200);
-
-  setTimeout(()=>{
-
-    wheelSpinning=false;
-
-    document.getElementById("letterArea")
-      .innerHTML=`
-        <div class="letter">
-          ${anniversaryLetter}
-        </div>
-      `;
-
-    document.getElementById("spinButton")
-      .classList.add("hidden");
-
-    addTickets(30);
-    successSound();
-
-  },4200);
-}
+Cement`;
 
 
-/* =========================================================
-   TICKET COUNTER
-========================================================= */
-
-function createTicketCounter(){
-
-  const unlocked=
-    visitedGames.size >= 9;
-
-  if(!unlocked){
-
-    gameContent.innerHTML=`
-      <div class="ticket-counter">
-
-        <div class="counter-card">
-
-          <h2>NOT YET.</h2>
-
-          <p>
-            You need to visit every arcade game first.
-          </p>
-
-          <p>
-            ${visitedGames.size} / 9 GAMES VISITED
-          </p>
-
-          <button
-            class="primary"
-            onclick="closeGame()"
-          >
-            BACK TO ARCADE
-          </button>
-
-        </div>
-
-      </div>
-    `;
-
-    return;
-  }
+function renderCounter(){
 
   gameContent.innerHTML=`
-    <div class="ticket-counter">
 
-      <div class="counter-card">
+    <div class="counter-game">
 
-        <h2>
-          TICKETS COLLECTED
-        </h2>
+      <div class="ticket-machine">
 
-        <div style="
-          font-size:42px;
-          color:var(--yellow);
-          margin:25px 0;
-          text-shadow:0 0 20px var(--yellow);
-        ">
+        <div>
+          TICKETS
+        </div>
+
+        <div class="ticket-number">
           ${tickets}
         </div>
 
-        <p>
-          You played every single game.
-        </p>
-
-        <p>
-          So there's one last thing left.
-        </p>
-
-        <button
-          class="primary"
-          id="finalButton"
-          style="margin-top:20px"
-        >
-          CLICK ME ❤️
-        </button>
-
-      </div>
-
-    </div>
-  `;
-
-  document.getElementById("finalButton")
-    .onclick=showFinal;
-}
-
-function showFinal(){
-
-  gameContent.innerHTML=`
-    <div class="ticket-counter">
-
-      <div class="counter-card final">
-
-        <div style="
-          font-size:45px;
-          margin-bottom:25px;
-        ">
-          ❤️
-        </div>
-
-        <h2>
-          HAPPY TWO-YEAR<br>
-          ANNIVERSARY TO US!
-        </h2>
-
-        <p style="
-          color:var(--pink);
-          font-size:11px;
-          line-height:2;
-        ">
-          Two years down,<br>
-          so many more to go. ❤️
-        </p>
-
-        <div style="
-          margin-top:25px;
-          color:var(--muted);
-          font-size:8px;
-          line-height:2;
-        ">
-          GAME COMPLETE.
+        <div>
+          ALL GAMES COMPLETE
         </div>
 
       </div>
 
+      <br><br>
+
+      <div class="final-message">
+        ${anniversaryLetter}
+      </div>
+
+      <br>
+
+      <button
+        class="neon-button"
+        id="celebrateButton"
+      >
+        CELEBRATE US
+      </button>
+
     </div>
+
   `;
 
-  successSound();
 
-  for(let i=0;i<35;i++){
+  document
+    .getElementById("celebrateButton")
+    .addEventListener("click",celebrate);
 
-    setTimeout(()=>{
-
-      const heart=document.createElement("div");
-
-      heart.className="heart";
-      heart.textContent=
-        Math.random()>.5 ? "❤️" : "♥";
-
-      heart.style.left=
-        Math.random()*100+"vw";
-
-      heart.style.top="-30px";
-
-      document.body.appendChild(heart);
-
-      setTimeout(()=>{
-        heart.remove();
-      },2200);
-
-    },i*60);
-  }
 }
 
 
-/* =========================================================
-   SHOW TICKET COUNTER WHEN ALL GAMES VISITED
-========================================================= */
+function celebrate(){
 
-function checkTicketCounter(){
+  sound("success");
 
-  if(visitedGames.size >= 9){
+  const container=document.createElement("div");
 
-    // Ticket counter is deliberately placed
-    // in the middle of the arcade.
-    if(!document.querySelector(".m-counter")){
+  container.style.position="fixed";
+  container.style.inset="0";
+  container.style.pointerEvents="none";
+  container.style.zIndex="9999";
+  container.style.overflow="hidden";
 
-      const counter=document.createElement("div");
+  document.body.appendChild(container);
 
-      counter.className="machine m-counter";
+  for(let i=0;i<70;i++){
 
-      counter.style.left="44%";
-      counter.style.top="39%";
+    const heart=document.createElement("div");
 
-      counter.dataset.game="counter";
+    heart.textContent="♥";
 
-      counter.innerHTML=`
-        <div class="cabinet" style="
-          border-color:var(--yellow);
-          box-shadow:
-            0 0 0 3px var(--yellow),
-            0 0 25px rgba(255,227,110,.4);
-        ">
+    heart.style.position="absolute";
+    heart.style.left=Math.random()*100+"%";
+    heart.style.top="-40px";
+    heart.style.color=
+      ["#ff4fa3","#42e8ff","#ffe36e","#9d7cff","#67f7a8"]
+      [Math.floor(Math.random()*5)];
 
-          <div class="cabinet-screen" style="
-            color:var(--yellow);
-          ">
-            TICKET<br>
-            COUNTER
-          </div>
+    heart.style.fontSize=(12+Math.random()*25)+"px";
 
-          <div class="cabinet-control">
-            <div class="buttons">
-              <i></i>
-              <i></i>
-            </div>
-          </div>
+    heart.animate(
 
-          <div class="coin"></div>
+      [
+        {
+          transform:"translateY(0) rotate(0deg)",
+          opacity:1
+        },
+        {
+          transform:
+            `translateY(${window.innerHeight+100}px) rotate(${Math.random()*720-360}deg)`,
+          opacity:0
+        }
+      ],
 
-        </div>
+      {
+        duration:3000+Math.random()*3000,
+        delay:Math.random()*1000,
+        fill:"forwards"
+      }
 
-        <div class="machine-name">
-          TICKET COUNTER
-        </div>
-      `;
+    );
 
-      document.querySelector(".arcade-stage")
-        .appendChild(counter);
+    container.appendChild(heart);
 
-      counter.addEventListener("click",()=>{
-        openGame("counter");
-      });
-    }
   }
+
 }
-
-
-/* =========================================================
-   CHECK VISITED
-========================================================= */
-
-const originalOpenGame=openGame;
-
-openGame=function(game){
-
-  originalOpenGame(game);
-
-  setTimeout(checkTicketCounter,100);
-};
 
 
 /* =========================================================
    MUTE
 ========================================================= */
 
-document.getElementById("muteButton")
-  .onclick=()=>{
+muteBtn.addEventListener("click",()=>{
 
-    muted=!muted;
+  audioEnabled=!audioEnabled;
 
-    document.getElementById("muteButton")
-      .textContent=
-        muted ? "×" : "♪";
+  muteBtn.textContent=
+    audioEnabled
+      ? "SOUND ON"
+      : "SOUND OFF";
 
-  };
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(text){
-
-  return text
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
+});
 
 
 /* =========================================================
-   INITIAL
+   INITIAL POSITION
 ========================================================= */
 
 positionPlayer();
+
+updateTickets();
 
 </script>
 
