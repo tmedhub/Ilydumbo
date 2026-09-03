@@ -465,6 +465,11 @@ button {
     flex-direction: column;
 }
 
+/* Memory Lane gets an extra 3cm of vertical room on larger screens. */
+.game-window.memory-lane-window {
+    height: min(calc(650px + 3cm), calc(100vh - 24px));
+}
+
 .game-header {
     flex: 0 0 auto;
     padding: 12px 18px;
@@ -931,6 +936,14 @@ button {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.milestone.visited {
+    cursor: pointer;
+}
+
+.milestone:disabled {
+    opacity: 1;
 }
 
 .fuel-station {
@@ -1812,7 +1825,7 @@ button {
 
 <audio
     id="bgMusic"
-    src="bgmusic.mp3"
+    src="bg.mp3"
     loop
     preload="auto">
 </audio>
@@ -1999,7 +2012,7 @@ button {
 
 <div id="gameOverlay" class="hidden">
 
-    <div class="game-window">
+    <div class="game-window" id="gameWindow">
 
         <div class="game-header">
 
@@ -2057,6 +2070,7 @@ const playerBubble = document.getElementById("playerBubble");
 const enterPrompt = document.getElementById("enterPrompt");
 
 const gameOverlay = document.getElementById("gameOverlay");
+const gameWindow = document.getElementById("gameWindow");
 const gameTitle = document.getElementById("gameTitle");
 const gameContent = document.getElementById("gameContent");
 const backButton = document.getElementById("backButton");
@@ -2119,6 +2133,38 @@ function audio() {
     return audioContext;
 }
 
+let sfxRestoreTimer = null;
+let bgMusicWasPlayingForSfx = false;
+const bgMusicVolume = 0.35;
+
+function duckBackgroundForSfx(duration) {
+
+    if (!bgMusic || !soundOn) return;
+
+    if (!bgMusic.paused && !bgMusic.ended) {
+        bgMusicWasPlayingForSfx = true;
+        bgMusic.volume = 0;
+    }
+
+    clearTimeout(sfxRestoreTimer);
+
+    sfxRestoreTimer = setTimeout(() => {
+        if (!soundOn) return;
+
+        if (bgMusicWasPlayingForSfx) {
+            bgMusic.volume = bgMusicVolume;
+            if (bgMusic.paused) {
+                const playPromise = bgMusic.play();
+                if (playPromise) playPromise.catch(() => {});
+            }
+        } else {
+            bgMusic.volume = bgMusicVolume;
+        }
+
+        bgMusicWasPlayingForSfx = false;
+    }, Math.max(120, duration * 1000 + 80));
+}
+
 function beep(freq = 500, duration = .1, type = "sine") {
 
     if (!soundOn) return;
@@ -2126,6 +2172,8 @@ function beep(freq = 500, duration = .1, type = "sine") {
     const ctx = audio();
 
     if (!ctx) return;
+
+    duckBackgroundForSfx(duration);
 
     if (ctx.state === "suspended") {
         ctx.resume();
@@ -2159,7 +2207,7 @@ function startBackgroundMusic() {
 
     if (!soundOn) return;
 
-    bgMusic.volume = 0.35;
+    bgMusic.volume = bgMusicVolume;
     bgMusic.muted = false;
     if (bgMusic.readyState === 0) bgMusic.load();
 
@@ -2350,9 +2398,11 @@ startButton.addEventListener("click", () => {
 
     /*
        Start the background music from the user's
-       first deliberate interaction.
+       first deliberate interaction, after the start SFX.
     */
-    startBackgroundMusic();
+    setTimeout(() => {
+        if (soundOn) startBackgroundMusic();
+    }, 220);
 
     entrance.classList.add("hidden");
     arcade.classList.remove("hidden");
@@ -2559,6 +2609,10 @@ function openGame(game) {
 
     currentGame = game;
 
+    if (gameWindow) {
+        gameWindow.classList.toggle("memory-lane-window", game === "memory");
+    }
+
     gameOverlay.classList.remove("hidden");
 
     document.body.style.overflow = "hidden";
@@ -2575,6 +2629,8 @@ function openGame(game) {
 backButton.onclick = () => {
 
     cleanupGame();
+
+    if (gameWindow) gameWindow.classList.remove("memory-lane-window");
 
     gameOverlay.classList.add("hidden");
 
@@ -3515,6 +3571,10 @@ function lazyLoadMemoryImages() {
 
 function renderMemoryLane() {
     gameTitle.textContent = "🏍️ MEMORY LANE";
+
+    /* Explicitly preload the Cubbon Park memory so its image is ready when reached. */
+    const cubbonPreload = new Image();
+    cubbonPreload.src = "cubbon.jpeg";
     gameContent.innerHTML = `
         <div style="height:100%;">
             <div class="memory-lane-info">
@@ -3532,8 +3592,9 @@ function renderMemoryLane() {
                             class="milestone ${visited ? "visited" : ""}"
                             id="milestone-${i}"
                             style="left:${70 + i*memoryMilestoneGap}px;"
-                            ${visited ? "" : "aria-label=\"Memory milestone ${i+1}\""}>
-                            ${visited ? `<img src="${m[1]}" alt="Visited memory ${i+1}" loading="lazy" decoding="async">` : ""}
+                            ${visited ? `onclick="openRoadMemory(${i})" aria-label="Revisit memory ${i+1}"` : `aria-label="Memory milestone ${i+1}"`}
+                            ${visited ? "" : "disabled"}>
+                            ${visited ? `<img src="${m[1]}" alt="Visited memory ${i+1}" loading="lazy" decoding="async" ${i === 1 ? "onerror=\"this.onerror=null;this.src='cubbon.jpg';\"" : ""}>` : ""}
                         </button>`;
                     }).join("")}
                 </div>
@@ -3611,7 +3672,7 @@ function openRoadMemory(index) {
     gameTitle.textContent = "❤️ A MEMORY";
     gameContent.innerHTML = `
         <div class="memory-reveal">
-            <img src="${image}" alt="Memory" loading="eager" decoding="async">
+            <img src="${image}" alt="Memory" loading="eager" decoding="async" ${index === 1 ? "onerror=\"this.onerror=null;this.src='cubbon.jpg';\"" : ""}>
             <div class="memory-text">${text.replace(/\n/g,"<br>")}</div>
             <div class="reward">MEMORY DISCOVERED +10 TICKETS 🎟️</div>
             <br>
@@ -5107,7 +5168,9 @@ document.getElementById(
 
             beep(700,.1);
 
-            startBackgroundMusic();
+            setTimeout(() => {
+                if (soundOn) startBackgroundMusic();
+            }, 220);
 
         } else {
 
