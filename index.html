@@ -491,9 +491,12 @@ button {
 .game-content {
     flex: 1;
     min-height: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 14px;
     position: relative;
+    scrollbar-gutter: stable;
+    overscroll-behavior: contain;
 }
 
 /* =========================================================
@@ -3449,16 +3452,16 @@ function renderJukebox() {
 const roadMemories = [
 
     ["Met in Csa and i found you cutee 🥰","csa.jpeg"],
-    ["Cubbon park where we hung out so much and that day i liked you a little more🥹","cubbon.png"],
+    ["Cubbon park where we hung out so much and that day i liked you a little more🥹","cubbon.jpeg"],
     ["Bhaang day\nI drunk called you and cried cause u went without saying bye","bhang.jpeg"],
     ["You got me lunaaaaa","luna.jpg"],
     ["The house party that changed everything","houseparty.jpeg"],
     ["Our first photo after officially becoming a couple","off.jpeg"],
     ["Our first ethnic day together","ethnic.jpg"],
-    ["First Ganesh Chaturthi and first time we went out as a coupleeee","ganesh.png"],
-    ["First date and the first time you got me flowers","date.jpg"],
-    ["Cute family photo and how Gourmet used to be our second home.","fam.jpg"],
-    ["When you came to surprise me on my birthday in my night, it was fun.","bday.jpg"],
+    ["First Ganesh Chaturthi and first time we went out as a coupleeee","ganesh.jpeg"],
+    ["First date","fdate.jpeg"],
+    ["Cute family photo and how gourmet used to be our second home.","gourmet.jpeg"],
+    ["When you came to surprise me on my birthday in my night, it was fun.","bdaynight.jpeg"],
     ["Birthday dinner where my friends threatened you to go to wear something to match and you went out of your way to buy yourself a new outfit so we could color match.","dinner.jpeg"],
     ["First photo booth experience","phbooth.jpg"],
     ["First 👀","first.jpg"],
@@ -3778,14 +3781,10 @@ function renderBasketball() {
 }
 
 
-function normalizeAnswer(value) {
-    return value.toLowerCase().trim().replace(/\s+/g," ").replace(/[.!?,]+$/g,"");
-}
-
 function renderBasketballQuestion() {
     if(basketballIndex >= basketballQuestions.length) {
         gameContent.innerHTML = `
-            <div class="center" style="height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+            <div class="center" style="min-height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;">
                 <div style="font-size:70px">🏀❤️</div>
                 <h2>YOU MADE IT!</h2>
                 <p style="margin:12px">You survived the ultimate us quiz.</p>
@@ -3801,50 +3800,68 @@ function renderBasketballQuestion() {
 
     const current = basketballQuestions[basketballIndex];
     basketballAnswered = false;
+
     gameContent.innerHTML = `
         <div class="question-card">
             <div class="scoreboard">QUESTION ${basketballIndex + 1} / ${basketballQuestions.length} &nbsp; SCORE: ${basketballScore}</div>
+
             <div class="basketball-court">
                 <div class="hoop-backboard"></div>
                 <div class="hoop-rim"></div>
                 <div class="hoop-net"></div>
                 <div class="ball" id="quizBall"></div>
             </div>
+
             <div class="question">${current.q}</div>
-            <form id="answerForm" style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;">
-                <input id="answerInput" autocomplete="off" placeholder="Type your answer..." style="flex:1;max-width:560px;padding:13px 16px;border-radius:14px;border:2px solid var(--purple);background:#0d0a18;color:white;font:inherit;outline:none;">
-                <button class="big-btn" type="submit">SUBMIT</button>
-            </form>
+
+            <p style="margin:10px auto 14px;max-width:650px;color:#ddd;line-height:1.5;">
+                Answer it out loud, then choose whether the answer was correct or wrong. ❤️
+            </p>
+
+            <div style="display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px;">
+                <button class="big-btn" id="basketballCorrect" style="background:linear-gradient(135deg,#42c96b,#218d46);min-width:150px;">
+                    CORRECT ✅
+                </button>
+                <button class="big-btn" id="basketballWrong" style="background:linear-gradient(135deg,#ff5a6f,#c72d45);min-width:150px;">
+                    WRONG ❌
+                </button>
+            </div>
+
             <div id="answerFeedback" class="reward" style="min-height:25px"></div>
         </div>`;
 
-    const form = document.getElementById("answerForm");
-    const input = document.getElementById("answerInput");
-    input.focus();
-    form.onsubmit = e => {
-        e.preventDefault();
+    const correctButton = document.getElementById("basketballCorrect");
+    const wrongButton = document.getElementById("basketballWrong");
+    const feedback = document.getElementById("answerFeedback");
+    const ball = document.getElementById("quizBall");
+
+    function finishBasketballAnswer(wasCorrect) {
         if(basketballAnswered) return;
         basketballAnswered = true;
-        const typed = normalizeAnswer(input.value);
-        const correct = normalizeAnswer(current.correct);
-        const accepted = typed === correct || (current.correct.includes("OR") && current.correct.split(" OR ").some(a => normalizeAnswer(a) === typed));
-        const feedback = document.getElementById("answerFeedback");
-        const ball = document.getElementById("quizBall");
-        if(accepted) {
+        correctButton.disabled = true;
+        wrongButton.disabled = true;
+
+        if(wasCorrect) {
             basketballScore++;
-            input.disabled = true;
             feedback.textContent = "CORRECT! 🏀❤️";
             feedback.style.color = "var(--green, #67f7a8)";
             if(ball) ball.classList.add("shoot-in");
             successSound();
         } else {
-            feedback.innerHTML = `Haw! The answer was <b>${current.correct}</b>`;
+            feedback.textContent = "WRONG! NEXT ONE ❤️";
             feedback.style.color = "var(--pink2)";
             if(ball) ball.classList.add("shoot-miss");
             failSound();
         }
-        setTimeout(() => { basketballIndex++; renderBasketballQuestion(); }, 1100);
-    };
+
+        setTimeout(() => {
+            basketballIndex++;
+            renderBasketballQuestion();
+        }, 900);
+    }
+
+    correctButton.onclick = () => finishBasketballAnswer(true);
+    wrongButton.onclick = () => finishBasketballAnswer(false);
 }
 
 /* =========================================================
